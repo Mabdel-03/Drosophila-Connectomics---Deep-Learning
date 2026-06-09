@@ -6,6 +6,10 @@ neurotransmitter) are FIXED from the data**; only the **edge magnitudes** are le
 a small MNIST input encoder and a linear readout). Code lives in
 [`flyconn.models`](../src/flyconn/models/); this dir holds the notebook + launchers.
 
+> **Detailed docs:** [`MODELS.md`](MODELS.md) — per-model architecture diagrams (all 6
+> subgraphs) + the exact training/testing protocol and compute. [`RESULTS.md`](RESULTS.md) —
+> the 24-run accuracy table and the `from_data`-vs-`random` finding.
+
 ## Architecture
 
 ### Overall data flow
