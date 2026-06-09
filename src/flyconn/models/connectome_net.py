@@ -49,6 +49,12 @@ class NetConfig:
     nonlinearity: str = "tanh"     # 'tanh' | 'relu'
     target_radius: float = 0.9     # spectral radius after init rescale
     checkpoint: bool = False       # gradient-checkpoint the time loop (rnn, large T)
+    # State gain control: 'none' (original) or 'rms' (renormalize h to unit RMS each step).
+    # Without a learned encoder/readout, a frozen rho~0.9 core decays the signal
+    # geometrically so it never reaches the readout; per-step RMS renorm (a gain-control
+    # step, like biological normalization) keeps the signal alive across hops. Essential
+    # for the rigid-eye frozen variants (V2/V3); a no-op default for the learned models.
+    state_norm: str = "none"       # 'none' | 'rms'
 
     @classmethod
     def for_arch(cls, arch: str, **over) -> "NetConfig":
@@ -99,7 +105,11 @@ class ConnectomeNet(nn.Module):
     def _step(self, h: torch.Tensor, x_t: torch.Tensor, w: torch.Tensor) -> torch.Tensor:
         pre = self._scatter(w, h) + x_t
         a = self.cfg.alpha
-        return (1.0 - a) * h + a * self._phi(pre)
+        h = (1.0 - a) * h + a * self._phi(pre)
+        if self.cfg.state_norm == "rms":
+            rms = h.pow(2).mean(dim=1, keepdim=True).clamp(min=1e-12).sqrt()
+            h = h / rms
+        return h
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Unroll T steps. x:[B,N] external current. Returns final activations [B,N].
@@ -120,6 +130,28 @@ class ConnectomeNet(nn.Module):
             else:
                 h = self._step(h, x_t, w)
         return h
+
+    def readout_trajectory(self, x: torch.Tensor, readout_local: torch.Tensor,
+                           mode: str = "accum") -> torch.Tensor:
+        """Unroll and read the readout subset over the WHOLE trajectory, not just h_T.
+
+        With ff_unroll the signal reaches readout neuron r at its BFS-hop timestep, then
+        decays; reading only h_T misses that peak. ``mode='accum'`` sums the readout
+        activations across steps (captures the signal whenever it arrives); ``mode='final'``
+        reproduces forward()[:, readout]. Returns [B, n_readout].
+        """
+        B = x.shape[0]
+        h = x.new_zeros(B, self.N)
+        w = self.edge_weight()
+        persistent = self.cfg.inject == "persistent"
+        zero = torch.zeros_like(x)
+        acc = None
+        for t in range(self.cfg.T):
+            x_t = x if (persistent or t == 0) else zero
+            h = self._step(h, x_t, w)
+            r = h[:, readout_local]
+            acc = r if acc is None else acc + r
+        return acc if mode == "accum" else h[:, readout_local]
 
     # ---- spectral-radius init rescale (stability; no densification) ----
     @torch.no_grad()
@@ -176,3 +208,62 @@ class ConnectomeClassifier(nn.Module):
         h = self.core(x)                                       # [B, N]
         feats = h[:, self.readout_local]                      # [B, n_readout]
         return self.readout(feats)                            # [B, 10] logits
+
+
+class RigidEyeClassifier(nn.Module):
+    """Rigid eye (no learned encoder) + ConnectomeNet core + optional readout.
+
+    The three faithful-eye variants are configured here:
+      * V1 (learn_core=True,  decision='linear'): edge magnitudes theta trained (Dale-
+        constrained as in ConnectomeNet) + a learned linear readout. = stage-3 with the
+        learned encoder replaced by the rigid eye.
+      * V2 (learn_core=False, decision='linear'): core frozen at its from_data init; only
+        the linear readout (a probe) is trained.
+      * V3 (learn_core=False, decision='ncm'):    nothing learned. forward() returns the
+        z-scored readout FEATURES; classification is done by a template rule fitted over
+        the train set (see train.fit_rigid). No readout module exists.
+
+    The eye is a parameter-free buffer holder; the core is reused unchanged.
+    """
+
+    def __init__(self, eye, core: ConnectomeNet, readout_local: np.ndarray, *,
+                 learn_core: bool = True, decision: str = "linear",
+                 readout_mode: str = "accum", n_classes: int = 10):
+        super().__init__()
+        self.eye = eye                                         # RigidEye (no params)
+        self.core = core
+        self.decision = decision
+        self.readout_mode = readout_mode                       # 'accum' | 'final'
+        self.register_buffer("readout_local",
+                             torch.as_tensor(readout_local, dtype=torch.long))
+        if not learn_core:
+            for p in self.core.parameters():
+                p.requires_grad_(False)
+        # Frozen feature standardization stats (filled by fit_feature_stats); identity
+        # until then so the model is usable before stats are computed.
+        self.register_buffer("feat_mean", torch.zeros(len(readout_local)))
+        self.register_buffer("feat_std", torch.ones(len(readout_local)))
+        self.readout = (nn.Linear(len(readout_local), n_classes)
+                        if decision == "linear" else None)
+
+    def features(self, pixels: torch.Tensor) -> torch.Tensor:
+        """Frozen-network readout activations, z-scored by the stored train stats.
+
+        Uses the WHOLE-trajectory readout (mode='accum') by default so the signal is
+        captured at whatever hop it reaches each readout neuron — critical when the core
+        is frozen (no learned readout to recover a tiny final-state signal).
+        """
+        x = self.eye(pixels)                                  # [B, N] external current
+        feats = self.core.readout_trajectory(x, self.readout_local, mode=self.readout_mode)
+        return (feats - self.feat_mean) / self.feat_std
+
+    def forward(self, pixels: torch.Tensor) -> torch.Tensor:
+        feats = self.features(pixels)                         # [B, n_readout] (z-scored)
+        if self.readout is None:                             # V3: expose features
+            return feats
+        return self.readout(feats)                           # [B, 10] logits (V1/V2)
+
+    @torch.no_grad()
+    def set_feature_stats(self, mean: torch.Tensor, std: torch.Tensor) -> None:
+        self.feat_mean.copy_(mean.to(self.feat_mean))
+        self.feat_std.copy_(std.clamp(min=1e-6).to(self.feat_std))

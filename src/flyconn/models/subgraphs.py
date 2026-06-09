@@ -82,13 +82,70 @@ class Subgraph:
         return np.flatnonzero(np.asarray(mask))
 
 
+def _normalize_photoreceptor_sign(value: str | int) -> int | None:
+    """Map the config value to a numeric override sign, or None for 'inherit'."""
+    if value in ("inherit", None):
+        return None
+    v = int(value)
+    if v not in (-1, 1):
+        raise ValueError(f"photoreceptor_sign must be 'inherit', -1, or 1; got {value!r}")
+    return v
+
+
+def _restore_photoreceptor_edges(
+    sub_s: "sp.coo_matrix", sub_c: "sp.csr_matrix", sub_neurons: pd.DataFrame
+) -> tuple["sp.coo_matrix", "sp.csr_matrix"]:
+    """Re-add photoreceptor presynaptic edges that the NT policy dropped to sign 0.
+
+    The signed CSR omits edges whose presynaptic NT maps to sign 0 (the ~956 sero/octo/
+    dopa/None-labelled photoreceptors). Those edges still exist in the unsigned counts
+    matrix. We graft them back into ``sub_s`` with a placeholder +1 (the caller's sign
+    override replaces it), so every real photoreceptor->target synapse is represented.
+    Both matrices are source-major (row = presynaptic) over local subgraph ids.
+    """
+    is_photo = sub_neurons["cell_type"].isin(PHOTORECEPTOR_TYPES).to_numpy()
+    photo_local = np.flatnonzero(is_photo)
+    if photo_local.size == 0:
+        return sub_s, sub_c
+    # All count edges out of photoreceptors (these are the biologically real ones).
+    cc = sub_c.tocoo()
+    photo_set = set(photo_local.tolist())
+    keep = np.fromiter((r in photo_set for r in cc.row), dtype=bool, count=cc.nnz)
+    add_pre, add_post, add_cnt = cc.row[keep], cc.col[keep], cc.data[keep]
+    # Which (pre, post) already carry a nonzero sign? Don't double-add those.
+    ss = sub_s.tocoo()
+    existing = set(zip(ss.row.tolist(), ss.col.tolist()))
+    new = np.fromiter(
+        (((p, q) not in existing) for p, q in zip(add_pre.tolist(), add_post.tolist())),
+        dtype=bool, count=add_pre.size,
+    )
+    if not new.any():
+        return sub_s, sub_c
+    new_rows = np.concatenate([ss.row, add_pre[new]])
+    new_cols = np.concatenate([ss.col, add_post[new]])
+    new_data = np.concatenate([ss.data, np.ones(int(new.sum()), dtype=ss.data.dtype)])
+    restored = sp.coo_matrix((new_data, (new_rows, new_cols)), shape=sub_s.shape)
+    return restored, sub_c
+
+
 def build_subgraph(
     subgraph_id: str,
     *,
     policy: str = "flyvis_standard",
+    photoreceptor_sign: str | int = "inherit",
     cfg: Config | None = None,
 ) -> Subgraph:
-    """Build the induced, transposed, signed edge buffers for one subgraph."""
+    """Build the induced, transposed, signed edge buffers for one subgraph.
+
+    ``photoreceptor_sign`` corrects a known data artifact: the FlyWire predicted-NT
+    classifier has NO histamine class, so photoreceptors (R1-6/R7/R8) carry wrong NT
+    labels (ACh/Glut/GABA/...) and ~956 are even sign-0 (dropped -> inject no drive).
+    Real photoreceptors are histaminergic and INHIBITORY/sign-inverting onto L1/L2
+    (flyvis hand-sets these to -1). With ``photoreceptor_sign=-1`` every edge whose
+    PREsynaptic neuron is a photoreceptor is forced to sign -1 (and the dropped edges
+    are restored), as a per-edge override on top of the NT policy. ``"inherit"`` keeps
+    the raw (artifactual) NT-derived signs — the original stage-3 behavior.
+    """
     if subgraph_id not in SUBGRAPHS:
         raise KeyError(f"unknown subgraph {subgraph_id!r}; choices: {sorted(SUBGRAPHS)}")
     cfg = cfg or load_config()
@@ -106,6 +163,15 @@ def build_subgraph(
     sub_s = A_signed[idx][:, idx].tocoo()            # induced signed submatrix
     sub_c = A_counts[idx][:, idx].tocsr()            # induced counts (align via lookup)
 
+    photoreceptor_sign = _normalize_photoreceptor_sign(photoreceptor_sign)
+    if photoreceptor_sign is not None:
+        # Edges dropped by the NT policy (sign 0) where the presynaptic neuron is a
+        # photoreceptor must be RESTORED before we filter structural zeros, else they
+        # never enter the edge buffers. Source-major sub_s: row = presynaptic.
+        sub_s, sub_c = _restore_photoreceptor_edges(
+            sub_s, sub_c, neurons.iloc[idx].reset_index(drop=True)
+        )
+
     # Drop any structural zeros that survived slicing.
     nz = sub_s.data != 0
     pre = sub_s.row[nz]          # source-major: row = presynaptic
@@ -120,6 +186,14 @@ def build_subgraph(
     # Raw unsigned counts for the same (pre, post) edges (init-from-data magnitudes).
     count = np.asarray(sub_c[pre, post]).ravel().astype(np.float32)
     count = np.abs(count)        # counts matrix is unsigned but guard anyway
+
+    if photoreceptor_sign is not None:
+        # Force the sign of every edge whose PRESYNAPTIC neuron (local col_idx) is a
+        # photoreceptor. This colocates the biology fix with sign assembly (O(E)).
+        sub_neurons = neurons.iloc[idx].reset_index(drop=True)
+        is_photo = sub_neurons["cell_type"].isin(PHOTORECEPTOR_TYPES).to_numpy()
+        pre_is_photo = is_photo[col_idx]
+        sign[pre_is_photo] = float(photoreceptor_sign)
 
     return Subgraph(
         subgraph_id=subgraph_id,

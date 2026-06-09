@@ -29,10 +29,19 @@ def collect() -> pd.DataFrame:
             "subgraph_id": d.get("subgraph_id"),
             "arch": d.get("arch"),
             "init_mode": d.get("init_mode"),
+            "variant": d.get("variant", "stage3"),
+            "eye": d.get("eye", "learned"),
+            "decision": d.get("decision", "linear"),
+            "photoreceptor_sign": d.get("photoreceptor_sign", "inherit"),
             "N": d.get("N"), "E": d.get("E"), "T": d.get("T"),
             "n_params": d.get("n_params"),
             "best_val_acc": d.get("best_val_acc"),
             "test_acc": d.get("test_acc"),
+            # V3-specific (None for V1/V2/stage3)
+            "ncm_acc_raw_euclid": d.get("ncm_acc_raw_euclid"),
+            "ncm_acc_cosine": d.get("ncm_acc_cosine"),
+            "ncm_acc_lda": d.get("ncm_acc_lda"),
+            "shuffle_control_acc": d.get("shuffle_control_acc"),
         })
     return pd.DataFrame(rows)
 
