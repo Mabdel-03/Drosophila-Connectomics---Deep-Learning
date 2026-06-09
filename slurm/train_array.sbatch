@@ -6,12 +6,13 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --time=08:00:00
-#SBATCH --array=0-23%4
+#SBATCH --array=0-23%8
 #SBATCH --output=/orcd/data/tpoggio/001/mabdel03/Connectomics/slurm/logs/%x_%A_%a.out
 
 # Train the full 24-run grid (6 subgraphs x {ff_unroll,rnn} x {initA,initB}),
-# at most 4 A100s concurrently. Config selected by $SLURM_ARRAY_TASK_ID over the
-# sorted list of configs/experiments/*.yaml.
+# up to 8 A100s concurrently (the node has 8; actual concurrency is bounded by how
+# many are free). Config selected by $SLURM_ARRAY_TASK_ID over the sorted list of
+# configs/experiments/*.yaml.
 set -euo pipefail
 source "/orcd/data/tpoggio/001/mabdel03/Connectomics/slurm/common.sh"
 mamba activate "$FLYCONN_ENV"
