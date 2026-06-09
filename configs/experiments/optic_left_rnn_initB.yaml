@@ -1,0 +1,4 @@
+run_name: optic_left_rnn_initB
+subgraph_id: optic_left
+arch: rnn
+init_mode: random

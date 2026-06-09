@@ -1,0 +1,4 @@
+run_name: optic_left_rnn_initA
+subgraph_id: optic_left
+arch: rnn
+init_mode: from_data

@@ -1,0 +1,4 @@
+run_name: whole_right_rnn_initB
+subgraph_id: whole_right
+arch: rnn
+init_mode: random

@@ -1,0 +1,4 @@
+run_name: whole_right_rnn_initA
+subgraph_id: whole_right
+arch: rnn
+init_mode: from_data

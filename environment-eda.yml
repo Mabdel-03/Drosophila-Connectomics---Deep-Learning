@@ -1,0 +1,40 @@
+# Dedicated EDA / notebook environment for the Connectomics project (stage 2).
+#
+# Creates a self-contained env with the data-science + plotting stack and a Jupyter
+# kernel, separate from `consortium` (which lacks ipykernel/jupyterlab). After
+# creating, `pip install -e .` registers the flyconn package and a kernel is
+# registered as "Python (flyconn_eda)".
+#
+# Build (see scripts/setup_eda_env.sh for the full sequence). The env lives on SCRATCH
+# (the /home per-user inode quota of 1,000,000 files is exhausted; a jupyterlab env adds
+# ~60k+ files). Scratch has ~6.3B inodes.
+#   PREFIX=/orcd/scratch/orcd/012/mabdel03/conda_envs/flyconn_eda
+#   mamba env create -p "$PREFIX" -f environment-eda.yml
+#   mamba run -p "$PREFIX" pip install -e .
+#   mamba run -p "$PREFIX" python -m ipykernel install --user \
+#       --name flyconn_eda --display-name "Python (flyconn_eda)"
+name: flyconn_eda
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  # --- core data ---
+  - numpy>=1.26
+  - pandas>=2.2
+  - pyarrow>=14        # read feather + parquet artifacts
+  - scipy>=1.11        # sparse CSR adjacency
+  # --- analysis ---
+  - networkx>=3.2      # graph metrics / motifs
+  - scikit-learn>=1.3  # clustering, embeddings
+  - umap-learn>=0.5    # nonlinear embedding of cell types
+  # --- plotting ---
+  - matplotlib>=3.8
+  - seaborn>=0.13
+  - plotly>=5.20       # interactive degree/scatter plots
+  # --- notebook ---
+  - jupyterlab>=4.0
+  - ipykernel>=6.29
+  - ipywidgets>=8.1    # plotly/interactive widgets
+  - tqdm>=4.66
+  - pyyaml>=6.0
+  - pip

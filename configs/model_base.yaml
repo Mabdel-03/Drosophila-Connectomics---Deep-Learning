@@ -1,0 +1,23 @@
+# Shared hyperparameters for stage-3 connectome-constrained MNIST models.
+# Leaf configs under configs/experiments/ override subgraph_id / arch / init_mode.
+
+# --- architecture (per-arch defaults filled by NetConfig.for_arch; override here if set) ---
+# T: null  -> auto = max(T_floor, BFS hop-distance input->readout). Set an int to force.
+T: null
+T_floor: 10
+alpha: null              # null -> arch default (ff_unroll 1.0, rnn 0.2)
+nonlinearity: tanh       # bounded; safest with no learnable node params
+target_radius: 0.9       # spectral radius after init rescale (stability)
+
+# --- connectome ---
+policy: flyvis_standard  # ACh +1, GABA/Glut -1, monoamines dropped
+alpha0: 0.01             # init unit-scaling (flyvis-style)
+
+# --- optimization ---
+epochs: 25
+batch_size: 128
+lr: 0.001
+grad_clip: 1.0
+num_workers: 4
+seed: 0
+download: true

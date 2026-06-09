@@ -1,0 +1,4 @@
+run_name: optic_ff_unroll_initA
+subgraph_id: optic
+arch: ff_unroll
+init_mode: from_data

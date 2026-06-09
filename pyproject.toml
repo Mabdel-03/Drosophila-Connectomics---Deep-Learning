@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flyconn"
+version = "0.1.0"
+description = "Drosophila (FlyWire FAFB) connectome -> model-ready artifacts and connectome-constrained neural networks"
+readme = "README.md"
+requires-python = ">=3.10"
+# Stage-1 (Data Preparation) runtime deps. All already present in the `consortium`
+# conda env; pinned loosely here so a fresh checkout into any env is reproducible.
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "pyarrow>=14.0",   # reads .feather and writes .parquet (single parquet engine)
+    "scipy>=1.10",     # sparse CSR adjacency + save_npz
+    "requests>=2.31",  # resumable downloader
+    "tqdm>=4.66",
+    "pyyaml>=6.0",     # config loader
+]
+
+[project.optional-dependencies]
+# torch is only needed to emit the model-ready .pt sparse tensor and for stage 3.
+# The `consortium` env already ships torch 2.3.1+cu121, so this is optional for
+# anyone installing into a torch-less env.
+torch = ["torch>=2.0"]
+graph = ["networkx>=3.2"]      # stages 2 & 4
+dev = ["pytest>=7.4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

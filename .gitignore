@@ -1,0 +1,38 @@
+# ---- Bulk data: lives on scratch, never in git ----
+*.feather
+*.parquet
+*.npz
+*.npy
+*.pt
+*.feather.part
+data/
+results/
+reports/data_card_*.md
+
+# Allow small committable reports if explicitly forced with `git add -f`.
+# (The canonical data card is regenerated on scratch; commit a copy only when desired.)
+
+# ---- SLURM ----
+slurm/logs/
+slurm-*.out
+*.out
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.ipynb_checkpoints/
+.pytest_cache/
+*.egg
+
+# ---- Editor / OS ----
+.vscode/
+.idea/
+.DS_Store
+
+# ---- Local secrets / overrides ----
+.env
+*.local

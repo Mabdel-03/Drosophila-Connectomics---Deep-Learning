@@ -1,0 +1,4 @@
+run_name: whole_right_ff_unroll_initA
+subgraph_id: whole_right
+arch: ff_unroll
+init_mode: from_data

@@ -1,0 +1,99 @@
+# =====================================================================================
+# FlyWire FAFB connectome — Data Preparation config (single source of truth).
+#
+# All sizes/md5s verified live against the Zenodo API (record 10676866) on 2026-06-07.
+# Paths use ${FLYCONN_DATA_ROOT} which paths.py expands from the env var
+# (default: /orcd/scratch/orcd/012/mabdel03/connectome_data).
+# =====================================================================================
+
+data_version: "783"
+
+# Canonical ground-truth counts for the FAFB v783 release. validate.py asserts the
+# produced artifacts match these exactly.
+#
+# neurons: 139,255 proofread neurons (matches proofread_root_ids_783.npy and the
+#   Codex FAFB display count).
+#
+# connections: the number of directed neuron->neuron CONNECTIONS at the standard
+#   FlyWire >=5-synapse threshold (synapses summed across neuropils per pair). This
+#   is THE canonical connectome edge set. The value 2,700,513 is what this pipeline
+#   reproducibly derives from the authoritative Zenodo v783 file (matches the
+#   documented "~2,701,601 thresholded connections" for the optic-lobe-completed v783
+#   snapshot to within 0.04%).
+#   NOTE: the Codex FAFB landing page shows "3,732,460 connections" — that display
+#   figure is NOT reproducible from this Zenodo file at any integer threshold (>=4
+#   gives 3.54M, >=3 gives 4.92M) and appears to use a different snapshot/definition.
+#   We pin to the value our pipeline actually produces so validation is meaningful.
+expected:
+  neurons: 139255
+  connections: 2700513     # >= synapse_threshold (5) per pair, summed across neuropils
+
+# Scratch layout (NOT git). {raw,processed,reports} created under here.
+data_root: "${FLYCONN_DATA_ROOT}/v783"
+
+# ---- Modeling conventions baked into the artifacts ----
+adjacency_orientation: source_major   # A[i, j] = weight of edge i -> j (row = presynaptic)
+node_set: proofread_root_ids          # authoritative node set
+default_nt_policy: flyvis_standard    # which signed matrix adjacency.pt holds
+
+# Synapse-count threshold for a "connection". FlyWire uses a >=5 synapse threshold per
+# neuron->neuron pair (after summing across neuropils) to define a connection; that
+# yields 2,700,513 connections here (see `expected.connections`). The raw Zenodo edge
+# list is NO-THRESHOLD (~15.1M pairs). We build BOTH: the thresholded set is canonical
+# (edges.parquet + adjacency), the no-threshold set is kept for analyses that want the
+# full graph (edges_full.parquet + adjacency_counts_full_csr.npz).
+synapse_threshold: 5
+
+# Neurotransmitter -> sign policies. build_edges emits one signed CSR per policy
+# (plus an unsigned raw-count CSR). Sign is taken from the PRESYNAPTIC neuron's
+# top_nt (Dale's principle). monoamines (octopamine/serotonin/dopamine) are
+# modulatory; sign 0 means "drop from the signed matrix" (still present in counts).
+# NOTE: glutamate is frequently INHIBITORY in Drosophila (GluClalpha), unlike mammals.
+nt_policies:
+  flyvis_standard:   { acetylcholine: 1,  gaba: -1, glutamate: -1, octopamine: 0, serotonin: 0, dopamine: 0 }
+  glut_excitatory:   { acetylcholine: 1,  gaba: -1, glutamate: 1,  octopamine: 0, serotonin: 0, dopamine: 0 }
+# 'unsigned' is implicit: adjacency_counts_csr.npz holds raw synapse counts (no sign).
+
+# ---- Zenodo source (record 10676866, v783.0, CC-BY-4.0) ----
+zenodo:
+  record: "10676866"
+  doi: "10.5281/zenodo.10676866"
+  url_template: "https://zenodo.org/api/records/10676866/files/{key}/content"
+  files:
+    proofread_connections_783.feather:
+      size: 852022274
+      md5: "f48f972d262323a102aed49af1396b8a"
+      role: edges            # PRIMARY connectivity source (pre,post,neuropil)
+    proofread_root_ids_783.npy:
+      size: 1114168
+      md5: "e0e6c19732fd8c7a4e39a2d170105421"
+      role: node_set         # authoritative ~139K proofread neurons
+    flywire_synapses_783.feather:
+      size: 9492998242
+      md5: "f8f1b97c9d4b0ea9b4c8b287f6b99091"
+      role: synapses         # full per-synapse table (~130M rows); coords/scores/NT probs
+    per_neuron_neuropil_count_post_783.feather:
+      size: 233843050
+      md5: "bb5999f10920ade803d9f37097a43a56"
+      role: aux
+    per_neuron_neuropil_count_pre_783.feather:
+      size: 16853770
+      md5: "90fcdb42c1ba05ed92820840fa1e6ba0"
+      role: aux
+
+# ---- GitHub source: neuron annotations / labels (Schlegel et al. 2024, CC-BY) ----
+github:
+  repo: "flyconnectome/flywire_annotations"
+  ref: "main"
+  url_template: "https://raw.githubusercontent.com/flyconnectome/flywire_annotations/main/supplemental_files/{name}"
+  files:
+    # md5 unknown ahead of time for these; validated by size>0 + successful parse.
+    Supplemental_file1_neuron_annotations.tsv:      { role: annotations }   # master label table
+    Supplemental_file2_non_neuron_annotations.tsv:  { role: aux }
+    Supplemental_file4_hemilineages_clustering.csv: { role: aux }
+
+# ---- Citation (CC-BY-4.0 requires attribution) ----
+citation:
+  license: "CC-BY-4.0"
+  connectivity: "Dorkenwald et al. 2024, Nature — Neuronal wiring diagram of an adult brain (FlyWire)"
+  annotations: "Schlegel et al. 2024, Nature — Whole-brain annotation and multi-connectome cell typing of Drosophila"

@@ -1,0 +1,29 @@
+# Reproducible environment for the Connectomics project (stage 1: Data Preparation).
+#
+# NOTE: On the ORCD cluster this project reuses the existing `consortium` env
+#   (/orcd/home/002/mabdel03/conda_envs/consortium), which already satisfies all of
+#   the below (python 3.11, pandas 2.3, pyarrow 23, numpy 2.2, scipy 1.17,
+#   torch 2.3.1+cu121, networkx, requests, tqdm, pyyaml). You do NOT need to create
+#   this env there. It exists for fresh checkouts / collaborators on other machines.
+#
+# Create with:  mamba env create -f environment.yml  (or conda)
+# Then:         pip install -e .
+name: flyconn
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy>=1.26
+  - pandas>=2.2
+  - pyarrow>=14        # feather + parquet (one engine for both)
+  - scipy>=1.11        # sparse CSR + save_npz
+  - networkx>=3.2      # stages 2 & 4
+  - requests>=2.31
+  - tqdm>=4.66
+  - pyyaml>=6.0
+  - pytest>=7.4
+  - pip
+  - pip:
+      # CPU torch is sufficient to write the model-ready .pt; swap for a CUDA build
+      # (e.g. the cluster's torch 2.3.1+cu121) when doing GPU work in stage 3.
+      - torch>=2.0
