@@ -1,0 +1,28 @@
+# Stage 2 (Initial Exploration) notebook environment.
+# Pip equivalent of environment-eda.yml. This is a superset of the core runtime: it
+# pulls in requirements.txt and adds the analysis, plotting, and Jupyter stack.
+#
+# Install with:
+#   pip install -r requirements-eda.txt
+#   pip install -e .
+#   python -m ipykernel install --user --name flyconn_eda --display-name "Python (flyconn_eda)"
+#
+# On the ORCD cluster, prefer the conda path: bash scripts/setup_eda_env.sh, which
+# builds the flyconn_eda env on scratch and registers the Jupyter kernel.
+
+-r requirements.txt
+
+# --- analysis ---
+networkx>=3.2        # graph metrics / motifs
+scikit-learn>=1.3    # clustering, embeddings
+umap-learn>=0.5      # nonlinear embedding of cell types
+
+# --- plotting ---
+matplotlib>=3.8
+seaborn>=0.13
+plotly>=5.20         # interactive degree / scatter plots
+
+# --- notebook ---
+jupyterlab>=4.0
+ipykernel>=6.29
+ipywidgets>=8.1      # plotly / interactive widgets

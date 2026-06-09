@@ -1,0 +1,12 @@
+# Development environment: core runtime plus the test suite.
+#
+# Install with:
+#   pip install -r requirements-dev.txt
+#   pip install -e .
+#
+# Run the tests with:
+#   python -m pytest tests/ -q
+
+-r requirements.txt
+
+pytest>=7.4

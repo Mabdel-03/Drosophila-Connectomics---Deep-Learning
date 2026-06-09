@@ -7,7 +7,10 @@ clean, **model-ready** artifacts for the downstream stages.
 All real logic lives in the importable package [`flyconn.data_prep`](../src/flyconn/data_prep/);
 this directory holds only thin `sbatch` entrypoints and notebooks (dir names with
 spaces/leading digits can't be Python modules). **Everything runs as SLURM batch
-jobs** (`account=mabdel03`, `partition=pi_tpoggio`) — never on the login node.
+jobs** (`account=mit_general`, `partition=pi_tpoggio`), never on the login node.
+
+See the [root README](../README.md) for environment setup (conda or the pip
+`requirements.txt`).
 
 ## Pipeline
 

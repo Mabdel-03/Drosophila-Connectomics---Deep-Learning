@@ -1,0 +1,27 @@
+# Core runtime for stage 1 (Data Preparation) and stage 3 (Modeling).
+# Pip equivalent of the conda environment.yml; versions are kept consistent with
+# pyproject.toml and environment.yml so a fresh checkout is reproducible.
+#
+# Install with:
+#   pip install -r requirements.txt
+#   pip install -e .
+#
+# On the ORCD cluster the existing `consortium` conda env already provides all of
+# these (including a CUDA build of torch, 2.3.1+cu121), so this file is mainly for
+# fresh checkouts on other machines. A plain `pip install torch` here yields a CPU
+# build, which is sufficient to write the model-ready adjacency.pt but not for GPU
+# training in stage 3. For GPU training, install the appropriate CUDA torch wheel
+# for your platform from https://pytorch.org/get-started/locally/.
+
+numpy>=1.24
+pandas>=2.0
+pyarrow>=14.0      # reads .feather and writes .parquet (single parquet engine)
+scipy>=1.10        # sparse CSR adjacency + save_npz
+requests>=2.31     # resumable downloader
+tqdm>=4.66
+pyyaml>=6.0        # config loader
+
+# Stage 3 (Modeling). torch writes the adjacency.pt sparse tensor in stage 1 and runs
+# the connectome-constrained networks in stage 3; torchvision supplies MNIST.
+torch>=2.0
+torchvision>=0.15
