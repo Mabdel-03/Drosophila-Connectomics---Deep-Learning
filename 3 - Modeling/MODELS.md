@@ -398,47 +398,72 @@ restoration — and exactly what turns V3 from "10% / chance" into the results b
 
 ---
 
-## Results so far (Phase 1)
+## Results — Phase 1 (complete)
 
 Phase 1 = the cheapest, most-informative slice: variants {V1, V2, V3} × subgraphs
 {`optic_left`, `optic_right`} × photoreceptor sign {`raw` = artifactual NT, `fix` = histaminergic
 −1}, all `ff_unroll`, `from_data`, `pos_grid` retinotopy (the FlyWire-native `columns` hex map
 not yet fetched). Run on `pi_tpoggio` A100s via [`slurm/eye_array.sbatch`](../slurm/eye_array.sbatch)
-(job array 15727099). MNIST: 54k train / 6k val / 10k test, as for stage 3.
+(job array 15727099). MNIST: 54k train / 6k val / 10k test, as for stage 3. All 10 runs finished;
+`python -m flyconn.models.run aggregate` → `…/v783/results/summary.csv` (now carrying `variant`,
+`decision`, `photoreceptor_sign`, and the V3 NCM columns).
 
-**V3 — zero learned parameters, full 10k test set:**
+**Headline:** as you remove learning, the *measured* connectome keeps classifying — 96% (learnable
+core) → 94% (frozen core, learned linear probe) → **~50–60% with zero learned parameters at all.**
 
-| run | cosine-NCM | raw-euclid (floor) | LDA | shuffle ctrl | chance |
-|---|---:|---:|---:|---:|---:|
-| `optic_left_V3_fix` (sign −1) | **0.574** | 0.508 | 0.567 | 0.200 | 0.10 |
-| `optic_left_V3_raw` (raw NT) | **0.603** | 0.552 | 0.607 | 0.142 | 0.10 |
+**V1 — rigid eye + learnable Dale-constrained core + learned head** (test accuracy; ~676–795k
+trainable params = θ + head, encoder = 0):
 
-Both clear chance decisively, `cosine`/`lda` ≫ `raw-euclid` (it's pattern, not brightness), and
-the shuffle controls collapse toward chance — so **the as-measured *Drosophila* connectome, with
-zero learned parameters, classifies MNIST digits at ~57–60%.**
+| subgraph | sign | test acc |
+|---|---|---:|
+| `optic_left` | fix (−1) | **0.963** |
+| `optic_right` | fix (−1) | **0.965** |
 
-**V2 — frozen core + learned linear probe, test accuracy:**
+Within ~1 pt of the original learned-encoder stage-3 models (~0.97) — so swapping the learned
+784→photoreceptor encoder for the **rigid biological eye costs almost nothing** once the core can
+train.
 
-| run | test acc | best val |
+**V2 — frozen `from_data` core + learned linear probe** (test accuracy; 40k params = the probe
+only, core frozen):
+
+| subgraph | fix (−1) | raw |
 |---|---:|---:|
-| `optic_left_V2_fix` (sign −1) | **0.939** | 0.939 |
-| `optic_left_V2_raw` (raw NT) | **0.935** | 0.938 |
+| `optic_left` | **0.939** | 0.935 |
+| `optic_right` | **0.940** | 0.937 |
 
-A single linear probe on the **frozen** connectome's readout reaches ~94% — i.e. the class
-information is strongly, *linearly* present in the fixed wiring's output; the connectome is doing
-real feature extraction, not just passing noise to a powerful head.
+A single linear probe on the **frozen** connectome's readout reaches ~94% — the class information
+is strongly, *linearly* present in the fixed wiring's output; the connectome is doing real feature
+extraction, not just passing noise to a powerful head. The `fix` signs edge out `raw` on both eyes.
 
-**V1 — learnable Dale-constrained core (still running at time of writing):** `optic_left_V1_fix`
-is climbing past ~94% validation by epoch ~4 of 25; the `optic_right` runs and the full per-run
-table land via `python -m flyconn.models.run aggregate` → `…/v783/results/summary.csv` (now
-carrying `variant`, `decision`, `photoreceptor_sign`, and the three V3 NCM columns).
+**V3 — fully rigid, zero learned parameters** (full 10k test set; chance = 0.10):
 
-**Early reading.** The headline is V2/V3: a fixed connectome already separates the digits (V3
-~57–60% with *no* learning; V2 ~94% with only a linear probe). One genuine subtlety — for the
-zero-learning template (V3), the **artifactual `raw` signs slightly beat the biologically-correct
-`fix`** (60.3% vs 57.4%); the histamine fix changes the readout geometry in a way the bare
-nearest-mean rule doesn't prefer. Whether that flips once the core is *trained* (V1) is exactly
-what Phase 1's V1 runs test.
+| subgraph | sign | cosine-NCM | raw-euclid (floor) | LDA | shuffle ctrl |
+|---|---|---:|---:|---:|---:|
+| `optic_left` | fix (−1) | **0.574** | 0.508 | 0.567 | 0.200 |
+| `optic_left` | raw | **0.603** | 0.552 | 0.607 | 0.142 |
+| `optic_right` | fix (−1) | **0.489** | 0.418 | 0.472 | 0.156 |
+| `optic_right` | raw | **0.515** | 0.433 | 0.504 | 0.148 |
+
+Every run clears chance decisively, `cosine`/`lda` ≫ `raw-euclid` (it's *pattern*, not brightness),
+and the shuffle controls collapse toward chance — so **the as-measured *Drosophila* connectome,
+with zero learned parameters, classifies MNIST digits at ~49–60%.**
+
+**Reading.**
+- The signal is real and graded: 96% → 94% → ~50–60% as learning is stripped from head→probe→none.
+  Even the bare wiring (V3) is 5–6× chance.
+- `optic_left` runs a few points higher than `optic_right` across all variants — a side asymmetry
+  worth noting (the `pos_grid` lattices differ slightly per eye; the true `columns` hex map may
+  narrow it).
+- **Sign-fix vs raw is small and direction-dependent.** For the *zero-learning* template (V3) the
+  artifactual `raw` signs slightly *beat* the biologically-correct `fix` (+0.02–0.03) — the
+  histamine fix reshapes the readout geometry in a way a bare nearest-mean doesn't prefer. But once
+  *anything* is trained, the correct signs hold up: **V2 `fix` ≥ `raw` on both eyes.** So the
+  biology fix is not a free win for the unsupervised rule, but it is the right default for the
+  learned variants — exactly the kind of nuance Phase 1 was meant to surface.
+
+**Next (Phase 2, not yet run):** fetch the FlyWire-native `columns` hex map (more faithful
+retinotopy than `pos_grid`), and extend to `optic` (both eyes) + the whole-brain subgraphs, where
+the signal can reach descending neurons — `python -m flyconn.models.run eye_grid --full`.
 
 ---
 
