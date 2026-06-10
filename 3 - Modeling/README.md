@@ -1,209 +1,158 @@
-# 3 — Modeling
+# 3: Modeling
 
-Connectome-constrained **trainable** feedforward / RNN networks that classify **MNIST**.
-The real **connectivity (which edges exist) and synaptic signs (excitatory/inhibitory from
-neurotransmitter) are FIXED from the data**; only the **edge magnitudes** are learned (plus
-a small MNIST input encoder and a linear readout). Code lives in
-[`flyconn.models`](../src/flyconn/models/); this dir holds the notebook + launchers.
+This stage turns the real *Drosophila* connectome into networks that classify
+[MNIST](http://yann.lecun.com/exdb/mnist/) digits, and asks how much of the work the fly's actual
+wiring does. The connectivity (which neurons connect) and the synapse signs
+(excitatory or inhibitory) are **fixed from the data**; what varies is how the image gets in and
+how much else is learned.
 
-> **Detailed docs:** [`MODELS.md`](MODELS.md) — per-model architecture diagrams (all 6
-> subgraphs) + the exact training/testing protocol and compute. [`RESULTS.md`](RESULTS.md) —
-> the 24-run accuracy table and the `from_data`-vs-`random` finding.
+This page is the short tour. The full reference, with every diagram, the training and inference
+details, the results, and what they imply, is in [`MODELS.md`](MODELS.md). The headline accuracy
+tables are in [`RESULTS.md`](RESULTS.md). The code is in [`flyconn.models`](../src/flyconn/models/).
 
-## Architecture
+## The idea in one picture
 
-### Overall data flow
-
-A 28×28 MNIST digit is encoded into a current that is injected **only into the
-photoreceptor neurons** of a fly-brain subgraph. The connectome core then evolves for `T`
-steps under its own (sign-constrained) recurrent dynamics. Finally a linear head reads the
-activations of a **biological output population** (visual-projection / descending neurons)
-and produces 10 class logits.
+An image is delivered to the fly's photoreceptors, the connectome evolves under its own recurrent
+dynamics for a few steps, and a biological output population is read out into a digit.
 
 ```mermaid
 flowchart LR
-    IMG["MNIST digit<br/>28×28 = 784 px"] --> ENC["Encoder<br/>Linear(784 → n_input)<br/><i>learned</i>"]
-    ENC -->|"inject into<br/>photoreceptors only"| CORE
-    subgraph CORE["ConnectomeNet core — fixed wiring + signs, learned magnitudes"]
-        direction LR
-        IN["input nodes<br/>R1-6 / R7 / R8"] -->|"real synapses<br/>(±, fixed)"| HID["the rest of the<br/>subgraph's neurons"]
-        HID -->|"recurrent /<br/>feedback edges"| HID
-        HID --> OUT["readout nodes<br/>VPN (+ descending)"]
-    end
-    OUT --> POOL["mean-pool<br/>readout activations"] --> HEAD["Readout<br/>Linear(n_readout → 10)<br/><i>learned</i>"] --> LOGITS["10 class logits"]
-
-    style CORE fill:#eef6ff,stroke:#4178be
-    style ENC fill:#fff3e0,stroke:#e08a00
-    style HEAD fill:#fff3e0,stroke:#e08a00
+    IMG["Image<br/>28x28"] --> A["Stage A<br/>image to<br/>photoreceptor input"]
+    A --> B["Stage B<br/>connectome evolves<br/>for T steps"]
+    B --> C["Stage C<br/>read output neurons,<br/>pick a digit"]
+    C --> OUT["Digit<br/>0 to 9"]
 ```
 
-Orange = the only two *unconstrained* learned modules (input encoder, output head). Blue =
-the connectome core, whose **graph and signs are frozen from the data** and whose only
-trainable degrees of freedom are the per-edge magnitudes. Restricting injection and readout
-to small biological populations is deliberate: a 784→all-nodes encoder or all-nodes readout
-would turn the model into a disguised MLP and hide whether the *wiring* does the work.
+Two design rules keep the model honest:
 
-### The core neuron model
+- The image enters **only at the photoreceptors** (R1-6, R7, R8), the real entry point for vision.
+- The decision reads **only a biological output population** (the visual projection neurons that
+  leave the optic lobe, plus descending neurons for whole-brain models).
 
-Each node is a single **leaky rate unit** (no spikes). Every real synapse `i→j` contributes a
-signed, magnitude-learnable weight; the node sums its inputs, adds the external current, and
-passes the result through `tanh`. The whole network is unrolled for `T` steps:
+If we let the input write to every neuron or the readout read from every neuron, the model would
+collapse into an ordinary neural network wearing the connectome as decoration, and we could not
+tell whether the wiring matters.
 
-```
-            external current x_t (from the encoder, into input nodes only)
-                                  │
-  h_t  ──gather pre──►  Σ_e  sign[e]·softplus(θ[e]) · h_t[pre(e)]  ──scatter to post──►  inp
-  (state at step t)         └─ signed synaptic drive over all real edges ─┘                │
-                                                                                           ▼
-                         h_{t+1} = (1−α)·h_t  +  α·tanh( inp + x_t )
-                                    └ leak ┘        └ updated activation ┘
-```
+## The core neuron model
 
-- `sign[e] ∈ {+1, −1}` — **fixed** from the presynaptic neurotransmitter (Dale's law). ACh
-  excitatory; GABA & glutamate inhibitory (Glu is inhibitory in flies).
-- `softplus(θ[e]) ≥ 0` — the **learned** magnitude. Because the sign is a fixed multiplier on
-  a non-negative term, training can only *rescale* a synapse, **never flip its sign**.
-- `α` — fixed leak (no learned per-node parameters in this "purest" variant).
-- the sparse `Σ_e … h[pre]` is done by **gather → `index_add` scatter** over the edge list,
-  *not* `torch.sparse_csr_tensor` (whose autograd is broken, pytorch #98929).
-
-### Feedforward vs. RNN — same equations, different unroll
-
-The connectome is a graph **with cycles**, so a literal single-pass feedforward net doesn't
-exist without deleting edges. Both flavors are therefore unrolls of the *same* dynamics; they
-differ only in leak and when the image is injected:
+Each neuron is one continuous activation value (a rate unit, not a spiking model). At each step it
+sums the signed input from its presynaptic partners, adds any injected image current, and passes
+the total through `tanh`. The whole network updates as:
 
 ```
-ff_unroll                                  rnn
-─────────                                  ───
-inject x at t=0 only                       inject x at EVERY step (persistent)
-α ≈ 1  (no memory carry)                    α < 1  (leaky memory)
-read at step T                              read at step T, full BPTT
-"a depth-T tied-weight feedforward sweep"  "a recurrent network settling over T steps"
-
- x→[h0]→[h1]→[h2]→ … →[hT]→readout          x�‖   x‖   x‖        x‖
-        (one input pulse propagates)        [h0]→[h1]→[h2]→ … →[hT]→readout
-                                            (input drives every step; feedback integrated)
+h(t+1) = (1 - alpha) * h(t) + alpha * tanh( W * h(t) + x(t) )
 ```
 
-`T` defaults to `max(10, BFS hop-distance from photoreceptors to the readout set)` so the
-signal can actually reach the output neurons before it is read (a BFS guard asserts this).
+`h` is all neuron activations, `W` is the signed and weighted connectome, `x(t)` is the injected
+image, and `alpha` is a fixed leak. Each synapse's **sign** comes from the presynaptic
+neurotransmitter ([Dale's principle](https://en.wikipedia.org/wiki/Dale%27s_principle):
+acetylcholine excitatory, GABA and glutamate inhibitory) and is **frozen**. Each synapse's
+**magnitude** is a single number that can be learned, but because the sign is a fixed multiplier on
+a non-negative magnitude, training can rescale a synapse and **never flip its sign**.
 
-### Weight parametrization (what is frozen vs learned)
+## Two families of models
 
+```mermaid
+flowchart TD
+    DATA["FlyWire connectome<br/>(frozen wiring + signs)"] --> F1
+    DATA --> F2
+    F1["Family 1<br/>learned encoder + connectome + head<br/>(the 24-model grid)"]
+    F2["Family 2<br/>fixed biological eye + connectome<br/>(rigid-eye V1 / V2 / V3)"]
+    style F1 fill:#fff3e0,stroke:#e08a00
+    style F2 fill:#e0f2f1,stroke:#00897b
 ```
-   real synapse i→j ──►  edge e in the buffers
-   ┌─────────────────────────────────────────────────────────────────┐
-   │  row_idx[e] = post(j)   ┐                                          │
-   │  col_idx[e] = pre(i)    ├─ FIXED buffers (connectivity "mask")     │
-   │  sign[e]    = ±1        ┘   transposed to W[post, pre]             │
-   │                                                                    │
-   │  θ[e]  ── LEARNED ──►  W_value[e] = sign[e] · softplus(θ[e])       │
-   └─────────────────────────────────────────────────────────────────┘
-   Absent synapses simply have no edge → structurally zero gradient (the mask is implicit;
-   no dense N×N matrix is ever formed — a dense 139k² would be 78 GB).
-```
 
-### The six subgraphs (concrete sizes)
+**Family 1 (the original 24 models)** uses a learned `Linear(784, photoreceptors)` encoder for the
+input and a learned linear head for the output, with the connectome in between. These show that a
+connectome-shaped network can solve MNIST (all 24 reach about 97%). But a learned encoder plus a
+learned head is itself a capable network, so this number does not isolate the connectome's own
+contribution.
 
-Each subgraph is an induced sub-network of the whole connectome. `optic*` use the stage-2
-`visual_mask` (so they contain the photoreceptors that receive the image); `whole*` are the
-full brain or one hemisphere. Input = photoreceptors; readout = visual-projection (+ descending
-for whole-brain). `hops` = max BFS distance input→readout; `T` = unroll length used.
+**Family 2 (the rigid-eye models)** replaces the learned encoder with a **fixed, eye-like filter**
+that delivers the image to the photoreceptors the way a real eye would (each photoreceptor reads
+the local brightness at its position on a hexagonal retinal grid, similar to
+[flyvis](https://github.com/TuragaLab/flyvis)). It then sweeps how much else is learned:
 
-| subgraph | nodes (N) | edges (E) | input nodes | readout nodes | hops | T |
-|---|---:|---:|---:|---:|---:|---:|
-| `whole` | 139,255 | 2,630,012 | 11,112 | 9,340 | 7 | 10 |
-| `whole_right` | 69,082 | 1,203,860 | 5,352 | 4,678 | 6 | 10 |
-| `whole_left` | 69,943 | 1,051,651 | 5,760 | 4,654 | 7 | 10 |
-| `optic` | 97,201 | 1,476,198 | 11,112 | 8,037 | 5 | 10 |
-| `optic_right` | 48,114 | 754,751 | 5,352 | 4,029 | 5 | 10 |
-| `optic_left` | 49,087 | 635,869 | 5,760 | 4,008 | 5 | 10 |
+- **V1:** train the connectome's edge magnitudes plus a small head.
+- **V2:** freeze the connectome, train only a linear probe (is the digit *linearly* readable from
+  the fixed wiring?).
+- **V3:** freeze everything and classify by nearest class template, with **zero learned
+  parameters** (does the wiring alone separate the digits?).
+
+## What we found
+
+As learning is stripped away, the measured connectome keeps classifying:
+
+| What is learned | MNIST accuracy |
+|---|---|
+| V1: connectome magnitudes + head | about 96% |
+| V2: only a linear probe (connectome frozen) | about 94% |
+| V3: nothing at all | about 50 to 60% (chance is 10%) |
+
+The clean ladder shows the signal is genuinely in the fixed wiring, not supplied by a learned
+input or output stage. Even with no learning at all, the fly's visual connectome classifies digits
+five to six times better than chance. Full numbers and interpretation are in
+[`MODELS.md`](MODELS.md) and [`RESULTS.md`](RESULTS.md).
+
+## Subgraphs
+
+Most experiments run on a sub-network rather than the whole brain. `optic*` subgraphs are the
+visual system (they contain the photoreceptors); `whole*` are the full brain or one hemisphere.
 
 ```mermaid
 flowchart TD
     W["whole brain<br/>139,255 neurons"]
     W --> WR["whole_right<br/>69,082"]
     W --> WL["whole_left<br/>69,943"]
-    W -. "visual_mask<br/>(optic+VPN+VC+photoreceptors)" .-> O["optic<br/>97,201"]
+    W -. "visual system only" .-> O["optic<br/>97,201"]
     O --> OR["optic_right<br/>48,114"]
     O --> OL["optic_left<br/>49,087"]
     style W fill:#e8eaf6,stroke:#3949ab
     style O fill:#e0f2f1,stroke:#00897b
 ```
 
-Each of these 6 subgraphs × {`ff_unroll`, `rnn`} × {`from_data`, `random`} init = the 24-run
-grid below.
+## Run it
 
-## The experiment grid (6 × 2 × 2 = 24 runs)
-
-| axis | values |
-|---|---|
-| subgraph | `whole`, `whole_right`, `whole_left`, `optic`, `optic_right`, `optic_left` |
-| flavor | `ff_unroll` (inject at t=0, leak≈1), `rnn` (persistent inject, leaky, BPTT) |
-| init | `from_data` (magnitudes = scaled real synapse counts), `random` (log-normal matched amplitude) |
-
-The `optic*` subgraphs use the stage-2 `visual_mask` union (optic + visual_projection +
-visual_centrifugal + photoreceptors), so MNIST enters through real photoreceptors (R1-6/R7/R8).
-
-**Headline question:** does the real wiring (`from_data`) beat amplitude-matched random
-wiring (`random`), and across which subgraphs/flavors?
-
-## Implementation notes (`connectome_net.py`)
-
-The Architecture section above is the conceptual picture; the non-obvious implementation
-choices that make it correct and tractable:
-
-- **Sparse, never dense.** A dense 139k² weight matrix is 78 GB — infeasible. Everything is
-  an **edge vector** (≤2.6M learnable floats); the forward `W @ h` is a gather→`index_add`
-  scatter over the edge list.
-- **Autograd trap avoided.** We do *not* build the weight as a `torch.sparse_csr_tensor` —
-  its autograd is broken ([pytorch #98929](https://github.com/pytorch/pytorch/issues/98929))
-  and would silently zero the gradient to `theta`. The scatter path keeps gradients flowing.
-- **Orientation.** Stored adjacency is source-major `A[i,j]=i→j`; `build_subgraph` transposes
-  to `W[post,pre]` so `h_post = W @ h_pre` is correct.
-- **Stability with no learned node params.** Magnitudes are rescaled at init so the assembled
-  sparse `W` has spectral radius ≈0.9 (sparse power iteration, never densified); plus `tanh`,
-  fixed leak, and grad-clip keep the `T`-step unroll bounded.
-- **Code map:** [`subgraphs.py`](../src/flyconn/models/subgraphs.py) (the 6 selectors →
-  edge buffers), [`connectome_net.py`](../src/flyconn/models/connectome_net.py) (the core +
-  classifier), [`init_modes.py`](../src/flyconn/models/init_modes.py) (from_data / random),
-  [`io_inject.py`](../src/flyconn/models/io_inject.py) (input/readout sets + BFS guard),
-  [`train.py`](../src/flyconn/models/train.py), [`run.py`](../src/flyconn/models/run.py).
-
-The four invariants (gradient reaches `theta`, sign never flips, mask fixed, signal flows
-pre→post) are guarded by [`tests/test_models.py`](../tests/test_models.py).
-
-## Environment / run
-
-Training uses the **`consortium`** env (torch 2.3.1+cu121 + torchvision + flyconn). Everything
-runs via `sbatch` on `pi_tpoggio` (1× A100) — **never the login node**. Artifacts go to scratch
-(`$FLYCONN_DATA_ROOT/v783/{mnist,models,results}`).
+Everything runs through `sbatch` on `pi_tpoggio` (one A100 per model), never the login node.
+Training uses the `consortium` conda environment.
 
 ```bash
 cd "/orcd/data/tpoggio/001/mabdel03/Connectomics"
 
-# single run
-EXP=optic_left_ff_unroll_initA sbatch slurm/train.sbatch
-# smoke (1 epoch):  STAGE=smoke EXP=... sbatch slurm/train.sbatch
+# Family 1: the 24-model grid
+python -m flyconn.models.run grid                  # write the 24 configs
+sbatch slurm/train_array.sbatch                    # run them
 
-# full 24-run grid (<=4 concurrent A100s)
-cd "3 - Modeling" && ./03_train.sh        # = sbatch ../slurm/train_array.sbatch
+# Family 2: the rigid-eye models
+python -m flyconn.models.run eye_grid              # write the Phase-1 configs
+sbatch slurm/eye_array.sbatch                      # run them (V1/V2 train, V3 is one fit pass)
 
-# interactive build + inspection + short smoke train
-#   open modeling.ipynb with the Python (consortium) kernel (use a GPU node for the smoke train)
+# collate results
+python -m flyconn.models.run aggregate
 ```
 
-Per-run outputs: `…/models/<subgraph>_<arch>_<init>/{ckpt_best.pt, metrics.jsonl, summary.json,
-config_resolved.json}`.
+Per-run outputs land on scratch under `…/v783/models/<run>/`
+(`ckpt_best.pt`, `metrics.jsonl`, `summary.json`); the combined table is
+`…/v783/results/summary.csv`.
 
-## CLI
+## Code map
 
-```bash
-python -m flyconn.models.run grid                       # (re)generate the 24 leaf configs
-python -m flyconn.models.run build --config <leaf.yaml> # construct + print model info, no train
-python -m flyconn.models.run train --config <leaf.yaml> # full training run
-```
+- [`subgraphs.py`](../src/flyconn/models/subgraphs.py): the six subgraph selectors, the edge
+  buffers, and the photoreceptor sign correction.
+- [`connectome_net.py`](../src/flyconn/models/connectome_net.py): the recurrent core and the two
+  classifiers (learned-encoder and rigid-eye).
+- [`eye.py`](../src/flyconn/models/eye.py): the fixed biological eye.
+- [`retinotopy.py`](../src/flyconn/data_prep/retinotopy.py): the retinal hex map.
+- [`init_modes.py`](../src/flyconn/models/init_modes.py): the `from_data` and `random`
+  initializations.
+- [`io_inject.py`](../src/flyconn/models/io_inject.py): input and output neuron selection plus the
+  hop-distance guard.
+- [`train.py`](../src/flyconn/models/train.py), [`run.py`](../src/flyconn/models/run.py): training,
+  the zero-learning fit, and the command-line interface.
 
-Reference: flyvis (Lappalainen 2024, connectome-constrained DMN), Song et al. 2016
-(excitatory-inhibitory RNN sign constraints).
+## References
+
+- FlyWire connectivity: Dorkenwald et al. 2024, [*Neuronal wiring diagram of an adult brain*](https://www.nature.com/articles/s41586-024-07558-y) (*Nature*).
+- FlyWire annotations: Schlegel et al. 2024, [*Whole-brain annotation and multi-connectome cell typing of Drosophila*](https://www.nature.com/articles/s41586-024-07686-5) (*Nature*).
+- Connectome-constrained vision: Lappalainen et al. 2024, [*Connectome-constrained networks predict neural activity across the fly visual system*](https://www.nature.com/articles/s41586-024-07939-3) (*Nature*).
+- Sign-constrained recurrent networks: Song et al. 2016, [*Training Excitatory-Inhibitory Recurrent Neural Networks*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004792) (*PLoS Comput Biol*).
