@@ -95,6 +95,8 @@ class ReportConfig:
     compile_pdf: bool = False
     install_tectonic: bool = False
     max_batches: int | None = None
+    snapshot_repo_report: bool = False
+    snapshot_dir: Path = Path("reports/proximity_whole_connectome")
 
 
 def run_dir(cfg: Config, report_cfg: ReportConfig) -> Path:
@@ -130,6 +132,43 @@ def format_float(value: object, digits: int = 3) -> str:
     if pd.isna(value):
         return ""
     return f"{float(value):.{digits}f}"
+
+
+def format_pct(value: object, digits: int = 1) -> str:
+    if pd.isna(value):
+        return ""
+    return f"{100 * float(value):.{digits}f}\\%"
+
+
+def format_pp(value: object, digits: int = 1) -> str:
+    if pd.isna(value):
+        return ""
+    return f"{100 * float(value):.{digits}f} percentage points"
+
+
+def pct_plain(value: object, digits: int = 1) -> str:
+    if pd.isna(value):
+        return ""
+    return f"{100 * float(value):.{digits}f}%"
+
+
+def paragraph(text: str) -> str:
+    return " ".join(str(text).strip().split())
+
+
+def sanitize_report_text(text: str) -> str:
+    return text.replace("\t", " ").replace("\u2014", "-")
+
+
+def validate_report_text(text: str) -> None:
+    if "\t" in text:
+        raise ValueError("Generated report contains tab characters.")
+    if "\u2014" in text:
+        raise ValueError("Generated report contains em dashes.")
+
+
+def latex_paragraph(text: str) -> str:
+    return sanitize_report_text(paragraph(text))
 
 
 def pair_key_values(a: object, b: object) -> str:
@@ -386,6 +425,145 @@ def summarize_distance_profile(overall: pd.DataFrame) -> dict[str, float | str]:
     }
 
 
+def summarize_distance_windows(overall: pd.DataFrame) -> pd.DataFrame:
+    windows = [
+        ("0.0-0.5 um", 0, 5),
+        ("0.5-1.0 um", 5, 10),
+        ("1.0-1.5 um", 10, 15),
+        ("1.5-2.0 um", 15, 20),
+    ]
+    rows = []
+    for label, start, stop in windows:
+        part = overall[(overall["distance_bin"] >= start) & (overall["distance_bin"] < stop)]
+        near = int(part["near_pair_count"].sum())
+        connected = int(part["connected_near_pair_count"].sum())
+        fraction = connected / near if near else np.nan
+        ci_low, ci_high = wilson_interval(np.array([connected]), np.array([near]))
+        rows.append({
+            "distance_window": label,
+            "near_pair_count": near,
+            "connected_near_pair_count": connected,
+            "fraction_connected": float(fraction),
+            "fraction_ci_low": float(ci_low[0]),
+            "fraction_ci_high": float(ci_high[0]),
+            "mean_synapses_per_connected_pair": (
+                float(part["connected_syn_count_sum"].sum() / connected) if connected else np.nan
+            ),
+        })
+    return pd.DataFrame(rows)
+
+
+def weighted_r2(observed: np.ndarray, predicted: np.ndarray, weights: np.ndarray) -> float:
+    observed = np.asarray(observed, dtype=np.float64)
+    predicted = np.asarray(predicted, dtype=np.float64)
+    weights = np.asarray(weights, dtype=np.float64)
+    mean = np.average(observed, weights=weights)
+    ss_res = np.sum(weights * (observed - predicted) ** 2)
+    ss_tot = np.sum(weights * (observed - mean) ** 2)
+    return float(1 - ss_res / ss_tot) if ss_tot > 0 else np.nan
+
+
+def fit_distance_models(overall: pd.DataFrame) -> dict[str, float | str]:
+    ordered = overall.sort_values("distance_bin").copy()
+    x_um = ordered["distance_mid_nm"].to_numpy(np.float64) / 1000.0
+    n = ordered["near_pair_count"].to_numpy(np.float64)
+    k = ordered["connected_near_pair_count"].to_numpy(np.float64)
+    p = np.divide(k, n, out=np.zeros_like(k), where=n > 0)
+    clipped = np.clip(p, 1e-9, 1 - 1e-9)
+
+    log_rate = np.log(clipped)
+    exp_coef = np.polyfit(x_um, log_rate, 1, w=np.sqrt(n))
+    exp_slope = float(exp_coef[0])
+    exp_intercept = float(exp_coef[1])
+    exp_pred = np.exp(exp_intercept + exp_slope * x_um)
+
+    logit_rate = np.log(clipped / (1 - clipped))
+    logit_weights = np.sqrt(np.maximum(n * clipped * (1 - clipped), 1.0))
+    logit_coef = np.polyfit(x_um, logit_rate, 1, w=logit_weights)
+    logit_slope = float(logit_coef[0])
+    logit_intercept = float(logit_coef[1])
+    logit_pred = 1 / (1 + np.exp(-(logit_intercept + logit_slope * x_um)))
+
+    model_p = np.clip(logit_pred, 1e-12, 1 - 1e-12)
+    null_p = np.clip(k.sum() / n.sum(), 1e-12, 1 - 1e-12)
+    ll_model = float(np.sum(k * np.log(model_p) + (n - k) * np.log(1 - model_p)))
+    ll_null = float(np.sum(k * np.log(null_p) + (n - k) * np.log(1 - null_p)))
+    pseudo_r2 = float(1 - ll_model / ll_null) if ll_null else np.nan
+
+    start_rate = float(logit_pred[0])
+    half_rate = start_rate / 2
+    tenth_rate = start_rate / 10
+
+    def solve_logit_distance(target_rate: float) -> float:
+        if not (0 < target_rate < 1) or logit_slope == 0:
+            return np.nan
+        return float((math.log(target_rate / (1 - target_rate)) - logit_intercept) / logit_slope)
+
+    below_10 = ordered.loc[ordered["fraction_connected"] <= 0.10]
+    below_05 = ordered.loc[ordered["fraction_connected"] <= 0.05]
+    first_below_10 = str(below_10.iloc[0]["distance_bin_nm"]) if not below_10.empty else ""
+    first_below_05 = str(below_05.iloc[0]["distance_bin_nm"]) if not below_05.empty else ""
+
+    return {
+        "log_linear_slope_per_um": exp_slope,
+        "log_linear_intercept": exp_intercept,
+        "log_linear_rate_multiplier_per_um": float(math.exp(exp_slope)),
+        "log_linear_half_distance_um": float(math.log(0.5) / exp_slope) if exp_slope < 0 else np.nan,
+        "log_linear_weighted_r2": weighted_r2(log_rate, np.log(np.clip(exp_pred, 1e-12, None)), n),
+        "logistic_slope_per_um": logit_slope,
+        "logistic_intercept": logit_intercept,
+        "logistic_odds_ratio_per_um": float(math.exp(logit_slope)),
+        "logistic_odds_ratio_per_100nm": float(math.exp(logit_slope * 0.1)),
+        "logistic_pseudo_r2": pseudo_r2,
+        "logistic_weighted_r2": weighted_r2(p, logit_pred, n),
+        "fitted_start_rate": start_rate,
+        "fitted_half_rate": half_rate,
+        "fitted_half_rate_distance_um": solve_logit_distance(half_rate),
+        "fitted_tenth_rate": tenth_rate,
+        "fitted_tenth_rate_distance_um": solve_logit_distance(tenth_rate),
+        "first_bin_at_or_below_10pct": first_below_10,
+        "first_bin_at_or_below_5pct": first_below_05,
+    }
+
+
+def add_model_predictions(overall: pd.DataFrame, model: dict[str, float | str]) -> pd.DataFrame:
+    out = overall.sort_values("distance_bin").copy()
+    x_um = out["distance_mid_nm"].to_numpy(np.float64) / 1000.0
+    logit = float(model["logistic_intercept"]) + float(model["logistic_slope_per_um"]) * x_um
+    out["logistic_fit_fraction_connected"] = 1 / (1 + np.exp(-logit))
+    out["residual_fraction_connected"] = out["fraction_connected"] - out["logistic_fit_fraction_connected"]
+    out["distance_mid_um"] = x_um
+    return out
+
+
+def summarize_partition_effects(enrichments: dict[str, pd.DataFrame]) -> dict[str, dict[str, float | str | int]]:
+    out: dict[str, dict[str, float | str | int]] = {}
+    for partition, df in enrichments.items():
+        if df.empty:
+            continue
+        supported = df[df["near_pair_count"] >= int(PARTITIONS[partition]["min_near"])].copy()
+        if supported.empty:
+            continue
+        enriched = supported.loc[supported["log2_oe"].idxmax()]
+        depleted = supported.loc[supported["log2_oe"].idxmin()]
+        out[partition] = {
+            "pair_count": int(len(supported)),
+            "near_pair_count": int(supported["near_pair_count"].sum()),
+            "connected_near_pair_count": int(supported["connected_near_pair_count"].sum()),
+            "median_log2_oe": float(supported["log2_oe"].median()),
+            "iqr_log2_oe": float(supported["log2_oe"].quantile(0.75) - supported["log2_oe"].quantile(0.25)),
+            "top_enriched_pair": str(enriched["pair_key"]),
+            "top_enriched_log2_oe": float(enriched["log2_oe"]),
+            "top_enriched_fraction_connected": float(enriched["fraction_connected"]),
+            "top_enriched_near_pair_count": int(enriched["near_pair_count"]),
+            "top_depleted_pair": str(depleted["pair_key"]),
+            "top_depleted_log2_oe": float(depleted["log2_oe"]),
+            "top_depleted_fraction_connected": float(depleted["fraction_connected"]),
+            "top_depleted_near_pair_count": int(depleted["near_pair_count"]),
+        }
+    return out
+
+
 def build_partition_overview(enrichments: dict[str, pd.DataFrame]) -> pd.DataFrame:
     rows = []
     for partition, df in enrichments.items():
@@ -418,7 +596,13 @@ def enrichment_extremes(df: pd.DataFrame, n: int = 15, min_near: int = 0) -> pd.
     return pd.concat([enriched, depleted], ignore_index=True)
 
 
-def make_figures(report_root: Path, overall: pd.DataFrame, curves: dict[str, pd.DataFrame], enrichments: dict[str, pd.DataFrame]) -> dict[str, Path]:
+def make_figures(
+    report_root: Path,
+    overall: pd.DataFrame,
+    curves: dict[str, pd.DataFrame],
+    enrichments: dict[str, pd.DataFrame],
+    distance_model: dict[str, float | str] | None = None,
+) -> dict[str, Path]:
     import matplotlib
 
     matplotlib.use("Agg")
@@ -452,6 +636,46 @@ def make_figures(report_root: Path, overall: pd.DataFrame, curves: dict[str, pd.
     fig.savefig(path)
     figures["overall_distance"] = path
     plt.close(fig)
+
+    if distance_model is not None:
+        modeled = add_model_predictions(overall, distance_model)
+        fig, ax = plt.subplots(figsize=(7.2, 4.2))
+        ax.plot(
+            modeled["distance_mid_nm"],
+            modeled["fraction_connected"],
+            marker="o",
+            linewidth=1.4,
+            label="Observed 100 nm bins",
+            color="#1f77b4",
+        )
+        ax.plot(
+            modeled["distance_mid_nm"],
+            modeled["logistic_fit_fraction_connected"],
+            linewidth=2.0,
+            label="Logistic-binomial fit",
+            color="#d62728",
+        )
+        ax.set_xlabel("Minimum dendrite mesh distance (nm)")
+        ax.set_ylabel("Fraction connected")
+        ax.set_title("Fitted quantitative rule for distance-dependent connectivity")
+        ax.legend()
+        fig.tight_layout()
+        path = fig_dir / "overall_distance_model_fit.pdf"
+        fig.savefig(path)
+        figures["overall_distance_model"] = path
+        plt.close(fig)
+
+        fig, ax = plt.subplots(figsize=(7.2, 3.8))
+        ax.axhline(0, color="black", linewidth=0.8)
+        ax.bar(modeled["distance_mid_nm"], modeled["residual_fraction_connected"], width=75, color="#9467bd", alpha=0.8)
+        ax.set_xlabel("Minimum dendrite mesh distance (nm)")
+        ax.set_ylabel("Observed minus fitted fraction")
+        ax.set_title("Residuals from the global distance rule")
+        fig.tight_layout()
+        path = fig_dir / "overall_distance_model_residuals.pdf"
+        fig.savefig(path)
+        figures["overall_distance_residuals"] = path
+        plt.close(fig)
 
     if "super_class" in enrichments and not enrichments["super_class"].empty:
         top = enrichments["super_class"].query("near_pair_count >= 10000").copy()
@@ -628,19 +852,25 @@ def top_table(df: pd.DataFrame, n: int = 10, *, ascending: bool = False) -> pd.D
 
 def dataframe_to_latex_table(df: pd.DataFrame, caption: str, label: str) -> str:
     rows = []
+    has_direction = "direction" in df.columns
+    col_spec = "llrrrrr" if has_direction else "lrrrrr"
     rows.append(r"\begin{table}[htbp]")
     rows.append(r"\centering")
     rows.append(r"\small")
     rows.append(rf"\caption{{{latex_escape(caption)}}}")
     rows.append(rf"\label{{{label}}}")
     rows.append(r"\resizebox{\linewidth}{!}{%")
-    rows.append(r"\begin{tabular}{lrrrrr}")
+    rows.append(rf"\begin{{tabular}}{{{col_spec}}}")
     rows.append(r"\toprule")
-    rows.append(r"Pair & Near pairs & Connected & Fraction & Expected & log$_2$(O/E) \\")
+    if has_direction:
+        rows.append(r"Direction & Pair & Near pairs & Connected & Fraction & Expected & log$_2$(O/E) \\")
+    else:
+        rows.append(r"Pair & Near pairs & Connected & Fraction & Expected & log$_2$(O/E) \\")
     rows.append(r"\midrule")
     for row in df.itertuples(index=False):
+        prefix = f"{latex_escape(row.direction)} & " if has_direction else ""
         rows.append(
-            f"{latex_escape(row.pair_key)} & {format_int(row.near_pair_count)} & "
+            f"{prefix}{latex_escape(row.pair_key)} & {format_int(row.near_pair_count)} & "
             f"{format_int(row.connected_near_pair_count)} & {format_float(row.fraction_connected, 3)} & "
             f"{format_float(row.expected_connected, 1)} & {format_float(row.log2_oe, 2)} \\\\"
         )
@@ -651,12 +881,64 @@ def dataframe_to_latex_table(df: pd.DataFrame, caption: str, label: str) -> str:
     return "\n".join(rows)
 
 
-def write_tables(report_root: Path, overall: pd.DataFrame, enrichments: dict[str, pd.DataFrame], run: Path) -> dict[str, Path]:
+def distance_windows_to_latex_table(df: pd.DataFrame) -> str:
+    rows = [
+        r"\begin{table}[htbp]",
+        r"\centering",
+        r"\small",
+        r"\caption{Connection probability and connection strength across four prespecified distance windows.}",
+        r"\label{tab:distance-windows}",
+        r"\begin{tabular}{lrrrrr}",
+        r"\toprule",
+        r"Distance window & Near pairs & Connected & Fraction & 95\% CI & Mean synapses \\",
+        r"\midrule",
+    ]
+    for row in df.itertuples(index=False):
+        ci = f"{format_float(row.fraction_ci_low, 3)} to {format_float(row.fraction_ci_high, 3)}"
+        rows.append(
+            f"{latex_escape(row.distance_window)} & {format_int(row.near_pair_count)} & "
+            f"{format_int(row.connected_near_pair_count)} & {format_float(row.fraction_connected, 3)} & "
+            f"{ci} & {format_float(row.mean_synapses_per_connected_pair, 2)} \\\\"
+        )
+    rows.extend([r"\bottomrule", r"\end{tabular}", r"\end{table}"])
+    return "\n".join(rows)
+
+
+def figure_block(figures: dict[str, Path], key: str, width: str, caption: str, label: str) -> str:
+    path = figures.get(key)
+    if path is None:
+        return ""
+    return "\n".join([
+        r"\begin{figure}[H]",
+        r"\centering",
+        rf"\includegraphics[width={width}\linewidth]{{{path}}}",
+        rf"\caption{{{sanitize_report_text(caption)}}}",
+        rf"\label{{{label}}}",
+        r"\end{figure}",
+    ])
+
+
+def write_tables(
+    report_root: Path,
+    overall: pd.DataFrame,
+    enrichments: dict[str, pd.DataFrame],
+    run: Path,
+    distance_model: dict[str, float | str] | None = None,
+) -> dict[str, Path]:
     table_dir = report_root / "tables"
     table_dir.mkdir(parents=True, exist_ok=True)
     paths: dict[str, Path] = {}
     overall.to_csv(table_dir / "overall_distance_curve.csv", index=False)
     paths["overall_distance_csv"] = table_dir / "overall_distance_curve.csv"
+    distance_windows = summarize_distance_windows(overall)
+    distance_windows.to_csv(table_dir / "overall_distance_windows.csv", index=False)
+    paths["overall_distance_windows_csv"] = table_dir / "overall_distance_windows.csv"
+    if distance_model is not None:
+        modeled = add_model_predictions(overall, distance_model)
+        modeled.to_csv(table_dir / "overall_distance_model_fit.csv", index=False)
+        pd.DataFrame([distance_model]).to_csv(table_dir / "overall_distance_model_summary.csv", index=False)
+        paths["overall_distance_model_fit_csv"] = table_dir / "overall_distance_model_fit.csv"
+        paths["overall_distance_model_summary_csv"] = table_dir / "overall_distance_model_summary.csv"
     overview = build_partition_overview(enrichments)
     if not overview.empty:
         overview.to_csv(table_dir / "partition_overview.csv", index=False)
@@ -684,19 +966,132 @@ def write_report_tex(
     overall_curve: pd.DataFrame,
     figures: dict[str, Path],
     enrichments: dict[str, pd.DataFrame],
+    distance_model: dict[str, float | str],
+    partition_effects: dict[str, dict[str, float | str | int]],
 ) -> Path:
     report_root.mkdir(parents=True, exist_ok=True)
     tex_path = report_root / "report.tex"
     rel = lambda p: str(Path(p).relative_to(report_root)).replace(os.sep, "/")
+    rel_figures = {k: Path(rel(v)) for k, v in figures.items()}
     headline = overall_json
-    first_bin = overall_curve.sort_values("distance_bin").iloc[0]
-    last_bin = overall_curve.sort_values("distance_bin").iloc[-1]
-    super_top = top_table(enrichments.get("super_class", pd.DataFrame()).query("near_pair_count >= 10000"), 8) if "super_class" in enrichments else pd.DataFrame()
-    class_top = top_table(enrichments.get("cell_class", pd.DataFrame()).query("near_pair_count >= 5000"), 8) if "cell_class" in enrichments else pd.DataFrame()
-    region_top = top_table(enrichments.get("post_neuropil", pd.DataFrame()).query("near_pair_count >= 2000"), 8) if "post_neuropil" in enrichments else pd.DataFrame()
-    nt_top = top_table(enrichments.get("nt", pd.DataFrame()).query("near_pair_count >= 1000"), 8) if "nt" in enrichments else pd.DataFrame()
-    type_top = top_table(enrichments.get("cell_type", pd.DataFrame()), 8) if "cell_type" in enrichments else pd.DataFrame()
+    ordered = overall_curve.sort_values("distance_bin").reset_index(drop=True)
+    first_bin = ordered.iloc[0]
+    last_bin = ordered.iloc[-1]
     distance_metrics = summarize_distance_profile(overall_curve)
+    distance_windows = summarize_distance_windows(overall_curve)
+    modeled = add_model_predictions(overall_curve, distance_model)
+    max_abs_residual = float(modeled["residual_fraction_connected"].abs().max())
+    first_strength = float(first_bin["connected_syn_count_sum"] / first_bin["connected_near_pair_count"])
+    last_strength = float(last_bin["connected_syn_count_sum"] / last_bin["connected_near_pair_count"])
+    close_far_delta = (
+        float(distance_metrics["zero_to_500_nm_fraction_connected"])
+        - float(distance_metrics["one_point_five_to_two_um_fraction_connected"])
+    )
+
+    def effect(partition: str, field: str, default: object = np.nan) -> object:
+        return partition_effects.get(partition, {}).get(field, default)
+
+    def effect_sentence(partition: str, label: str) -> str:
+        if partition not in partition_effects:
+            return ""
+        e = partition_effects[partition]
+        return latex_paragraph(
+            f"For {label}, the selected high-support pairs cover {format_int(e['near_pair_count'])} near pairs "
+            f"and {format_int(e['connected_near_pair_count'])} connected pairs. The median distance-adjusted effect is "
+            f"log2 observed over expected {format_float(e['median_log2_oe'], 2)}, with an interquartile range of "
+            f"{format_float(e['iqr_log2_oe'], 2)}. The largest positive effect is "
+            f"{latex_escape(e['top_enriched_pair'])}, with log2 observed over expected "
+            f"{format_float(e['top_enriched_log2_oe'], 2)} and fraction connected "
+            f"{format_pct(e['top_enriched_fraction_connected'], 1)} across "
+            f"{format_int(e['top_enriched_near_pair_count'])} near pairs. The largest negative effect is "
+            f"{latex_escape(e['top_depleted_pair'])}, with log2 observed over expected "
+            f"{format_float(e['top_depleted_log2_oe'], 2)} and fraction connected "
+            f"{format_pct(e['top_depleted_fraction_connected'], 1)} across "
+            f"{format_int(e['top_depleted_near_pair_count'])} near pairs."
+        )
+
+    first_caption = (
+        "The blue line shows the observed fraction of neuron pairs with any synaptic connection in each 100 nm "
+        "minimum dendrite mesh distance bin. The shaded band is the Wilson 95\\% confidence interval for each bin, "
+        "and the gray bars show the number of near pairs contributing to the estimate. The main quantitative "
+        f"takeaway is a drop from {format_pct(first_bin['fraction_connected'], 1)} in the {first_bin['distance_bin_nm']} nm bin "
+        f"to {format_pct(last_bin['fraction_connected'], 2)} in the {last_bin['distance_bin_nm']} nm bin. When bins are aggregated, "
+        f"the 0 to 500 nm window has fraction connected {format_pct(distance_metrics['zero_to_500_nm_fraction_connected'], 1)}, "
+        f"whereas the 1.5 to 2.0 micron window has fraction connected "
+        f"{format_pct(distance_metrics['one_point_five_to_two_um_fraction_connected'], 2)}, a "
+        f"{format_float(distance_metrics['close_to_far_fold_change'], 1)} fold change."
+    )
+    model_caption = (
+        "Points show the observed 100 nm bin fractions and the red curve shows a logistic-binomial fit to the same "
+        "binned counts. This fit is used as a compact quantitative rule, not as a mechanistic model. The fitted odds "
+        f"ratio per additional 100 nm is {format_float(distance_model['logistic_odds_ratio_per_100nm'], 3)}, "
+        f"equivalent to an odds ratio of {format_float(distance_model['logistic_odds_ratio_per_um'], 3)} per micron. "
+        f"The fitted half-rate distance is {format_float(distance_model['fitted_half_rate_distance_um'], 2)} microns, "
+        f"and the McFadden-style pseudo R squared is {format_float(distance_model['logistic_pseudo_r2'], 3)}."
+    )
+    residual_caption = (
+        "Bars show observed minus fitted connection fraction for each distance bin. Positive residuals indicate bins "
+        "where the global distance rule underpredicts connectivity, and negative residuals indicate overprediction. "
+        f"The maximum absolute residual across the 20 bins is {format_pp(max_abs_residual, 2)}, which provides a scale "
+        "for interpreting where the one-dimensional distance rule is insufficient."
+    )
+    strength_caption = (
+        "The curve shows the mean total synapse count among pairs that are connected, grouped by the same 100 nm "
+        "distance bins. This figure separates connection probability from connection strength among successful "
+        f"connections. The nearest bin has mean strength {format_float(first_strength, 2)} synapses per connected pair, "
+        f"whereas the farthest bin has mean strength {format_float(last_strength, 2)} synapses per connected pair."
+    )
+    super_heatmap_caption = (
+        "Cells show log2 observed over expected connectivity for broad neuron class pairs after adjusting for the "
+        "global distance distribution. Red values have more connected pairs than expected from distance alone, blue "
+        "values have fewer, and values near zero are close to the distance-only expectation. "
+        f"The strongest selected broad-class enrichment is {latex_escape(effect('super_class', 'top_enriched_pair'))} "
+        f"with log2 observed over expected {format_float(effect('super_class', 'top_enriched_log2_oe'), 2)}."
+    )
+    nt_caption = (
+        "Cells show the same distance-adjusted observed over expected statistic after grouping each pair by canonical "
+        "neurotransmitter labels. The narrower color range relative to some anatomical partitions means that broad "
+        "neurotransmitter identity explains less residual variation after distance adjustment. "
+        f"The strongest selected neurotransmitter enrichment is {latex_escape(effect('nt', 'top_enriched_pair'))}, "
+        f"with log2 observed over expected {format_float(effect('nt', 'top_enriched_log2_oe'), 2)}."
+    )
+    region_caption = (
+        "Lines show distance-connectivity curves for high-support same-region pairs defined by dominant postsynaptic "
+        "neuropil. Each point is a 100 nm bin fraction, so differences between curves indicate region-specific "
+        "connectivity beyond the global distance trend. The selected postsynaptic neuropil pairs cover "
+        f"{format_int(effect('post_neuropil', 'near_pair_count', 0))} near pairs."
+    )
+    region_extreme_caption = (
+        "Bars show the largest positive and negative distance-adjusted effects for dominant postsynaptic neuropil "
+        "pairs. Positive bars are pairs with more connected pairs than predicted by distance composition, and negative "
+        "bars are pairs with fewer. The top enriched selected region pair is "
+        f"{latex_escape(effect('post_neuropil', 'top_enriched_pair'))}, with log2 observed over expected "
+        f"{format_float(effect('post_neuropil', 'top_enriched_log2_oe'), 2)}. The strongest depletion is "
+        f"{latex_escape(effect('post_neuropil', 'top_depleted_pair'))}, with log2 observed over expected "
+        f"{format_float(effect('post_neuropil', 'top_depleted_log2_oe'), 2)}."
+    )
+    super_curve_caption = (
+        "Each line is a distance-connectivity curve for one of the highest-support broad neuron class pairs. The "
+        "comparison shows that the distance rule is shared across broad classes, while the vertical separation of "
+        "curves quantifies class-specific residual differences. The selected broad-class pairs cover "
+        f"{format_int(effect('super_class', 'near_pair_count', 0))} near pairs."
+    )
+    cell_type_caption = (
+        "Each point is a selected exact neuron-type pair. The x-axis is log10 near-pair support, the y-axis is "
+        "distance-adjusted log2 observed over expected connectivity, point color is raw fraction connected, and point "
+        "area increases with connected-pair count. This representation distinguishes high-confidence effects from "
+        "small-support outliers. The strongest selected exact-type enrichment is "
+        f"{latex_escape(effect('cell_type', 'top_enriched_pair'))}, with log2 observed over expected "
+        f"{format_float(effect('cell_type', 'top_enriched_log2_oe'), 2)}."
+    )
+    partition_caption = (
+        "Boxes summarize the distribution of distance-adjusted log2 observed over expected effects among selected "
+        "high-support pairs for each partition. The zero line is the distance-only expectation. Wider boxes and longer "
+        "tails identify partitions where metadata labels capture more residual structure after controlling for "
+        "distance. In this selected set, exact neuron type spans from "
+        f"{format_float(effect('cell_type', 'top_depleted_log2_oe'), 2)} to "
+        f"{format_float(effect('cell_type', 'top_enriched_log2_oe'), 2)} in log2 observed over expected."
+    )
 
     parts = [
         r"\documentclass[11pt]{article}",
@@ -712,78 +1107,191 @@ def write_report_tex(
         r"\begin{document}",
         r"\maketitle",
         r"\begin{abstract}",
-        (
-            "We quantified the relationship between minimum dendrite mesh distance and observed synaptic connectivity "
-            f"across {format_int(headline['n_neurons'])} FlyWire v783 neurons. Among "
-            f"{format_int(headline['near_pair_count'])} neuron pairs with sampled dendrite meshes within 2 $\\mu$m, "
-            f"{format_int(headline['connected_near_pair_count'])} were connected, giving an overall connected fraction of "
-            f"{100 * headline['fraction_connected']:.2f}\\%."
+        latex_paragraph(
+            "This report quantifies how minimum dendrite mesh distance relates to synaptic connectivity in the "
+            f"FlyWire v783 connectome. The analysis includes {format_int(headline['n_neurons'])} neurons and "
+            f"{format_int(headline['near_pair_count'])} neuron pairs whose sampled dendrite meshes are within "
+            f"2 microns. Of these near pairs, {format_int(headline['connected_near_pair_count'])} have at least one "
+            f"synaptic connection in either direction, giving an overall connected fraction of "
+            f"{format_pct(headline['fraction_connected'], 2)}. The dominant quantitative rule is distance decay: "
+            f"the 0 to 500 nm window has fraction connected "
+            f"{format_pct(distance_metrics['zero_to_500_nm_fraction_connected'], 1)}, while the 1.5 to 2.0 micron "
+            f"window has fraction connected {format_pct(distance_metrics['one_point_five_to_two_um_fraction_connected'], 2)}."
         ),
         r"\end{abstract}",
-        r"\section{Headline Findings}",
-        (
-            "Connectivity is strongly distance dependent. The nearest 0--100 nm bin has a connected fraction of "
-            f"{100 * first_bin['fraction_connected']:.1f}\\%, whereas the 1900--2000 nm bin has a connected fraction of "
-            f"{100 * last_bin['fraction_connected']:.2f}\\%. This decay remains visible across broad neuron classes, "
-            "neurotransmitter categories, and neuropil-defined brain regions."
+        r"\section{Methods}",
+        latex_paragraph(
+            "The input to the analysis is the completed default whole-connectome proximity run. The manifest records "
+            "the exact run name and parameter set. Meshes were fetched from the public "
+            "\\url{precomputed://gs://flywire_v141_m783} CloudVolume source, so the analysis does not require a "
+            "private FlyWire or CAVE authorization token. The report uses the final enriched pair table generated by "
+            "the pipeline, not a sampled subset, unless a smoke-test limit is explicitly supplied on the command line."
         ),
-        (
-            "Aggregating bins, pairs at 0--500 nm are "
-            f"{distance_metrics['close_to_far_fold_change']:.1f}$\\times$ more likely to be connected than pairs at "
-            "1.5--2.0 $\\mu$m under the same mesh-based proximity definition."
+        latex_paragraph(
+            "The dendrite mesh proxy is constructed from mesh vertices near postsynaptic sites. Vertices are sampled "
+            f"at {format_float(headline['params']['sample_spacing_nm'], 0)} nm spacing after restricting to a "
+            f"{format_float(headline['params']['site_radius_nm'], 0)} nm radius around postsynaptic coordinates. "
+            "A neuron pair is counted as spatially proximal when the closest sampled dendrite mesh points are within "
+            "2 microns. The whole-brain run uses exact pair aggregation across bucketed reduce tasks, with "
+            f"{format_int(headline['reduce_buckets'])} reduce buckets in the final reduce stage."
         ),
-        r"\begin{figure}[H]\centering",
-        rf"\includegraphics[width=0.88\linewidth]{{{rel(figures['overall_distance'])}}}",
-        r"\caption{Overall probability of any synaptic connection as a function of closest dendrite mesh distance. Shaded intervals are Wilson 95\% confidence intervals; bars indicate near-pair support.}",
-        r"\label{fig:overall-distance}",
-        r"\end{figure}",
-        r"\section{Methods Summary}",
-        (
-            "Meshes were fetched from the public CloudVolume source \\texttt{precomputed://gs://flywire\\_v141\\_m783}. "
-            "Dendrite samples were restricted to mesh regions near postsynaptic sites, downsampled at 250 nm spacing, "
-            "and neuron pairs were considered spatially proximal if the closest sampled dendrite mesh points were within 2 $\\mu$m. "
-            "The final pair aggregation was exact and bucketed across 64 reduce buckets."
+        latex_paragraph(
+            "Connectivity is measured as a binary indicator of whether either direction contains at least one synapse. "
+            "For distance curves, pairs are binned into 100 nm distance intervals from 0 to 2 microns. Each bin reports "
+            "a connected fraction and a Wilson 95 percent confidence interval. For metadata partitions, the report "
+            "compares observed connected counts with expected connected counts obtained by applying the global "
+            "distance-bin connection rate to the partition-specific distance composition. This creates a distance-adjusted "
+            "observed over expected statistic, reported as log2 observed over expected."
         ),
-        r"\section{Distance-Connectivity Relationship}",
-        rf"\begin{{figure}}[H]\centering\includegraphics[width=0.88\linewidth]{{{rel(figures['synapse_strength'])}}}\caption{{Mean total synapse count among connected near pairs by distance bin.}}\end{{figure}}",
-        r"\section{Differences Across Partitions}",
+        latex_paragraph(
+            "Two compact distance rules are fit to the binned data. The first is a weighted log-linear model for the "
+            "connection fraction, which summarizes multiplicative decay of probability with distance. The second is a "
+            "weighted logistic-binomial approximation, which summarizes multiplicative decay of connection odds with "
+            "distance. These models are descriptive summaries of the binned observations. They are used to quantify "
+            "effect sizes, not to claim that distance alone is a full biological mechanism."
+        ),
+        r"\section{Results}",
+        r"\subsection{Global Distance Rule}",
+        latex_paragraph(
+            "The global distance curve gives the main quantitative answer. Among all near pairs within 2 microns, "
+            f"{format_pct(headline['fraction_connected'], 2)} are connected. The nearest 100 nm bin has fraction "
+            f"connected {format_pct(first_bin['fraction_connected'], 1)} across "
+            f"{format_int(first_bin['near_pair_count'])} near pairs. The farthest 100 nm bin has fraction connected "
+            f"{format_pct(last_bin['fraction_connected'], 2)} across {format_int(last_bin['near_pair_count'])} near "
+            f"pairs. The absolute drop from first to last bin is {format_pp(float(first_bin['fraction_connected']) - float(last_bin['fraction_connected']), 1)}."
+        ),
+        latex_paragraph(
+            "Aggregating bins into wider windows makes the rule easier to use. The 0 to 500 nm window has fraction "
+            f"connected {format_pct(distance_metrics['zero_to_500_nm_fraction_connected'], 1)}, while the 1.5 to "
+            f"2.0 micron window has fraction connected "
+            f"{format_pct(distance_metrics['one_point_five_to_two_um_fraction_connected'], 2)}. This is an absolute "
+            f"difference of {format_pp(close_far_delta, 1)} and a fold change of "
+            f"{format_float(distance_metrics['close_to_far_fold_change'], 1)}. The first 100 nm bin at or below "
+            f"10 percent connected is {latex_escape(distance_model['first_bin_at_or_below_10pct'])} nm, and the first "
+            f"bin at or below 5 percent connected is {latex_escape(distance_model['first_bin_at_or_below_5pct'])} nm."
+        ),
+        distance_windows_to_latex_table(distance_windows),
+        figure_block(rel_figures, "overall_distance", "0.88", first_caption, "fig:overall-distance"),
+        figure_block(rel_figures, "overall_distance_model", "0.88", model_caption, "fig:overall-distance-model"),
+        figure_block(rel_figures, "overall_distance_residuals", "0.88", residual_caption, "fig:overall-distance-residuals"),
+        latex_paragraph(
+            "The fitted logistic-binomial rule estimates that each additional 100 nm multiplies connection odds by "
+            f"{format_float(distance_model['logistic_odds_ratio_per_100nm'], 3)}. Equivalently, each additional micron "
+            f"multiplies odds by {format_float(distance_model['logistic_odds_ratio_per_um'], 3)}. The weighted "
+            f"log-linear model gives a probability multiplier of "
+            f"{format_float(distance_model['log_linear_rate_multiplier_per_um'], 3)} per micron and a probability "
+            f"half-distance of {format_float(distance_model['log_linear_half_distance_um'], 2)} microns. The logistic "
+            f"pseudo R squared is {format_float(distance_model['logistic_pseudo_r2'], 3)}, and the weighted R squared "
+            f"on binned fractions is {format_float(distance_model['logistic_weighted_r2'], 3)}."
+        ),
+        r"\subsection{Connection Strength Among Connected Pairs}",
+        latex_paragraph(
+            "The binary connection rule asks whether a pair is connected at all. The strength analysis asks a separate "
+            "question: among connected near pairs, how many synapses are present? The nearest distance bin has mean "
+            f"{format_float(first_strength, 2)} synapses per connected pair, while the farthest bin has mean "
+            f"{format_float(last_strength, 2)} synapses per connected pair. This comparison is conditional on being "
+            "connected, so it should not be interpreted as the total expected synapse count for arbitrary near pairs."
+        ),
+        figure_block(rel_figures, "synapse_strength", "0.88", strength_caption, "fig:synapse-strength"),
+        r"\subsection{Broad Neuron Classes}",
+        effect_sentence("super_class", "broad neuron classes"),
+        figure_block(rel_figures, "super_class_heatmap", "0.82", super_heatmap_caption, "fig:super-class-heatmap"),
+        figure_block(rel_figures, "super_class_curves", "0.88", super_curve_caption, "fig:super-class-curves"),
+        r"\subsection{Cell Classes and Exact Neuron Types}",
+        effect_sentence("cell_class", "cell classes"),
+        effect_sentence("cell_type", "exact neuron types"),
+        figure_block(rel_figures, "cell_type_scatter", "0.88", cell_type_caption, "fig:cell-type-scatter"),
+        r"\subsection{Brain Regions}",
+        effect_sentence("post_neuropil", "dominant postsynaptic neuropils"),
+        effect_sentence("pre_neuropil", "dominant presynaptic neuropils"),
+        figure_block(rel_figures, "post_neuropil_curves", "0.9", region_caption, "fig:post-neuropil-curves"),
+        figure_block(rel_figures, "post_neuropil_extremes", "0.9", region_extreme_caption, "fig:post-neuropil-extremes"),
+        r"\subsection{Neurotransmitter, Flow, and Side}",
+        effect_sentence("nt", "canonical neurotransmitter pairs"),
+        effect_sentence("flow", "flow labels"),
+        effect_sentence("side", "hemisphere side labels"),
+        figure_block(rel_figures, "nt_heatmap", "0.78", nt_caption, "fig:nt-heatmap"),
+        figure_block(rel_figures, "partition_summary", "0.88", partition_caption, "fig:partition-summary"),
+        r"\subsection{Distance-Adjusted Effect Tables}",
     ]
-    if "super_class_heatmap" in figures:
-        parts.extend([
-            rf"\begin{{figure}}[H]\centering\includegraphics[width=0.82\linewidth]{{{rel(figures['super_class_heatmap'])}}}\caption{{Distance-adjusted observed/expected connectivity by broad neuron class pair.}}\end{{figure}}",
-            rf"\begin{{figure}}[H]\centering\includegraphics[width=0.88\linewidth]{{{rel(figures['super_class_curves'])}}}\caption{{Distance-connectivity curves for the highest-support broad class pairs.}}\end{{figure}}",
-        ])
-    if "nt_heatmap" in figures:
-        parts.append(rf"\begin{{figure}}[H]\centering\includegraphics[width=0.78\linewidth]{{{rel(figures['nt_heatmap'])}}}\caption{{Distance-adjusted observed/expected connectivity by neurotransmitter pair.}}\end{{figure}}")
-    if "post_neuropil_curves" in figures:
-        parts.append(rf"\begin{{figure}}[H]\centering\includegraphics[width=0.9\linewidth]{{{rel(figures['post_neuropil_curves'])}}}\caption{{Distance-connectivity curves for high-support same-neuropil dominant postsynaptic regions.}}\end{{figure}}")
-    if "post_neuropil_extremes" in figures:
-        parts.append(rf"\begin{{figure}}[H]\centering\includegraphics[width=0.9\linewidth]{{{rel(figures['post_neuropil_extremes'])}}}\caption{{Brain-region pairs with the largest positive and negative distance-adjusted effects.}}\end{{figure}}")
-    if "cell_type_scatter" in figures:
-        parts.append(rf"\begin{{figure}}[H]\centering\includegraphics[width=0.88\linewidth]{{{rel(figures['cell_type_scatter'])}}}\caption{{High-support exact neuron-type pairs, showing support versus distance-adjusted enrichment.}}\end{{figure}}")
-    if "partition_summary" in figures:
-        parts.append(rf"\begin{{figure}}[H]\centering\includegraphics[width=0.88\linewidth]{{{rel(figures['partition_summary'])}}}\caption{{Distribution of distance-adjusted effects among selected high-support pairs for each analysis partition.}}\end{{figure}}")
-
-    parts.append(r"\section{Top Distance-Adjusted Enrichments}")
-    if not super_top.empty:
-        parts.append(dataframe_to_latex_table(super_top, "Top broad neuron class enrichments after distance adjustment.", "tab:super-class-top"))
-    if not class_top.empty:
-        parts.append(dataframe_to_latex_table(class_top, "Top cell class enrichments after distance adjustment.", "tab:cell-class-top"))
-    if not region_top.empty:
-        parts.append(dataframe_to_latex_table(region_top, "Top dominant postsynaptic neuropil enrichments after distance adjustment.", "tab:region-top"))
-    if not nt_top.empty:
-        parts.append(dataframe_to_latex_table(nt_top, "Top neurotransmitter pair enrichments after distance adjustment.", "tab:nt-top"))
-    if not type_top.empty:
-        parts.append(dataframe_to_latex_table(type_top, "Top exact neuron-type pair enrichments among selected high-support candidates.", "tab:type-top"))
+    for partition, caption_name in [
+        ("super_class", "Broad neuron class"),
+        ("cell_class", "Cell class"),
+        ("post_neuropil", "Dominant postsynaptic neuropil"),
+        ("pre_neuropil", "Dominant presynaptic neuropil"),
+        ("nt", "Neurotransmitter"),
+        ("cell_type", "Exact neuron type"),
+        ("flow", "Flow"),
+        ("side", "Side"),
+    ]:
+        df = enrichments.get(partition, pd.DataFrame())
+        if df.empty:
+            continue
+        extremes = enrichment_extremes(df, n=5, min_near=int(PARTITIONS[partition]["min_near"]))
+        if not extremes.empty:
+            parts.append(dataframe_to_latex_table(
+                extremes,
+                f"{caption_name} pairs with the largest positive and negative distance-adjusted effects among selected supported pairs.",
+                f"tab:{partition.replace('_', '-')}-extremes",
+            ))
     parts.extend([
-        r"\section{Outputs}",
-        (
-            "The full enriched near-pair table is stored as \\texttt{near\\_pairs\\_enriched.parquet}. "
-            "Distance-adjusted enrichment tables and appendix exports are in the report \\texttt{tables/} directory."
+        r"\section{Discussion}",
+        latex_paragraph(
+            "The most defensible quantitative rule from this analysis is that dendrite mesh proximity is a powerful "
+            "but incomplete predictor of synaptic connectivity. The evidence for the rule is the monotonic decline "
+            f"from {format_pct(first_bin['fraction_connected'], 1)} in the nearest bin to "
+            f"{format_pct(last_bin['fraction_connected'], 2)} in the farthest bin, the "
+            f"{format_float(distance_metrics['close_to_far_fold_change'], 1)} fold contrast between the close and far "
+            "aggregate windows, and the fitted odds multiplier per 100 nm. The residual and partition analyses show "
+            "that distance does not explain all structure."
+        ),
+        latex_paragraph(
+            "The distance-adjusted enrichments identify metadata partitions whose labels preserve residual connectivity "
+            "structure after controlling for the global distance distribution. Exact neuron type and brain-region labels "
+            "show the widest selected effects, which is expected if cell identity and regional circuit architecture impose "
+            "specific partner preferences beyond physical opportunity. Neurotransmitter labels show smaller selected "
+            "effects, which is consistent with neurotransmitter being a broad physiological class rather than a precise "
+            "partner-identity label."
+        ),
+        latex_paragraph(
+            "A practical rule for downstream analysis is to treat 0 to 500 nm as a high-opportunity zone and 1.5 to "
+            "2.0 microns as a low-opportunity zone under this mesh sampling definition. The high-opportunity zone is "
+            f"connected at {format_pct(distance_metrics['zero_to_500_nm_fraction_connected'], 1)}, while the low-opportunity "
+            f"zone is connected at {format_pct(distance_metrics['one_point_five_to_two_um_fraction_connected'], 2)}. "
+            "This does not mean distance alone should be used as a classifier. Instead, it provides a baseline expectation "
+            "against which region, cell type, neurotransmitter, flow, and side effects can be evaluated."
+        ),
+        r"\section{Limitations}",
+        latex_paragraph(
+            "The mesh-distance variable is computed from sampled vertices near postsynaptic sites, not from a complete "
+            "continuous surface-to-surface distance between all dendritic compartments. The 250 nm sampling interval and "
+            "500 nm postsynaptic-site radius make the computation tractable at whole-brain scale, but they also define "
+            "the resolution and biological interpretation of the distance measure."
+        ),
+        latex_paragraph(
+            "The report uses the binary question of whether any synaptic connection exists between a near pair. Direction, "
+            "synapse count, and sign are retained in the enriched table and in the strength summaries, but most partition "
+            "effects use the binary connected-any outcome. Exact neuron-type plots are selected for support and effect "
+            "visibility, so the figure is an interpretable high-support view rather than a complete plot of every type pair."
+        ),
+        latex_paragraph(
+            "The observed over expected adjustment controls for the global distance-bin distribution but does not control "
+            "simultaneously for every possible confounder, such as neuron size, synapse count, sampling density, or nested "
+            "cell-type structure. Claims in this report should therefore be read as descriptive whole-connectome statistics "
+            "and as hypothesis-generating evidence for circuit specificity."
+        ),
+        r"\section{Reproducibility and Outputs}",
+        latex_paragraph(
+            "The full enriched near-pair table is stored as \\texttt{near\\_pairs\\_enriched.parquet} in the canonical run "
+            "directory. The report directory contains the compiled PDF, LaTeX source, figure PDFs, CSV tables, and a JSON "
+            "manifest with all headline metrics. Lightweight CSV tables are suitable for versioned snapshots. Bulk Parquet "
+            "tables and mesh caches are intentionally excluded from the repository snapshot."
         ),
         r"\end{document}",
     ])
-    tex_path.write_text("\n\n".join(parts))
+    text = "\n\n".join(part for part in parts if part)
+    validate_report_text(text)
+    tex_path.write_text(text)
     return tex_path
 
 
@@ -829,6 +1337,63 @@ def compile_tex(tex_path: Path, *, install_tectonic: bool = False) -> Path | Non
     return pdf if pdf.exists() else None
 
 
+def module_repo_root() -> Path:
+    return Path(__file__).resolve().parents[3]
+
+
+def snapshot_report_to_repo(report_root: Path, snapshot_dir: Path) -> Path:
+    target = snapshot_dir if snapshot_dir.is_absolute() else module_repo_root() / snapshot_dir
+    if target.exists():
+        shutil.rmtree(target)
+    (target / "figures").mkdir(parents=True, exist_ok=True)
+    (target / "tables").mkdir(parents=True, exist_ok=True)
+
+    for name in ("report.pdf", "report.tex", "report_manifest.json"):
+        src = report_root / name
+        if src.exists():
+            shutil.copy2(src, target / name)
+
+    for src in sorted((report_root / "figures").glob("*.pdf")):
+        shutil.copy2(src, target / "figures" / src.name)
+
+    for src in sorted((report_root / "tables").glob("*.csv")):
+        shutil.copy2(src, target / "tables" / src.name)
+
+    readme = "\n".join([
+        "# Whole-connectome proximity report",
+        "",
+        "This directory is a lightweight GitHub snapshot of the generated report.",
+        "",
+        f"Canonical output directory: `{report_root}`",
+        "",
+        "Included files:",
+        "",
+        "- `report.pdf` and `report.tex`",
+        "- Figure PDFs under `figures/`",
+        "- Lightweight CSV support tables under `tables/`",
+        "- `report_manifest.json` with run paths and headline metrics",
+        "",
+        "Excluded files:",
+        "",
+        "- `near_pairs_enriched.parquet`",
+        "- exhaustive Parquet appendices",
+        "- mesh cache, tile files, reduce buckets, and Slurm logs",
+        "",
+        "Regenerate from the repository root with:",
+        "",
+        "```bash",
+        "source slurm/proximity_common.sh",
+        "python -m flyconn.experiments.proximity_report \\",
+        "  --run-name whole_connectome_lod1_sp250_r500_t2_any \\",
+        "  --compile \\",
+        "  --snapshot-repo-report",
+        "```",
+        "",
+    ])
+    (target / "README.md").write_text(readme)
+    return target
+
+
 def generate_report(cfg: Config, report_cfg: ReportConfig) -> dict:
     run = run_dir(cfg, report_cfg)
     root = report_dir(run)
@@ -840,15 +1405,17 @@ def generate_report(cfg: Config, report_cfg: ReportConfig) -> dict:
     selected_pairs = select_pairs(run, overall_json["fraction_connected"], report_cfg)
     overall_curve, curves = stream_distance_curves(run, report_cfg, selected_pairs)
     overall_curve.to_csv(tables_dir / "overall_distance_curve.csv", index=False)
+    distance_model = fit_distance_models(overall_curve)
     enrichments = {}
     for partition, curve in curves.items():
         curve.to_csv(tables_dir / f"{partition}_distance_curve.csv", index=False)
         enrich = add_distance_adjusted_enrichment(curve, overall_curve)
         enrichments[partition] = enrich
         enrich.to_csv(tables_dir / f"{partition}_distance_adjusted_enrichment.csv", index=False)
-    write_tables(root, overall_curve, enrichments, run)
-    figures = make_figures(root, overall_curve, curves, enrichments)
-    tex_path = write_report_tex(root, overall_json, overall_curve, figures, enrichments)
+    partition_effects = summarize_partition_effects(enrichments)
+    write_tables(root, overall_curve, enrichments, run, distance_model)
+    figures = make_figures(root, overall_curve, curves, enrichments, distance_model)
+    tex_path = write_report_tex(root, overall_json, overall_curve, figures, enrichments, distance_model, partition_effects)
     pdf_path = compile_tex(tex_path, install_tectonic=report_cfg.install_tectonic) if report_cfg.compile_pdf else None
     distance_metrics = summarize_distance_profile(overall_curve)
     partition_overview = build_partition_overview(enrichments)
@@ -857,13 +1424,21 @@ def generate_report(cfg: Config, report_cfg: ReportConfig) -> dict:
         "report_dir": str(root),
         "tex_path": str(tex_path),
         "pdf_path": str(pdf_path) if pdf_path else None,
+        "snapshot_dir": None,
         "figures": {k: str(v) for k, v in figures.items()},
         "tables_dir": str(tables_dir),
         "overall": overall_json,
         "distance_metrics": distance_metrics,
+        "distance_model": distance_model,
+        "partition_effects": partition_effects,
         "partition_overview": partition_overview.to_dict(orient="records") if not partition_overview.empty else [],
     }
     write_json(root / "report_manifest.json", manifest)
+    if report_cfg.snapshot_repo_report:
+        snapshot_path = snapshot_report_to_repo(root, report_cfg.snapshot_dir)
+        manifest["snapshot_dir"] = str(snapshot_path)
+        write_json(root / "report_manifest.json", manifest)
+        shutil.copy2(root / "report_manifest.json", snapshot_path / "report_manifest.json")
     return manifest
 
 
@@ -877,6 +1452,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--install-tectonic", action="store_true")
     parser.add_argument("--max-batches", type=int, default=None)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--snapshot-repo-report", action="store_true")
+    parser.add_argument("--snapshot-dir", type=Path, default=Path("reports/proximity_whole_connectome"))
     return parser.parse_args(argv)
 
 
@@ -891,6 +1468,8 @@ def main(argv: list[str] | None = None) -> int:
         install_tectonic=args.install_tectonic,
         force=args.force,
         max_batches=args.max_batches,
+        snapshot_repo_report=args.snapshot_repo_report,
+        snapshot_dir=args.snapshot_dir,
     )
     result = generate_report(cfg, report_cfg)
     print(json.dumps(result, indent=2))

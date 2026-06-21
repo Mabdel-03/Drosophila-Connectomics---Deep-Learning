@@ -86,3 +86,54 @@ def test_enrichment_extremes_returns_enriched_and_depleted():
 
     assert set(out["pair_key"]) == {"a", "b"}
     assert set(out["direction"]) == {"enriched", "depleted"}
+
+
+def test_fit_distance_models_returns_finite_rules():
+    overall = pd.DataFrame({
+        "distance_bin": list(range(20)),
+        "distance_bin_nm": [f"{i * 100}-{(i + 1) * 100}" for i in range(20)],
+        "distance_mid_nm": [50 + i * 100 for i in range(20)],
+        "near_pair_count": [1000] * 20,
+        "connected_near_pair_count": np.linspace(450, 20, 20).astype(int),
+        "syn_count_sum": [0.0] * 20,
+        "connected_syn_count_sum": [1000.0] * 20,
+    })
+    overall = proximity_report.add_rate_columns(overall)
+
+    model = proximity_report.fit_distance_models(overall)
+
+    assert np.isfinite(model["logistic_slope_per_um"])
+    assert model["logistic_odds_ratio_per_100nm"] < 1
+    assert model["log_linear_half_distance_um"] > 0
+
+
+def test_validate_report_text_rejects_tabs_and_em_dash():
+    proximity_report.validate_report_text("plain report text")
+
+    for bad in ["contains\ttab", "contains \u2014 em dash"]:
+        try:
+            proximity_report.validate_report_text(bad)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("Expected invalid report text to fail validation")
+
+
+def test_snapshot_report_to_repo_copies_lightweight_outputs(tmp_path):
+    report = tmp_path / "report"
+    (report / "figures").mkdir(parents=True)
+    (report / "tables").mkdir()
+    (report / "report.pdf").write_text("pdf")
+    (report / "report.tex").write_text("tex")
+    (report / "report_manifest.json").write_text("{}")
+    (report / "figures" / "figure.pdf").write_text("figure")
+    (report / "tables" / "table.csv").write_text("a,b\n1,2\n")
+    (report / "tables" / "bulk.parquet").write_text("bulk")
+
+    target = proximity_report.snapshot_report_to_repo(report, tmp_path / "snapshot")
+
+    assert (target / "report.pdf").exists()
+    assert (target / "figures" / "figure.pdf").exists()
+    assert (target / "tables" / "table.csv").exists()
+    assert not (target / "tables" / "bulk.parquet").exists()
+    assert (target / "README.md").exists()
