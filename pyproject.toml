@@ -26,6 +26,14 @@ dependencies = [
 # anyone installing into a torch-less env.
 torch = ["torch>=2.0"]
 graph = ["networkx>=3.2"]      # stages 2 & 4
+mesh = [
+    "cloud-volume>=11",
+]
+mesh-auth = [
+    "fafbseg>=3.2",
+    "navis>=1.7",
+    "cloud-volume>=11",
+]
 dev = ["pytest>=7.4"]
 
 [tool.setuptools.packages.find]

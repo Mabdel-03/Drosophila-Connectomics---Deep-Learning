@@ -5,6 +5,7 @@
 *.npy
 *.pt
 *.feather.part
+data
 data/
 results/
 reports/data_card_*.md

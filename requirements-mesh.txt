@@ -1,0 +1,8 @@
+# Optional dependencies for token-free public mesh proximity experiments.
+#
+# Install inside the project env with:
+#   pip install -e ".[mesh]"
+# or:
+#   pip install -r requirements-mesh.txt
+
+cloud-volume>=11
