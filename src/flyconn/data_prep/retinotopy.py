@@ -213,8 +213,11 @@ def coverage_report(source: str = "auto") -> dict:
         rep["by_type"][t] = {"total": int(sel.sum()), "assigned": assigned,
                              "frac": round(assigned / sel.sum(), 4)}
     is_photo = neurons["cell_type"].isin(PHOTORECEPTOR_TYPES).to_numpy()
+    # eye is a nullable Int8 (neurons with side not in {left,right} are <NA>); compare with
+    # fill_value so the mask is a plain bool array (a nullable-bool mask breaks .loc).
+    eye_eq = aligned["eye"].eq
     for eye_code, name in ((0, "left"), (1, "right")):
-        sel = is_photo & (aligned["eye"] == eye_code).to_numpy()
+        sel = is_photo & eye_eq(eye_code).fillna(False).to_numpy()
         cols = aligned.loc[sel, "column_id"].dropna().unique()
         rep["columns_per_eye"][name] = int(len(cols))
     return rep

@@ -1,0 +1,198 @@
+{
+  "R": {
+    "named_inhibitor": "LPi14",
+    "same_direction_inhibitor": "LPi12",
+    "winner": {
+      "cell_type": "LPi14",
+      "nt": "gaba",
+      "super_class": "optic",
+      "is_centrifugal": false,
+      "direction": "opponent",
+      "layer_a_pct": 93.9,
+      "layer_b_pct": 4.9,
+      "t4t5_in_frac": 67.0,
+      "to_fd3_syn": 1564,
+      "to_detectors_syn": 11948,
+      "to_sheet_syn": 10830,
+      "t4t5_reciprocal_n": 3396,
+      "frac_of_fd3_inhibition": 36.32,
+      "frac_of_detector_inhibition": 12.8,
+      "to_fd3_frac_of_output": 0.87,
+      "to_detectors_frac_of_output": 6.63,
+      "fd3_target_rank": 10,
+      "fd3_to_inhibitor_syn": 27
+    },
+    "same_direction_winner": {
+      "cell_type": "LPi12",
+      "nt": "gaba",
+      "super_class": "optic",
+      "is_centrifugal": false,
+      "direction": "same_direction",
+      "layer_a_pct": 0.3,
+      "layer_b_pct": 99.1,
+      "t4t5_in_frac": 61.0,
+      "to_fd3_syn": 107,
+      "to_detectors_syn": 26799,
+      "to_sheet_syn": 456,
+      "t4t5_reciprocal_n": 2858,
+      "frac_of_fd3_inhibition": 2.48,
+      "frac_of_detector_inhibition": 28.72,
+      "to_fd3_frac_of_output": 0.16,
+      "to_detectors_frac_of_output": 40.3,
+      "fd3_target_rank": 16,
+      "fd3_to_inhibitor_syn": 0
+    },
+    "same_direction_enrichment": {
+      "available": true,
+      "cell_type": "LPi12",
+      "obs_to_fd3": 107,
+      "null_mean": 14.02,
+      "null_std": 12.12,
+      "z_score": 7.67,
+      "p_enrichment": 0.0025,
+      "n_perms": 2000,
+      "enriched": true
+    },
+    "floor_sweep": [
+      {
+        "fd3_floor": 30,
+        "n_pass": 5,
+        "pass": [
+          "Am1",
+          "LPi07",
+          "LPi12",
+          "LPi14",
+          "LPi15"
+        ]
+      },
+      {
+        "fd3_floor": 50,
+        "n_pass": 5,
+        "pass": [
+          "Am1",
+          "LPi07",
+          "LPi12",
+          "LPi14",
+          "LPi15"
+        ]
+      },
+      {
+        "fd3_floor": 68,
+        "n_pass": 5,
+        "pass": [
+          "Am1",
+          "LPi07",
+          "LPi12",
+          "LPi14",
+          "LPi15"
+        ]
+      },
+      {
+        "fd3_floor": 100,
+        "n_pass": 2,
+        "pass": [
+          "LPi12",
+          "LPi14"
+        ]
+      },
+      {
+        "fd3_floor": 165,
+        "n_pass": 1,
+        "pass": [
+          "LPi14"
+        ]
+      },
+      {
+        "fd3_floor": 300,
+        "n_pass": 1,
+        "pass": [
+          "LPi14"
+        ]
+      }
+    ],
+    "per_fd3_cell_syn": {
+      "LPi14": {
+        "720575940619612142": 927,
+        "720575940625992781": 637
+      },
+      "LPi12": {
+        "720575940619612142": 70,
+        "720575940625992781": 37
+      }
+    },
+    "denominators": {
+      "fd3_total_gaba_in": 4306,
+      "detector_total_gaba_in": 93327
+    },
+    "track": "live"
+  },
+  "Q": {
+    "named_sheet": "LPC1",
+    "directional_composition": {
+      "sheet_syn_to_fd3": 5646,
+      "syn_by_channel": {
+        "a": 683,
+        "b": 1719,
+        "c": 1714,
+        "d": 1530
+      },
+      "sheet_frac_by_channel": {
+        "a": 12.1,
+        "b": 30.4,
+        "c": 30.4,
+        "d": 27.1
+      },
+      "channel_members": {
+        "a": [
+          "LLPC1"
+        ],
+        "b": [
+          "LPC1"
+        ],
+        "c": [
+          "LLPC2",
+          "LPC2"
+        ],
+        "d": [
+          "LLPC3"
+        ]
+      },
+      "channel_directions": {
+        "a": "progressive",
+        "b": "regressive",
+        "c": "upward",
+        "d": "downward"
+      },
+      "n_cardinal_directions": 4,
+      "matched_frac": 30.4,
+      "context_frac": 69.6,
+      "soft_direction_sheets": [],
+      "channel_entropy_bits": 1.924
+    },
+    "entropy_null": {
+      "available": true,
+      "fd3_entropy_bits": 1.924,
+      "null_mean_bits": 1.29,
+      "null_median_bits": 1.357,
+      "n_null_cells": 38,
+      "fd3_percentile": 0.947,
+      "fd3_elevated": true
+    },
+    "fd1_reference": {
+      "available": true,
+      "cell_type": "Nod1",
+      "n_cardinal_directions": 4,
+      "matched_frac": 0.4,
+      "context_frac": 99.6,
+      "channel_entropy_bits": 0.627,
+      "sheet_frac_by_channel": {
+        "a": 89.0,
+        "b": 0.4,
+        "c": 3.9,
+        "d": 6.7
+      },
+      "fd3_specific": true
+    },
+    "track": "live"
+  }
+}

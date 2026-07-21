@@ -467,6 +467,50 @@ with zero learned parameters, classifies handwritten digits at roughly 49 to 60%
 
 ---
 
+## Part 7.5: Family 3, the recurrent-multiply models ("recmul")
+
+This family answers the most literal question one can ask of the wiring: *what if you just
+multiply the node-state vector by the connectivity matrix, over and over?* It is an RNN **of** the
+whole connectome at depth `T = 10`.
+
+The update rule drops the leak and the nonlinearity from the shared core, leaving a pure signed
+matmul:
+
+```
+h_0    = encoder(image) injected at the photoreceptor nodes (zero elsewhere)
+h_{t+1} = W · h_t                 # t = 0 … T-1, with W the signed connectome operator
+logits  = readout( h_T at the VPN readout nodes )
+```
+
+The image-to-input and node-to-class projections are **identical to Family 1** — the same learned
+`Linear(784 → photoreceptors)` encoder and `Linear(readout nodes → 10)` head
+([`ConnectomeClassifier`](../src/flyconn/models/connectome_net.py)). Only the core's step rule
+changes, set by a new `dynamics` config field. Three step rules are compared:
+
+- **`linear`** — the raw `h ← W h` (no leak, no `tanh`). Edge magnitudes are rescaled so the
+  spectral radius is ≈ 1.0, making the repeated multiply scale-neutral.
+- **`linear_rms`** — the same matmul with per-step RMS normalization (the divisive gain control
+  from Family 2). This bounds the depth-10 unroll regardless of the spectral radius and is the
+  numerically safe default.
+- **`tanh`** — the bounded leaky-integrator step reused from Families 1/2, as a nonlinear reference.
+
+Each rule is crossed with **frozen-W** (only the encoder + readout learn; the connectome is held at
+its `from_data` init) versus **trainable-W** (the edge magnitudes also learn by BPTT through the ten
+multiplications, Dale-constrained as everywhere else), giving a small grid over
+`{optic_left, optic_right} × {linear, linear_rms, tanh} × {frozenW, trainW}` (Phase 1: 12 runs,
+`from_data` init only).
+
+**A caveat worth stating plainly.** Pure `linear` with no normalization is, in closed form,
+`h_T = W^{10} · (encoder drive)`, so the whole classifier collapses to a *single effective linear
+map* from pixels to logits — its accuracy is capped near the linear-classifier ceiling on MNIST
+(~92%), and depth 10 buys no extra representational power, only a fixed reweighting of the
+connectome's directions. That is exactly the point: the `linear` cell measures how much of MNIST is
+*linearly readable* through the fixed 10-hop transform `R · W^{10} · S`, and the
+`linear` → `linear_rms` → `tanh` ladder isolates what the input-dependent normalization and the
+nonlinearity each add on top of the same wiring.
+
+---
+
 ## Part 8: How to run it
 
 ```bash
@@ -484,6 +528,11 @@ python -m flyconn.models.run aggregate     # collate into one results table
 # The original 24-model grid.
 python -m flyconn.models.run grid
 sbatch slurm/train_array.sbatch
+
+# Family 3 (recmul): the depth-10 recurrent-multiply grid (12 Phase-1 runs).
+python -m flyconn.models.run recmul_grid
+sbatch slurm/recmul_array.sbatch
+python -m flyconn.models.run aggregate
 ```
 
 `eye_grid --full` expands to all variants across all six subgraphs (Phase 2, which adds both-eye
@@ -516,9 +565,11 @@ in [`connectome_net.py`](../src/flyconn/models/connectome_net.py),
   gradient clipping.
 - **Four invariants are unit-tested** in [`tests/test_models.py`](../tests/test_models.py)
   (gradient reaches the magnitudes, signs never flip, the connectivity mask stays fixed, signal
-  flows presynaptic to postsynaptic) and the rigid eye is covered by
-  [`tests/test_eye.py`](../tests/test_eye.py) (deterministic box filter, correct coverage, eye
-  routing, the sign override, and a truly frozen core). All 28 tests pass.
+  flows presynaptic to postsynaptic), plus the Family-3 recmul checks (the `linear` step is a pure
+  matmul, `linear_rms` renormalizes, a frozen-W core gets no gradient, and the depth-10 unroll stays
+  bounded), and the rigid eye is covered by [`tests/test_eye.py`](../tests/test_eye.py)
+  (deterministic box filter, correct coverage, eye routing, the sign override, and a truly frozen
+  core). All tests pass.
 
 ---
 

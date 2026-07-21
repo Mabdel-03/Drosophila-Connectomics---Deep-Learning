@@ -1,0 +1,153 @@
+# =============================================================================
+# Muscular Projection - Figure-Ground Circuit Closure
+# Closed-loop campaign: complete Figure_Ground_Circuit.pdf by tracing the figure-ground
+# circuit (VCH->T4/T5->LLPC1->Nod1->DNs) to the FULL bilateral wing musculature via
+# DN->motor-neuron->wing-muscle in the male-CNS connectome. Seeds: DNbe001 + DNp26.
+#
+# Loop shape (3 pre-declared rounds, each gated):
+#   seed_spec -> propose_rN -> extract_rN -> verify_rN -> report_rN
+# The GATE lives on verify_rN's artifact_validators: a round only completes when there
+# are NO refuted claims AND full bilateral DN->MN->muscle coverage. A failed gate leaves
+# verify_rN incomplete; the overseer opens the next round (propose_r(N+1) depends on
+# verify_rN, so r2/r3 stay dormant on a clean round).
+#
+# Init/validate (run from the Connectomics repo):
+#   python /orcd/scratch/orcd/012/mabdel03/AI_Researcher/MSc_Internal/scripts/campaign_heartbeat.py \
+#       --campaign campaigns/campaign_muscular_projection.yaml --init
+#   ... --validate
+# =============================================================================
+
+name: "Muscular Projection - Figure-Ground Circuit Closure"
+# On the GROUP DATA volume: personal scratch is over quota (can't write workspace/cache).
+workspace_root: "/orcd/data/tpoggio/001/mabdel03/connectome_campaigns/muscular_projection_v1"
+budget_usd: 200
+
+heartbeat_interval_minutes: 15
+max_idle_ticks: 8
+max_campaign_hours: 72
+counsel_model_timeout_seconds: 1800
+
+planning:
+  enabled: false        # pre-declared rounds; no dynamic planner
+
+# Shared env every stage inherits (per-stage env adds the round + CAVE token).
+# NOTE: launcher_script paths are ABSOLUTE - the runner joins them onto the consortium
+# repo root, and os.path.join keeps an absolute path unchanged, so these resolve into
+# the Connectomics repo regardless of cwd.
+
+stages:
+  # ------------------------------------------------------------------ SEED
+  - id: seed_spec
+    launcher_script: /orcd/data/tpoggio/001/mabdel03/Connectomics/scripts/campaign_seed.py
+    task_file: automation_tasks/connectome_seed.txt
+    env:
+      FLYCONN_REPO: "/orcd/data/tpoggio/001/mabdel03/Connectomics"
+      FLYCONN_CAVE_ENV: "/orcd/data/tpoggio/001/mabdel03/conda_envs/flyconn_cave"
+      FLYCONN_DATA_ROOT: "/orcd/data/tpoggio/001/mabdel03/connectome_data"
+      CONNECTOME_SEED_NEURONS: "DNbe001,DNp26"
+      CONNECTOME_DATASET: "MCNS"
+      CONNECTOME_TARGET: "wing_muscles_bilateral"
+    success_artifacts:
+      required: [seed_spec.json]
+    artifact_validators:
+      seed_spec.json:
+        json_required_keys: [seed_neurons, dataset, target_muscles, thresholds]
+        must_contain: ["DNbe001", "DNp26"]
+
+  # =================================================================== ROUND 1
+  - id: propose_r1
+    launcher_script: /orcd/data/tpoggio/001/mabdel03/Connectomics/scripts/campaign_propose.py
+    task_file: automation_tasks/connectome_propose.txt
+    depends_on: [seed_spec]
+    context_from: [seed_spec]
+    env: { CONNECTOME_ROUND: "1", CAVE_TOKEN: "${CAVE_TOKEN}" }
+    success_artifacts: { required: [proposal.json] }
+    artifact_validators:
+      proposal.json:
+        json_required_keys: [motif, seed_neurons, dataset, edges_to_trace, thresholds]
+        must_not_contain: ["TODO", "PLACEHOLDER"]
+
+  - id: extract_r1
+    launcher_script: /orcd/data/tpoggio/001/mabdel03/Connectomics/scripts/campaign_extract.py
+    task_file: automation_tasks/connectome_extract.txt
+    depends_on: [propose_r1]
+    context_from: [propose_r1]
+    env: { CONNECTOME_ROUND: "1", CONNECTOME_LAUNCHER: "slurm", CAVE_TOKEN: "${CAVE_TOKEN}" }
+    success_artifacts:
+      required: [motif_edges.parquet, extract_stats.json]
+    artifact_validators:
+      motif_edges.parquet: { min_size_bytes: 1000 }
+      extract_stats.json:
+        json_required_keys: [n_edges, source, dataset]
+        json_min_numeric: { n_edges: 1 }        # empty motif => FAIL => re-propose
+
+  - id: verify_r1
+    launcher_script: /orcd/data/tpoggio/001/mabdel03/Connectomics/scripts/campaign_verify.py
+    task_file: automation_tasks/connectome_verify.txt
+    depends_on: [extract_r1]
+    context_from: [extract_r1, propose_r1]
+    env: { CONNECTOME_ROUND: "1" }
+    success_artifacts:
+      required: [verification_results.json, coverage.json]
+    artifact_validators:                          # ===== THE GATE =====
+      verification_results.json:
+        json_required_keys: [verdict_counts, refuted_claims, unverifiable_claims, claims]
+        json_max_list_length: { refuted_claims: 0 }
+        must_not_contain: ['"status": "not_executed"', '"status": "verify_failed"']
+      coverage.json:
+        json_required_keys: [bilateral_coverage, muscle_chain_complete, dn_to_mn_edges, mn_to_muscle_edges]
+        json_min_numeric:
+          bilateral_coverage: 1.0
+          muscle_chain_complete: 1.0
+          dn_to_mn_edges: 1
+          mn_to_muscle_edges: 1
+
+  - id: report_r1
+    launcher_script: /orcd/data/tpoggio/001/mabdel03/Connectomics/scripts/campaign_report.py
+    task_file: automation_tasks/connectome_report.txt
+    depends_on: [verify_r1]
+    context_from: [verify_r1, extract_r1]
+    env: { CONNECTOME_ROUND: "1" }
+    success_artifacts:
+      required: [VERIFICATION.md, muscular_projection_dataset.json]
+    artifact_validators:
+      muscular_projection_dataset.json:
+        json_required_keys: [verdict_summary, coverage, provenance, integrity_check]
+
+  # ---------------------------------------------------------------------------
+  # RE-LOOP is OVERSEER-DRIVEN, not pre-declared rounds. The consortium engine
+  # auto-launches any PENDING stage whose depends_on are COMPLETED, so static
+  # "round 2/3" stages would fire even on a clean round 1 (verify completes on
+  # success too). Instead, on a verify_r1 GATE FAILURE the overseer re-opens the
+  # round in place -- per knowledge/muscular_projection_playbook.md:
+  #   REFUTED-by-biology / coverage gap:
+  #     rewrite-task propose_r1 --append "<drop edge / widen seed / new thresholds>"
+  #     set-stage-status verify_r1 pending   (and extract_r1/propose_r1 as needed)
+  #   then the next heartbeat re-runs the reset stages with the amended task.
+  # This matches the engine's real semantics and converges-or-escalates cleanly:
+  # a clean round leaves report_r1 completed (exit 0) and nothing else to launch.
+
+# --- Autonomous repair -------------------------------------------------------
+# DISABLED: the consortium two-phase repair agent invokes the LOCAL `claude` CLI, which is
+# Claude-only and cannot route to GLM. In this GLM-overseer deployment, the GLM overseer
+# handles failure triage / re-loop itself (see knowledge/muscular_projection_playbook.md):
+# transient -> retry; empty/REFUTED/coverage-gap -> amend task + reset stage; config bug ->
+# escalate to the human. If you later want autonomous code repair, either re-enable this
+# (it will use Claude) or add an OpenRouter/GLM repair path.
+repair:
+  enabled: false
+  max_attempts: 2
+  launcher: local
+  budget_usd: 15.0
+  timeout_seconds: 900
+  allowed_actions:
+    - fix_config
+    - install_dependencies
+    - generate_missing_artifacts
+
+notification:
+  telegram_bot_token: "${TELEGRAM_BOT_TOKEN}"
+  telegram_chat_id: "${TELEGRAM_CHAT_ID}"
+  on_stage_complete: true
+  on_failure: true
+  on_heartbeat: true

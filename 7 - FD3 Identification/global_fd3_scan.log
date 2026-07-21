@@ -1,0 +1,31 @@
+[fast] loaded meta (139255) + index map (139255)
+[fast] loaded 15091983 edges
+[fast] attached meta to edges
+[fast] scored 8806 types
+[fast] 288 types have a resolvable T4/T5 motion layer
+[fast] layer-b (regressive): 87
+[fast] layer-b AND heterolateral (>=70% contra): 11  <<< FD3 core survivors
+ cell_type  n                 sc            nt  layer_b_pct  contra_pct
+      Li31  2              optic          gaba        30.61       99.76
+     mALC3  2 visual_centrifugal          gaba        28.57       99.44
+       CT1  2              optic          gaba        29.29       99.43
+     mALC5  2 visual_centrifugal          gaba        56.94       98.48
+      LT33  2              optic          gaba        40.71       98.04
+        H1  2              optic          gaba        99.31       93.83
+LPT42_Nod4  2  visual_projection acetylcholine        98.58       90.33
+     DNc02  2         descending      dopamine        31.82       80.26
+     DNc01  2         descending      dopamine        38.46       74.22
+  MeMe_e13  2              optic acetylcholine        41.51       72.19
+  MeMe_e08 12  visual_projection     glutamate        40.20       71.76
+
+[fast] + cholinergic + n<=6 (FD-output-like): 2
+ cell_type  n                sc  layer_b_pct  contra_pct
+LPT42_Nod4  2 visual_projection        98.58       90.33
+  MeMe_e13  2             optic        41.51       72.19
+
+[fast] layer-b intermediate-contra (45-70%, Nod3-like): 3
+   cell_type  n  contra_pct
+       vCal1  2       63.43
+       DNp30  2       49.61
+AN_multi_124 10       47.78
+FAST SCAN DONE

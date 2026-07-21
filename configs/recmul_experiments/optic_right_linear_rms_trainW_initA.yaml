@@ -1,0 +1,11 @@
+run_name: optic_right_linear_rms_trainW_initA
+subgraph_id: optic_right
+arch: ff_unroll
+dynamics: linear
+state_norm: rms
+init_mode: from_data
+learn_core: true
+T: 10
+target_radius: 0.9
+eye: learned
+family: recmul

@@ -53,7 +53,7 @@ Bulk data is never stored in git. It lives on scratch under `$FLYCONN_DATA_ROOT`
 `/orcd/scratch/orcd/012/mabdel03/connectome_data`), and the package appends `/v783`. Set
 `FLYCONN_DATA_ROOT` to relocate all artifacts and the MNIST cache.
 
-There are three working environments, matched to the three stages. The package itself is
+There are four working environments, matched to the stages. The package itself is
 installed editable with `pip install -e .` in every case.
 
 ### Option A: conda (recommended on the ORCD cluster)
@@ -83,6 +83,26 @@ This builds the env on scratch (the `/home` per-user inode quota is exhausted), 
 `flyconn` into it, and registers the kernel **`Python (flyconn_eda)`**. See
 [`2 - Initial Exploration/README.md`](2%20-%20Initial%20Exploration/README.md) for detail.
 
+The stage 5 environment (`flyconn_cave`) is separate too: it adds the live-connectome
+stack (`caveclient`, `navis`, `cloud-volume`) for querying FlyWire FAFB and the male-CNS
+connectome via the CAVE API, and is deliberately **torch-free** (stage 5 only reads/writes
+parquet + queries CAVE). Build it with:
+
+```bash
+bash scripts/setup_cave_env.sh
+```
+
+It lives on the tpoggio group volume
+(`/orcd/data/tpoggio/001/mabdel03/conda_envs/flyconn_cave`) — `/home` is out of inodes and
+personal scratch is over quota. The stage-5 SLURM scripts
+([`slurm/muscular_extract.sbatch`](slurm/muscular_extract.sbatch),
+[`slurm/muscular_verify.sbatch`](slurm/muscular_verify.sbatch),
+[`slurm/cave_probe.sbatch`](slurm/cave_probe.sbatch)) activate it via `$FLYCONN_CAVE_ENV`
+(set in [`slurm/common.sh`](slurm/common.sh)), while stages 1–4 keep using `$FLYCONN_ENV`
+(the torch-capable `consortium` env). See [`4 - Motif Search/README.md`](4%20-%20Motif%20Search/README.md)
+and the stage 5 directory for detail. The stage-5 unit tests are torch-free and run in this
+env; the torch-dependent stage 1/3 tests do not (run those under `$FLYCONN_ENV`).
+
 ### Option B: pip
 
 Three pip requirements files mirror the conda environments:
@@ -99,6 +119,9 @@ pip install -e .
 pip install -r requirements-eda.txt
 pip install -e .
 python -m ipykernel install --user --name flyconn_eda --display-name "Python (flyconn_eda)"
+
+# stage 5 (live connectome / CAVE); torch-free
+pip install -e ".[cave]"
 
 # running the tests
 pip install -r requirements-dev.txt

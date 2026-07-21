@@ -1,0 +1,12 @@
+run_name: eyeTact_whole_learned_linear_trained_T06
+subgraph_id: whole
+arch: ff_unroll
+init_mode: from_data
+T: 6
+learn_core: true
+epochs: 25
+family: eyeTact
+eye: learned
+dynamics: linear
+state_norm: none
+target_radius: 0.9

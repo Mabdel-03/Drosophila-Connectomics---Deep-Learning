@@ -1,0 +1,166 @@
+{
+  "headline": {
+    "result": "HONEST_NULL",
+    "statement": "FD4 has no cleanly individually resolved connectome correlate in FlyWire v783; it shares FD1's entire progressive, heterolateral, cholinergic, noduli-group output class, and no separable FD4 cell or Nod1 sub-pair exists.",
+    "confidence_point": 0.0,
+    "confidence_interval": [
+      0.0,
+      0.27
+    ],
+    "identity_verdict": "UNRESOLVED_HONEST_NULL",
+    "candidate_screen_survivors": [
+      "Nod1"
+    ],
+    "only_survivor_is_Nod1": true,
+    "nod1_homogeneous": true,
+    "nod1_best_pairing_silhouette": -4.926,
+    "same_side_input_jaccard": 0.33,
+    "cross_side_input_jaccard": 0.007,
+    "split_tracks": {
+      "offline": {
+        "separable": false,
+        "homogeneous": true,
+        "best_silhouette": -4.926
+      },
+      "live": {
+        "separable": false,
+        "homogeneous": true,
+        "best_silhouette": -4.982,
+        "same_side_jac": 0.276,
+        "cross_side_jac": 0.008
+      },
+      "v630": {
+        "available": false,
+        "reason": "v630 recompute unavailable (empty RF cloud on v630 for one Nod1 cell)"
+      }
+    },
+    "track": "offline"
+  },
+  "verdict_counts": {
+    "CONFIRMED": 12,
+    "UNVERIFIABLE": 4,
+    "CONFIRMED_WITH_CAVEAT": 1
+  },
+  "n_claims": 17,
+  "claims": [
+    {
+      "claim_id": "FD4.output_class_shared_with_FD1",
+      "claim": "FD4 shares FD1's progressive, heterolateral, cholinergic, noduli-group output class",
+      "verdict": "CONFIRMED",
+      "measured": "1 viable progressive figure-output type(s): ['Nod1']",
+      "notes": "Egelhaaf p.204-206: FD4 is progressive like FD1 and uses the FD1nod/FD3 noduli-group axon"
+    },
+    {
+      "claim_id": "FD4.no_other_progressive_output_cell",
+      "claim": "No progressive figure-output cell exists in the connectome besides Nod1 (= FD1)",
+      "verdict": "CONFIRMED",
+      "measured": "28 layer-a low-copy types screened over 8806; sole survivor = ['Nod1']",
+      "notes": "Every other layer-a heterolateral cell is GABA/glutamate/dopamine feedback or centrifugal"
+    },
+    {
+      "claim_id": "FD4.nod1_pools_two_populations",
+      "claim": "The 4-cell Nod1 type pools two same-side cells per hemisphere (Egelhaaf FD1nod + FD1pof)",
+      "verdict": "CONFIRMED",
+      "measured": "same-side input Jaccard 0.33 vs cross-side 0.007",
+      "notes": "High same-side / low cross-side partner overlap = two copies of one cell type per side"
+    },
+    {
+      "claim_id": "FD4.nod1_homogeneous_not_fd1_fd4_split",
+      "claim": "The 4 Nod1 cells are one homogeneous frontal population, not a separable FD1 + FD4 split",
+      "verdict": "CONFIRMED",
+      "measured": "both bilateral pairings have negative silhouette (best -4.926); separable=False",
+      "notes": "No pairing separates the cells; none carries the FD4 whole-eye lateral receptive field"
+    },
+    {
+      "claim_id": "FD4.fd3_excluded",
+      "claim": "FD3 = LPT42_Nod4 is not FD4 despite its FD4-shaped absolute receptive field",
+      "verdict": "CONFIRMED",
+      "measured": "LPT42_Nod4 dominant layer = b (98.58% layer-b)",
+      "notes": "Direction excludes LPT42_Nod4 from FD4; FD4 also has no frontal gap, which LPT42_Nod4 has"
+    },
+    {
+      "claim_id": "FD4.phenotype_0",
+      "claim": "FD4 property: progressive (layer-a) preferred direction",
+      "verdict": "CONFIRMED",
+      "measured": "95.38% layer a",
+      "notes": "shared FD1/FD4 class property (non-discriminating)"
+    },
+    {
+      "claim_id": "FD4.phenotype_1",
+      "claim": "FD4 property: heterolateral noduli-group axon (contra POF)",
+      "verdict": "CONFIRMED",
+      "measured": "89.29% contralateral",
+      "notes": "shared FD1/FD4 class property (non-discriminating)"
+    },
+    {
+      "claim_id": "FD4.phenotype_2",
+      "claim": "FD4 property: cholinergic output",
+      "verdict": "CONFIRMED",
+      "measured": "acetylcholine",
+      "notes": "shared FD1/FD4 class property (non-discriminating)"
+    },
+    {
+      "claim_id": "FD4.phenotype_3",
+      "claim": "FD4 property: bidirectional contralateral inhibition",
+      "verdict": "UNVERIFIABLE",
+      "measured": "dominant regressive",
+      "notes": "FD4-discriminating property; not realized by the Nod1 population"
+    },
+    {
+      "claim_id": "FD4.phenotype_4",
+      "claim": "FD4 property: whole-eye, laterally-weighted RF (no frontal gap)",
+      "verdict": "UNVERIFIABLE",
+      "measured": "no lateral sub-pair; the population RF is frontal (FD1-like)",
+      "notes": "FD4-discriminating property; not realized by the Nod1 population"
+    },
+    {
+      "claim_id": "FD4.phenotype_5",
+      "claim": "FD4 property: restricted dorso-ventral dendrite",
+      "verdict": "UNVERIFIABLE",
+      "measured": "all Nod1 cells span the full dorso-ventral extent",
+      "notes": "FD4-discriminating property; not realized by the Nod1 population"
+    },
+    {
+      "claim_id": "FD4.phenotype_6",
+      "claim": "FD4 property: no lateral-protocerebrum second arbor",
+      "verdict": "CONFIRMED",
+      "measured": "single-arbor",
+      "notes": "shared FD1/FD4 class property (non-discriminating)"
+    },
+    {
+      "claim_id": "FD4.identity_verdict",
+      "claim": "The connectomic identity of Egelhaaf FD4 in FlyWire v783",
+      "verdict": "UNVERIFIABLE",
+      "measured": null,
+      "notes": "FD4 shares FD1's entire progressive, heterolateral, cholinergic, noduli-group output class, so it cannot be separated from FD1 by direction, transmitter, or output side. It is distinguished only by a whole-eye laterally-weighted receptive field and a restricted dorso-ventral dendrite. No separable FD4 sub-pair was found: the four Nod1 cells are one homogeneous frontal population (Nod1 = FD1, likely pooling Egelhaaf's FD1nod and FD1pof variants), and no other progressive figure-output cell exists. FD4 is therefore not individually resolved in FlyWire v783. Point estimate 0.0, plausible range [0.0, 0.27], verdict UNRESOLVED_HONEST_NULL. No cell or Nod1 sub-pair carries the FD4-discriminating receptive-field and dendrite signature; FD4 is not individually resolved. Point 0.0, range [0.0, 0.27]."
+    },
+    {
+      "claim_id": "FD4.confidence",
+      "claim": "Decomposed confidence that FD4 is individually resolved (with the Nod1 population)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "measured": "point 0.0, interval [0.0, 0.27], ceiling 0.85, verdict UNRESOLVED_HONEST_NULL",
+      "notes": "Discounted for FD1-collinearity (shared output class), no distinct FlyWire type, no independent anchor, and the literature's declined FD1/2/3/4 mapping"
+    },
+    {
+      "claim_id": "FD4.progressive_arm_afferent",
+      "claim": "The progressive figure arm reads front-to-back (layer-a) T4a/T5a motion",
+      "verdict": "CONFIRMED",
+      "measured": "95.38% of the T4/T5 drive is layer-a; ON/OFF split {'T4a_ON': 955, 'T5a_OFF': 1109, 't4_frac': 46.3}",
+      "notes": "The layer-a arm any FD4 correlate would use, traced on the Nod1 population"
+    },
+    {
+      "claim_id": "FD4.progressive_arm_sheet",
+      "claim": "The progressive arm relays through the layer-a sheet LLPC1 (FD1's sheet)",
+      "verdict": "CONFIRMED",
+      "measured": "named sheet = LLPC1",
+      "notes": "Whether an FD4 correlate would reuse FD1's sheet or have its own"
+    },
+    {
+      "claim_id": "FD4.progressive_arm_descending",
+      "claim": "The progressive arm reaches wing-steering descending neurons (DNp26 shared with FD1/FD3)",
+      "verdict": "CONFIRMED",
+      "measured": "top direct descending targets ['DNp26', 'DNge094', 'DNg32']",
+      "notes": "Egelhaaf p.207: the FD cells act with the Horizontal Cells on yaw-torque steering"
+    }
+  ]
+}

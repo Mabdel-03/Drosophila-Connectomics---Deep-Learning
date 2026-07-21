@@ -92,6 +92,16 @@ def _normalize_photoreceptor_sign(value: str | int) -> int | None:
     return v
 
 
+def _normalize_force_sign(value: str | int | None) -> int | None:
+    """Map the config value to a GLOBAL sign override, or None for 'none'/'inherit'."""
+    if value in ("none", "inherit", None):
+        return None
+    v = int(value)
+    if v not in (-1, 1):
+        raise ValueError(f"force_sign must be 'none', -1, or 1; got {value!r}")
+    return v
+
+
 def _restore_photoreceptor_edges(
     sub_s: "sp.coo_matrix", sub_c: "sp.csr_matrix", sub_neurons: pd.DataFrame
 ) -> tuple["sp.coo_matrix", "sp.csr_matrix"]:
@@ -133,6 +143,8 @@ def build_subgraph(
     *,
     policy: str = "flyvis_standard",
     photoreceptor_sign: str | int = "inherit",
+    sign_shuffle: str | int | None = "none",
+    force_sign: str | int | None = "none",
     cfg: Config | None = None,
 ) -> Subgraph:
     """Build the induced, transposed, signed edge buffers for one subgraph.
@@ -145,6 +157,19 @@ def build_subgraph(
     PREsynaptic neuron is a photoreceptor is forced to sign -1 (and the dropped edges
     are restored), as a per-edge override on top of the NT policy. ``"inherit"`` keeps
     the raw (artifactual) NT-derived signs — the original stage-3 behavior.
+
+    Two further sign overrides support the magnitude-vs-direction init ablation. They are
+    applied AFTER the photoreceptor override (so they compose predictably), in this order:
+      * ``sign_shuffle`` (an int seed, or ``"none"``): randomly PERMUTE the ±1 signs across
+        edges. Preserves the E:I ratio (the count of + vs -) but destroys WHICH edge gets
+        which sign — the null control separating "amount of inhibition" from "correct
+        inhibition placement".
+      * ``force_sign`` (``"none"`` | ``+1`` | ``-1``): a GLOBAL override that sets EVERY
+        edge's sign to the given value. ``force_sign=1`` is the "no-direction" ablation
+        (all excitatory, an unsigned adjacency). It dominates both the photoreceptor
+        override and ``sign_shuffle`` (use one or the other, not both, in practice).
+    All overrides operate on the SAME restored edge set, so the connectivity mask is
+    identical across the ablation's variants — only the per-edge sign/magnitude changes.
     """
     if subgraph_id not in SUBGRAPHS:
         raise KeyError(f"unknown subgraph {subgraph_id!r}; choices: {sorted(SUBGRAPHS)}")
@@ -194,6 +219,16 @@ def build_subgraph(
         is_photo = sub_neurons["cell_type"].isin(PHOTORECEPTOR_TYPES).to_numpy()
         pre_is_photo = is_photo[col_idx]
         sign[pre_is_photo] = float(photoreceptor_sign)
+
+    # Init-ablation sign overrides, applied (in order) AFTER the photoreceptor fix so they
+    # operate on the final restored edge set. Mask/edges are untouched — only signs change.
+    if sign_shuffle not in ("none", None):
+        # Permute the ±1 signs across edges: keeps the E:I ratio, destroys placement.
+        rng = np.random.default_rng(int(sign_shuffle))
+        sign = sign[rng.permutation(len(sign))].copy()
+    force_sign = _normalize_force_sign(force_sign)
+    if force_sign is not None:
+        sign[:] = float(force_sign)        # global override; dominates everything above
 
     return Subgraph(
         subgraph_id=subgraph_id,

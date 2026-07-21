@@ -1,0 +1,26 @@
+PROPOSE stage — write proposal.json for this round.
+
+You are the PROPOSER. Produce ONE concrete, runnable motif/extension to extract and verify
+this round. Read seed_spec.json and, if present in this workspace, the prior round's
+verification_results.json + coverage.json.
+
+Write proposal.json with keys:
+  - motif            : human description of the circuit/extension this round traces.
+  - seed_neurons     : DN names/root_ids to seed (MCNS).
+  - dataset          : "MCNS" (motor side) or "FAFB" (brain side).
+  - edges_to_trace   : typed edge queries, e.g. [{"from":"DN","to":"motor_neuron"},
+                       {"from":"motor_neuron","to":"muscle"}], with side L/R where relevant.
+  - thresholds       : {min_synapses, cleft_score_min}.
+  - coverage_targets : {"wings":["ipsi","contra"], "chain":["DN","MN","muscle"]}.
+  - rationale        : why this round (esp. how it responds to the prior verdicts).
+
+RE-LOOP LOGIC (critical):
+  - If the prior round had REFUTED claims: do NOT re-propose the refuted edge unchanged.
+    Drop it, replace it with the biologically-plausible alternative, or re-seed.
+  - If the prior round had a coverage gap (coverage.json.missing): WIDEN — add the missing
+    wing's contralateral homologs, or the missing MN/muscle types named there.
+  - If no prior round: propose the minimal DNbe001/DNp26 -> wing-MN -> wing-muscle trace
+    for BOTH wings (the seven figure DNs are the natural extension once the seeds confirm).
+
+The motif must be runnable as-is by the extractor: `python -m flyconn.muscular extract`.
+Never write "TODO"/"PLACEHOLDER". Validate that named neurons resolve in the dataset.

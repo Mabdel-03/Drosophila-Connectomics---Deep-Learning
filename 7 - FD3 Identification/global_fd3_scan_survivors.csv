@@ -1,0 +1,12 @@
+cell_type,n,nt,sc,dom_layer,layer_b_pct,tot,contra_pct,out_syn
+CT1,2,gaba,optic,b,29.29,56325.0,99.43,198495.0
+DNc01,2,dopamine,descending,b,38.46,26.0,74.22,966.0
+DNc02,2,dopamine,descending,b,31.82,66.0,80.26,907.0
+H1,2,gaba,optic,b,99.31,5981.0,93.83,9124.0
+LPT42_Nod4,2,acetylcholine,visual_projection,b,98.58,3299.0,90.33,5169.0
+LT33,2,gaba,optic,b,40.71,20717.0,98.04,23290.0
+Li31,2,gaba,optic,b,30.61,98.0,99.76,35264.0
+MeMe_e08,12,glutamate,visual_projection,b,40.2,102.0,71.76,43311.0
+MeMe_e13,2,acetylcholine,optic,b,41.51,53.0,72.19,42035.0
+mALC3,2,gaba,visual_centrifugal,b,28.57,28.0,99.44,9842.0
+mALC5,2,gaba,visual_centrifugal,b,56.94,72.0,98.48,17423.0

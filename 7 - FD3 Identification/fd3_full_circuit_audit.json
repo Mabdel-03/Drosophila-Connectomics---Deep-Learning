@@ -1,0 +1,151 @@
+{
+  "artifact": "fd3_full_circuit_audit",
+  "entries": [
+    {
+      "caveat": "Candidate screen has margin 2.",
+      "claim": "The strongest connectomic FD3 candidate is LPT42_Nod4.",
+      "claim_id": "K.identity",
+      "evidence_class": "direct_connectome",
+      "section": "Identity",
+      "source": "families.K.derived.fd_family_screen",
+      "status": "confirmed"
+    },
+    {
+      "caveat": "Layer-b fraction: 98.58%.",
+      "claim": "LPT42_Nod4 draws almost all measured T4/T5 motion input from layer-b.",
+      "claim_id": "K.direction",
+      "evidence_class": "direct_connectome",
+      "section": "Identity",
+      "source": "families.K.derived.cand_layer_frac.b",
+      "status": "confirmed"
+    },
+    {
+      "caveat": "Absolute visual angle remains calibration-limited; the core comparison is relative to FD1.",
+      "claim": "LPT42_Nod4 is lateral to FD1 and has a frontal gap on both sides.",
+      "claim_id": "K.rf_relative",
+      "evidence_class": "direct_connectome",
+      "section": "Identity",
+      "source": "families.K.derived.rf.per_side",
+      "status": "confirmed"
+    },
+    {
+      "caveat": "Permutation p=0.002; this is wiring support, not a direct physiology recording.",
+      "claim": "The FD3 candidate pools a spatially bounded retinotopic input patch.",
+      "claim_id": "K.small_field",
+      "evidence_class": "direct_connectome",
+      "section": "Identity",
+      "source": "families.K.derived.smallfield_null",
+      "status": "confirmed"
+    },
+    {
+      "caveat": "Contralateral output: 90.33%.",
+      "claim": "Most LPT42_Nod4 output is contralateral.",
+      "claim_id": "K.output_side",
+      "evidence_class": "direct_connectome",
+      "section": "Identity",
+      "source": "families.K.derived.cand_contra_output_pct",
+      "status": "confirmed"
+    },
+    {
+      "caveat": "Skeleton supports overall geometry; fine branch-level identity is not overinterpreted.",
+      "claim": "Both reconstructed skeletons have a dorsoventral dendritic span and crossed axonal displacement consistent with FD3.",
+      "claim_id": "K.morphology",
+      "evidence_class": "direct_connectome",
+      "section": "Identity",
+      "source": "families.K.derived.morphology.cells",
+      "status": "confirmed_with_caveat"
+    },
+    {
+      "caveat": "v630 cross-check is live-only",
+      "claim": "Live or v630 replication is included only if available in the current run.",
+      "claim_id": "K.cross_version",
+      "evidence_class": "provenance",
+      "section": "Provenance",
+      "source": "families.K.derived.cross_version",
+      "status": "unavailable"
+    },
+    {
+      "caveat": "T4/T5 fraction of all input: 25.1%.",
+      "claim": "T4/T5 motion detectors provide a minority of all FD3 input.",
+      "claim_id": "P.t4t5_fraction",
+      "evidence_class": "direct_connectome",
+      "section": "Inputs",
+      "source": "families.P.derived.census.t4t5_frac_of_total",
+      "status": "confirmed"
+    },
+    {
+      "caveat": "Layer-b fraction of T4/T5 input: 98.58%.",
+      "claim": "Within the measured T4/T5 subset, FD3 is dominated by layer-b back-to-front input.",
+      "claim_id": "P.layer_b_motion",
+      "evidence_class": "direct_connectome",
+      "section": "Inputs",
+      "source": "families.P.derived.census.layer_b_frac_of_t4t5",
+      "status": "confirmed"
+    },
+    {
+      "caveat": "The upstream cascade is measured at type level, not as a unique per-object trace.",
+      "claim": "Canonical photoreceptor, lamina, medulla, T4/T5 pathways feeding the FD3 detector types are present.",
+      "claim_id": "P.upstream_cascade",
+      "evidence_class": "direct_connectome_and_literature",
+      "section": "Inputs",
+      "source": "families.P.derived.upstream_cascade; Maisak et al. 2013; Hardie 1989",
+      "status": "confirmed_with_caveat"
+    },
+    {
+      "caveat": "Only one leading central input type is marked as a layer-b carrier in the current derived table.",
+      "claim": "FD3 receives diverse non-T4/T5 input, including cholinergic projection sheets and inhibitory inputs.",
+      "claim_id": "P.central_inputs",
+      "evidence_class": "direct_connectome",
+      "section": "Inputs",
+      "source": "families.P.derived.central_inputs.top_types",
+      "status": "confirmed"
+    },
+    {
+      "caveat": "",
+      "claim": "Contralateral inhibitory input is present and compatible with FD3 physiology.",
+      "claim_id": "P.contra_inhibition",
+      "evidence_class": "direct_connectome_and_literature",
+      "section": "Inputs",
+      "source": "families.P.derived.contra_inhibition; Egelhaaf 1985 Part II",
+      "status": "confirmed_with_caveat"
+    },
+    {
+      "caveat": "Direct DN synapses: 138; DN types: 24.",
+      "claim": "FD3 directly contacts descending neurons, led by DNp26.",
+      "claim_id": "L.direct_dns",
+      "evidence_class": "direct_connectome",
+      "section": "Outputs",
+      "source": "families.L.derived.direct",
+      "status": "confirmed"
+    },
+    {
+      "caveat": "Relay membership depends on the reported intermediary synapse threshold.",
+      "claim": "FD3 reaches a broader descending set through strong central partners.",
+      "claim_id": "L.relay_dns",
+      "evidence_class": "direct_connectome",
+      "section": "Outputs",
+      "source": "families.L.derived.relay",
+      "status": "confirmed_with_caveat"
+    },
+    {
+      "caveat": "This is an anatomical motor-system proxy, not a behavioral perturbation result.",
+      "claim": "FD3-weighted descending output is anatomically biased toward wing-steering motor systems.",
+      "claim_id": "L.motor_proxy",
+      "evidence_class": "cross_connectome_proxy",
+      "section": "Outputs",
+      "source": "families.L.derived.motor.motor_system_pct; Namiki et al. 2018",
+      "status": "confirmed_with_caveat"
+    },
+    {
+      "caveat": "Neuron matching is by shared descending-neuron type name across connectomes.",
+      "claim": "DNp26 links FD3 to contralateral wing-steering muscles in the male CNS mapping.",
+      "claim_id": "L.dnp26_muscles",
+      "evidence_class": "cross_connectome_proxy",
+      "section": "Outputs",
+      "source": "families.L.derived.motor.per_dn.DNp26",
+      "status": "confirmed_with_caveat"
+    }
+  ],
+  "n_entries": 16,
+  "primary_track": "offline"
+}

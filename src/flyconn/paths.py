@@ -25,6 +25,17 @@ def data_root() -> Path:
     return Path(os.environ.get("FLYCONN_DATA_ROOT", DEFAULT_DATA_ROOT))
 
 
+# Live API caches (synapse pulls, skeletons) are SMALL and re-auditable but must NOT land on
+# scratch, which is over quota. They default to the project tree (group volume, tractable),
+# kept separate from data_root() so the large offline dumps still resolve from scratch.
+DEFAULT_CACHE_ROOT = str(REPO_ROOT / ".flyconn_cache")
+
+
+def cache_root() -> Path:
+    """Base directory for live-API caches (synapses, skeletons), from env or the project tree."""
+    return Path(os.environ.get("FLYCONN_CACHE_ROOT", DEFAULT_CACHE_ROOT))
+
+
 @dataclass(frozen=True)
 class DataPaths:
     """Resolved, version-stamped directories and artifact paths."""

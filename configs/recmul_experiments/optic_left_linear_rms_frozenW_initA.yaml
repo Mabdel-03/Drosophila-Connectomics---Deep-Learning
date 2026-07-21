@@ -1,0 +1,11 @@
+run_name: optic_left_linear_rms_frozenW_initA
+subgraph_id: optic_left
+arch: ff_unroll
+dynamics: linear
+state_norm: rms
+init_mode: from_data
+learn_core: false
+T: 10
+target_radius: 0.9
+eye: learned
+family: recmul

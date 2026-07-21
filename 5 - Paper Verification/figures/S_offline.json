@@ -1,0 +1,212 @@
+{
+  "meta": {
+    "flywire_track": "offline"
+  },
+  "title": "FD3 functional figure-ground circuit (T4b/T5b -> LPC1 -> FD3 -> DNp26; LPi14 gate)",
+  "verdicts": {
+    "CONFIRMED": 7
+  },
+  "claims": [
+    {
+      "id": "S.detectors",
+      "description": "Motion detectors (T4b/T5b, layer-b) drive the circuit",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "S.sheet_named",
+      "description": "The intermediate sheet is NAMED and feed-forward (T4b/T5b -> LPC1 -> FD3)",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "sheet=LPC1 verdict=CONFIRMED_WITH_CAVEAT",
+      "extra": {}
+    },
+    {
+      "id": "S.figure_cell",
+      "description": "The figure cell (FD3 = LPT42_Nod4) is confirmed",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "K identity verdict=CONFIRMED_WITH_CAVEAT",
+      "extra": {}
+    },
+    {
+      "id": "S.steering_dn",
+      "description": "FD3 reaches a steering descending neuron (DNp26)",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "top DN=DNp26",
+      "extra": {}
+    },
+    {
+      "id": "S.motor",
+      "description": "The descending output resolves to a motor system (wing-steering)",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "dominant system=wing_steering",
+      "extra": {}
+    },
+    {
+      "id": "S.widefield_inhibitor_named",
+      "description": "The wide-field inhibitor standing in VCH's place is NAMED (LPi14, opponent)",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "inhibitor=LPi14 direction=opponent verdict=CONFIRMED_WITH_CAVEAT",
+      "extra": {}
+    },
+    {
+      "id": "S.functional_circuit_verdict",
+      "description": "OVERALL: FD3 figure-ground circuit (T4b/T5b -> LPC1 -> FD3 -> DNp26; LPi14 gate)",
+      "report_value": "T4b/T5b -> {LPC1(+LLPC2/3)} -> FD3 -> DNp26 -> wing; LPi14 wide-field opponent gate",
+      "computed_primary": "CONFIRMED",
+      "computed_secondary": null,
+      "tolerance": "feed-forward spine complete + inhibitor named -> CONFIRMED",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "full named circuit present: detectors->sheet->FD3->DN->motor + LPi14 gate",
+      "extra": {}
+    }
+  ],
+  "derived": {
+    "circuit": "T4b/T5b -> {LPC1(+LLPC2/3)} -> FD3 -> DNp26 -> wing; LPi14 wide-field opponent gate",
+    "nodes": {
+      "detectors": {
+        "present": true,
+        "detail": "T4b/T5b layer-b motion detectors"
+      },
+      "sheet": {
+        "present": true,
+        "name": "LPC1",
+        "verdict": "CONFIRMED_WITH_CAVEAT",
+        "detail": "LPC1 (direction-matched layer-b sheet)"
+      },
+      "figure_cell": {
+        "present": true,
+        "name": "FD3 (LPT42_Nod4)",
+        "verdict": "CONFIRMED_WITH_CAVEAT"
+      },
+      "widefield_inhibitor": {
+        "present": true,
+        "name": "LPi14",
+        "verdict": "CONFIRMED_WITH_CAVEAT",
+        "direction": "opponent",
+        "detail": "LPi14 (VCH-role opponent gate)"
+      },
+      "same_direction_inhibitor": {
+        "present": true,
+        "name": "LPi12",
+        "direction": "same_direction",
+        "detail": "LPi12 (same-direction surround on detectors)"
+      },
+      "steering_dn": {
+        "present": true,
+        "name": "DNp26"
+      },
+      "motor": {
+        "present": true,
+        "system": "wing_steering"
+      }
+    },
+    "edges": [
+      {
+        "src": "T4b/T5b",
+        "dst": "LPC1",
+        "role": "feed-forward (detectors->sheet)",
+        "syn": 28848,
+        "measured": true
+      },
+      {
+        "src": "LPC1",
+        "dst": "FD3",
+        "role": "sheet->figure cell",
+        "syn": 1120,
+        "measured": true
+      },
+      {
+        "src": "T4b/T5b",
+        "dst": "FD3",
+        "role": "direct motion drive (layer-b)",
+        "syn": 3252,
+        "measured": true
+      },
+      {
+        "src": "LPi14",
+        "dst": "FD3",
+        "role": "wide-field inhibition (opponent)",
+        "syn": 961,
+        "measured": true
+      },
+      {
+        "src": "LPi14",
+        "dst": "LPC1",
+        "role": "gates the sheet",
+        "syn": 6631,
+        "measured": true
+      },
+      {
+        "src": "LPi14",
+        "dst": "T4b/T5b",
+        "role": "feedback onto detectors",
+        "syn": 7004,
+        "measured": true
+      },
+      {
+        "src": "FD3",
+        "dst": "DNp26",
+        "role": "figure cell->steering DN",
+        "syn": null,
+        "measured": true
+      },
+      {
+        "src": "DNp26",
+        "dst": "wing",
+        "role": "steering command->wing",
+        "syn": null,
+        "measured": true
+      },
+      {
+        "src": "LPi12",
+        "dst": "T4b/T5b",
+        "role": "wide-field inhibition (same-direction, detector node)",
+        "syn": 18678,
+        "measured": true
+      }
+    ],
+    "spine_complete": true,
+    "widefield_inhibitor_present": true,
+    "decision": "GO",
+    "first_break": null
+  }
+}

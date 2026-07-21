@@ -55,6 +55,13 @@ class NetConfig:
     # step, like biological normalization) keeps the signal alive across hops. Essential
     # for the rigid-eye frozen variants (V2/V3); a no-op default for the learned models.
     state_norm: str = "none"       # 'none' | 'rms'
+    # Step rule. 'tanh' = the leaky-integrator step above (FF/RNN). 'linear' = a pure signed
+    # matmul h <- scatter(W, h) + x_t with NO leak and NO nonlinearity — the Family-3 "recmul"
+    # model that literally multiplies the node state by the connectome T times (an RNN OF the
+    # connectome). With inject='t0' the t>0 steps are exactly h <- W h, so the core computes
+    # W^T applied to the encoder drive. Combine with state_norm='rms' for the bounded
+    # ('linear_rms') variant; leave 'none' for the raw pure-linear variant.
+    dynamics: str = "tanh"         # 'tanh' (leaky-integrator) | 'linear' (pure signed matmul)
 
     @classmethod
     def for_arch(cls, arch: str, **over) -> "NetConfig":
@@ -103,9 +110,12 @@ class ConnectomeNet(nn.Module):
         return out
 
     def _step(self, h: torch.Tensor, x_t: torch.Tensor, w: torch.Tensor) -> torch.Tensor:
-        pre = self._scatter(w, h) + x_t
-        a = self.cfg.alpha
-        h = (1.0 - a) * h + a * self._phi(pre)
+        if self.cfg.dynamics == "linear":
+            h = self._scatter(w, h) + x_t                     # pure signed matmul; no leak/phi
+        else:                                                  # 'tanh' — leaky-integrator step
+            pre = self._scatter(w, h) + x_t
+            a = self.cfg.alpha
+            h = (1.0 - a) * h + a * self._phi(pre)
         if self.cfg.state_norm == "rms":
             rms = h.pow(2).mean(dim=1, keepdim=True).clamp(min=1e-12).sqrt()
             h = h / rms

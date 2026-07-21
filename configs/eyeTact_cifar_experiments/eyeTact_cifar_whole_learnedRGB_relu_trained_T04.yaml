@@ -1,0 +1,15 @@
+run_name: eyeTact_cifar_whole_learnedRGB_relu_trained_T04
+subgraph_id: whole
+arch: ff_unroll
+init_mode: from_data
+T: 4
+learn_core: true
+epochs: 25
+family: eyeTact_cifar
+dataset: cifar10
+color: rgb
+eye: learned
+dynamics: tanh
+nonlinearity: relu
+state_norm: rms
+target_radius: 0.9

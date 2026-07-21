@@ -1,0 +1,120 @@
+# =============================================================================
+# Open Questions - Figure-Ground Circuit forward science (Stage 6)
+# Closed-loop campaign that resolves the THREE open anatomical questions left by
+# Figure_Ground_Circuit.pdf after its quantitative claims were all verified:
+#   Q1  single-animal closure  : does LLPC1->Nod1->DNp26 reproduce WITHIN MCNS alone?
+#   Q2  bilateral generalization: does the right-sheet circuit generalize to the LEFT sheet?
+#   Q3  escape-route separability: is the LPLC2/LC4 escape arm separable (distinct DNs +
+#       muscles) from the LLPC1 wing-steering arm, traced to muscle in MCNS?
+# Each yields a neutral falsifiable verdict (CONFIRMED/CAVEAT/REFUTED/UNVERIFIABLE); the
+# deliverable is a LaTeX->PDF report stating the questions, methods, and answers.
+#
+# Loop shape (one gated round; the overseer re-loops IN PLACE on a gate failure):
+#   seed_spec -> run_r1 -> report_r1
+# The GATE lives on run_r1's artifact_validators: the round completes only when there are NO
+# refuted claims AND bilateral_coverage == 1.0 AND muscle_chain_complete == 1.0. report_r1
+# (PDF compile + integrity check) runs only after the gate passes.
+#
+# Init/validate (run from the Connectomics repo):
+#   python /orcd/scratch/orcd/012/mabdel03/AI_Researcher/MSc_Internal/scripts/campaign_heartbeat.py \
+#       --campaign campaigns/campaign_open_questions.yaml --init
+#   ... --validate
+# =============================================================================
+
+name: "Open Questions - Figure-Ground Circuit Forward Science"
+# On the GROUP DATA volume for the campaign workspace; the analysis itself reads/writes the
+# SCRATCH connectome_data root (neurons.parquet + live-CAVE cache), enforced by the wrappers.
+workspace_root: "/orcd/data/tpoggio/001/mabdel03/connectome_campaigns/open_questions_v1"
+budget_usd: 150
+
+heartbeat_interval_minutes: 15
+max_idle_ticks: 6
+max_campaign_hours: 48
+counsel_model_timeout_seconds: 1800
+
+planning:
+  enabled: false        # pre-declared round; no dynamic planner
+
+stages:
+  # ------------------------------------------------------------------ SEED
+  - id: seed_spec
+    launcher_script: /orcd/data/tpoggio/001/mabdel03/Connectomics/scripts/campaign_openq_seed.py
+    task_file: automation_tasks/openq_seed.txt
+    env:
+      FLYCONN_REPO: "/orcd/data/tpoggio/001/mabdel03/Connectomics"
+      FLYCONN_CAVE_ENV: "/orcd/data/tpoggio/001/mabdel03/conda_envs/flyconn_cave"
+      FLYCONN_DATA_ROOT: "/orcd/scratch/orcd/012/mabdel03/connectome_data"
+      CONNECTOME_DATASET: "FAFB+MCNS"
+      CONNECTOME_N_PERM: "200"
+    success_artifacts:
+      required: [seed_spec.json]
+    artifact_validators:
+      seed_spec.json:
+        json_required_keys: [seed_neurons, dataset, questions, thresholds, goal]
+        must_contain: ["LLPC1", "LPLC2"]
+
+  # =================================================================== ROUND 1
+  - id: run_r1
+    launcher_script: /orcd/data/tpoggio/001/mabdel03/Connectomics/scripts/campaign_openq_run.py
+    task_file: automation_tasks/openq_run.txt
+    depends_on: [seed_spec]
+    context_from: [seed_spec]
+    env:
+      CONNECTOME_ROUND: "1"
+      CONNECTOME_N_PERM: "200"
+      FLYCONN_DATA_ROOT: "/orcd/scratch/orcd/012/mabdel03/connectome_data"
+      CAVE_TOKEN: "${CAVE_TOKEN}"
+    success_artifacts:
+      required: [openq_results.json, coverage.json]
+    artifact_validators:                          # ===== THE GATE =====
+      openq_results.json:
+        json_required_keys: [verdict_counts, refuted_claims, unverifiable_claims, claims]
+        json_max_list_length: { refuted_claims: 0 }
+        must_not_contain: ['"status": "run_failed"', '"status": "not_executed"']
+      coverage.json:
+        json_required_keys: [bilateral_coverage, muscle_chain_complete, dn_to_mn_edges, mn_to_muscle_edges]
+        json_min_numeric:
+          bilateral_coverage: 1.0
+          muscle_chain_complete: 1.0
+          dn_to_mn_edges: 1
+          mn_to_muscle_edges: 1
+
+  - id: report_r1
+    launcher_script: /orcd/data/tpoggio/001/mabdel03/Connectomics/scripts/campaign_openq_report.py
+    task_file: automation_tasks/openq_report.txt
+    depends_on: [run_r1]
+    context_from: [run_r1]
+    env:
+      CONNECTOME_ROUND: "1"
+      FLYCONN_DATA_ROOT: "/orcd/scratch/orcd/012/mabdel03/connectome_data"
+    success_artifacts:
+      required: [open_questions_dataset.json, open_questions_report.tex]
+    artifact_validators:
+      open_questions_dataset.json:
+        json_required_keys: [verdict_summary, coverage, provenance, integrity_check, deliverables]
+
+  # ---------------------------------------------------------------------------
+  # RE-LOOP is OVERSEER-DRIVEN, in place (same engine semantics as the muscular campaign):
+  # on a run_r1 GATE FAILURE (a REFUTED claim or a coverage gap), the overseer amends the
+  # seed/run task (narrow or widen the question scope / thresholds) and resets run_r1 to
+  # pending; the next heartbeat re-runs it. A clean round leaves report_r1 completed (PDF in
+  # '6 - Open Questions/') and idles.
+
+# --- Autonomous repair: DISABLED (GLM overseer handles triage; see muscular campaign notes).
+repair:
+  enabled: false
+  max_attempts: 2
+  launcher: local
+  budget_usd: 15.0
+  timeout_seconds: 900
+  allowed_actions:
+    - fix_config
+    - install_dependencies
+    - generate_missing_artifacts
+
+notification:
+  telegram_bot_token: "${TELEGRAM_BOT_TOKEN}"
+  telegram_chat_id: "${TELEGRAM_CHAT_ID}"
+  on_stage_complete: true
+  on_failure: true
+  on_heartbeat: true

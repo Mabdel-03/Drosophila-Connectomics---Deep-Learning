@@ -1,0 +1,13 @@
+run_name: eyeTact_whole_learned_relu_trained_T12
+subgraph_id: whole
+arch: ff_unroll
+init_mode: from_data
+T: 12
+learn_core: true
+epochs: 25
+family: eyeTact
+eye: learned
+dynamics: tanh
+nonlinearity: relu
+state_norm: rms
+target_radius: 0.9

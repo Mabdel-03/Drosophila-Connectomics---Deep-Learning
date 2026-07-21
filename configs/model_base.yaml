@@ -8,6 +8,10 @@ T_floor: 10
 alpha: null              # null -> arch default (ff_unroll 1.0, rnn 0.2)
 nonlinearity: tanh       # bounded; safest with no learnable node params
 target_radius: 0.9       # spectral radius after init rescale (stability)
+# Step rule. tanh = leaky-integrator (Families 1/2). linear = pure signed matmul h<-W h
+# (Family 3 "recmul": literally multiply the node state by the connectome T times). The
+# recmul leaf configs set dynamics: linear (+ state_norm: rms for the bounded variant).
+dynamics: tanh           # tanh (leaky-integrator) | linear (pure signed matmul)
 
 # --- connectome ---
 policy: flyvis_standard  # ACh +1, GABA/Glut -1, monoamines dropped
@@ -35,6 +39,15 @@ ncm_metric: cosine       # euclidean | cosine | lda  (V3 headline rule)
 # a frozen rho~0.9 core decays the input geometrically before it reaches the VPN readout.
 state_norm: null         # null -> 'rms' for rigid eye, 'none' for learned encoder
 readout_mode: accum      # accum (sum readout over the unroll) | final (h_T only)
+
+# --- dataset (image task) ---
+# dataset: mnist (28x28 grayscale, 784-d; the original stage-3 task) | cifar10 (32x32).
+# color (cifar10 only): luma -> single luminance channel (1024-d), the faithful input for the
+#   rigid eye (one brightness per ommatidial column); rgb -> 3-channel (3072-d), a LEARNED-eye-
+#   only control. The rigid eye rejects color='rgb'. Image dims / n_pixels / n_classes are
+#   derived from (dataset, color) via flyconn.models.data.dataset_spec. Defaults keep MNIST.
+dataset: mnist
+color: luma
 
 # --- optimization ---
 epochs: 25

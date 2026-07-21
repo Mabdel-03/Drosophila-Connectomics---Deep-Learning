@@ -1,0 +1,24 @@
+SEED stage — write seed_spec.json.
+
+You are defining the scientific target for the OPEN QUESTIONS campaign (Stage 6). The goal
+is to resolve, from connectome data alone, the three open anatomical questions left by
+Figure_Ground_Circuit.pdf after its quantitative claims were all verified:
+
+  Q1  SINGLE-ANIMAL CLOSURE — the published circuit is split across two specimens of
+      different sex (female FlyWire FAFB for the optic-lobe/DN side; male MCNS for the motor
+      side). Does the LLPC1 -> Nod1 -> DNp26 figure-readout chain reproduce WITHIN the male
+      CNS (MCNS) alone? A positive result retires the paper's most serious self-stated
+      limitation (the female-brain + male-VNC two-animal split).
+  Q2  BILATERAL / 4-DIRECTION GENERALIZATION — the paper analysed only the RIGHT LLPC1 sheet
+      via the front-to-back (layer-a) T4a exemplar. Does the VCH-gating + retinotopic pooling
+      + Nod1-readout structure generalize to the LEFT sheet (right-soma VCH gates the left
+      sheet, since centrifugal cells cross) and the other directions?
+  Q3  ESCAPE-ROUTE CENSUS TO MUSCLE — enumerate the PLP/PVLP -> LPLC2/LC4 escape arm's full
+      descending-neuron census in FlyWire and trace it to the muscle level in MCNS; test the
+      paper's claim that the escape output is anatomically separable (distinct DNs + distinct
+      muscles) from the LLPC1 wing-steering output.
+
+Emit seed_spec.json with keys: seed_neurons, dataset ("FAFB+MCNS"), target_muscles,
+questions {q1,q2,q3}, thresholds {min_synapses, escape_syn_floor, n_perm}, goal. The wrapper
+(scripts/campaign_openq_seed.py) writes a correct default from the fixed spec; you only need
+to adjust thresholds if a prior round asked for it.

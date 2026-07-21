@@ -1,8 +1,10 @@
-"""Build + train a connectome-constrained MNIST classifier from a config dict.
+"""Build + train a connectome-constrained image classifier from a config dict.
 
-Glues subgraph -> ConnectomeNet -> init mode -> I/O sets -> MNIST loop. Checkpoints,
-metrics, and the resolved config are written to scratch under
-``$FLYCONN_DATA_ROOT/v783/models/<run_name>/``.
+Glues subgraph -> ConnectomeNet -> init mode -> I/O sets -> data loop. The dataset is
+chosen by ``cfg['dataset']`` ('mnist' default | 'cifar10') and, for cifar10,
+``cfg['color']`` ('luma' default | 'rgb'); image dims, n_pixels and n_classes flow from a
+DatasetSpec so the same code serves both. Checkpoints, metrics, and the resolved config
+are written to scratch under ``$FLYCONN_DATA_ROOT/v783/models/<run_name>/``.
 """
 
 from __future__ import annotations
@@ -44,14 +46,26 @@ def build_classifier(cfg: dict, device: str = "cpu"):
     Classifier). The ``photoreceptor_sign`` config (-1 for the biologically faithful
     histaminergic/inhibitory override) is applied at subgraph-build time.
     """
+    from .data import dataset_spec
+
     subgraph_id = cfg["subgraph_id"]
     arch = cfg["arch"]
     init_mode = cfg["init_mode"]
     policy = cfg.get("policy", "flyvis_standard")
     photoreceptor_sign = cfg.get("photoreceptor_sign", "inherit")
+    # Init-ablation sign knobs (default no-op): sign_shuffle (seed) permutes ±1 signs;
+    # force_sign (+1/-1) globally overrides every edge's sign. See build_subgraph.
+    sign_shuffle = cfg.get("sign_shuffle", "none")
+    force_sign = cfg.get("force_sign", "none")
+    # Dataset shape (image dims, n_pixels, n_classes). Defaults to MNIST so legacy configs
+    # that lack `dataset`/`color` build the exact same model as before.
+    dataset = cfg.get("dataset", "mnist")
+    color = cfg.get("color", "luma")
+    spec = dataset_spec(dataset, color=color)
 
     sub = build_subgraph(subgraph_id, policy=policy,
-                         photoreceptor_sign=photoreceptor_sign)
+                         photoreceptor_sign=photoreceptor_sign,
+                         sign_shuffle=sign_shuffle, force_sign=force_sign)
     # Start from per-arch defaults, then apply explicit overrides from the config.
     net_cfg = NetConfig.for_arch(arch)
     if cfg.get("alpha") is not None:
@@ -62,6 +76,8 @@ def build_classifier(cfg: dict, device: str = "cpu"):
         net_cfg.target_radius = float(cfg["target_radius"])
     if cfg.get("T") is not None:
         net_cfg.T = int(cfg["T"])
+    if cfg.get("dynamics"):
+        net_cfg.dynamics = cfg["dynamics"]
     # Gain control: rigid-eye models default to per-step RMS renorm so the signal survives
     # the frozen core to the readout; learned-encoder models keep the original 'none'.
     # state_norm=null/None in the config means "use this default".
@@ -93,21 +109,54 @@ def build_classifier(cfg: dict, device: str = "cpu"):
         "n_input": int(input_ids.size), "n_readout": int(readout_ids.size),
         "bfs": bfs, "init": init_report, "eye": eye_mode,
         "photoreceptor_sign": photoreceptor_sign,
+        "sign_shuffle": sign_shuffle, "force_sign": force_sign,
+        "dynamics": net_cfg.dynamics, "learn_core": bool(cfg.get("learn_core", True)),
+        "dataset": dataset, "color": color, "n_pixels": spec.n_pixels,
+        "n_classes": spec.n_classes,
     }
 
+    # Eye/color compatibility. 'rigid' is the colorblind luminance eye (needs luma data).
+    # 'rigid_color' is the SPECTRAL eye (R1-6<-luma, R7<-blue, R8<-green) and needs the raw
+    # 3-channel RGB image, so it REQUIRES color='rgb'. 'learned' takes either.
+    if eye_mode == "rigid" and color == "rgb":
+        raise ValueError(
+            "rigid (colorblind) eye is luminance-only; use color='luma' for rigid, "
+            "eye='rigid_color' for the faithful spectral eye, or eye='learned' for the "
+            "rgb control."
+        )
+    if eye_mode == "rigid_color" and color != "rgb":
+        raise ValueError(
+            "rigid_color (spectral) eye reads the raw 3-channel image; set color='rgb'."
+        )
+
     if eye_mode == "learned":
-        model = ConnectomeClassifier(core, input_ids, readout_ids).to(device)
+        # n_pixels MUST come from the dataset spec — the ConnectomeClassifier default is 784
+        # (MNIST), which would shape-mismatch a 1024-d (cifar luma) or 3072-d (cifar rgb) input.
+        model = ConnectomeClassifier(core, input_ids, readout_ids,
+                                     n_pixels=spec.n_pixels,
+                                     n_classes=spec.n_classes).to(device)
+        # Frozen-W (Family-3 recmul learn_core=false): train only the encoder + readout, with
+        # the connectome edge magnitudes held at their init. Without this the learned-eye path
+        # would silently train theta regardless of the flag (the flag was only honored by the
+        # rigid-eye RigidEyeClassifier).
+        if not bool(cfg.get("learn_core", True)):
+            for p in model.core.parameters():
+                p.requires_grad_(False)
         return model, sub, info
 
-    # ---- rigid eye ----
+    # ---- rigid eye ---- 'rigid' -> luminance (1 channel); 'rigid_color' -> spectral (per
+    # receptor type). spec.H/spec.W are the spatial dims either way (32x32 for cifar rgb).
+    eye_color = "spectral" if eye_mode == "rigid_color" else "luma"
     eye_map = build_eye_map(
         sub,
+        img_h=spec.H, img_w=spec.W,
         source=cfg.get("eye_source", "auto"),
         drive_gain=float(cfg.get("drive_gain", 0.5)),
         eyes=cfg.get("eye_eyes", "both"),
         channels=cfg.get("eye_channels", "all"),
         fill=cfg.get("eye_fill", "zero"),
         mirror_lr=bool(cfg.get("mirror_lr", True)),
+        color=eye_color,
     )
     learn_core = bool(cfg.get("learn_core", True))
     decision = cfg.get("decision", "linear")
@@ -115,13 +164,14 @@ def build_classifier(cfg: dict, device: str = "cpu"):
     model = RigidEyeClassifier(
         RigidEye(eye_map), core, readout_ids,
         learn_core=learn_core, decision=decision, readout_mode=readout_mode,
+        n_classes=spec.n_classes,
     ).to(device)
     info.update({
         "variant": _variant_name(cfg), "decision": decision,
         "learn_core": learn_core, "learn_readout": bool(cfg.get("learn_readout", True)),
         "eye_source": eye_map.source, "n_assigned_receptors": eye_map.n_assigned,
         "drive_gain": eye_map.drive_gain, "state_norm": net_cfg.state_norm,
-        "readout_mode": readout_mode,
+        "readout_mode": readout_mode, "eye_color": eye_map.color,
     })
     return model, sub, info
 
@@ -174,7 +224,9 @@ def train(cfg: dict) -> dict:
     epochs = int(cfg.get("epochs", 20))
     batch = int(cfg.get("batch_size", 128))
     tr, va, te = get_loaders(batch_size=batch, num_workers=cfg.get("num_workers", 4),
-                             download=cfg.get("download", True))
+                             download=cfg.get("download", True),
+                             dataset=cfg.get("dataset", "mnist"),
+                             color=cfg.get("color", "luma"))
 
     # V2 (rigid eye, frozen core, linear probe): standardize the frozen readout features
     # over the train set so the probe doesn't waste capacity undoing the DC offset under
@@ -225,7 +277,19 @@ def train(cfg: dict) -> dict:
                "eye": info.get("eye", "learned"),
                "decision": info.get("decision", "linear"),
                "photoreceptor_sign": info.get("photoreceptor_sign", "inherit"),
+               # Family-5 (initablation) sign knobs so the magnitude-vs-direction variants
+               # are distinguishable (nomag vs nodirmag differ only by force_sign).
+               "sign_shuffle": info.get("sign_shuffle", "none"),
+               "force_sign": info.get("force_sign", "none"),
+               # Family-3/4 provenance so the dynamics x activation x eye table is pivotable.
+               "dynamics": info["net_cfg"]["dynamics"],
+               "nonlinearity": info["net_cfg"]["nonlinearity"],
+               "state_norm": info["net_cfg"]["state_norm"],
+               "eye_source": info.get("eye_source"),
+               "family": cfg.get("family"),
+               "dataset": info.get("dataset", "mnist"), "color": info.get("color", "luma"),
                "N": info["N"], "E": info["E"], "T": info["net_cfg"]["T"],
+               "learn_core": info.get("learn_core", True),
                "n_params": int(sum(p.numel() for p in model.parameters() if p.requires_grad)),
                "best_val_acc": best_val, "test_acc": test_acc, "test_loss": test_loss}
     with open(out / "summary.json", "w") as fh:
@@ -291,10 +355,12 @@ def fit_rigid(cfg: dict) -> dict:
 
     batch = int(cfg.get("batch_size", 256))
     tr, _, te = get_loaders(batch_size=batch, num_workers=cfg.get("num_workers", 4),
-                            download=cfg.get("download", True))
+                            download=cfg.get("download", True),
+                            dataset=cfg.get("dataset", "mnist"),
+                            color=cfg.get("color", "luma"))
 
     # --- one pass over train: accumulate per-class sums + global stats ---
-    n_classes = 10
+    n_classes = info.get("n_classes", 10)
     d = info["n_readout"]
     cls_sum = torch.zeros(n_classes, d, device=device)
     cls_cnt = torch.zeros(n_classes, device=device)

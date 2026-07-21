@@ -26,6 +26,9 @@ dependencies = [
 # anyone installing into a torch-less env.
 torch = ["torch>=2.0"]
 graph = ["networkx>=3.2"]      # stages 2 & 4
+# Live connectome access (stage 5): query FlyWire FAFB + male-CNS via the CAVE API.
+# Only needed for the network-enabled extract; the offline verify path is cave-less.
+cave = ["caveclient>=5.20", "navis>=1.8", "cloud-volume>=8.0"]
 dev = ["pytest>=7.4"]
 
 [tool.setuptools.packages.find]

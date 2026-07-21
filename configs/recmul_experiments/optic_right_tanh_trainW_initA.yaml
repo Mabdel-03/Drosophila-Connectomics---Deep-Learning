@@ -1,0 +1,11 @@
+run_name: optic_right_tanh_trainW_initA
+subgraph_id: optic_right
+arch: ff_unroll
+dynamics: tanh
+state_norm: null
+init_mode: from_data
+learn_core: true
+T: 10
+target_radius: 0.9
+eye: learned
+family: recmul

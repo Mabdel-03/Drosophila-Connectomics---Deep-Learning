@@ -1,0 +1,372 @@
+{
+  "meta": {
+    "flywire_track": "offline"
+  },
+  "title": "FD3 sheet: LPC1 is the direction-matched layer-b cholinergic feed-forward sheet",
+  "verdicts": {
+    "CONFIRMED": 10,
+    "UNVERIFIABLE": 1,
+    "CONFIRMED_WITH_CAVEAT": 1
+  },
+  "claims": [
+    {
+      "id": "Q.named_sheet_found",
+      "description": "A direction-matched (layer-b) sheet feeding FD3 exists",
+      "report_value": "LPC1",
+      "computed_primary": "LPC1",
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "Q.sheet_cholinergic",
+      "description": "The FD3 sheet (LPC1) is cholinergic (excitatory relay)",
+      "report_value": "acetylcholine",
+      "computed_primary": "acetylcholine",
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "Q.sheet_layer_b",
+      "description": "The FD3 sheet reads the layer-b (regressive) channel FD3 reads",
+      "report_value": "b",
+      "computed_primary": "b",
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "Q.feed_forward",
+      "description": "Feed-forward chain present: T4b/T5b -> LPC1 -> FD3",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "Q.retinotopy_local",
+      "description": "LPC1 pools its T4b/T5b input retinotopically locally (below null)",
+      "report_value": "obs << null (z<=-20, p<0.01)",
+      "computed_primary": "obs 10.789 vs null 207.599",
+      "computed_secondary": null,
+      "tolerance": "z<=-20 and p<0.01 (scale-robust)",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "z=-230.8, p=0.002, 500 perms",
+      "extra": {}
+    },
+    {
+      "id": "Q.lpc1_unique_layerb",
+      "description": "LPC1 is the UNIQUE layer-b sheet feeding FD3 (siblings read orthogonal channels)",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "sheet-set channels: {'LPC1': 'regressive', 'LLPC3': 'downward', 'LLPC2': 'upward', 'LPC2': 'upward'}; fold vs other layer-b: unique",
+      "extra": {}
+    },
+    {
+      "id": "Q.nc_not_fd1_sheet",
+      "description": "FD3 reads a DIFFERENT sheet than FD1: LLPC1 is not a major FD3 input",
+      "report_value": "LLPC1->FD3 < LPC1->FD3",
+      "computed_primary": "LLPC1->FD3=446, LPC1->FD3=1120",
+      "computed_secondary": null,
+      "tolerance": "LLPC1->FD3 < 0.6 x LPC1->FD3",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "negative control: FD3 is not just re-reading FD1's progressive sheet",
+      "extra": {}
+    },
+    {
+      "id": "Q.sheet_set",
+      "description": "FD3's intermediate is a SET {LPC1 horizontal + LLPC2/LLPC3 vertical context}",
+      "report_value": "{LPC1, LLPC2, LLPC3}",
+      "computed_primary": "['LPC1', 'LLPC3', 'LLPC2', 'LPC2']",
+      "computed_secondary": null,
+      "tolerance": "LPC1 the direction-matched member; siblings orthogonal channels",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "channels {'LPC1': 'regressive', 'LLPC3': 'downward', 'LLPC2': 'upward', 'LPC2': 'upward'}",
+      "extra": {}
+    },
+    {
+      "id": "Q.pools_all_cardinal_directions",
+      "description": "Through its sheets, FD3 receives relayed motion spanning all four cardinal directions (LPC1=regressive, LLPC3=down, LLPC2/LPC2=up, LLPC1=progressive)",
+      "report_value": ">=3 hard-labelled directions among FD3's sheets",
+      "computed_primary": "4 directions; per-channel {'a': 11.8, 'b': 29.5, 'c': 30.5, 'd': 28.2}",
+      "computed_secondary": null,
+      "tolerance": ">=3 direction channels, each with a hard (>=20pp margin, >=95% stable) label",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "channels {'a': ['LLPC1'], 'b': ['LPC1'], 'c': ['LLPC2', 'LPC2'], 'd': ['LLPC3']}; entropy=1.92 bits; null pct=1.0 (elevated=True); FD1 spread 4 dirs (FD3-specific=True). This describes FD3's SHEET-RELAYED input; its DIRECT T4/T5 drive stays ~99% layer-b (see Family P).",
+      "extra": {}
+    },
+    {
+      "id": "Q.matched_channel_minority",
+      "description": "Only LPC1 (regressive) is direction-matched; the sheet-relayed signal is mostly orthogonal/opposite motion CONTEXT",
+      "report_value": "matched (layer-b) sheet input < 50% of sheet-relayed input",
+      "computed_primary": "matched=29.5%, context=70.5%",
+      "computed_secondary": null,
+      "tolerance": "LPC1/layer-b is a minority of FD3's total sheet input; it is still the unique direction-matched member (see Q.lpc1_unique_layerb)",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "FD3 reads its own direction (LPC1) plus a near-balanced up/down/opposite surround",
+      "extra": {}
+    },
+    {
+      "id": "Q.power_note",
+      "description": "FD3 is one bilateral pair (n=2)",
+      "report_value": "n=2",
+      "computed_primary": null,
+      "computed_secondary": null,
+      "tolerance": "n/a",
+      "verdict": "UNVERIFIABLE",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "The sheet claims rest on the aggregate synapse populations onto both FD3 cells and on the full sheet-cell populations, not on a per-cell sample size.",
+      "extra": {}
+    },
+    {
+      "id": "Q.sheet_verdict",
+      "description": "OVERALL: FD3's intermediate sheet-set (LPC1 the direction-matched member)",
+      "report_value": "T4b/T5b -> {LPC1(+LLPC2/3)} -> FD3",
+      "computed_primary": "CONFIRMED_WITH_CAVEAT",
+      "computed_secondary": null,
+      "tolerance": "all CORE+DISC CONFIRMED & no falsifier -> CONFIRMED",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "CORE+DISC confirmed; a corroborating claim is soft",
+      "extra": {}
+    }
+  ],
+  "derived": {
+    "candidate": "LPT42_Nod4",
+    "named_sheet": "LPC1",
+    "profiles": {
+      "LPC1": {
+        "cell_type": "LPC1",
+        "present": true,
+        "n_cells": 164,
+        "nt": "acetylcholine",
+        "super_class": "visual_projection",
+        "dominant_layer": "b",
+        "dominant_direction": "regressive",
+        "layer_frac": {
+          "a": 0.7,
+          "b": 97.2,
+          "c": 1.9,
+          "d": 0.2
+        },
+        "to_fd3_syn": 1120,
+        "layer_b_input_syn": 28848,
+        "reads_layer_b": true,
+        "dir_margin_pp": 95.3,
+        "dir_boot_stability": 1.0,
+        "dir_hard": true
+      },
+      "LLPC2": {
+        "cell_type": "LLPC2",
+        "present": true,
+        "n_cells": 235,
+        "nt": "acetylcholine",
+        "super_class": "visual_projection",
+        "dominant_layer": "c",
+        "dominant_direction": "upward",
+        "layer_frac": {
+          "a": 0.4,
+          "b": 1.4,
+          "c": 97.6,
+          "d": 0.6
+        },
+        "to_fd3_syn": 979,
+        "layer_b_input_syn": 401,
+        "reads_layer_b": false,
+        "dir_margin_pp": 96.2,
+        "dir_boot_stability": 1.0,
+        "dir_hard": true
+      },
+      "LLPC3": {
+        "cell_type": "LLPC3",
+        "present": true,
+        "n_cells": 204,
+        "nt": "acetylcholine",
+        "super_class": "visual_projection",
+        "dominant_layer": "d",
+        "dominant_direction": "downward",
+        "layer_frac": {
+          "a": 1.1,
+          "b": 0.2,
+          "c": 2.4,
+          "d": 96.3
+        },
+        "to_fd3_syn": 1071,
+        "layer_b_input_syn": 51,
+        "reads_layer_b": false,
+        "dir_margin_pp": 93.9,
+        "dir_boot_stability": 1.0,
+        "dir_hard": true
+      },
+      "LPC2": {
+        "cell_type": "LPC2",
+        "present": true,
+        "n_cells": 116,
+        "nt": "acetylcholine",
+        "super_class": "visual_projection",
+        "dominant_layer": "c",
+        "dominant_direction": "upward",
+        "layer_frac": {
+          "a": 0.4,
+          "b": 0.2,
+          "c": 98.6,
+          "d": 0.9
+        },
+        "to_fd3_syn": 176,
+        "layer_b_input_syn": 48,
+        "reads_layer_b": false,
+        "dir_margin_pp": 97.7,
+        "dir_boot_stability": 1.0,
+        "dir_hard": true
+      },
+      "LLPC1": {
+        "cell_type": "LLPC1",
+        "present": true,
+        "n_cells": 219,
+        "nt": "acetylcholine",
+        "super_class": "visual_projection",
+        "dominant_layer": "a",
+        "dominant_direction": "progressive",
+        "layer_frac": {
+          "a": 87.8,
+          "b": 1.6,
+          "c": 9.6,
+          "d": 0.9
+        },
+        "to_fd3_syn": 446,
+        "layer_b_input_syn": 553,
+        "reads_layer_b": false,
+        "dir_margin_pp": 78.2,
+        "dir_boot_stability": 1.0,
+        "dir_hard": true
+      }
+    },
+    "n_layerb_sheets": 1,
+    "fold_vs_other_layerb": "unique",
+    "feed_forward": true,
+    "sheet_set": [
+      "LPC1",
+      "LLPC3",
+      "LLPC2",
+      "LPC2"
+    ],
+    "sheet_set_channels": {
+      "LPC1": "regressive",
+      "LLPC3": "downward",
+      "LLPC2": "upward",
+      "LPC2": "upward"
+    },
+    "retinotopy_null": {
+      "available": true,
+      "sheet": "LPC1",
+      "obs_radius_um": 10.789,
+      "null_radius_um": 207.599,
+      "z_score": -230.8,
+      "p_value": 0.002,
+      "n_perms": 500,
+      "local": true
+    },
+    "llpc1_control_to_fd3": 446,
+    "directional_composition": {
+      "sheet_syn_to_fd3": 3792,
+      "syn_by_channel": {
+        "a": 446,
+        "b": 1120,
+        "c": 1155,
+        "d": 1071
+      },
+      "sheet_frac_by_channel": {
+        "a": 11.8,
+        "b": 29.5,
+        "c": 30.5,
+        "d": 28.2
+      },
+      "channel_members": {
+        "a": [
+          "LLPC1"
+        ],
+        "b": [
+          "LPC1"
+        ],
+        "c": [
+          "LLPC2",
+          "LPC2"
+        ],
+        "d": [
+          "LLPC3"
+        ]
+      },
+      "channel_directions": {
+        "a": "progressive",
+        "b": "regressive",
+        "c": "upward",
+        "d": "downward"
+      },
+      "n_cardinal_directions": 4,
+      "matched_frac": 29.5,
+      "context_frac": 70.5,
+      "soft_direction_sheets": [],
+      "channel_entropy_bits": 1.92
+    },
+    "entropy_null": {
+      "available": true,
+      "fd3_entropy_bits": 1.92,
+      "null_mean_bits": 1.125,
+      "null_median_bits": 1.24,
+      "n_null_cells": 38,
+      "fd3_percentile": 1.0,
+      "fd3_elevated": true
+    },
+    "fd1_reference": {
+      "available": true,
+      "cell_type": "Nod1",
+      "n_cardinal_directions": 4,
+      "matched_frac": 0.3,
+      "context_frac": 99.7,
+      "channel_entropy_bits": 0.657,
+      "sheet_frac_by_channel": {
+        "a": 88.1,
+        "b": 0.3,
+        "c": 4.2,
+        "d": 7.5
+      },
+      "fd3_specific": true
+    },
+    "track": "offline"
+  }
+}

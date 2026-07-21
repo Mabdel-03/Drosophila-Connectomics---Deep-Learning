@@ -1,0 +1,256 @@
+{
+  "run": "eyeTact_whole_learned_relu_untrained_T12",
+  "T": 12,
+  "N": 139255,
+  "n_input": 11112,
+  "n_readout": 9340,
+  "n_active_types_per_t": [
+    3,
+    25,
+    123,
+    555,
+    1891,
+    1658,
+    1693,
+    1916,
+    1990,
+    2565,
+    2750,
+    2606
+  ],
+  "test_acc_per_t": [
+    0.1135,
+    0.9768,
+    0.9837,
+    0.9866,
+    0.9848,
+    0.9827,
+    0.982,
+    0.9818,
+    0.982,
+    0.9826,
+    0.9828,
+    0.9803
+  ],
+  "readout_first_reached_t": 2,
+  "retinotopy_columns_plotted": 1513,
+  "top20_neurons": [
+    {
+      "root_id": 720575940618321364,
+      "cell_type": "PVLP106",
+      "super_class": "central",
+      "side": "left",
+      "mean_abs": 42.00274658203125,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940625102224,
+      "cell_type": "AVLP079",
+      "super_class": "central",
+      "side": "right",
+      "mean_abs": 40.6622314453125,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940626979621,
+      "cell_type": "CT1",
+      "super_class": "optic",
+      "side": "left",
+      "mean_abs": 33.35319900512695,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940608545219,
+      "cell_type": "AVLP080",
+      "super_class": "central",
+      "side": "right",
+      "mean_abs": 31.936216354370117,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940616736198,
+      "cell_type": "PVLP106",
+      "super_class": "central",
+      "side": "right",
+      "mean_abs": 31.73797607421875,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940608287497,
+      "cell_type": "AVLP535",
+      "super_class": "central",
+      "side": "left",
+      "mean_abs": 29.7639102935791,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940628908548,
+      "cell_type": "CT1",
+      "super_class": "optic",
+      "side": "right",
+      "mean_abs": 26.725210189819336,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940627796298,
+      "cell_type": "AVLP080",
+      "super_class": "central",
+      "side": "left",
+      "mean_abs": 25.8542423248291,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940623113752,
+      "cell_type": "AVLP538",
+      "super_class": "central",
+      "side": "left",
+      "mean_abs": 25.670059204101562,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940612264817,
+      "cell_type": "AVLP079",
+      "super_class": "central",
+      "side": "left",
+      "mean_abs": 25.52033042907715,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940629609457,
+      "cell_type": "PVLP018",
+      "super_class": "central",
+      "side": "right",
+      "mean_abs": 24.643735885620117,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940621820404,
+      "cell_type": "PVLP018",
+      "super_class": "central",
+      "side": "left",
+      "mean_abs": 23.443395614624023,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940629513478,
+      "cell_type": "AVLP538",
+      "super_class": "central",
+      "side": "right",
+      "mean_abs": 22.005599975585938,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940620330545,
+      "cell_type": "AVLP535",
+      "super_class": "central",
+      "side": "right",
+      "mean_abs": 21.276103973388672,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940606149321,
+      "cell_type": "AVLP076",
+      "super_class": "central",
+      "side": "right",
+      "mean_abs": 16.48281478881836,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940620196929,
+      "cell_type": "AVLP435a",
+      "super_class": "central",
+      "side": "left",
+      "mean_abs": 14.026171684265137,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940639352483,
+      "cell_type": "AVLP537",
+      "super_class": "central",
+      "side": "left",
+      "mean_abs": 12.575387001037598,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940647228468,
+      "cell_type": "DNg100",
+      "super_class": "descending",
+      "side": "right",
+      "mean_abs": 12.26124095916748,
+      "is_in": false,
+      "is_out": true
+    },
+    {
+      "root_id": 720575940621640363,
+      "cell_type": "AVLP076",
+      "super_class": "central",
+      "side": "left",
+      "mean_abs": 11.9771089553833,
+      "is_in": false,
+      "is_out": false
+    },
+    {
+      "root_id": 720575940624231143,
+      "cell_type": "CB3887",
+      "super_class": "central",
+      "side": "center",
+      "mean_abs": 11.316412925720215,
+      "is_in": false,
+      "is_out": false
+    }
+  ],
+  "superclass_peak_step": {
+    "sensory": 1,
+    "optic": 9,
+    "visual_projection": 5,
+    "central": 11,
+    "descending": 10
+  },
+  "wavefront_top_types_order": [
+    "R1-6",
+    "R7",
+    "R8",
+    "Lai",
+    "L1",
+    "L2",
+    "L3",
+    "CT1",
+    "Tm2",
+    "Tm1",
+    "Dm6",
+    "Dm17",
+    "T1",
+    "TuBu06a",
+    "AVLP080",
+    "PVLP106",
+    "LT1a",
+    "LT1b",
+    "Pm12",
+    "LC12",
+    "AVLP538",
+    "CB3887",
+    "CL001",
+    "AVLP079",
+    "PVLP018",
+    "AVLP076",
+    "AVLP535",
+    "Mi1"
+  ]
+}

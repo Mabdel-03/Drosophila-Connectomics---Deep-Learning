@@ -32,7 +32,27 @@ def collect() -> pd.DataFrame:
             "variant": d.get("variant", "stage3"),
             "eye": d.get("eye", "learned"),
             "decision": d.get("decision", "linear"),
+            # Family 3 (recmul) contrasts: step rule + whether the connectome was trained.
+            "dynamics": d.get("info", {}).get("dynamics", d.get("dynamics", "tanh")),
+            "learn_core": d.get("info", {}).get("learn_core", d.get("learn_core")),
+            # Family 4 (eyeTact): activation axis (= dynamics + nonlinearity) + eye source.
+            "nonlinearity": d.get("nonlinearity",
+                                  d.get("info", {}).get("net_cfg", {}).get("nonlinearity")),
+            "state_norm": d.get("state_norm",
+                                d.get("info", {}).get("net_cfg", {}).get("state_norm")),
+            "eye_source": d.get("eye_source", d.get("info", {}).get("eye_source")),
+            "family": d.get("family", d.get("info", {}).get("family")),
+            # Dataset axis (eyeTact_cifar). Legacy MNIST summaries lack these -> default.
+            "dataset": d.get("dataset", d.get("info", {}).get("dataset", "mnist")),
+            "color": d.get("color", d.get("info", {}).get("color", "luma")),
+            # Rigid-eye spectral mode: 'luma' (colorblind) | 'spectral' (per-type R/G/B).
+            "eye_color": d.get("info", {}).get("eye_color", "luma"),
             "photoreceptor_sign": d.get("photoreceptor_sign", "inherit"),
+            # Family 5 (initablation): the sign knobs that distinguish nomag (force_sign none)
+            # from nodirmag (force_sign +1) and the shuffled-sign control.
+            "force_sign": d.get("force_sign", d.get("info", {}).get("force_sign", "none")),
+            "sign_shuffle": d.get("sign_shuffle",
+                                  d.get("info", {}).get("sign_shuffle", "none")),
             "N": d.get("N"), "E": d.get("E"), "T": d.get("T"),
             "n_params": d.get("n_params"),
             "best_val_acc": d.get("best_val_acc"),

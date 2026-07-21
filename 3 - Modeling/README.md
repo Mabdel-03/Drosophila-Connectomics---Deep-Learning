@@ -50,16 +50,22 @@ acetylcholine excitatory, GABA and glutamate inhibitory) and is **frozen**. Each
 **magnitude** is a single number that can be learned, but because the sign is a fixed multiplier on
 a non-negative magnitude, training can rescale a synapse and **never flip its sign**.
 
-## Two families of models
+## Four families of models
 
 ```mermaid
 flowchart TD
     DATA["FlyWire connectome<br/>(frozen wiring + signs)"] --> F1
     DATA --> F2
+    DATA --> F3
+    DATA --> F4
     F1["Family 1<br/>learned encoder + connectome + head<br/>(the 24-model grid)"]
     F2["Family 2<br/>fixed biological eye + connectome<br/>(rigid-eye V1 / V2 / V3)"]
+    F3["Family 3<br/>repeated W-multiply, depth 10<br/>(recmul: linear / linear_rms / tanh)"]
+    F4["Family 4<br/>whole-brain eye×activation×depth×trainability<br/>(eyeTact: 144 runs, untrained vs trained)"]
     style F1 fill:#fff3e0,stroke:#e08a00
     style F2 fill:#e0f2f1,stroke:#00897b
+    style F3 fill:#f3e5f5,stroke:#8e24aa
+    style F4 fill:#e3f2fd,stroke:#1565c0
 ```
 
 **Family 1 (the original 24 models)** uses a learned `Linear(784, photoreceptors)` encoder for the
@@ -78,6 +84,15 @@ the local brightness at its position on a hexagonal retinal grid, similar to
   the fixed wiring?).
 - **V3:** freeze everything and classify by nearest class template, with **zero learned
   parameters** (does the wiring alone separate the digits?).
+
+**Family 3 (the recurrent-multiply models, "recmul")** takes the request literally: keep the
+Family-1 learned input and output, but make the core *just multiply the node-state vector by the
+connectome ten times* — an RNN **of** the connectome at depth 10, `h ← W h`. Three step rules are
+compared — `linear` (raw repeated matmul), `linear_rms` (matmul + per-step normalization), and
+`tanh` (the bounded step from Families 1/2) — each with the connectome either frozen or trained.
+Pure `linear` is, in closed form, a single `W^10` linear map, so it measures how much of MNIST is
+*linearly* readable through the fixed ten-hop wiring; the `linear → linear_rms → tanh` ladder shows
+what normalization and nonlinearity each add. See [`MODELS.md`](MODELS.md) Part 7.5.
 
 ## What we found
 
@@ -126,6 +141,10 @@ sbatch slurm/train_array.sbatch                    # run them
 # Family 2: the rigid-eye models
 python -m flyconn.models.run eye_grid              # write the Phase-1 configs
 sbatch slurm/eye_array.sbatch                      # run them (V1/V2 train, V3 is one fit pass)
+
+# Family 3: the depth-10 recurrent-multiply (recmul) grid
+python -m flyconn.models.run recmul_grid           # write the 12 Phase-1 configs
+sbatch slurm/recmul_array.sbatch                   # run them
 
 # collate results
 python -m flyconn.models.run aggregate
