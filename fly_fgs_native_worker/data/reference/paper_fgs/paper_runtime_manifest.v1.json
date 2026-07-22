@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "runtime_id": "paper-fgs-runtime-v1",
+  "legacy_fixture_modified": false,
+  "assets": {
+    "paper_stimulus": {"relative_path": "lib/paper_stimulus.js", "bytes": 12518, "sha256": "45bcce657f5745a114b8eba116565d152f250987098ba5923c3a763a5771a047"},
+    "circuit_engine": {"relative_path": "lib/fgmodel.js", "bytes": 24841, "sha256": "46ddd9ce6cf5b10e6cb44ca257ae6737f7d78f8c4698169901b17044d27724ec"},
+    "circuit_bundle": {"relative_path": "data/bundle_fg.json", "bytes": 3098921, "sha256": "dc7ad294e54df7f4b8d4556f36e95b2676e19135d150557b8a16cfc17a4ac0dc"},
+    "protocol_document": {"relative_path": "data/paper_protocols.json", "bytes": 1537, "sha256": "78c44d60a28146631421451a0954126a335b1d6b3bcfca8fa93dc615608001fc"}
+  },
+  "execution": {"supported_circuit_rates_hz": [400, 800], "cell_count": 1684, "motor_boundary": "four exact NOD1 voltages"}
+}

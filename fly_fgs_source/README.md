@@ -4,6 +4,8 @@ This directory is a local snapshot of the deployed [Drosophila Figure–Ground C
 
 Contents:
 
+- `AGENT_INSTRUCTIONS.md` — fail-closed setup, execution, resume, verification,
+  comparison, and publication runbook for the full 1,200-trial MuJoCo release.
 - `index.html` — main Three.js flight page and its inline control/visualization code.
 - `map/index.html` — linked retinotopic T4a/LLPC1 activity-map page.
 - `lib/fgmodel.js` — conductance-based point/cable circuit engine.
@@ -12,8 +14,13 @@ Contents:
 - `data/wing_dns.json` — MANC `male-cns:v1.0` DN-to-wing-muscle table used by the page's downstream controller.
 - `provenance/` — live FlyWire manifest/status responses and the file inventory below.
 
+The content-addressed native worker is the sibling directory
+`../fly_fgs_native_worker`. It is intentionally outside this publicly served
+static tree so Python/MuJoCo source, locked dependencies, paper inputs, tests,
+and raw scientific execution machinery cannot be confused with browser assets.
+
 The page now starts in the paper-assay mode defined by
-[`figure_ground_relative_motion_simulation_spec.md`](../figure_ground_relative_motion_simulation_spec.md):
+[`figure_ground_relative_motion_simulation_spec.md`](../fly_fgs_native_worker/reference/figure_ground_relative_motion_simulation_spec.md):
 the Figure 3a/3b/3c motions are analytic and open loop, the body stays fixed,
 and the renderer and T4a samplers share one deterministic 3° random-dot
 compositor.  The original moving-bar, closed-loop tracking application remains
@@ -58,4 +65,5 @@ Run the static-browser unit and integration tests with:
 node --test tests/*.test.mjs
 ```
 
-The main report is one directory above: [FLY_FGS_MODEL_REPORT.md](../FLY_FGS_MODEL_REPORT.md).
+For the native setup, measurement contract, release execution, and reporting
+requirements, use [AGENT_INSTRUCTIONS.md](AGENT_INSTRUCTIONS.md).

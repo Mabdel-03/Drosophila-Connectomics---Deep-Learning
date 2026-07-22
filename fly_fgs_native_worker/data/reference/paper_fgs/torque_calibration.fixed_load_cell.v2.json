@@ -1,0 +1,713 @@
+{
+  "checks": {
+    "2_5hz_phase_error_le_0_1_deg": true,
+    "cross_axis_leakage_le_0_1_percent": true,
+    "gain_error_le_0_05_percent": true,
+    "lever_arm_error_le_0_1_percent": true,
+    "unit_conversion_roundtrip_exact": true,
+    "zero_yaw_offset_le_1e_12_Nm": true
+  },
+  "compiled_model_fingerprint": {
+    "counts": {
+      "nbody": 68,
+      "ngeom": 87,
+      "njnt": 99,
+      "nmesh": 85,
+      "nq": 99,
+      "ntendon": 8,
+      "nu": 6,
+      "nv": 99
+    },
+    "options": {
+      "density_internal": 1.28e-06,
+      "gravity_internal": [
+        0.0,
+        0.0,
+        -9810.0
+      ],
+      "integrator": 0,
+      "timestep_s": 2.5e-05,
+      "viscosity_internal": 1.85e-05
+    },
+    "sha256": "sha256:a63c4aecce354259eea785b9b2eb2d1ec2e787ec2903b351c5a234b0aa0ff2f3",
+    "total_body_mass_internal": 0.0009846214691323198
+  },
+  "lever_arm_trials": [
+    {
+      "applied_force_engine_n": [
+        0.0,
+        0.0001,
+        0.0
+      ],
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        -5.0000000000000004e-08
+      ],
+      "measured_support_moment_n_m": [
+        2.517537119002211e-22,
+        0.0,
+        -5.0000000000000004e-08
+      ],
+      "point_offset_engine_m": [
+        0.0005,
+        0.0,
+        0.0
+      ],
+      "relative_error": 5.035074238004421e-15
+    },
+    {
+      "applied_force_engine_n": [
+        0.0,
+        0.0001,
+        0.0
+      ],
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        5.0000000000000004e-08
+      ],
+      "measured_support_moment_n_m": [
+        2.517537119002211e-22,
+        0.0,
+        5e-08
+      ],
+      "point_offset_engine_m": [
+        -0.0005,
+        0.0,
+        0.0
+      ],
+      "relative_error": 5.036813358962179e-15
+    },
+    {
+      "applied_force_engine_n": [
+        0.0001,
+        0.0,
+        0.0
+      ],
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        5.0000000000000004e-08
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        -2.4867117164875394e-22,
+        4.999999999999999e-08
+      ],
+      "point_offset_engine_m": [
+        0.0,
+        0.0005,
+        0.0
+      ],
+      "relative_error": 4.9804623848476016e-15
+    },
+    {
+      "applied_force_engine_n": [
+        0.0001,
+        0.0,
+        0.0
+      ],
+      "expected_support_moment_n_m": [
+        0.0,
+        -0.0,
+        -5.0000000000000004e-08
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        -2.4867117164875394e-22,
+        -5.000000000000001e-08
+      ],
+      "point_offset_engine_m": [
+        0.0,
+        -0.0005,
+        0.0
+      ],
+      "relative_error": 4.9751841045804204e-15
+    }
+  ],
+  "load_cell": {
+    "orientation_site_to_engine": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "position_engine_m": [
+      5.6e-05,
+      2e-06,
+      0.02134
+    ],
+    "raw_sensor_semantics": "parent_on_child",
+    "reported_support_semantics": "parent_on_child",
+    "site_id": 1,
+    "yaw_axis_engine": [
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "maximum_cross_axis_leakage_fraction": 0.0,
+  "maximum_gain_error_fraction": 4.440892098500626e-16,
+  "maximum_lever_arm_error_fraction": 5.036813358962179e-15,
+  "meter_mode": "fixed-load-cell",
+  "moment_trials": [
+    {
+      "applied_engine_moment_n_m": [
+        -1e-09,
+        0.0,
+        0.0
+      ],
+      "axis": "x",
+      "axis_gain": 1.0,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        1e-09,
+        -0.0,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        1e-09,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        1e-09,
+        0.0,
+        0.0
+      ],
+      "axis": "x",
+      "axis_gain": 0.9999999999999996,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -1e-09,
+        -0.0,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        -9.999999999999996e-10,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        -1e-08,
+        0.0,
+        0.0
+      ],
+      "axis": "x",
+      "axis_gain": 0.9999999999999999,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        1e-08,
+        -0.0,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        9.999999999999999e-09,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        1e-08,
+        0.0,
+        0.0
+      ],
+      "axis": "x",
+      "axis_gain": 1.0000000000000002,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -1e-08,
+        -0.0,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        -1.0000000000000004e-08,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        -1e-07,
+        0.0,
+        0.0
+      ],
+      "axis": "x",
+      "axis_gain": 0.9999999999999999,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        1e-07,
+        -0.0,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        9.999999999999998e-08,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        1e-07,
+        0.0,
+        0.0
+      ],
+      "axis": "x",
+      "axis_gain": 1.0000000000000002,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -1e-07,
+        -0.0,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        -1.0000000000000001e-07,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        -2e-07,
+        0.0,
+        0.0
+      ],
+      "axis": "x",
+      "axis_gain": 1.0000000000000002,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        2e-07,
+        -0.0,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        2.0000000000000004e-07,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        2e-07,
+        0.0,
+        0.0
+      ],
+      "axis": "x",
+      "axis_gain": 0.9999999999999998,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -2e-07,
+        -0.0,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        -1.9999999999999994e-07,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        -1e-09,
+        0.0
+      ],
+      "axis": "y",
+      "axis_gain": 1.0000000000000002,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        1e-09,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        1.0000000000000003e-09,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        1e-09,
+        0.0
+      ],
+      "axis": "y",
+      "axis_gain": 1.0,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -1e-09,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        -1e-09,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        -1e-08,
+        0.0
+      ],
+      "axis": "y",
+      "axis_gain": 0.9999999999999999,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        1e-08,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        9.999999999999999e-09,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        1e-08,
+        0.0
+      ],
+      "axis": "y",
+      "axis_gain": 1.0000000000000002,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -1e-08,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        -1.0000000000000002e-08,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        -1e-07,
+        0.0
+      ],
+      "axis": "y",
+      "axis_gain": 0.9999999999999998,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        1e-07,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        9.999999999999997e-08,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        1e-07,
+        0.0
+      ],
+      "axis": "y",
+      "axis_gain": 1.0000000000000002,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -1e-07,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        -1.0000000000000002e-07,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        -2e-07,
+        0.0
+      ],
+      "axis": "y",
+      "axis_gain": 1.0,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        2e-07,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        2e-07,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        2e-07,
+        0.0
+      ],
+      "axis": "y",
+      "axis_gain": 1.0,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -2e-07,
+        -0.0
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        -2e-07,
+        0.0
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        0.0,
+        -1e-09
+      ],
+      "axis": "z",
+      "axis_gain": 1.0,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        1e-09
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        0.0,
+        1e-09
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        0.0,
+        1e-09
+      ],
+      "axis": "z",
+      "axis_gain": 1.0,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        -1e-09
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        0.0,
+        -1e-09
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        0.0,
+        -1e-08
+      ],
+      "axis": "z",
+      "axis_gain": 1.0,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        1e-08
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        0.0,
+        1e-08
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        0.0,
+        1e-08
+      ],
+      "axis": "z",
+      "axis_gain": 1.0000000000000002,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        -1e-08
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        0.0,
+        -1.0000000000000002e-08
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        0.0,
+        -1e-07
+      ],
+      "axis": "z",
+      "axis_gain": 0.9999999999999999,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        1e-07
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        0.0,
+        9.999999999999998e-08
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        0.0,
+        1e-07
+      ],
+      "axis": "z",
+      "axis_gain": 1.0,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        -1e-07
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        0.0,
+        -1e-07
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        0.0,
+        -2e-07
+      ],
+      "axis": "z",
+      "axis_gain": 0.9999999999999999,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        2e-07
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        0.0,
+        1.9999999999999996e-07
+      ]
+    },
+    {
+      "applied_engine_moment_n_m": [
+        0.0,
+        0.0,
+        2e-07
+      ],
+      "axis": "z",
+      "axis_gain": 1.0000000000000002,
+      "cross_axis_leakage_fraction": 0.0,
+      "expected_support_moment_n_m": [
+        -0.0,
+        -0.0,
+        -2e-07
+      ],
+      "measured_support_moment_n_m": [
+        0.0,
+        0.0,
+        -2.0000000000000002e-07
+      ]
+    }
+  ],
+  "operating_baseline_support_force_n": [
+    7.850633701990624e-07,
+    -3.0819506618752413e-09,
+    7.957017733364732e-06
+  ],
+  "operating_baseline_support_moment_n_m": [
+    -1.0396035293911377e-11,
+    9.152175896925421e-10,
+    7.537500333273798e-12
+  ],
+  "paper_coordinate_system": {
+    "positive_engine_z_yaw": "attempted_left_turn",
+    "positive_paper_yaw": "attempted_right_turn",
+    "x": "body_forward",
+    "y": "body_left",
+    "z": "up"
+  },
+  "paper_tether_schema_version": "2.0.0",
+  "passed": true,
+  "receipt_sha256": "c5ee51e95363eff95bff618d2783d20d15bd127ef3c99188f1a2b3f4858c07ea",
+  "schema_version": "paper_torque_calibration.v2",
+  "sinusoidal_trials": [
+    {
+      "applied_paper_amplitude_n_m": 1e-07,
+      "cycles": 2.0,
+      "frequency_hz": 2.5,
+      "gain": 1.0,
+      "measured_paper_amplitude_n_m": 1e-07,
+      "phase_error_deg": 0.0,
+      "raw_sample_rate_hz": 40000.0
+    },
+    {
+      "applied_paper_amplitude_n_m": 1e-07,
+      "cycles": 10.0,
+      "frequency_hz": 200.0,
+      "gain": 1.0,
+      "measured_paper_amplitude_n_m": 1e-07,
+      "phase_error_deg": -6.187755155740333e-15,
+      "raw_sample_rate_hz": 40000.0
+    }
+  ],
+  "unit_conversion": {
+    "n_m_to_dyne_cm_factor": 10000000.0,
+    "roundtrip_exact": true
+  },
+  "worker_config": {
+    "add_aerodynamic_geoms": true,
+    "max_abs_wing_torque_n_m": 3e-06,
+    "spawn_height_m": 0.02,
+    "timestep_s": 2.5e-05
+  },
+  "worker_versions": {
+    "flygym": "2.1.0",
+    "mujoco": "3.9.0"
+  },
+  "zero_load_method": "gravity, joint stiffness, and damping disabled; no applied wrench; model parameters restored before gain trials",
+  "zero_load_support_force_n": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "zero_load_support_moment_n_m": [
+    0.0,
+    0.0,
+    0.0
+  ]
+}

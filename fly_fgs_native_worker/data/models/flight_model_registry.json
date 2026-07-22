@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-07-18T06:17:37Z",
+  "provenance": {
+    "source_uri": "https://github.com/Mabdel-03/fly-sensor2behavior",
+    "method": "hash-locked registry generated from implemented source files",
+    "accessed_at_utc": "2026-07-18T06:17:37Z",
+    "notes": "Every record remains exploratory until its declared held-out validation gate is met."
+  },
+  "models": [
+    {
+      "name": "indirect-flight-muscle-calcium",
+      "version": "1.0.0",
+      "role": "asynchronous DLM/DVM calcium and stretch activation",
+      "artifact_hash": "sha256:e2a7b3567b7218e3fa68eef9f96a5853c671ca2f0a1dd5d04152aa73987f8562",
+      "artifact_uri": "src/fly_sensor2behavior/flight/muscles.py",
+      "parameters": [
+        {"name": "calcium_tau", "mean": 0.045, "unit": "s"},
+        {"name": "activation_tau", "mean": 0.012, "unit": "s"},
+        {"name": "resting_normalized_calcium", "mean": 0.32, "unit": "1"},
+        {"name": "normalized_calcium_per_spike", "mean": 0.18, "unit": "1"},
+        {"name": "maximum_isometric_force", "mean": 0.00009, "unit": "N"}
+      ],
+      "calibration_dataset": null,
+      "provenance": {
+        "source_uri": "https://doi.org/10.1038/s41586-023-06099-0",
+        "method": "literature-structured prior; numerical defaults not fitted",
+        "citation": "O'Sullivan et al., Nature (2023)",
+        "notes": "MN population rate controls calcium across wingbeats; spikes do not trigger one contraction per wingbeat."
+      },
+      "confidence": {
+        "tier": "model_inference",
+        "level": "low",
+        "score": 0.25,
+        "basis": "model form is literature-constrained but parameters lack a versioned calibration dataset"
+      },
+      "validation_status": "exploratory",
+      "license": "Repository license not declared"
+    },
+    {
+      "name": "virtual-wing-hinge",
+      "version": "1.0.0",
+      "role": "phase-dependent muscle state to prescribed wing kinematics and generalized torque",
+      "artifact_hash": "sha256:9d3de727bae7943003d6186cab4585b8c03a9a9c46d436698f123c39b42f9c10",
+      "artifact_uri": "src/fly_sensor2behavior/flight/hinge.py",
+      "parameters": [
+        {"name": "baseline_stroke_amplitude", "mean": 2.05, "unit": "rad"},
+        {"name": "reference_power_activation", "mean": 0.62, "unit": "1"},
+        {"name": "generalized_torque_scale", "mean": 1.8e-9, "unit": "N m"}
+      ],
+      "calibration_dataset": null,
+      "provenance": {
+        "source_uri": "https://doi.org/10.1038/s41586-024-07293-4",
+        "method": "literature-structured virtual hinge; numerical defaults not fitted",
+        "citation": "Melis et al., Nature (2024)",
+        "notes": "This reduced map is not the published sclerite-resolved hinge model."
+      },
+      "confidence": {
+        "tier": "model_inference",
+        "level": "low",
+        "score": 0.2,
+        "basis": "swappable software boundary is implemented; moment arms, signs, and gains await calibration"
+      },
+      "validation_status": "exploratory",
+      "license": "Repository license not declared"
+    },
+    {
+      "name": "flygym-flybody-flight-adapter",
+      "version": "1.6.0",
+      "role": "six-axis SI generalized wing torque to whole-body MuJoCo physics",
+      "artifact_hash": "sha256:1a0218796c7e193a5882c51abf554f41c22189285bb853d5cbabaa2c320c52cb",
+      "artifact_uri": "src/fly_sensor2behavior/flybody_adapter.py",
+      "parameters": [
+        {"name": "physics_timestep", "mean": 0.0001, "unit": "s"},
+        {"name": "maximum_absolute_wing_torque", "mean": 3e-6, "unit": "N m"},
+        {"name": "released_flight_wing_stiffness", "mean": 1e-9, "unit": "N m"}
+      ],
+      "calibration_dataset": null,
+      "provenance": {
+        "source_uri": "https://doi.org/10.1038/s41586-025-09029-4",
+        "method": "pinned FlyGym 2.1.0 adapter reviewed against FlyBody source commit d015e9bfe441bd90ae431bac24c55cb74bdbce26",
+        "citation": "Lobato-Rios et al., Nature (2025)",
+        "filters": {
+          "flygym_version": "2.1.0",
+          "flygym_commit": "ca65a510c2afe6ac61c51df4f274c8d190c2f95f",
+          "mujoco_series": "3.9.x"
+        },
+        "notes": "Adapter restores wing fluid geoms, corrects FlyGym 2.1 air units, applies released flight damping, retains passive tendons, validates every finite worker parameter and reset state fail-closed, pins the exact reviewed left/right yaw-roll-pitch DoF order, records pre-integration ground-contact points with transition semantics, and emits compiled-model, dependency-RECORD, source-commit, topology, unit, and package-license receipts into every FlyBody run manifest. The episode layer preserves physics-rate actuator torque and measured wing state without logging-rate aliasing."
+      },
+      "confidence": {
+        "tier": "model_inference",
+        "level": "medium",
+        "score": 0.55,
+        "basis": "model compiles and steps with unit/structure assertions; released straight-flight and saccade metrics are not yet reproduced"
+      },
+      "validation_status": "exploratory",
+      "license": "Adapter repository license not declared; FlyGym is Apache-2.0"
+    }
+  ]
+}

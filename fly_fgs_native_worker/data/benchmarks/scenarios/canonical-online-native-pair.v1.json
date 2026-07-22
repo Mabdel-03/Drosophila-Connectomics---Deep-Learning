@@ -1,0 +1,40 @@
+{
+  "acceptance_contract": {
+    "baseline_checkpoint_reentry": "fresh circuit, bridge, mechanics, and compiled FlyBody objects restored at 50 ms must reproduce the complete 50-100 ms tail and final composite checkpoint exactly",
+    "causal_intervention": "baseline and SILENCE arms must be numerically identical before 60 ms; targeted raw-app-L iv2 events become suppressed only while the force-stage interval is active; non-target delivered events remain applied",
+    "physical_response": "the intervention must produce nonzero measured-wing and final native root-state divergence after onset",
+    "shared_receipts": "both arms must use identical source, worker, compiled-model, clock, scene, seed, and effector-hypothesis receipts",
+    "scientific_boundary": "software integration only; no stable-flight, calibrated-muscle, anatomical-laterality, or signed yaw/roll claim"
+  },
+  "arms": [
+    {
+      "interventions": [],
+      "label": "canonical online native baseline",
+      "scenario_id": "canonical-online-native-baseline"
+    },
+    {
+      "intervention_fixture_sha256": "c99a59f33c763f4dd24728a69c910450811260b02c5983ed68f886d2fc7597ac",
+      "intervention_fixture_uri": "data/benchmarks/scenarios/canonical-online-raw-l-iv2-silence.v1.json",
+      "label": "raw-app-L iv2 force-stage silence",
+      "scenario_id": "canonical-online-native-raw-l-iv2-silence"
+    }
+  ],
+  "common_configuration": {
+    "bridge_dt_s": 0.0005,
+    "checkpoint_time_s": 0.05,
+    "circuit_dt_s": 0.005,
+    "duration_s": 0.1,
+    "effector_laterality_hypothesis": "raw_l_to_physical_left",
+    "figure_initial_world_azimuth_rad": 0.0,
+    "figure_velocity_rad_s": 0.5235987755982988,
+    "flybody_spawn_height_m": 0.1,
+    "ground_velocity_rad_s": 0.0,
+    "include_full_cell_state": false,
+    "include_retinal_input": true,
+    "physics_dt_s": 0.0001,
+    "seed": 73
+  },
+  "scenario_family": "canonical_online_fly_fgs_to_native_flybody_paired_intervention",
+  "schema_version": "1.0.0",
+  "status": "exploratory"
+}

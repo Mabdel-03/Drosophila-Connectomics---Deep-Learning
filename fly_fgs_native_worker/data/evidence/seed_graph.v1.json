@@ -1,0 +1,292 @@
+{
+  "schema_version": "1.0.0",
+  "graph_id": "fly-fgs-flight-evidence-seed-v1",
+  "generated_at_utc": "2026-07-17T20:06:00Z",
+  "datasets": [
+    {
+      "key": "fafb783",
+      "namespace": "flywire_fafb",
+      "release": "FAFB",
+      "materialization": 783,
+      "source_uri": "http://54.160.228.98/drosophila/api/manifest",
+      "neuron_universe": "139255 proofread roots"
+    },
+    {
+      "key": "manc10",
+      "namespace": "manc",
+      "release": "male-cns:v1.0",
+      "source_uri": "http://54.160.228.98/descending/",
+      "neuron_universe": "1316 descending neurons"
+    }
+  ],
+  "provenance_records": {
+    "flywire_circuit": {
+      "source_uri": "file:///home/ec2-user/website/public/fly-fgs/index.html",
+      "method": "Read the hard-coded FG_DN structural-count table from the deployed fly-fgs application and froze it against FAFB materialization 783.",
+      "citation": "FlyWire FAFB v783 public connectome manifest",
+      "accessed_at_utc": "2026-07-17T20:06:00Z",
+      "dataset_identity": "flywire_fafb:FAFB@783",
+      "filters": {
+        "autapses_included": false,
+        "cleft_score_min": null,
+        "source_sha256": "f19434ee872984035fafbfb492538609cf458111ddb64ad9f998e6c371187932"
+      },
+      "notes": "Counts are anatomical synapse observations and are not physiological weights. This seed contains the seven targets selected by the existing display, not every downstream partner."
+    },
+    "manc_motor_summary": {
+      "source_uri": "file:///home/ec2-user/website/public/fly-fgs/data/wing_dns.json",
+      "method": "Read the deployed type-level DN-to-muscle summaries, which aggregate male-cns:v1.0 DN-to-motor-neuron structural counts by the motor neuron's named muscle target.",
+      "citation": "Cheong, Eichler, Stürner et al. 2024, eLife 96084, https://elifesciences.org/articles/96084",
+      "accessed_at_utc": "2026-07-17T20:06:00Z",
+      "dataset_identity": "manc:male-cns:v1.0",
+      "filters": {
+        "minimum_dn_mn_edge_synapses": 5,
+        "minimum_dn_total_synapses": 100,
+        "source_sha256": "b3ae85e6151228919617a87907730705ec3acb8d8b441465ce182926d6c32390"
+      },
+      "notes": "The published JSON bundles type-level aggregates, not individual motor-neuron IDs. Edges are therefore explicitly marked aggregated_via_motor_neurons. Counts are not gains, signs, or muscle activations."
+    },
+    "type_crosswalk": {
+      "source_uri": "file:///home/ec2-user/website/public/fly-fgs/index.html",
+      "method": "Exact normalized DN type-label match between FlyWire FAFB and MANC; no root/body identifiers were joined.",
+      "citation": "Namiki, Dickinson, Korff & Card 2018, eLife 34272, https://elifesciences.org/articles/34272",
+      "accessed_at_utc": "2026-07-17T20:06:00Z",
+      "filters": {
+        "match_key": "normalized_cell_type",
+        "sex_or_specimen_bridge": true
+      },
+      "notes": "FAFB and male-cns:v1.0 are different specimens and sexes. The crosswalk is an inference at cell-type level only."
+    },
+    "local_selected_coverage": {
+      "source_uri": "file:///home/ec2-user/website/public/fly-fgs/index.html",
+      "method": "Summed the hard-coded LLPC1/NOD1-to-DN counts for the seven displayed target types and checked whether each type occurs in wing_dns.json.",
+      "accessed_at_utc": "2026-07-17T20:06:00Z",
+      "filters": {
+        "target_types": ["DNp26", "DNae002", "DNbe001", "DNa04", "DNg32", "DNge107", "DNp07"],
+        "scope": "display-selected targets only"
+      },
+      "notes": "This is not whole-connectome coverage and must not be presented as such."
+    },
+    "provisional_full_coverage": {
+      "source_uri": "urn:fly-sensor2behavior:approved-plan:2026-07-17",
+      "method": "Preserved the pre-existing full-pathway MANC3 audit totals supplied with the approved implementation plan.",
+      "accessed_at_utc": "2026-07-17T20:06:00Z",
+      "filters": {
+        "raw_audit_artifact_available_in_clone": false
+      },
+      "notes": "These totals are provisional until the original audit CSV is placed under version control and its derivation is reproduced."
+    }
+  },
+  "confidence_records": {
+    "flywire_structural": {
+      "tier": "curated_connectome",
+      "level": "high",
+      "score": 0.9,
+      "basis": "Structural counts copied from the deployed FAFB v783 circuit artifact with a recorded source hash."
+    },
+    "manc_aggregate": {
+      "tier": "curated_connectome",
+      "level": "medium",
+      "score": 0.75,
+      "basis": "MANC structural connectivity is curated, but this artifact provides type/muscle aggregates rather than explicit motor-neuron edges."
+    },
+    "crosswalk": {
+      "tier": "type_crosswalk",
+      "level": "medium",
+      "score": 0.65,
+      "basis": "Exact DN type labels match, but the atlases represent different specimens and sexes."
+    },
+    "selected_coverage": {
+      "tier": "direct_observation",
+      "level": "high",
+      "score": 0.95,
+      "basis": "Exact arithmetic over hashed local deployed artifacts, scoped only to the seven display-selected targets."
+    },
+    "provisional_coverage": {
+      "tier": "model_inference",
+      "level": "low",
+      "score": 0.45,
+      "basis": "Approved-plan audit totals are available, but the raw audit CSV and reproducible derivation are not yet versioned."
+    }
+  },
+  "edges": [
+    {
+      "edge_id": "fafb-llpc1-DNp26",
+      "source": {"dataset_key": "fafb783", "entity_id": "LLPC1_sheet", "kind": "circuit_population", "cell_type": "LLPC1", "anatomical_side": "bilateral"},
+      "target": {"dataset_key": "fafb783", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"},
+      "relation": "synapses_onto",
+      "structural_synapse_count": 149,
+      "autapses_included": false,
+      "provenance_key": "flywire_circuit",
+      "confidence_key": "flywire_structural"
+    },
+    {
+      "edge_id": "fafb-llpc1-DNae002",
+      "source": {"dataset_key": "fafb783", "entity_id": "LLPC1_sheet", "kind": "circuit_population", "cell_type": "LLPC1", "anatomical_side": "bilateral"},
+      "target": {"dataset_key": "fafb783", "entity_id": "DNae002", "kind": "cell_type", "cell_type": "DNae002", "anatomical_side": "bilateral"},
+      "relation": "synapses_onto",
+      "structural_synapse_count": 530,
+      "autapses_included": false,
+      "provenance_key": "flywire_circuit",
+      "confidence_key": "flywire_structural"
+    },
+    {
+      "edge_id": "fafb-llpc1-DNbe001",
+      "source": {"dataset_key": "fafb783", "entity_id": "LLPC1_sheet", "kind": "circuit_population", "cell_type": "LLPC1", "anatomical_side": "bilateral"},
+      "target": {"dataset_key": "fafb783", "entity_id": "DNbe001", "kind": "cell_type", "cell_type": "DNbe001", "anatomical_side": "bilateral"},
+      "relation": "synapses_onto",
+      "structural_synapse_count": 724,
+      "autapses_included": false,
+      "provenance_key": "flywire_circuit",
+      "confidence_key": "flywire_structural"
+    },
+    {
+      "edge_id": "fafb-llpc1-DNa04",
+      "source": {"dataset_key": "fafb783", "entity_id": "LLPC1_sheet", "kind": "circuit_population", "cell_type": "LLPC1", "anatomical_side": "bilateral"},
+      "target": {"dataset_key": "fafb783", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"},
+      "relation": "synapses_onto",
+      "structural_synapse_count": 51,
+      "autapses_included": false,
+      "provenance_key": "flywire_circuit",
+      "confidence_key": "flywire_structural"
+    },
+    {
+      "edge_id": "fafb-llpc1-DNp07",
+      "source": {"dataset_key": "fafb783", "entity_id": "LLPC1_sheet", "kind": "circuit_population", "cell_type": "LLPC1", "anatomical_side": "bilateral"},
+      "target": {"dataset_key": "fafb783", "entity_id": "DNp07", "kind": "cell_type", "cell_type": "DNp07", "anatomical_side": "bilateral"},
+      "relation": "synapses_onto",
+      "structural_synapse_count": 35,
+      "autapses_included": false,
+      "provenance_key": "flywire_circuit",
+      "confidence_key": "flywire_structural"
+    },
+    {
+      "edge_id": "fafb-nod1-DNp26",
+      "source": {"dataset_key": "fafb783", "entity_id": "NOD1", "kind": "circuit_population", "cell_type": "NOD1", "anatomical_side": "bilateral"},
+      "target": {"dataset_key": "fafb783", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"},
+      "relation": "synapses_onto",
+      "structural_synapse_count": 289,
+      "autapses_included": false,
+      "provenance_key": "flywire_circuit",
+      "confidence_key": "flywire_structural"
+    },
+    {
+      "edge_id": "fafb-nod1-DNbe001",
+      "source": {"dataset_key": "fafb783", "entity_id": "NOD1", "kind": "circuit_population", "cell_type": "NOD1", "anatomical_side": "bilateral"},
+      "target": {"dataset_key": "fafb783", "entity_id": "DNbe001", "kind": "cell_type", "cell_type": "DNbe001", "anatomical_side": "bilateral"},
+      "relation": "synapses_onto",
+      "structural_synapse_count": 2,
+      "autapses_included": false,
+      "provenance_key": "flywire_circuit",
+      "confidence_key": "flywire_structural"
+    },
+    {
+      "edge_id": "fafb-nod1-DNg32",
+      "source": {"dataset_key": "fafb783", "entity_id": "NOD1", "kind": "circuit_population", "cell_type": "NOD1", "anatomical_side": "bilateral"},
+      "target": {"dataset_key": "fafb783", "entity_id": "DNg32", "kind": "cell_type", "cell_type": "DNg32", "anatomical_side": "bilateral"},
+      "relation": "synapses_onto",
+      "structural_synapse_count": 41,
+      "autapses_included": false,
+      "provenance_key": "flywire_circuit",
+      "confidence_key": "flywire_structural"
+    },
+    {
+      "edge_id": "fafb-nod1-DNge107",
+      "source": {"dataset_key": "fafb783", "entity_id": "NOD1", "kind": "circuit_population", "cell_type": "NOD1", "anatomical_side": "bilateral"},
+      "target": {"dataset_key": "fafb783", "entity_id": "DNge107", "kind": "cell_type", "cell_type": "DNge107", "anatomical_side": "bilateral"},
+      "relation": "synapses_onto",
+      "structural_synapse_count": 10,
+      "autapses_included": false,
+      "provenance_key": "flywire_circuit",
+      "confidence_key": "flywire_structural"
+    },
+
+    {"edge_id": "crosswalk-DNp26", "source": {"dataset_key": "fafb783", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"}, "relation": "type_crosswalk", "provenance_key": "type_crosswalk", "confidence_key": "crosswalk"},
+    {"edge_id": "crosswalk-DNae002", "source": {"dataset_key": "fafb783", "entity_id": "DNae002", "kind": "cell_type", "cell_type": "DNae002", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DNae002", "kind": "cell_type", "cell_type": "DNae002", "anatomical_side": "bilateral"}, "relation": "type_crosswalk", "provenance_key": "type_crosswalk", "confidence_key": "crosswalk"},
+    {"edge_id": "crosswalk-DNbe001", "source": {"dataset_key": "fafb783", "entity_id": "DNbe001", "kind": "cell_type", "cell_type": "DNbe001", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DNbe001", "kind": "cell_type", "cell_type": "DNbe001", "anatomical_side": "bilateral"}, "relation": "type_crosswalk", "provenance_key": "type_crosswalk", "confidence_key": "crosswalk"},
+    {"edge_id": "crosswalk-DNa04", "source": {"dataset_key": "fafb783", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "relation": "type_crosswalk", "provenance_key": "type_crosswalk", "confidence_key": "crosswalk"},
+    {"edge_id": "crosswalk-DNg32", "source": {"dataset_key": "fafb783", "entity_id": "DNg32", "kind": "cell_type", "cell_type": "DNg32", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DNg32", "kind": "cell_type", "cell_type": "DNg32", "anatomical_side": "bilateral"}, "relation": "type_crosswalk", "provenance_key": "type_crosswalk", "confidence_key": "crosswalk"},
+    {"edge_id": "crosswalk-DNge107", "source": {"dataset_key": "fafb783", "entity_id": "DNge107", "kind": "cell_type", "cell_type": "DNge107", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DNge107", "kind": "cell_type", "cell_type": "DNge107", "anatomical_side": "bilateral"}, "relation": "type_crosswalk", "provenance_key": "type_crosswalk", "confidence_key": "crosswalk"},
+    {"edge_id": "crosswalk-DNp07", "source": {"dataset_key": "fafb783", "entity_id": "DNp07", "kind": "cell_type", "cell_type": "DNp07", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DNp07", "kind": "cell_type", "cell_type": "DNp07", "anatomical_side": "bilateral"}, "relation": "type_crosswalk", "provenance_key": "type_crosswalk", "confidence_key": "crosswalk"},
+    {"edge_id": "crosswalk-DNg02-positive-control", "source": {"dataset_key": "fafb783", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "relation": "type_crosswalk", "provenance_key": "type_crosswalk", "confidence_key": "crosswalk", "notes": "Positive-control flight-power pathway; it is not represented as an LLPC1/NOD1 target in the deployed FG_DN table."},
+
+    {"edge_id": "manc-DNg02-DLM", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DLM", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 725, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg02-DVM", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DVM", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 1205, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg02-ps1", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "ps1", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 778, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg02-ps2", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "ps2", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 6, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg02-tp1", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "tp1", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 81, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg02-tp2", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "tp2", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 1375, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg02-tpn", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "tpn", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 92, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg02-b2", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "b2", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 12, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg02-hg3", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg3", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 24, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg02-hg4", "source": {"dataset_key": "manc10", "entity_id": "DNg02", "kind": "cell_type", "cell_type": "DNg02", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg4", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 6, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+
+    {"edge_id": "manc-DNa04-DLM", "source": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DLM", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 15, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNa04-b2", "source": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "b2", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 9, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNa04-b3", "source": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "b3", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 167, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNa04-i1", "source": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "i1", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 154, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNa04-i2", "source": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "i2", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 5, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNa04-hg1", "source": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg1", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 379, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNa04-hg2", "source": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg2", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 9, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNa04-hg3", "source": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg3", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 19, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNa04-hg4", "source": {"dataset_key": "manc10", "entity_id": "DNa04", "kind": "cell_type", "cell_type": "DNa04", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg4", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 62, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+
+    {"edge_id": "manc-DNp26-DLM", "source": {"dataset_key": "manc10", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DLM", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 95, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNp26-DVM", "source": {"dataset_key": "manc10", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "DVM", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 22, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNp26-b3", "source": {"dataset_key": "manc10", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "b3", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 28, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNp26-i1", "source": {"dataset_key": "manc10", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "i1", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 105, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNp26-hg1", "source": {"dataset_key": "manc10", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg1", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 122, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNp26-hg2", "source": {"dataset_key": "manc10", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg2", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 117, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNp26-hg3", "source": {"dataset_key": "manc10", "entity_id": "DNp26", "kind": "cell_type", "cell_type": "DNp26", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg3", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 5, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+
+    {"edge_id": "manc-DNg32-tp1", "source": {"dataset_key": "manc10", "entity_id": "DNg32", "kind": "cell_type", "cell_type": "DNg32", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "tp1", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 137, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg32-b2", "source": {"dataset_key": "manc10", "entity_id": "DNg32", "kind": "cell_type", "cell_type": "DNg32", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "b2", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 132, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg32-i1", "source": {"dataset_key": "manc10", "entity_id": "DNg32", "kind": "cell_type", "cell_type": "DNg32", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "i1", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 5, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg32-i2", "source": {"dataset_key": "manc10", "entity_id": "DNg32", "kind": "cell_type", "cell_type": "DNg32", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "i2", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 5, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"},
+    {"edge_id": "manc-DNg32-hg3", "source": {"dataset_key": "manc10", "entity_id": "DNg32", "kind": "cell_type", "cell_type": "DNg32", "anatomical_side": "bilateral"}, "target": {"dataset_key": "manc10", "entity_id": "hg3", "kind": "muscle", "anatomical_side": "bilateral"}, "relation": "aggregated_via_motor_neurons", "structural_synapse_count": 9, "pathway_via": ["motor_neuron"], "provenance_key": "manc_motor_summary", "confidence_key": "manc_aggregate"}
+  ],
+  "coverage": [
+    {
+      "branch": "LLPC1_display_selected_targets",
+      "total_structural_synapses": 1489,
+      "resolved_structural_synapses": 1489,
+      "unresolved_structural_synapses": 0,
+      "provenance_key": "local_selected_coverage",
+      "confidence_key": "selected_coverage",
+      "scope": "Only the five LLPC1 target types hard-coded in the deployed fly-fgs display; not the complete LLPC1 output population."
+    },
+    {
+      "branch": "NOD1_display_selected_targets",
+      "total_structural_synapses": 342,
+      "resolved_structural_synapses": 342,
+      "unresolved_structural_synapses": 0,
+      "provenance_key": "local_selected_coverage",
+      "confidence_key": "selected_coverage",
+      "scope": "Only the four NOD1 target types hard-coded in the deployed fly-fgs display; not the complete NOD1 output population."
+    },
+    {
+      "branch": "LLPC1_full_pathway_provisional",
+      "total_structural_synapses": 2174,
+      "resolved_structural_synapses": 618,
+      "unresolved_structural_synapses": 1556,
+      "provenance_key": "provisional_full_coverage",
+      "confidence_key": "provisional_coverage",
+      "scope": "Pre-existing full-pathway type-to-MN audit reported in the approved plan; 28.4% resolved and 71.6% unresolved."
+    },
+    {
+      "branch": "NOD1_full_pathway_provisional",
+      "total_structural_synapses": 712,
+      "resolved_structural_synapses": 545,
+      "unresolved_structural_synapses": 167,
+      "provenance_key": "provisional_full_coverage",
+      "confidence_key": "provisional_coverage",
+      "scope": "Pre-existing full-pathway type-to-MN audit reported in the approved plan; 76.5% resolved and 23.5% unresolved."
+    }
+  ],
+  "provenance": {
+    "source_uri": "urn:fly-sensor2behavior:evidence-seed:v1",
+    "method": "Evidence-lock a minimal flight-pathway graph from hashed deployed fly-fgs artifacts plus explicitly labelled provisional audit totals.",
+    "accessed_at_utc": "2026-07-17T20:06:00Z",
+    "notes": "Raw synapse counts constrain anatomical connectivity only. They must not be passed to a motor or muscle model as physiological gains."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0.0",
+  "dataset": "FlyWire FAFB",
+  "namespace": "flywire_fafb",
+  "materialization": 783,
+  "manifest_url": "http://54.160.228.98/drosophila/api/manifest",
+  "status_url": "http://54.160.228.98/drosophila/api/status",
+  "fetched_utc": "2026-07-17T20:04:59.464Z",
+  "neuron_universe": {
+    "proofread": 139255,
+    "community_named": 112790,
+    "catalog_total": 144248
+  },
+  "root_id_encoding": "decimal string",
+  "coordinate_units": "nanometre",
+  "hemisphere_rule": "higher soma x is anatomical fly-left; lower soma x is anatomical fly-right",
+  "synapse_policy": {
+    "autapses": "exclude for conventional inter-neuron graph",
+    "cleft_score_threshold": null,
+    "high_confidence_cleft_score_threshold": 50,
+    "weights": "raw anatomical synapse counts; never physiological gains"
+  },
+  "proofread_connectome_shape": [139255, 139255]
+}

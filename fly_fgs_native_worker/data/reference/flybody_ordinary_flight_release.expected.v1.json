@@ -1,0 +1,225 @@
+{
+  "archive_policy": {
+    "excluded": [
+      {
+        "file_id": "51196886",
+        "name": "controller-reuse-checkpoints",
+        "reason": "The controller-reuse checkpoint is a separate transfer-learning artifact with a different runtime path and is not interchangeable with the ordinary flight SavedModel.",
+        "status": "excluded_non_interchangeable"
+      }
+    ],
+    "required": [
+      {
+        "file_id": "51196859",
+        "name": "flight-imitation-dataset",
+        "purpose": "Measured flight-imitation reference trajectories and realistic wing-pattern generator input.",
+        "source_uri": "https://janelia.figshare.com/ndownloader/files/51196859"
+      },
+      {
+        "file_id": "44815195",
+        "name": "trained-policies",
+        "purpose": "Official ordinary flight TensorFlow SavedModel.",
+        "source_uri": "https://janelia.figshare.com/ndownloader/files/44815195"
+      }
+    ]
+  },
+  "claim_boundary": {
+    "allowed": "Read-only intake readiness for reproducing the official ordinary flight controller in its original dm-control execution sequence.",
+    "forbidden": [
+      "Treating controller-reuse file 51196886 as the ordinary flight policy.",
+      "Passing a stable-flight, timestep-convergence, biological-calibration, or FlyGym-equivalence gate from this intake alone.",
+      "Inferring an unavailable archive digest, byte count, extracted inventory, SavedModel signature, runtime version, or action specification."
+    ]
+  },
+  "contract_id": "flybody-official-ordinary-flight-release",
+  "expected_receipts": {
+    "archives": [
+      {
+        "bytes": null,
+        "file_id": "44815195",
+        "reason": "Archive bytes were not downloaded for this contract and no reviewed byte receipt is available locally; values are intentionally not invented.",
+        "sha256": null,
+        "status": "unresolved_not_downloaded"
+      },
+      {
+        "bytes": null,
+        "file_id": "51196859",
+        "reason": "Archive bytes were not downloaded for this contract and no reviewed byte receipt is available locally; values are intentionally not invented.",
+        "sha256": null,
+        "status": "unresolved_not_downloaded"
+      }
+    ],
+    "extracted_inventory": {
+      "inventory_sha256": null,
+      "member_count": null,
+      "members": null,
+      "reason": "The official archives were not downloaded or extracted for this contract, so a reviewed complete member inventory is unresolved.",
+      "status": "unresolved_not_downloaded"
+    }
+  },
+  "original_inference_sequence": [
+    {
+      "operation": "flybody.fly_envs.flight_imitation(ref_path=reference_dataset, wpg_pattern_path=wpg, terminal_com_dist=float('inf'))",
+      "stage_id": "construct_environment"
+    },
+    {
+      "operation": "dm_env_wrappers.SinglePrecisionWrapper(environment)",
+      "stage_id": "single_precision_wrapper"
+    },
+    {
+      "operation": "dm_env_wrappers.CanonicalSpecWrapper(environment, clip=True)",
+      "stage_id": "canonical_action_wrapper"
+    },
+    {
+      "operation": "tf.saved_model.load(policy_root)",
+      "stage_id": "load_saved_model"
+    },
+    {
+      "operation": "flybody.agents.utils_tf.TestPolicyWrapper(policy, sample=False)",
+      "stage_id": "mean_policy_wrapper"
+    },
+    {
+      "operation": "timestep = environment.reset()",
+      "stage_id": "reset_environment"
+    },
+    {
+      "operation": "action = policy(timestep.observation)",
+      "stage_id": "infer_distribution_mean_action"
+    },
+    {
+      "operation": "timestep = environment.step(action)",
+      "stage_id": "step_environment"
+    }
+  ],
+  "required_audit_fields": {
+    "action_wrapper_audit": [
+      "environment_factory",
+      "wrapper_order",
+      "canonical_clip",
+      "policy_action_selection",
+      "canonical_action_bounds",
+      "unwrapped_action_spec_sha256",
+      "wrapped_action_spec_sha256",
+      "action_vector_shape",
+      "wing_action_indices",
+      "user_frequency_action_index",
+      "wpg_frequency_mapping_verified"
+    ],
+    "archive_receipt": [
+      "file_id",
+      "source_uri",
+      "bytes",
+      "sha256",
+      "verification_method"
+    ],
+    "checkpoint_audit": [
+      "policy_root",
+      "format",
+      "saved_model_load_succeeded",
+      "callable_succeeded"
+    ],
+    "inference_sequence_audit": [
+      "executed_stage_ids",
+      "observation_precedes_action",
+      "one_policy_call_per_control_step",
+      "environment_step_receives_wrapped_action"
+    ],
+    "inventory_entry": [
+      "path",
+      "bytes",
+      "sha256"
+    ],
+    "runtime_audit": [
+      "upstream_commit",
+      "python_version",
+      "numpy_version",
+      "tensorflow_version",
+      "tensorflow_probability_version",
+      "acme_version",
+      "sonnet_version",
+      "dm_control_version",
+      "mujoco_version",
+      "platform_tag",
+      "dependency_lock_sha256",
+      "container_image_digest",
+      "physics_timestep_s",
+      "control_timestep_s"
+    ],
+    "saved_model_signature_audit": [
+      "policy_root",
+      "signature_inventory_complete",
+      "signature_names",
+      "callable_python_type",
+      "callable_input_signature",
+      "callable_output_signature",
+      "policy_return_type",
+      "policy_output_semantics",
+      "mean_action_shape",
+      "mean_action_dtype",
+      "external_observation_normalization",
+      "layer_norm_variables_in_saved_model",
+      "observation_spec_sha256",
+      "action_spec_sha256"
+    ]
+  },
+  "required_internal_paths": {
+    "exact": [
+      {
+        "archive_file_id": "51196859",
+        "artifact_id": "flight_reference_dataset",
+        "path": "datasets_flight-imitation/flight-dataset_saccade-evasion_augmented.hdf5"
+      },
+      {
+        "archive_file_id": "51196859",
+        "artifact_id": "measured_wing_pattern",
+        "path": "datasets_flight-imitation/wing_pattern_fmech.npy"
+      },
+      {
+        "archive_file_id": "44815195",
+        "artifact_id": "ordinary_flight_saved_model",
+        "path": "trained-fly-policies/flight/saved_model.pb"
+      },
+      {
+        "archive_file_id": "44815195",
+        "artifact_id": "ordinary_flight_variables_index",
+        "path": "trained-fly-policies/flight/variables/variables.index"
+      }
+    ],
+    "patterns": [
+      {
+        "archive_file_id": "44815195",
+        "artifact_id": "ordinary_flight_variable_shards",
+        "minimum_matches": 1,
+        "pattern": "trained-fly-policies/flight/variables/variables.data-*-of-*",
+        "validation": "tensorflow_contiguous_shard_set"
+      }
+    ]
+  },
+  "runtime_facts": {
+    "control_timestep_s": 0.0002,
+    "physics_timestep_s": 0.00005,
+    "wing_pattern_generator": {
+      "base_frequency_hz": 218.0,
+      "control_action_mapping": "base_frequency_hz * (1 + relative_frequency_range * canonical_user_action)",
+      "discrete_frequency_count": 201,
+      "relative_frequency_range": 0.05
+    }
+  },
+  "schema_version": "1.0.0",
+  "scope": "official_ordinary_flight_only",
+  "source": {
+    "figshare_doi": "10.25378/janelia.25309105",
+    "figshare_version": 4,
+    "repository_uri": "https://github.com/TuragaLab/flybody",
+    "upstream_commit": "d015e9bfe441bd90ae431bac24c55cb74bdbce26",
+    "upstream_fact_locations": [
+      "flybody/download_data.py",
+      "flybody/tasks/constants.py",
+      "flybody/fly_envs.py",
+      "flybody/tasks/flight_imitation.py",
+      "flybody/tasks/pattern_generators.py",
+      "flybody/agents/utils_tf.py",
+      "docs/sensory-input-tracking.ipynb"
+    ]
+  }
+}

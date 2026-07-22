@@ -1,0 +1,108 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fly-sensor2behavior"
+version = "0.1.0"
+description = "Evidence-locked Drosophila visual-circuit to flight-behavior simulation"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "fly-sensor2behavior contributors" }]
+dependencies = [
+  "numpy>=1.24,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7,<10",
+  "pytest-cov>=4,<8",
+]
+# FlyGym 2.1.0 itself requires Python 3.12+. Install this extra only in the
+# worker image; the evidence and exploratory flight cores remain usable on 3.9+.
+flybody = [
+  "flygym==2.1.0",
+]
+
+[project.scripts]
+fly-s2b = "fly_sensor2behavior.cli:main"
+fly-s2b-paper-fgs = "fly_sensor2behavior.paper_fgs_cli:main"
+fly-s2b-paper-fgs-streaming = "fly_sensor2behavior.paper_fgs_streaming:main"
+fly-s2b-paper-fgs-release = "fly_sensor2behavior.paper_fgs_release_cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.data-files]
+"share/fly-sensor2behavior/evidence" = [
+  "data/evidence/README.md",
+  "data/evidence/seed_graph.v1.json",
+]
+"share/fly-sensor2behavior/manifests" = [
+  "data/manifests/flywire_fafb_v783.json",
+  "data/manifests/legacy_nod1_v0.5.0.json",
+  "data/manifests/male_cns_v1.0.json",
+]
+"share/fly-sensor2behavior/models" = ["data/models/flight_model_registry.json"]
+"share/fly-sensor2behavior/reference" = [
+  "data/reference/banc_fanc_wing_pathway_evidence.v1.json",
+  "data/reference/flybody_analytic_wingbeat_smoke.v1.json",
+  "data/reference/flybody_analytic_wingbeat_smoke.v2.json",
+  "data/reference/flybody_analytic_wingbeat_smoke.v3.json",
+  "data/reference/flybody_ordinary_flight_release.expected.v1.json",
+  "data/reference/nod1_browser_python_parity.v1.json.gz",
+]
+"share/fly-sensor2behavior/reference/fly_fgs" = [
+  "data/reference/fly_fgs/source_manifest.v1.json",
+  "data/reference/fly_fgs/fixed_step_capture.v1.json.gz",
+]
+"share/fly-sensor2behavior/reference/fly_fgs/assets" = [
+  "data/reference/fly_fgs/assets/index.snapshot.html",
+  "data/reference/fly_fgs/assets/fgmodel.snapshot.js",
+  "data/reference/fly_fgs/assets/bundle_fg.snapshot.json",
+  "data/reference/fly_fgs/assets/wing_dns.excluded.snapshot.json",
+]
+"share/fly-sensor2behavior/reference/paper_fgs" = [
+  "data/reference/paper_fgs/paper_protocols.v1.json",
+  "data/reference/paper_fgs/nod1_laterality.v1.json",
+  "data/reference/paper_fgs/scientific_release_matrix.v1.json",
+  "data/reference/paper_fgs/paper_runtime_manifest.v1.json",
+  "data/reference/paper_fgs/figure3_reference.v1.json",
+  "data/reference/paper_fgs/figure3_panel_a_600dpi.png",
+  "data/reference/paper_fgs/figure3_panel_b_600dpi.png",
+  "data/reference/paper_fgs/figure3_panel_c_600dpi.png",
+]
+"share/fly-sensor2behavior/runtime" = [
+  "scripts/fly_fgs_runtime_rpc.mjs",
+  "scripts/paper_fgs_runtime_rpc.mjs",
+]
+"share/fly-sensor2behavior/benchmarks" = [
+  "data/benchmarks/README.md",
+  "data/benchmarks/registry.v1.json",
+]
+"share/fly-sensor2behavior/benchmarks/protocols" = [
+  "data/benchmarks/protocols/asynchronous-power-muscle-heldout.v2.json",
+  "data/benchmarks/protocols/dng02-driver-line-heldout.v2.json",
+  "data/benchmarks/protocols/dng02-driver-line-heldout.v3.json",
+  "data/benchmarks/protocols/melis-wing-hinge-heldout.v2.json",
+  "data/benchmarks/protocols/sealed-heldout-execution.v1.json",
+]
+"share/fly-sensor2behavior/benchmarks/receipts" = [
+  "data/benchmarks/receipts/dng02-mendeley-public-artifacts.v1.json",
+]
+"share/fly-sensor2behavior/benchmarks/scenarios" = [
+  "data/benchmarks/scenarios/canonical-online-native-pair.v1.json",
+  "data/benchmarks/scenarios/canonical-online-raw-l-iv2-silence.v1.json",
+]
+"share/fly-sensor2behavior/worker" = ["requirements.lock"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+pythonpath = ["src", "."]
+
+[tool.coverage.run]
+source = ["fly_sensor2behavior"]

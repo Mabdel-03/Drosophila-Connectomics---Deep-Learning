@@ -37,10 +37,22 @@ The live manifest/status were rechecked on 2026-07-21 UTC: materialization 783,
 files. Structural counts are used only as relative exploratory weights; no
 cleft-score threshold or autapse inference was added by this UI extension.
 
-The physical-torque replay contract is now `paper_fgs_web_replay.v2`. It
-accepts only checksum-bound `authoritative_native_torque` artifacts produced by
-the structurally fixed MuJoCo root load cell and cross-validated against the
-equality-row-only weld reaction. Named low-pass and wingbeat-average products
-are sensitivity views; the unfitted `paper_comparison` product remains primary.
-The browser continues to run the FAFB-v783/MANC exploratory preview in parallel
-and never relabels it as native torque.
+The physical-torque replay contract is now `paper_fgs_web_replay.v3`; v2
+total-only replays remain readable. V3 accepts only checksum-bound
+`authoritative_native_torque` artifacts produced by the structurally fixed
+MuJoCo root load cell and cross-validated against the equality-row-only weld
+reaction. It adds calibrated left/right complete wing-root wrench
+decompositions, wing sum, non-wing residual, and validated aerodynamic-only
+diagnostics. Figure 3 scoring remains restricted to the authoritative
+whole-fly support torque because the paper has no per-wing trace. Named
+low-pass and wingbeat-average products are sensitivity views; the unfitted
+`paper_comparison` product remains primary. The browser continues to run the
+FAFB-v783/MANC exploratory preview in parallel and never relabels it as native
+torque.
+
+The native execution source, locked paper inputs, resumable 1,200-trial release
+runner, and complete operating instructions are stored outside this publicly
+served directory in `../../fly_fgs_native_worker` and
+`../AGENT_INSTRUCTIONS.md`, respectively. Raw native arrays are external
+scientific artifacts and are never part of this captured browser-source
+manifest.

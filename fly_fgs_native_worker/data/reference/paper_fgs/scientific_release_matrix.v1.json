@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "repetitions_per_run": 100,
+  "run_seed": 73,
+  "runs": [
+    {"run_name": "fig3a-physics-20khz", "protocol": "R83_Fig3a_0_to_90", "texture_mode": "registered_copy", "texture_seed": 123456, "circuit_rate_hz": 400, "physics_rate_hz": 20000, "torque_meter": "comparison"},
+    {"run_name": "fig3a-circuit-800hz", "protocol": "R83_Fig3a_0_to_90", "texture_mode": "registered_copy", "texture_seed": 123456, "circuit_rate_hz": 800, "physics_rate_hz": 10000, "torque_meter": "comparison"},
+    {"run_name": "fig3a-canonical", "protocol": "R83_Fig3a_0_to_90", "texture_mode": "registered_copy", "texture_seed": 123456, "circuit_rate_hz": 400, "physics_rate_hz": 10000, "torque_meter": "comparison", "convergence_references": ["fig3a-physics-20khz", "fig3a-circuit-800hz"]},
+    {"run_name": "fig3b-physics-20khz", "protocol": "R83_Fig3b_0_to_270", "texture_mode": "registered_copy", "texture_seed": 123456, "circuit_rate_hz": 400, "physics_rate_hz": 20000, "torque_meter": "comparison"},
+    {"run_name": "fig3b-canonical", "protocol": "R83_Fig3b_0_to_270", "texture_mode": "registered_copy", "texture_seed": 123456, "circuit_rate_hz": 400, "physics_rate_hz": 10000, "torque_meter": "comparison", "convergence_references": ["fig3b-physics-20khz"]},
+    {"run_name": "fig3c-physics-20khz", "protocol": "R83_Fig3c_0_to_180", "texture_mode": "registered_copy", "texture_seed": 123456, "circuit_rate_hz": 400, "physics_rate_hz": 20000, "torque_meter": "comparison"},
+    {"run_name": "fig3c-canonical", "protocol": "R83_Fig3c_0_to_180", "texture_mode": "registered_copy", "texture_seed": 123456, "circuit_rate_hz": 400, "physics_rate_hz": 10000, "torque_meter": "comparison", "convergence_references": ["fig3c-physics-20khz"]},
+    {"run_name": "fig3a-fixed-wingbeat-phase", "protocol": "R83_Fig3a_0_to_90", "texture_mode": "registered_copy", "texture_seed": 123456, "circuit_rate_hz": 400, "physics_rate_hz": 10000, "torque_meter": "fixed-load-cell", "wingbeat_phase_mode": "fixed"},
+    {"run_name": "fig3a-equality-validator", "protocol": "R83_Fig3a_0_to_90", "texture_mode": "registered_copy", "texture_seed": 123456, "circuit_rate_hz": 400, "physics_rate_hz": 10000, "torque_meter": "equality-reaction"},
+    {"run_name": "fig3a-independent-texture", "protocol": "R83_Fig3a_0_to_90", "texture_mode": "independent_matched_statistics", "texture_seed": 123456, "circuit_rate_hz": 400, "physics_rate_hz": 10000, "torque_meter": "fixed-load-cell"},
+    {"run_name": "fig3a-seed-123457", "protocol": "R83_Fig3a_0_to_90", "texture_mode": "registered_copy", "texture_seed": 123457, "circuit_rate_hz": 400, "physics_rate_hz": 10000, "torque_meter": "fixed-load-cell"},
+    {"run_name": "fig3a-seed-654321", "protocol": "R83_Fig3a_0_to_90", "texture_mode": "registered_copy", "texture_seed": 654321, "circuit_rate_hz": 400, "physics_rate_hz": 10000, "torque_meter": "fixed-load-cell"}
+  ],
+  "interpretation": "Apparatus and metrology gates are mandatory. Housefly-like response signs are reported biological validation outcomes and are never pass conditions or tuning targets."
+}

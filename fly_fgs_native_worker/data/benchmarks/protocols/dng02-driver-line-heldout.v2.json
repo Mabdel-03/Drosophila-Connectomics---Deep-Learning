@@ -1,0 +1,46 @@
+{
+  "protocol_id": "dng02-driver-line-heldout",
+  "version": "2.0.0",
+  "registered_utc": "2026-07-18T08:21:55Z",
+  "status": "frozen_before_held_out_execution",
+  "claim_scope": "Protocol-specific female tethered-flight positive-control tests of DNg02 activation and targeted-pair-count population dependence. Targeted pairs are a driver-line proxy, not a measured per-fly recruited-cell count or free-flight gain.",
+  "source": {
+    "doi": "10.17632/7g984jm2zc.1",
+    "license": "CC-BY-4.0",
+    "required_artifact_classes": ["HDF5 trial data", "README", "figure analysis code", "canonical intake manifest"]
+  },
+  "split": {
+    "group": "driver_line",
+    "rule": "Every fly, activation trial, time bin, and derivative belonging to one driver line remains in one immutable calibration, validation, or held-out partition.",
+    "prohibited": ["random fly split across a line", "trial split across a line", "time-bin split", "protocol pooling"]
+  },
+  "protocols": {
+    "open_loop": "Striped-drum open-loop trials are fit, predicted, resampled, and reported separately.",
+    "closed_loop": "Closed-loop stripe trials are fit, predicted, resampled, and reported separately."
+  },
+  "response": {
+    "source_unit": "degree",
+    "internal_unit": "radian",
+    "conversion": "multiply by pi/180 exactly before scoring",
+    "window": "Must be frozen from source methods and code in the intake manifest before held-out access."
+  },
+  "metrics": {
+    "integrity": "All registered exact-zero digest, driver-line-overlap, protocol-pooling, duplicate-trial, model-selection, and non-finite counts must equal zero.",
+    "activation_effect": "For each protocol separately, the one-sided 95% driver-line-cluster lower confidence bound of activation-induced wingbeat-amplitude change must be greater than 0 rad.",
+    "population_slope": "For each protocol separately, the one-sided 95% driver-line-cluster lower confidence bound of amplitude change per targeted pair must be greater than 0 rad per targeted pair.",
+    "curve_noninferiority": "For each protocol separately, the one-sided 95% driver-line-cluster upper bound of candidate curve RMSE divided by a calibration-only line-mean null RMSE must not exceed 1.0."
+  },
+  "uncertainty": {
+    "independent_cluster": "driver_line",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": "dng02-driver-line-heldout-v2-bootstrap",
+    "confidence": 0.95,
+    "effect_and_slope_sidedness": "one_sided_lower",
+    "curve_ratio_sidedness": "one_sided_upper"
+  },
+  "identity_limits": [
+    "The public HDF5 layout does not provide a durable globally unique biological-subject identifier reviewed across every protocol.",
+    "Targeted-pair annotations describe driver lines and are not exact recruited-cell measurements for each fly."
+  ],
+  "sealed_execution_protocol": "data/benchmarks/protocols/sealed-heldout-execution.v1.json"
+}

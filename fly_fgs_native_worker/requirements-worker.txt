@@ -1,0 +1,4 @@
+# Dedicated worker runtime. FlyGym 2.1.0 requires Python 3.12+ and pins
+# MuJoCo to the 3.9 release line through its own package metadata.
+flygym==2.1.0
+fly-sensor2behavior[dev] @ file:///app

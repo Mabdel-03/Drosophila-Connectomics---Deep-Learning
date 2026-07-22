@@ -1,0 +1,39 @@
+{
+  "protocol_id": "asynchronous-power-muscle-heldout",
+  "version": "2.0.0",
+  "registered_utc": "2026-07-18T08:21:55Z",
+  "status": "frozen_before_held_out_execution_but_blocked_on_complete_calcium_lineage",
+  "claim_scope": "Separate held-out tests of indirect flight-motor firing rate, calcium dynamics, wingbeat frequency, and the narrow published splay-state challenge. Passing does not establish direct muscle force, thoracic stretch activation, bilateral steering, or free flight.",
+  "sources": [
+    {"doi": "10.5281/zenodo.7737730", "role": "experimental archives", "license": "CC-BY-4.0"},
+    {"doi": "10.5281/zenodo.7740678", "role": "analysis code archive", "license": "CC-BY-NC-4.0"},
+    {"doi": "10.1038/s41586-023-06099-0", "role": "methods and reported cohorts", "license": "publisher terms"}
+  ],
+  "admission": {
+    "unit_of_independence": "biological individual",
+    "lineage_rule": "Every raw recording and all workbooks, events, NPY arrays, figures, AVI/TIFF files, and other derivatives must collapse to one source-recording identity before partitioning or counting.",
+    "split_rule": "Assign every recording from one individual to exactly one immutable calibration, validation, or held-out partition before fitting.",
+    "calcium_requirement": "Promotion requires the complete reconciled per-animal raw movie, ROI, trace, fit, exclusion, and processing-code lineage. Representative or aggregate traces cannot substitute.",
+    "cross_sex_rule": "Evidence from males is explicitly labelled and evaluated as transfer evidence for the canonical female simulator."
+  },
+  "metrics": {
+    "integrity": "All registered exact-zero digest, group-overlap, duplicate-representation, fit-reference, model-selection, sex-declaration, and non-finite counts must equal zero.",
+    "indirect_mn_firing_rate_error_ratio_ucb95": "Held-out error divided by the registered source measurement uncertainty, with a one-sided 95% individual-cluster upper bound no greater than 1.0.",
+    "calcium_trace_error_ratio_ucb95": "Held-out calcium-trace error divided by registered measurement uncertainty, with a one-sided 95% individual-cluster upper bound no greater than 1.0.",
+    "wingbeat_frequency_error_ratio_ucb95": "Held-out wingbeat-frequency error divided by registered measurement uncertainty, with a one-sided 95% individual-cluster upper bound no greater than 1.0.",
+    "splay_state_effect_error_ratio_ucb95": "Held-out error for the registered splay-state contrast divided by source uncertainty, with a one-sided 95% individual-cluster upper bound no greater than 1.0."
+  },
+  "uncertainty": {
+    "independent_cluster": "biological_individual",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": "asynchronous-power-muscle-heldout-v2-bootstrap",
+    "confidence": 0.95,
+    "sidedness": "one_sided_upper"
+  },
+  "known_blockers": [
+    "Complete per-animal calcium/ROI provenance is not present in the reviewed public archive inventory.",
+    "Reported calcium cohort counts are not reconciled.",
+    "Direct force, stretch, thoracic compliance, and power-transfer calibration data are incomplete."
+  ],
+  "sealed_execution_protocol": "data/benchmarks/protocols/sealed-heldout-execution.v1.json"
+}

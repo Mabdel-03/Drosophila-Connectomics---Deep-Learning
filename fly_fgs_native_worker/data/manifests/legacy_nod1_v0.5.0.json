@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "snapshot_id": "legacy-nod1-v0.5.0",
+  "status": "frozen_reference",
+  "captured_at_utc": "2026-07-17T23:00:34Z",
+  "source": {
+    "kind": "deployed_tree_without_git_history",
+    "original_path": "/home/ec2-user/figure-ground-lab-nod1-sim-fix",
+    "public_route": "http://54.160.228.98/nod1_sim_fix/",
+    "source_commit": null,
+    "source_commit_status": "unavailable"
+  },
+  "deployed_capture": {
+    "route": "http://54.160.228.98/nod1_sim_fix/",
+    "index_html": {
+      "bytes": 443,
+      "sha256": "sha256:80e3cc0cba1b39b520eca59852daa8022301ed68c1395df694d983d6963c5454"
+    },
+    "main_assets": [
+      {
+        "kind": "script",
+        "bytes": 311626,
+        "sha256": "sha256:7e8747a67758a75fc765bce71b77adad8dba0f46d64fe473a454256545aa0ea6"
+      },
+      {
+        "kind": "stylesheet",
+        "bytes": 46198,
+        "sha256": "sha256:bf84030a845f020331b5a436b7d7ec2744cf9ff2393b505c7c54b40d8e9c5d84"
+      }
+    ],
+    "circuit_response_sha256": "sha256:f286e5da3e452bb88e1c45ee5a9b16eed9e49cd05601c343fd025b933764ab08",
+    "worker_asset_sha256": [
+      "sha256:fcec7da55216d8dd7e21f16b8a030a25823c1530f8a998434885d24dda24c506"
+    ],
+    "basis": "hashes observed during strict Chromium capture on 2026-07-18; a changed deployment requires a new snapshot version"
+  },
+  "dataset": {
+    "family": "flywire_fafb",
+    "materialization": 783,
+    "identifier_space": "root_id",
+    "neuron_universe": "proofread_139255",
+    "coordinate_unit": "nm",
+    "autapses_included_in_source_table": true,
+    "cleft_score_threshold": null,
+    "anatomical_side_rule": "higher soma x is fly-left; lower soma x is fly-right"
+  },
+  "circuit_inventory": {
+    "cells": 1208,
+    "directed_aggregated_edges": 5188,
+    "structural_synapses": 53659,
+    "cable_neurons": 8,
+    "prepared_events": 53715,
+    "prepared_real_coordinate_events": 8920,
+    "prepared_synthetic_fallback_events": 44795,
+    "synthetic_fraction": 0.8338490235502188
+  },
+  "cable_neurons": [
+    {"root_id": "720575940627502338", "type": "vCH", "legacy_side": "left"},
+    {"root_id": "720575940627706398", "type": "vCH", "legacy_side": "right"},
+    {"root_id": "720575940631147776", "type": "DCH", "legacy_side": "left"},
+    {"root_id": "720575940639209956", "type": "DCH", "legacy_side": "right"},
+    {"root_id": "720575940628438427", "type": "NOD1", "legacy_side": "left"},
+    {"root_id": "720575940625528556", "type": "NOD1", "legacy_side": "left"},
+    {"root_id": "720575940623997949", "type": "NOD1", "legacy_side": "right"},
+    {"root_id": "720575940629456860", "type": "NOD1", "legacy_side": "right"}
+  ],
+  "files": {
+    "src/sim/drive.ts": "sha256:efe55591aae286945b05b81ffa6f06abf186b20104325d5758a8e9ae91e126a3",
+    "src/sim/hines.ts": "sha256:3fb4345b885685563bd6a6ec558c4b5068c335246a3425153255755a51def6ac",
+    "src/sim/loop.ts": "sha256:da9d410141f859e67d77077fe7ae1c5cd1c27215205ff0140613fce7a149ad41",
+    "src/sim/sim.worker.ts": "sha256:997a6bf9328f6621d805f38bfb3856607a8d9f9e82d7e5db82c0e7284d8148cc",
+    "src/App.tsx": "sha256:b62cb4eb86a28bff15e523e28c83ca89b82a49581c707431af1c694826ee1c67",
+    "src/types.ts": "sha256:ba84c92fe10e489eee70850178835e6fe494dc5779fe574135e819dbaceacffc",
+    "src/visualStimulus.ts": "sha256:14d94bc0d44213cc88842c258edf0437bf9aed440e1dfa63566a08e7c1669932",
+    "package-lock.json": "sha256:a3d64d8e8f993b977ce1804cd15a408cccc16e312995e7dad1b4bb0f5d29cf1f",
+    "backend/main.py": "sha256:b2485f64cdd5a29e66ef92526a10d48e12850916238ab6b9c00bc41a54fde30d",
+    "backend/simulation.py": "sha256:b58f58be03836debfe2a4e6c671125a01f789fb824726e9ac29150dde4f47102",
+    "backend/stimulus.py": "sha256:33f1816280c12ebbe44bd1f04352548c56ebb9cf8aa6dc4b6d3d800f84ab9c0c",
+    "backend/t4a_static_data.json": "sha256:fb8e9f9212781ad9c87990eacc1f7b3d3dfb65d466a589a61966eea43b8b859f"
+  },
+  "morphology_sha256": {
+    "720575940623997949": "sha256:cca18e0f2f3bc1b662418933ea33cd5aaca99b71c75b043d3f6978fecb1c65c9",
+    "720575940625528556": "sha256:bd52cc6967d5d2815ce628e39d5fe7099baedaeb17d8dc34ea6565c4c8ba09ce",
+    "720575940627502338": "sha256:4216ffb8850bf8354b5706ddaa1693f9553db5e806efc8cf77f957e89c6d4247",
+    "720575940627706398": "sha256:219cdbbd164cbcfdc5d180a24bc29197fa67b8dbd2690ba2accedb8b280b22e8",
+    "720575940628438427": "sha256:d2115ae49c2f24a0484a4f35018c369106bf64fc2cee8c8fb8abaf765bc30b9a",
+    "720575940629456860": "sha256:7441aecfbf0727d417d4a5a6c7be72c8bba9a9afa65503b584321089d88f65af",
+    "720575940631147776": "sha256:d596b8109f775f9c8d0528378fffc3fe4acb91e7b5e9bdfda483dff12fc0dfb9",
+    "720575940639209956": "sha256:4056479b0df915831e2f360479e3e5903519ab1ccc3b8d99dffc8a88c31f34ba"
+  },
+  "compatibility_contract": {
+    "time_unit": "s",
+    "voltage_source_unit": "mV",
+    "legacy_timestep_s": 0.005,
+    "motor_forbidden_fields": ["steering", "forward_looking_phase_T"],
+    "steering_semantics": "population_mean_activity_not_motor_output"
+  },
+  "known_limitations": [
+    "The source tree has no trustworthy Git commit provenance.",
+    "The legacy side labels require independent anatomical reconciliation.",
+    "Most prepared contacts are synthetic fallbacks and cannot silently pass a scientific evidence gate.",
+    "The deployed browser history uses a non-cryptographic hash and is legacy-unverified.",
+    "A default trace, RF scan, and phase scan still require content-addressed capture before parity promotion."
+  ]
+}

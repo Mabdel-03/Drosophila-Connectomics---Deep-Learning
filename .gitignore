@@ -13,6 +13,11 @@ reports/data_card_*.md
 !fly_fgs_source/data/
 !fly_fgs_source/data/*.json
 
+# The native scientific worker is a small, content-addressed source bundle.
+# Generated release arrays still live outside the repository.
+!fly_fgs_native_worker/data/
+!fly_fgs_native_worker/data/**
+
 # Allow small committable reports if explicitly forced with `git add -f`.
 # (The canonical data card is regenerated on scratch; commit a copy only when desired.)
 

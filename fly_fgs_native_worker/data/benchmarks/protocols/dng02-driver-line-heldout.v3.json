@@ -1,0 +1,359 @@
+{
+  "protocol_id": "dng02-driver-line-heldout",
+  "version": "3.0.0",
+  "supersedes_without_modifying": "data/benchmarks/protocols/dng02-driver-line-heldout.v2.json",
+  "registered_utc": "2026-07-18T00:00:00Z",
+  "status": "frozen_before_outcome_access",
+  "claim_scope": "Protocol-specific female tethered-flight positive-control tests of DNg02 activation direction, targeted-pair-count population dependence, and simulator-curve non-inferiority on a permanent driver-line-held-out partition. Open-loop striped-drum and closed-loop stripe outcomes are separate endpoints. Targeted pairs are a driver-line proxy, not a measured per-fly recruited-cell count or a free-flight gain.",
+  "promotion_scope_limits": [
+    "A pass supports only the registered female tethered-flight wingbeat-amplitude endpoints.",
+    "It does not establish exact DNg02 recruitment, motor-neuron physiology, muscle force, bilateral free-flight control, or generalization beyond the two registered protocols.",
+    "The hinge and asynchronous-power-muscle prerequisite gates remain independently required."
+  ],
+  "public_source": {
+    "doi": "10.17632/7g984jm2zc.1",
+    "license": "CC-BY-4.0",
+    "artifact_receipt_path": "data/benchmarks/receipts/dng02-mendeley-public-artifacts.v1.json",
+    "artifact_receipt_file_sha256": "edb81f26d6c0b1c75ec04d020366aa45b401f70defc2e1e8514b5fd7bb74c019",
+    "receipt_role": "Expected public identities only; the receipt contains no HDF5 outcomes and cannot unblock promotion."
+  },
+  "protocols": {
+    "open_loop": {
+      "stimulus": "striped_drum_open_loop",
+      "source_file_name": "fig1_3A_dataset.hdf5",
+      "source_file_uuid": "71d7fc6f-c1d6-453b-a508-e5c18da58537",
+      "time_key_template": "{driver_line_label}_time",
+      "trial_key_template": "{driver_line_label}_WBAs",
+      "trial_axes": ["time", "activation_trial", "dataset_local_fly"],
+      "fit_predict_resample_report_separately": true
+    },
+    "closed_loop": {
+      "stimulus": "closed_loop_stripe",
+      "source_file_name": "fig3B-E_dataset.hdf5",
+      "source_file_uuid": "7ace3eba-e1f4-4862-8c9a-b970b9fcce28",
+      "time_key_template": "{driver_line_label}_time",
+      "trial_key_template": "{driver_line_label}_WBAs",
+      "trial_axes": ["time", "activation_trial", "dataset_local_fly"],
+      "fit_predict_resample_report_separately": true
+    }
+  },
+  "non_outcome_driver_line_metadata": {
+    "authority_file": "DNg02Fig3AB_CB.py",
+    "authority_file_uuid": "e38287b2-a759-415c-be0a-51990f25e2b4",
+    "authority_file_sha256": "3e1be876cb465b81ec1f77a9088ad7bc6cc10deaa7507a86d1f224cc9f5d8186",
+    "extraction": "Positionally zip the literal GTstrings and numDNsStrict arrays in the hash-locked source. Do not use outcome arrays, plotted coordinates, or numDNs jitter values.",
+    "canonical_payload": "[[\"SS03500\",0],[\"SS02634\",1],[\"SS02627\",2],[\"SS01577\",3],[\"SS02535\",3],[\"SS01578\",5],[\"SS01073\",5],[\"SS02550\",6],[\"SS01563\",8],[\"SS02624\",8],[\"SS02625\",8],[\"SS02544\",9],[\"SS02630\",10],[\"SS01562\",12],[\"R42B02\",15]]",
+    "canonical_payload_sha256": "717e041167de3c295837dd2cc67de4f4385e316be8b51866efd242988fe1f6e5",
+    "targeted_pair_count_semantics": "Integer driver-line proxy from numDNsStrict; 0 is the registered control line. It is never interpreted as an observed number of recruited cells in an individual fly.",
+    "driver_lines": [
+      {
+        "source_order": 0,
+        "driver_line_label": "SS03500",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS03500",
+        "targeted_pair_count": 0,
+        "split_rank": 13,
+        "split_rank_sha256": "c842d7fb85ce7e4b31bdae39ca5459260babb449dde865684ec4de6fc40d92fa",
+        "partition": "sealed_test"
+      },
+      {
+        "source_order": 1,
+        "driver_line_label": "SS02634",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS02634",
+        "targeted_pair_count": 1,
+        "split_rank": 2,
+        "split_rank_sha256": "0afe86d5a4b3ff3082dcb0e233f3b599e92457de9fd7b157395a0f8aa16e5708",
+        "partition": "calibration"
+      },
+      {
+        "source_order": 2,
+        "driver_line_label": "SS02627",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS02627",
+        "targeted_pair_count": 2,
+        "split_rank": 10,
+        "split_rank_sha256": "a9c506127070b7e479437693ad26b52aeeff35aeed0751e4c0d2586978bc939a",
+        "partition": "validation"
+      },
+      {
+        "source_order": 3,
+        "driver_line_label": "SS01577",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS01577",
+        "targeted_pair_count": 3,
+        "split_rank": 6,
+        "split_rank_sha256": "40836a662b9e3fb506a0c85fece20b4314ec9ea9fff20420d00f421ad94ea2b5",
+        "partition": "calibration"
+      },
+      {
+        "source_order": 4,
+        "driver_line_label": "SS02535",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS02535",
+        "targeted_pair_count": 3,
+        "split_rank": 1,
+        "split_rank_sha256": "0aa94c32c97a8414df838545df855a43a9b8ac25e710d60939611e87a4e2d370",
+        "partition": "calibration"
+      },
+      {
+        "source_order": 5,
+        "driver_line_label": "SS01578",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS01578",
+        "targeted_pair_count": 5,
+        "split_rank": 12,
+        "split_rank_sha256": "c77e3de717f8233ce3d3570ef6c427d5e8d4d60eb2657514f16bdf3a41c7a9f6",
+        "partition": "sealed_test"
+      },
+      {
+        "source_order": 6,
+        "driver_line_label": "SS01073",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS01073",
+        "targeted_pair_count": 5,
+        "split_rank": 15,
+        "split_rank_sha256": "e2bc0b9ff89459e81237e25ca3f66fde49cb25f1371d88b9f49c59a3454ac2e9",
+        "partition": "sealed_test"
+      },
+      {
+        "source_order": 7,
+        "driver_line_label": "SS02550",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS02550",
+        "targeted_pair_count": 6,
+        "split_rank": 4,
+        "split_rank_sha256": "340fc5cfa7c72b9ae463c94ecbf66ba1d300005b4a379130cc3338187dd958de",
+        "partition": "calibration"
+      },
+      {
+        "source_order": 8,
+        "driver_line_label": "SS01563",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS01563",
+        "targeted_pair_count": 8,
+        "split_rank": 7,
+        "split_rank_sha256": "51b3ef6863eff7d9ddd334a7a3991198ce6b77d1dfac62861306ea0bc12f6524",
+        "partition": "calibration"
+      },
+      {
+        "source_order": 9,
+        "driver_line_label": "SS02624",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS02624",
+        "targeted_pair_count": 8,
+        "split_rank": 9,
+        "split_rank_sha256": "9af25599fa31587c3f7ff38713c0d6a3f1907e59e4cdd84a0342d72fe77ccf3e",
+        "partition": "validation"
+      },
+      {
+        "source_order": 10,
+        "driver_line_label": "SS02625",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS02625",
+        "targeted_pair_count": 8,
+        "split_rank": 5,
+        "split_rank_sha256": "351dedce4e2a066675d798e6524ed020ac0152f60901835f6e8d9caaa6195117",
+        "partition": "calibration"
+      },
+      {
+        "source_order": 11,
+        "driver_line_label": "SS02544",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS02544",
+        "targeted_pair_count": 9,
+        "split_rank": 11,
+        "split_rank_sha256": "adabe0b80b53f581c2ecc1add4cfe787fcb78948218dff1d3866d7621e2f1655",
+        "partition": "sealed_test"
+      },
+      {
+        "source_order": 12,
+        "driver_line_label": "SS02630",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS02630",
+        "targeted_pair_count": 10,
+        "split_rank": 3,
+        "split_rank_sha256": "25f58d32b1c11df532ea43c00cd7df2001d43278cd651972604c904ff29aa72d",
+        "partition": "calibration"
+      },
+      {
+        "source_order": 13,
+        "driver_line_label": "SS01562",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:SS01562",
+        "targeted_pair_count": 12,
+        "split_rank": 14,
+        "split_rank_sha256": "ca3c8d2884ab6fe7372f910ab279121293ec2ac65aa0ef4bd0e77c9361c0b96c",
+        "partition": "sealed_test"
+      },
+      {
+        "source_order": 14,
+        "driver_line_label": "R42B02",
+        "driver_line_id": "mendeley-7g984jm2zc-v1:R42B02",
+        "targeted_pair_count": 15,
+        "split_rank": 8,
+        "split_rank_sha256": "5f4bfaa4e13dab34d0432d35e7abc156784823e9a33d0c3d36edb0373d2aa5b0",
+        "partition": "validation"
+      }
+    ]
+  },
+  "permanent_split": {
+    "group": "driver_line_id",
+    "eligible_unique_driver_line_count": 15,
+    "eligibility_source": "The exact non-outcome driver-line metadata table above; outcome values, missingness, effect size, and protocol availability never affect eligibility or rank.",
+    "seed": "dng02-driver-line-heldout-v3-line-split",
+    "algorithm": "For each driver_line_id, compute lowercase hex SHA-256 of UTF-8(seed + U+0000 + driver_line_id), sort ascending by digest and then driver_line_id, require no digest collision, and assign ranks 1 through 15.",
+    "fixed_counts": {
+      "calibration": 7,
+      "validation": 3,
+      "sealed_test": 5
+    },
+    "rank_ranges": {
+      "calibration": [1, 7],
+      "validation": [8, 10],
+      "sealed_test": [11, 15]
+    },
+    "global_assignment_rule": "One line assignment applies to every fly, activation trial, time bin, protocol, source summary, and derived representation. A line present in both open-loop and closed-loop data retains one assignment.",
+    "missing_protocol_rule": "A line need not occur in both protocols to enter the pre-outcome split. After sealed intake, protocol-specific coverage is checked without moving, replacing, or dropping another line.",
+    "minimum_sealed_test_coverage_per_endpoint": {
+      "evaluable_driver_lines": 5,
+      "distinct_targeted_pair_count_levels": 2,
+      "minimum_evaluable_flies_per_line": 3
+    },
+    "coverage_failure": "BLOCK the affected endpoint; never resplit, substitute a calibration/validation line, pool protocols, or relax the threshold.",
+    "prohibited": [
+      "random fly split across a driver line",
+      "activation-trial split across a driver line",
+      "time-bin or derivative split",
+      "open-loop versus closed-loop partition differences for the same line",
+      "outcome-dependent line eligibility, rank, reassignment, exclusion, or replacement",
+      "protocol pooling"
+    ]
+  },
+  "stable_dataset_local_identities": {
+    "driver_line_id": "The exact driver_line_id materialized above; labels are case-sensitive and Unicode/whitespace mutation is forbidden.",
+    "fly_id": "dng02-fly-v1: plus lowercase SHA-256 of UTF-8(source_file_uuid + U+0000 + driver_line_id + U+0000 + zero-based decimal dataset_local_fly axis index).",
+    "trial_id": "dng02-trial-v1: plus lowercase SHA-256 of UTF-8(fly_id + U+0000 + zero-based decimal activation_trial axis index).",
+    "sample_id": "dng02-sample-v1: plus lowercase SHA-256 of UTF-8(trial_id + U+0000 + zero-based decimal time axis index).",
+    "derivative_rule": "Every baseline, response, delta, filtered trace, maximum, mean, prediction, and bootstrap component retains its source IDs and partition. Derivatives never become independent flies, trials, or lines.",
+    "cross_protocol_subject_rule": "The public layout does not establish a durable global biological-fly identity across source files. Open-loop and closed-loop fly IDs are distinct and must not be linked or treated as repeated measures without new reviewed evidence.",
+    "collision_rule": "Any duplicate stable ID with unequal source coordinates, or normalized/case-folded label ambiguity, is an integrity failure."
+  },
+  "primary_methods_endpoint": {
+    "endpoint_id": "methods_half_second_mean_delta_wba",
+    "status": "promotion_authoritative",
+    "execute_separately_for": ["open_loop", "closed_loop"],
+    "source_signal": "Raw {driver_line_label}_WBAs trial cube, never a precomputed _WBAmns, _WBAmnsNoBLS, _mnWBAmns, _sdWBAmns, or _mx_WBA summary.",
+    "activation_time_alignment": "Let tau_s be each source sample timestamp relative to the registered optogenetic activation onset. The onset mapping is source metadata, not inferred from WBA values, and its exact receipt must be sealed before any WBA values are released.",
+    "baseline": {
+      "interval_s": [-0.5, 0.0],
+      "interval_semantics": "left_closed_right_open",
+      "statistic": "arithmetic mean of finite source samples in the interval for one activation trial"
+    },
+    "response": {
+      "interval_s": [0.0, 0.5],
+      "interval_semantics": "left_closed_right_open",
+      "statistic": "arithmetic mean of finite source samples in the interval for one activation trial"
+    },
+    "activation_trials_per_fly": 30,
+    "trial_axis_rule": "Require exactly 30 acquisition-ordered activation trials for every admitted fly; use indices 0 through 29. Never rank or select trials by response.",
+    "per_trial_value": "response_mean_degree minus baseline_mean_degree",
+    "unit_conversion": {
+      "source_unit": "degree",
+      "internal_unit": "radian",
+      "operation_order": "Subtract response and baseline in degrees for each trial, then multiply once by mathematical pi divided by 180 before aggregation.",
+      "factor_expression": "pi/180"
+    },
+    "per_fly_value": "Arithmetic mean of the 30 per-trial radian deltas with equal trial weight.",
+    "per_line_value": "Arithmetic mean of admitted per-fly values with equal fly weight.",
+    "time_sampling_rule": "Use source timestamps and half-open membership exactly. Do not interpolate, resample, filter, smooth, differentiate, shift to maximize response, or use nearest-index window boundaries.",
+    "separate_protocol_rule": "Every statistic, fit, prediction, bootstrap, metric, table, and plot is computed separately for open_loop and closed_loop."
+  },
+  "missingness_and_exclusions": {
+    "allowed_pre_outcome_exclusions": [
+      "artifact byte or SHA-256 mismatch",
+      "unregistered source file UUID",
+      "driver-line label absent from or inconsistent with the frozen non-outcome metadata table",
+      "axis or dtype incompatible with the registered schema",
+      "missing or ambiguous activation-onset metadata",
+      "activation-trial axis length not equal to 30",
+      "duplicate or colliding stable identity"
+    ],
+    "post_seal_fly_admission": "A fly is admitted only if each Methods window contains at least one registered source timestamp and every source WBA sample selected in both windows is finite for all 30 registered trials. Otherwise exclude the entire fly with a fixed machine-readable reason; never exclude only an adverse trial.",
+    "line_admission": "A line is evaluable for one protocol only with at least three admitted flies. Preserve and report all fly exclusion counts and reasons by line and protocol.",
+    "missing_line_or_protocol": "Treat as non-evaluable for that endpoint and apply the frozen coverage rule. Do not impute, relabel, borrow across protocols, or replace the line.",
+    "forbidden_exclusions": [
+      "effect size, sign, variance, residual, influence, outlier score, plotted appearance, or agreement with the simulator",
+      "targeted-pair count after the pre-outcome line table is frozen",
+      "a failed, null, or inconvenient result",
+      "post-hoc restriction of time, trial, fly, line, or protocol"
+    ],
+    "imputation": "forbidden",
+    "winsorization": "forbidden",
+    "nonfinite_metric_policy": "BLOCK the endpoint and retain the full failure receipt; never coerce to zero or pass."
+  },
+  "candidate_prediction_contract": {
+    "issue_time": "Before any sealed-test HDF5 outcome value, aggregate, missingness mask, exclusion count, or plot is disclosed.",
+    "required_keys": ["protocol", "driver_line_id", "targeted_pair_count", "predicted_mean_delta_wba_rad"],
+    "input_limit": "The candidate may use the registered protocol condition and targeted-pair proxy plus calibration/validation data allowed by the sealed splitter. It may not use held-out line labels as free fitted effects or consume any held-out outcomes.",
+    "coverage": "Freeze one finite prediction for every one of the five sealed-test driver lines in each protocol before held-out release.",
+    "identity": "Prediction records use the same immutable driver_line_id and protocol keys as observations.",
+    "model_selection": "Calibration may fit parameters; validation may choose among already declared candidates. Sealed-test values, summaries, masks, and diagnostics never select a model, threshold, seed, exclusion, or protocol version."
+  },
+  "null_and_inference": {
+    "independent_cluster": "driver_line_id",
+    "nested_unit_policy": "Flies and trials remain nested within driver line and are never counted as independent clusters.",
+    "line_weighting": "Equal weight per evaluable driver line after the frozen per-fly and per-line aggregation; do not weight by fly or trial count.",
+    "activation_effect": "For each protocol, the equal-line mean of sealed-test per-line Methods endpoint values.",
+    "population_slope": "For each protocol, ordinary least-squares slope of sealed-test per-line Methods endpoint value on frozen integer targeted_pair_count with an intercept and equal line weight.",
+    "curve_error": "For each protocol, RMSE across sealed-test per-line values using equal line weight.",
+    "calibration_only_null": "For each protocol, a constant predictor equal to the unweighted mean of calibration-partition per-line Methods endpoint values. Freeze that scalar before sealed-test access; validation and sealed-test outcomes never refit it.",
+    "curve_error_ratio": "candidate sealed-test curve RMSE divided by calibration-only-null sealed-test RMSE. If the denominator is zero or non-finite, BLOCK rather than add an epsilon.",
+    "bootstrap": {
+      "resamples": 10000,
+      "confidence": 0.95,
+      "draw_unit": "driver_line_id with replacement, drawing the protocol-specific evaluable sealed-test line count on every resample and retaining all nested fly/trial data",
+      "seed": "dng02-driver-line-heldout-v3-bootstrap",
+      "index_algorithm": "For resample r in 0..9999 and draw slot j in 0..n-1, compute SHA-256 of UTF-8(seed + U+0000 + protocol + U+0000 + metric_id + U+0000 + decimal r + U+0000 + decimal j); interpret the digest as one unsigned 256-bit big-endian integer and take modulo n into the driver_line_id-sorted line list.",
+      "lower_bound": "Empirical nearest-rank 5th percentile: sorted bootstrap value at zero-based index ceil(0.05 * 10000) - 1.",
+      "upper_bound": "Empirical nearest-rank 95th percentile: sorted bootstrap value at zero-based index ceil(0.95 * 10000) - 1.",
+      "nonfinite_draw": "BLOCK the endpoint."
+    }
+  },
+  "promotion_metrics": {
+    "integrity": "For each protocol, artifact mismatch, early held-out access, split mismatch, driver-line overlap, protocol pooling, identity collision, duplicate representation, post-freeze model-selection reference, prohibited exclusion, missing prediction, and non-finite metric counts must all equal zero.",
+    "activation_effect": "For each protocol separately, the one-sided 95% driver-line-cluster bootstrap lower bound of activation_effect must be greater than 0 rad.",
+    "population_slope": "For each protocol separately, the one-sided 95% driver-line-cluster bootstrap lower bound of population_slope must be greater than 0 rad per targeted pair.",
+    "curve_noninferiority": "For each protocol separately, the one-sided 95% driver-line-cluster bootstrap upper bound of curve_error_ratio must be less than or equal to 1.0.",
+    "joint_rule": "Promotion requires every integrity, coverage, activation, slope, and curve criterion in both protocols plus all upstream prerequisite gates. One blocked or failed protocol prevents promotion; results are never pooled."
+  },
+  "source_code_regression_diagnostic": {
+    "status": "blocked_pending_static_code_constant_extraction_receipt",
+    "promotion_eligible": false,
+    "model_selection_eligible": false,
+    "blocks_primary_methods_endpoint": false,
+    "purpose": "Reproduce the source Fig. 3 summary as a lineage and implementation discrepancy check only.",
+    "broad_semantics": "Maximum of a baseline-subtracted, approximately 0.05-to-3-second individual response after the source's 24 Hz zero-phase filtering path.",
+    "authoritative_scripts": [
+      {
+        "file_name": "DNg02Fig1_CB.py",
+        "sha256": "80540f3aeef6bdc31d91e760e87558aeaf08727d2e183bd182f47289d3e6b72e"
+      },
+      {
+        "file_name": "DNg02Fig3AB_CB.py",
+        "sha256": "3e1be876cb465b81ec1f77a9088ad7bc6cc10deaa7507a86d1f224cc9f5d8186"
+      },
+      {
+        "file_name": "DNg02Fig3CDE_CB.py",
+        "sha256": "7e5cc0158711be27a7e3f4a4a124dd88566583da90929de5a1b38ff6f96872aa"
+      }
+    ],
+    "execution_precondition": "A separately reviewed, content-addressed static-code receipt must transcribe the exact filter design/order, zero-phase implementation, baseline operation, time shift, window indices, maximum and aggregation semantics, software versions, and expected source outputs. Until then this diagnostic is BLOCKED, not guessed.",
+    "non_leakage_rule": "Diagnostic outputs are generated only after model and primary evaluator freeze, are labelled source_regression_only, and never tune the simulator, split, Methods endpoint, exclusions, thresholds, or promotion decision."
+  },
+  "sealed_outcome_access": {
+    "outcome_files": ["fig1_3A_dataset.hdf5", "fig3B-E_dataset.hdf5"],
+    "pre_access_requirements": [
+      "Verify the exact artifact receipt file SHA-256 and every outcome file byte count and SHA-256 without exposing values to the model-development process.",
+      "Verify the frozen 15-line metadata table, line IDs, rank digests, exact 7/3/5 assignments, protocol schemas, and activation-onset mapping receipt.",
+      "Freeze calibration/validation access policy, all stable source-coordinate IDs, preprocessing and exclusion code, evaluator code, environment, bootstrap implementation, model registry record, checkpoint, parameters, random seeds, and prediction schema.",
+      "Record a signed no-held-out-access attestation for every model author and an immutable freeze timestamp."
+    ],
+    "trusted_splitter": "A sealed intake process may verify and partition HDF5 source coordinates. It releases only permitted calibration/validation records and metadata; sealed-test values, masks, aggregates, exclusion counts, and plots remain inaccessible until one-shot evaluation.",
+    "one_shot_execution": "After frozen predictions exist, the sealed evaluator computes both protocol endpoints and persists observations, predictions, source IDs, masks, exclusions, line coverage, hierarchical components, all 10000 bootstrap draws, metrics, logs, and failures atomically under a unique evaluation ID.",
+    "retry_rule": "Retry only a documented infrastructure failure occurring before any sealed-test value or aggregate is disclosed. Retain every attempt. A scientific failure consumes this held-out partition for that model lineage.",
+    "base_protocol": "data/benchmarks/protocols/sealed-heldout-execution.v1.json"
+  },
+  "remaining_pre_execution_blockers": [
+    "A reviewed activation-onset metadata mapping receipt has not yet been sealed.",
+    "Calibration/validation records have not yet been released by a trusted splitter and no candidate model predictions are frozen.",
+    "The optional source-code regression diagnostic lacks its exact static-code-constant extraction receipt; this does not block the primary Methods endpoint.",
+    "The hinge and asynchronous-power-muscle promotion prerequisites remain blocked independently."
+  ]
+}

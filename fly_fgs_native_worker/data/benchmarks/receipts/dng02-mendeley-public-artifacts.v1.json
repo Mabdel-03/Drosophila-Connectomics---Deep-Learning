@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "receipt_id": "dng02-mendeley-public-artifacts-v1",
+  "receipt_status": "audited_expected_public_artifacts_outcomes_sealed",
+  "created_utc": "2026-07-18T00:00:00Z",
+  "source": {
+    "dataset_id": "7g984jm2zc",
+    "version": 1,
+    "doi": "10.17632/7g984jm2zc.1",
+    "record_uri": "https://data.mendeley.com/datasets/7g984jm2zc/1",
+    "publisher": "Mendeley Data",
+    "license": "CC-BY-4.0",
+    "license_uri": "https://creativecommons.org/licenses/by/4.0/legalcode",
+    "complete_record_bytes": 170906272
+  },
+  "construction_access_boundary": {
+    "mode": "metadata_and_non_outcome_source_only",
+    "hdf5_outcome_files_downloaded_during_preregistration": false,
+    "hdf5_outcome_arrays_opened_during_preregistration": false,
+    "expected_digest_provenance": "preexisting_completed_byte_audit_supplied_to_preregistration",
+    "expected_digests_recomputed_from_hdf5_during_preregistration": false,
+    "receipt_authorizes_outcome_access": false
+  },
+  "canonical_readme_deduplication": {
+    "logical_name": "README",
+    "source_file_name_asserted": false,
+    "canonical_file_uuid": "f3848fc9-7cf2-401d-a4bd-1409b8af7887",
+    "policy": "Register exactly the canonical UUID below. Exclude every other same-content README record entry before counting files or bytes; duplicate record entries are not independent evidence. Do not infer a source filename or duplicate count from the logical artifact name.",
+    "excluded_duplicate_uuids_registered": false
+  },
+  "artifacts": [
+    {
+      "file_name": "DNg02Fig1_CB.py",
+      "file_uuid": "e5c85743-1d8f-433e-8e05-d320990df39d",
+      "content_url": "https://data.mendeley.com/public-files/datasets/7g984jm2zc/files/e5c85743-1d8f-433e-8e05-d320990df39d/file_downloaded",
+      "bytes": 7024,
+      "sha256": "80540f3aeef6bdc31d91e760e87558aeaf08727d2e183bd182f47289d3e6b72e",
+      "media_type": "text/x-python",
+      "role": "source_analysis_code",
+      "contains_outcome_values": false,
+      "access_before_seal": "allowed_read_only",
+      "promotion_use": "methods_and_source-regression provenance only"
+    },
+    {
+      "file_name": "DNg02Fig3AB_CB.py",
+      "file_uuid": "e38287b2-a759-415c-be0a-51990f25e2b4",
+      "content_url": "https://data.mendeley.com/public-files/datasets/7g984jm2zc/files/e38287b2-a759-415c-be0a-51990f25e2b4/file_downloaded",
+      "bytes": 11535,
+      "sha256": "3e1be876cb465b81ec1f77a9088ad7bc6cc10deaa7507a86d1f224cc9f5d8186",
+      "media_type": "text/x-python",
+      "role": "source_analysis_code",
+      "contains_outcome_values": false,
+      "access_before_seal": "allowed_read_only",
+      "promotion_use": "driver-line metadata and non-promotion source-regression provenance only"
+    },
+    {
+      "file_name": "DNg02Fig3CDE_CB.py",
+      "file_uuid": "99292709-45ed-4b82-977d-a51298ac8f05",
+      "content_url": "https://data.mendeley.com/public-files/datasets/7g984jm2zc/files/99292709-45ed-4b82-977d-a51298ac8f05/file_downloaded",
+      "bytes": 20381,
+      "sha256": "7e5cc0158711be27a7e3f4a4a124dd88566583da90929de5a1b38ff6f96872aa",
+      "media_type": "text/x-python",
+      "role": "source_analysis_code",
+      "contains_outcome_values": false,
+      "access_before_seal": "allowed_read_only",
+      "promotion_use": "non-promotion source-regression provenance only"
+    },
+    {
+      "logical_name": "README",
+      "source_file_name_asserted": false,
+      "file_uuid": "f3848fc9-7cf2-401d-a4bd-1409b8af7887",
+      "content_url": "https://data.mendeley.com/public-files/datasets/7g984jm2zc/files/f3848fc9-7cf2-401d-a4bd-1409b8af7887/file_downloaded",
+      "bytes": 17929,
+      "sha256": "721148ac0d20e4482f3d03d0fb34bfc3b553f613cd3c3c69179817d94b423476",
+      "media_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "role": "readme_axis_and_unit_metadata",
+      "contains_outcome_values": false,
+      "access_before_seal": "allowed_read_only",
+      "promotion_use": "schema, axis, unit, and source-method provenance"
+    },
+    {
+      "file_name": "fig1_3A_dataset.hdf5",
+      "file_uuid": "71d7fc6f-c1d6-453b-a508-e5c18da58537",
+      "content_url": "https://data.mendeley.com/public-files/datasets/7g984jm2zc/files/71d7fc6f-c1d6-453b-a508-e5c18da58537/file_downloaded",
+      "bytes": 84162848,
+      "sha256": "e48b0dd500769e3a987bf8e4c16a57f94d66ae0ac88aa51ac165b359b121f148",
+      "media_type": "application/x-hdf5",
+      "role": "sealed_open_loop_outcomes",
+      "contains_outcome_values": true,
+      "access_before_seal": "forbidden",
+      "promotion_use": "primary open-loop Methods-window endpoint after sealed release"
+    },
+    {
+      "file_name": "fig3B-E_dataset.hdf5",
+      "file_uuid": "7ace3eba-e1f4-4862-8c9a-b970b9fcce28",
+      "content_url": "https://data.mendeley.com/public-files/datasets/7g984jm2zc/files/7ace3eba-e1f4-4862-8c9a-b970b9fcce28/file_downloaded",
+      "bytes": 76025912,
+      "sha256": "b1ef68ef01ac8cd4b48beba1274ab677cc395c55bb78f1c685a4d3216d263777",
+      "media_type": "application/x-hdf5",
+      "role": "sealed_closed_loop_outcomes",
+      "contains_outcome_values": true,
+      "access_before_seal": "forbidden",
+      "promotion_use": "primary closed-loop Methods-window endpoint after sealed release"
+    }
+  ],
+  "inventory_totals": {
+    "canonical_relevant_artifact_count": 6,
+    "canonical_relevant_bytes": 160245629,
+    "sealed_outcome_artifact_count": 2,
+    "sealed_outcome_bytes": 160188760,
+    "non_outcome_artifact_count": 4,
+    "non_outcome_bytes": 56869
+  },
+  "scientific_boundary": "This receipt fixes public file identity and licenses only. It contains no HDF5 values, shapes, aggregates, or outcome-derived exclusions; it cannot pass or unblock the DNg02 empirical gate."
+}

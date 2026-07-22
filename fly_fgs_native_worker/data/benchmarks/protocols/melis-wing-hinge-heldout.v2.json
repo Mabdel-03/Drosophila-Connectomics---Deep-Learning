@@ -1,0 +1,68 @@
+{
+  "protocol_id": "melis-wing-hinge-heldout",
+  "version": "2.0.0",
+  "registered_utc": "2026-07-18T08:21:55Z",
+  "status": "frozen_before_held_out_execution",
+  "claim_scope": "One-wingbeat-ahead prediction of left-wing theta, eta, phi, and xi kinematics from completed left steering-muscle fluorescence summaries and measured wingbeat frequency in the Melis tethered-flight recordings. This protocol does not validate bilateral mechanics, force, aerodynamics, or free flight.",
+  "source_lock": {
+    "doi": "10.22002/aypcy-ck464",
+    "file": "main_muscle_and_wing_data.h5",
+    "bytes": 2642932080,
+    "md5": "8aa8629237b5cc7f845c8fd23872c815",
+    "upstream_code_commit": "cd5081aac460754b8ff3d6426835920e43542f95"
+  },
+  "topology_expectation": {
+    "sessions": 74,
+    "acquisition_dates": 33,
+    "movies": 377,
+    "input_shape": [9, 13],
+    "target_shape": [80]
+  },
+  "split": {
+    "group": "whole acquisition date",
+    "strategy": "whole_acquisition_date_sha256_rank_v1",
+    "seed": "melis-wing-hinge-heldout-v2",
+    "ordered_partitions": [
+      {"name": "calibration", "fraction": 0.7, "date_count": 23},
+      {"name": "validation", "fraction": 0.15, "date_count": 5},
+      {"name": "held_out", "fraction": 0.15, "date_count": 5}
+    ],
+    "disjoint_entities": ["acquisition_date", "session", "movie", "source_wingbeat", "derived_window"],
+    "individual_identity_limit": "The public artifact does not provide a reviewed session-to-animal crosswalk, so the claim is date-held-out and must never be labelled animal-held-out."
+  },
+  "causality": {
+    "issue_time": "onset of target wingbeat k",
+    "input_offsets": [-9, -8, -7, -6, -5, -4, -3, -2, -1],
+    "target_offset": 0,
+    "future_input_count": 0,
+    "availability_rule": "Every fluorescence summary and frequency feature must have completed acquisition and causal preprocessing by issue time.",
+    "prohibited": ["same-beat features", "future-beat features", "centered filters", "acausal deconvolution", "within-movie first-30 split"]
+  },
+  "feature_order": ["b1", "b2", "b3", "i1", "i2", "iii1", "iii24", "iii3", "hg1", "hg2", "hg3", "hg4", "freq"],
+  "target_components": [
+    {"name": "a_theta_L", "width": 20},
+    {"name": "a_eta_L", "width": 24},
+    {"name": "a_phi_L", "width": 16},
+    {"name": "a_xi_L", "width": 20}
+  ],
+  "model_comparison": {
+    "baseline": "Pinned Melis CNN architecture retrained from scratch with identical causal inputs, train-only preprocessing, calibration-only fitting, validation-only selection, and frozen held-out predictions.",
+    "candidate": "Registered virtual-hinge predictor with an immutable parameter and adapter receipt.",
+    "sample_identity": "Candidate and baseline are evaluated on identical held-out stable sample IDs and masks.",
+    "null": "Calibration-only coefficient mean predictor used to verify that the matched baseline is informative."
+  },
+  "metrics": {
+    "integrity": "All registered exact-zero digest, split-overlap, future-reference, availability, fit-reference, model-selection, sample-mismatch, and non-finite counts must equal zero.",
+    "phase_angle_rmse": "Reconstruct each target axis on the pinned phase grid, compute per-wingbeat circular angle error, aggregate within movie, session, and acquisition date without treating nested observations as independent.",
+    "coefficient_rmse": "Compute the same hierarchical aggregation in the 80-coefficient representation.",
+    "acceptance": "Each candidate-to-matched-baseline RMSE ratio and the matched-baseline-to-train-mean RMSE ratio must have a one-sided 95% acquisition-date-cluster bootstrap upper bound no greater than 1.0; every axis is also gated separately."
+  },
+  "uncertainty": {
+    "independent_cluster": "acquisition_date",
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": "melis-wing-hinge-heldout-v2-bootstrap",
+    "confidence": 0.95,
+    "sidedness": "one_sided_upper"
+  },
+  "sealed_execution_protocol": "data/benchmarks/protocols/sealed-heldout-execution.v1.json"
+}

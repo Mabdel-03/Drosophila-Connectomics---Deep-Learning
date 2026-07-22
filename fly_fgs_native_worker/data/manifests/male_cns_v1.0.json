@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "dataset": "MaleCNS",
+  "namespace": "male_cns",
+  "release": "v1.0",
+  "atlas_url": "http://54.160.228.98/descending/",
+  "source_url": "https://male-cns.janelia.org/",
+  "fetched_utc": "2026-07-17T20:04:59.464Z",
+  "descending_neurons": 1316,
+  "identifier_encoding": "neuPrint body ID string",
+  "join_policy": "Never join to FlyWire root IDs. Cross datasets only through an explicit evidence-scored cell-type match."
+}

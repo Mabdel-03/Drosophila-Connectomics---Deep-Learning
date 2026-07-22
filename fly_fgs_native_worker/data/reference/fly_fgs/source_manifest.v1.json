@@ -1,0 +1,226 @@
+{
+  "schema_version": "1.0.0",
+  "snapshot_id": "fly-fgs-live-2026-07-18",
+  "source": {
+    "page_url": "http://54.160.228.98/fly-fgs/",
+    "engine_url": "http://54.160.228.98/fly-fgs/lib/fgmodel.js?v=13",
+    "bundle_url": "http://54.160.228.98/fly-fgs/data/bundle_fg.json",
+    "wing_dns_url": "http://54.160.228.98/fly-fgs/data/wing_dns.json",
+    "checked_at_utc": "2026-07-18T17:24:32.175Z",
+    "license_status": "not_declared_in_captured_assets"
+  },
+  "dataset": {
+    "family": "FlyWire FAFB",
+    "materialization": 783,
+    "neuron_universe": "proofread_139255",
+    "coordinate_units": "nm",
+    "root_id_encoding": "decimal strings",
+    "anatomical_side_rule": "higher soma x is fly-left; lower soma x is fly-right",
+    "bundle_side_semantics": "raw application compatibility label only",
+    "structural_counts_are_physiological_weights": false,
+    "autapse_policy": "not asserted by this circuit-bundle intake",
+    "cleft_score_threshold": "not encoded in captured circuit bundle"
+  },
+  "assets": [
+    {
+      "asset_id": "page_snapshot",
+      "path": "assets/index.snapshot.html",
+      "sha256": "f19434ee872984035fafbfb492538609cf458111ddb64ad9f998e6c371187932",
+      "bytes": 97244,
+      "media_type": "text/html",
+      "role": "source_receipt_only",
+      "eligible_circuit_input": false
+    },
+    {
+      "asset_id": "circuit_engine",
+      "path": "assets/fgmodel.snapshot.js",
+      "sha256": "f6de20850d463399b308642222e0ef6dadf02129bf27440fd7f2d5cf7d45396f",
+      "bytes": 22975,
+      "media_type": "text/javascript",
+      "role": "fixed_step_circuit_engine",
+      "eligible_circuit_input": true
+    },
+    {
+      "asset_id": "circuit_bundle",
+      "path": "assets/bundle_fg.snapshot.json",
+      "sha256": "dc7ad294e54df7f4b8d4556f36e95b2676e19135d150557b8a16cfc17a4ac0dc",
+      "bytes": 3098921,
+      "media_type": "application/json",
+      "role": "fixed_step_circuit_bundle",
+      "eligible_circuit_input": true
+    },
+    {
+      "asset_id": "wing_dns_excluded",
+      "path": "assets/wing_dns.excluded.snapshot.json",
+      "sha256": "b3ae85e6151228919617a87907730705ec3acb8d8b441465ce182926d6c32390",
+      "bytes": 27370,
+      "media_type": "application/json",
+      "role": "excluded_downstream_source_receipt_only",
+      "eligible_circuit_input": false
+    }
+  ],
+  "circuit_inventory": {
+    "cell_count": 1684,
+    "event_count": 61789,
+    "raw_event_count": 61789,
+    "removed_llpc1_to_llpc1_event_count": 1589,
+    "effective_runtime_event_count": 60200,
+    "cable_count": 8,
+    "cable_indices": [
+      0,
+      1,
+      2,
+      3,
+      108,
+      109,
+      110,
+      111
+    ],
+    "cell_type_counts": {
+      "DCH": 2,
+      "LLPC1": 219,
+      "Nod1": 4,
+      "T4a": 1457,
+      "VCH": 2
+    },
+    "nod1_root_ids": [
+      "720575940628438427",
+      "720575940625528556",
+      "720575940623997949",
+      "720575940629456860"
+    ],
+    "nod1_raw_app_sides": {
+      "720575940628438427": "L",
+      "720575940625528556": "L",
+      "720575940623997949": "R",
+      "720575940629456860": "R"
+    },
+    "t5_cell_count": 0,
+    "retinotopic_t4a_input_count": 1441,
+    "model_parameters": {
+      "Rm": 17000,
+      "Ra": 350,
+      "Cm": 0.000001,
+      "pointTauMS": 17,
+      "swcUnit": "nm",
+      "externalConductanceNS": 0.6,
+      "synapseConductanceExcNS": 0.1,
+      "synapseConductanceInhNS": 1.0,
+      "vchToT4aConductanceNS": 1.0,
+      "dchToT4aConductanceNS": 1.0,
+      "t4ToLLPC1ConductanceNS": 0.1,
+      "nod1ToNod1ConductanceNS": 0.02,
+      "EExcMV": -21,
+      "EInhMV": -75,
+      "releaseModel": "rectilinear",
+      "releaseThresholdMV": -53,
+      "releaseGainPerMV": 0.06,
+      "synapseTauMS": 0,
+      "inputTauMS": 20,
+      "opticFlowGain": 2,
+      "opticFlowVelocity50DPS": 60,
+      "opticFlowEdgeWindowMS": 20,
+      "opticFlowEdgeGain": 8,
+      "opticFlowNullLeak": 0.03,
+      "t4NullMotionMode": "hyperpolarizing",
+      "t4NullHyperpolarizationGain": 1,
+      "t4NullReversalMV": -68,
+      "maxCableCompartments": 48,
+      "allowSyntheticSynapses": true,
+      "maxSyntheticSynapsesPerEdge": 30,
+      "maxSynapsesPerEdge": 200000,
+      "pointLeakNS": 1.0
+    },
+    "model_parameters_js_sorted_json_sha256": "91b54ecca938686d2bf2ab350480ff7dbe89531f70d4b08b90edd85124ef1b76",
+    "model_parameters_js_hash_algorithm": "SHA-256 of UTF-8 JSON.stringify after recursively sorting object keys in Node; arrays retain order; JavaScript number spelling",
+    "model_parameters_python_sorted_json_sha256": "9f808cf048b0b698ae95e979775b40511e1de275d38fa7d5c3770dc19279ec04",
+    "model_parameters_python_hash_algorithm": "SHA-256 of UTF-8 json.dumps(sort_keys=True,separators=(',',':'),allow_nan=False) in Python; Python number spelling",
+    "cell_ids_canonical_sha256": "a116cdba9c76929d5b1449e433eecbe8f11ff2a703629737727f59ba25d25112",
+    "synthetic_fallback_policy": "model parameters permit synthetic synapses; captured bundle does not provide per-event provenance accounting"
+  },
+  "execution_contract": {
+    "engine_api": [
+      "init",
+      "step",
+      "readout",
+      "lumNow"
+    ],
+    "dt_s": 0.005,
+    "duration_s": 0.5,
+    "sample_count": 100,
+    "sample_interval": "half-open [0, 0.5 s)",
+    "sample_semantics": "sample 0 follows the registered static-scene pre-roll; sample i>=1 follows exactly one 5 ms circuit step from sample i-1; final state is held through sample_interval_end_s",
+    "availability_semantics": "offline fixed-step samples are available at their sample time; no physiological or streaming latency is claimed",
+    "scheduler": "integer fixed-step counter independent of requestAnimationFrame and wall time",
+    "pre_roll_steps": 48,
+    "pre_roll_duration_s": 0.24,
+    "pre_roll_mode": "static scene with fixed figure, heading, and background; all angular velocities zero; published stimulus schedule does not advance",
+    "full_cell_state_default": "included in registered fixture; excluded from CircuitOutputTrace and retained only in bounded circuit-replay attachment",
+    "live_page_defaults_provenance_only": {
+      "figure_initial_world_azimuth_deg": -38.0,
+      "figure_speed_deg_s": 9.0,
+      "notice": "Captured live-page defaults are provenance only; they are not the registered non-dead canonical sweep."
+    },
+    "capture_invariants": {
+      "requires_nonzero_t4_activity_excursion": true,
+      "requires_nonzero_nod1_voltage_excursion": true,
+      "requires_exact_t4a_retinal_input_grid": true
+    },
+    "options": {
+      "input_scale": 3.0,
+      "retinal_texture_scale": 8,
+      "llpc_boost": 1.0,
+      "figure_width_deg": 24.0,
+      "figure_height_deg": 180.0,
+      "figure_initial_world_azimuth_deg": 0.0,
+      "figure_speed_deg_s": 30.0,
+      "figure_bounce_limit_deg": 28.0,
+      "figure_enabled": true,
+      "grating_enabled": false,
+      "grating_period_deg": 3.0,
+      "grating_velocity_deg_s": 0.0,
+      "heading_deg": 0.0,
+      "heading_velocity_deg_s": 0.0,
+      "ablate_vch_dch": false
+    }
+  },
+  "rejected_downstream_fields": [
+    "SCALE_M",
+    "MUSCLE_META",
+    "MN_PER_SIDE",
+    "FG_DN",
+    "DN_WMAX",
+    "NT_SIGN",
+    "computeControl",
+    "dnGain",
+    "yawToRate",
+    "maxRate",
+    "state.muscleAct",
+    "state.ampL",
+    "state.ampR",
+    "state.aoaL",
+    "state.aoaR",
+    "state.yaw",
+    "wingR",
+    "wingL"
+  ],
+  "claim_scope": {
+    "establishes": [
+      "content-addressed fly-FGS source snapshot",
+      "deterministic fixed-step execution of the captured circuit engine and bundle",
+      "four exact NOD1 voltage readouts plus pooled circuit display traces",
+      "endpoint normalized luminance from lumNow at all 1,441 retinotopic T4a circuit coordinates"
+    ],
+    "does_not_establish": [
+      "anatomical laterality from raw bundle L/R labels",
+      "T5 participation",
+      "calibrated compound-eye optics, photoreceptors, radiometry, or biological ommatidia",
+      "physiological synaptic weights",
+      "DN or motor-neuron activity",
+      "muscle activation or force",
+      "wing kinematics, aerodynamics, or body motion",
+      "biological calibration or empirical validation"
+    ],
+    "promotion_label": "exploratory circuit execution"
+  }
+}

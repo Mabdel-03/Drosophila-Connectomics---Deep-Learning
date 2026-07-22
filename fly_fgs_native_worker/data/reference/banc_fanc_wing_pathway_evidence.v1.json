@@ -1,0 +1,1757 @@
+{
+  "artifact_id": "banc-fanc-wing-pathway-evidence-v1",
+  "banc_v888": {
+    "dnp26_to_wing_motor_neuron_edges": [
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "iv2",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "iv2_muscle",
+        "post_root_id": "720575941732789547",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 22
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "i1",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "i1_muscle",
+        "post_root_id": "720575941547315060",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 17
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "iv1",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "iv1_muscle",
+        "post_root_id": "720575941456201887",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 12
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "b3",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "b3_muscle",
+        "post_root_id": "720575941542412805",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 8
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "iv2",
+        "post_dataset_side": "right",
+        "post_peripheral_target_type": "iv2_muscle",
+        "post_root_id": "720575941479658831",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 7
+      },
+      {
+        "post_cell_sub_class": "wing_power_motor_neuron",
+        "post_cell_type": "DLM1-4",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "dorsal_longitudinal_muscle",
+        "post_root_id": "720575941645403000",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 2
+      },
+      {
+        "post_cell_sub_class": "wing_power_motor_neuron",
+        "post_cell_type": "DLM5",
+        "post_dataset_side": "right",
+        "post_peripheral_target_type": "dorsal_longitudinal_muscle",
+        "post_root_id": "720575941692400603",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 2
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "iv3",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "iv3_muscle",
+        "post_root_id": "720575941483845954",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 1
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "i2",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "i2_muscle",
+        "post_root_id": "720575941547394081",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 1
+      },
+      {
+        "post_cell_sub_class": "wing_power_motor_neuron",
+        "post_cell_type": "DVM1a-c",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "dorsoventral_muscle",
+        "post_root_id": "720575941566847847",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 1
+      },
+      {
+        "post_cell_sub_class": "wing_power_motor_neuron",
+        "post_cell_type": "DLM1-4",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "dorsal_longitudinal_muscle",
+        "post_root_id": "720575941640465439",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941392812548",
+        "structural_synapse_count": 1
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "iv2",
+        "post_dataset_side": "left",
+        "post_peripheral_target_type": "iv2_muscle",
+        "post_root_id": "720575941732789547",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "left",
+        "pre_root_id": "720575941566309174",
+        "structural_synapse_count": 14
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "i1",
+        "post_dataset_side": "right",
+        "post_peripheral_target_type": "i1_muscle",
+        "post_root_id": "720575941468897856",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "left",
+        "pre_root_id": "720575941566309174",
+        "structural_synapse_count": 12
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "iv2",
+        "post_dataset_side": "right",
+        "post_peripheral_target_type": "iv2_muscle",
+        "post_root_id": "720575941479658831",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "left",
+        "pre_root_id": "720575941566309174",
+        "structural_synapse_count": 10
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "iv1",
+        "post_dataset_side": "right",
+        "post_peripheral_target_type": "iv1_muscle",
+        "post_root_id": "720575941580669817",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "left",
+        "pre_root_id": "720575941566309174",
+        "structural_synapse_count": 9
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "b3",
+        "post_dataset_side": "right",
+        "post_peripheral_target_type": "b3_muscle",
+        "post_root_id": "720575941474574132",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "left",
+        "pre_root_id": "720575941566309174",
+        "structural_synapse_count": 6
+      },
+      {
+        "post_cell_sub_class": "wing_power_motor_neuron",
+        "post_cell_type": "DVM1a-c",
+        "post_dataset_side": "right",
+        "post_peripheral_target_type": "dorsoventral_muscle",
+        "post_root_id": "720575941603635190",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "left",
+        "pre_root_id": "720575941566309174",
+        "structural_synapse_count": 3
+      },
+      {
+        "post_cell_sub_class": "wing_steering_motor_neuron",
+        "post_cell_type": "iv4",
+        "post_dataset_side": "right",
+        "post_peripheral_target_type": "iv4_muscle",
+        "post_root_id": "720575941513173763",
+        "pre_cell_type": "DNp26",
+        "pre_dataset_side": "left",
+        "pre_root_id": "720575941566309174",
+        "structural_synapse_count": 1
+      }
+    ],
+    "dnp26_to_wing_motor_neuron_summary": {
+      "by_source_dnp26": [
+        {
+          "pre_root_id": "720575941392812548",
+          "structural_synapse_count": 74
+        },
+        {
+          "pre_root_id": "720575941566309174",
+          "structural_synapse_count": 55
+        }
+      ],
+      "by_target_cell_type": [
+        {
+          "post_cell_type": "iv2",
+          "structural_synapse_count": 53
+        },
+        {
+          "post_cell_type": "i1",
+          "structural_synapse_count": 29
+        },
+        {
+          "post_cell_type": "iv1",
+          "structural_synapse_count": 21
+        },
+        {
+          "post_cell_type": "b3",
+          "structural_synapse_count": 14
+        },
+        {
+          "post_cell_type": "DVM1a-c",
+          "structural_synapse_count": 4
+        },
+        {
+          "post_cell_type": "DLM1-4",
+          "structural_synapse_count": 3
+        },
+        {
+          "post_cell_type": "DLM5",
+          "structural_synapse_count": 2
+        },
+        {
+          "post_cell_type": "i2",
+          "structural_synapse_count": 1
+        },
+        {
+          "post_cell_type": "iv3",
+          "structural_synapse_count": 1
+        },
+        {
+          "post_cell_type": "iv4",
+          "structural_synapse_count": 1
+        }
+      ],
+      "edge_count": 18,
+      "total_structural_synapse_count": 129
+    },
+    "nod1_to_dnp26_edges": [
+      {
+        "post_cell_type": "DNp26",
+        "post_dataset_side": "left",
+        "post_root_id": "720575941566309174",
+        "pre_cell_type": "Nod1",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941416849692",
+        "structural_synapse_count": 121
+      },
+      {
+        "post_cell_type": "DNp26",
+        "post_dataset_side": "right",
+        "post_root_id": "720575941392812548",
+        "pre_cell_type": "Nod1",
+        "pre_dataset_side": "left",
+        "pre_root_id": "720575941461200710",
+        "structural_synapse_count": 129
+      },
+      {
+        "post_cell_type": "DNp26",
+        "post_dataset_side": "right",
+        "post_root_id": "720575941392812548",
+        "pre_cell_type": "Nod1",
+        "pre_dataset_side": "left",
+        "pre_root_id": "720575941467991830",
+        "structural_synapse_count": 110
+      },
+      {
+        "post_cell_type": "DNp26",
+        "post_dataset_side": "left",
+        "post_root_id": "720575941566309174",
+        "pre_cell_type": "Nod1",
+        "pre_dataset_side": "right",
+        "pre_root_id": "720575941652138225",
+        "structural_synapse_count": 127
+      }
+    ],
+    "nod1_to_dnp26_summary": {
+      "all_dataset_side_labels_opposed": true,
+      "edge_count": 4,
+      "total_structural_synapse_count": 487
+    },
+    "selected_pathway_neurons": [
+      {
+        "banc_v888_id": "720575941566309174",
+        "cell_type": "DNp26",
+        "dataset_side": "left",
+        "nucleus_id": "73324644823728166",
+        "proofread": true,
+        "root_id": "720575941566309174",
+        "status_flags": [
+          "DIFFICULT_MANC_TYPE",
+          "FAFB_MATCH_MANUALLY_CHECKED",
+          "MANC_MATCH_MANUALLY_CHECKED",
+          "REVIEW_MATCH_AN_DN"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941392812548",
+        "cell_type": "DNp26",
+        "dataset_side": "right",
+        "nucleus_id": "72832063547375850",
+        "proofread": true,
+        "root_id": "720575941392812548",
+        "status_flags": [
+          "DIFFICULT_MANC_TYPE",
+          "FAFB_MATCH_MANUALLY_CHECKED",
+          "MANC_MATCH_MANUALLY_CHECKED",
+          "REVIEW_MATCH_AN_DN"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941461200710",
+        "cell_type": "Nod1",
+        "dataset_side": "left",
+        "nucleus_id": "73395013366579777",
+        "proofread": true,
+        "root_id": "720575941461200710",
+        "status_flags": []
+      },
+      {
+        "banc_v888_id": "720575941467991830",
+        "cell_type": "Nod1",
+        "dataset_side": "left",
+        "nucleus_id": "73465382177866508",
+        "proofread": true,
+        "root_id": "720575941467991830",
+        "status_flags": [
+          "TRACING_ISSUE_3",
+          "TRACING_ISSUE_MISSING_AXON"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941416849692",
+        "cell_type": "Nod1",
+        "dataset_side": "right",
+        "nucleus_id": "72691325991911737",
+        "proofread": true,
+        "root_id": "720575941416849692",
+        "status_flags": []
+      },
+      {
+        "banc_v888_id": "720575941652138225",
+        "cell_type": "Nod1",
+        "dataset_side": "right",
+        "nucleus_id": "72761763187130624",
+        "proofread": true,
+        "root_id": "720575941652138225",
+        "status_flags": []
+      }
+    ],
+    "source_table_counts": {
+      "aggregate_edge_rows": 11752828,
+      "metadata_rows": 188508
+    },
+    "wing_motor_neuron_summary": {
+      "dataset_side_counts": {
+        "left": 31,
+        "right": 31
+      },
+      "project_named_atlas_accepted_count": 58,
+      "project_named_atlas_unresolved_count": 4,
+      "proofread_count": 62,
+      "row_count": 62,
+      "unresolved_cell_types": [
+        "MNxm01",
+        "PSn_u"
+      ]
+    },
+    "wing_motor_neurons": [
+      {
+        "banc_v888_id": "720575941432491145",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM1-4",
+        "dataset_side": "left",
+        "nucleus_id": "73325538512470099",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941432491145",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941519783640",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM1-4",
+        "dataset_side": "left",
+        "nucleus_id": "73325606896402725",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941519783640",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941640465439",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM1-4",
+        "dataset_side": "left",
+        "nucleus_id": "73325538244035109",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941640465439",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941645403000",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM1-4",
+        "dataset_side": "left",
+        "nucleus_id": "73325538109817511",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941645403000",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941596050112",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM5",
+        "dataset_side": "left",
+        "nucleus_id": "73255169701183513",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941596050112",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941565105206",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM1a-c",
+        "dataset_side": "left",
+        "nucleus_id": "73325607097729325",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941549217972",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941560383347",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM1a-c",
+        "dataset_side": "left",
+        "nucleus_id": "73255306670375293",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941560383347",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941566847847",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM1a-c",
+        "dataset_side": "left",
+        "nucleus_id": "73325606963511320",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941566847847",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941542328837",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM2a-b",
+        "dataset_side": "left",
+        "nucleus_id": "73255513231458421",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941542328837",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941573368719",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM2a-b",
+        "dataset_side": "left",
+        "nucleus_id": "73255513164349560",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941573368719",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941590220684",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM3a-b",
+        "dataset_side": "left",
+        "nucleus_id": "73325538311144283",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941590220684",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941614289683",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM3a-b",
+        "dataset_side": "left",
+        "nucleus_id": "73325538378252915",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941614289683",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941594743921",
+        "cell_sub_class": null,
+        "cell_type": "MNxm01",
+        "dataset_side": "left",
+        "nucleus_id": "73325538176925871",
+        "peripheral_target_type": "wing_muscle",
+        "project_named_atlas_status": "unresolved",
+        "proofread": true,
+        "root_id": "720575941594743921",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_NERVE"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941544439325",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "PS1",
+        "dataset_side": "left",
+        "nucleus_id": "73325676018532472",
+        "peripheral_target_type": "ps1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941544439325",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941501027819",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "PS2",
+        "dataset_side": "left",
+        "nucleus_id": "73325675817205805",
+        "peripheral_target_type": "ps2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941501027819",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941569529458",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "PSn_u",
+        "dataset_side": "left",
+        "nucleus_id": "73185144487280643",
+        "peripheral_target_type": "pleurosternal_muscle",
+        "project_named_atlas_status": "unresolved",
+        "proofread": true,
+        "root_id": "720575941569529458",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941521196211",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "b1",
+        "dataset_side": "left",
+        "nucleus_id": "73255306737483891",
+        "peripheral_target_type": "b1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941521196211",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941624155644",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "b2",
+        "dataset_side": "left",
+        "nucleus_id": "73325606896402493",
+        "peripheral_target_type": "b2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941624155644",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941542412805",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "b3",
+        "dataset_side": "left",
+        "nucleus_id": "73325606762185313",
+        "peripheral_target_type": "b3_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941542412805",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941547315060",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "i1",
+        "dataset_side": "left",
+        "nucleus_id": "73325606896402670",
+        "peripheral_target_type": "i1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941547315060",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941547394081",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "i2",
+        "dataset_side": "left",
+        "nucleus_id": "73255306670375857",
+        "peripheral_target_type": "i2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941547394081",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941489673420",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iii1",
+        "dataset_side": "left",
+        "nucleus_id": "73185144554389670",
+        "peripheral_target_type": "iii1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941489673420",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941565378919",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iii3",
+        "dataset_side": "left",
+        "nucleus_id": "73255444646199401",
+        "peripheral_target_type": "iii3_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941565378919",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941459347411",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iii4",
+        "dataset_side": "left",
+        "nucleus_id": "73255444713308238",
+        "peripheral_target_type": "iii4_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941459347411",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941456201887",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iv1",
+        "dataset_side": "left",
+        "nucleus_id": "73325675548770445",
+        "peripheral_target_type": "iv1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941456201887",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941732789547",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iv2",
+        "dataset_side": "left",
+        "nucleus_id": "73325675615879258",
+        "peripheral_target_type": "iv2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941732789547",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941483845954",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iv3",
+        "dataset_side": "left",
+        "nucleus_id": "73325606762185508",
+        "peripheral_target_type": "iv3_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941483845954",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941630940642",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iv4",
+        "dataset_side": "left",
+        "nucleus_id": "73185144554389747",
+        "peripheral_target_type": "iv4_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941630940642",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941610087498",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "tp1",
+        "dataset_side": "left",
+        "nucleus_id": "73255306737484038",
+        "peripheral_target_type": "tp1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941610087498",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941476080948",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "tp2",
+        "dataset_side": "left",
+        "nucleus_id": "73255306804592745",
+        "peripheral_target_type": "tp2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941476080948",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941474595370",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "tpn",
+        "dataset_side": "left",
+        "nucleus_id": "73325606695076270",
+        "peripheral_target_type": "tpn_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941474595370",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "TRACING_ISSUE_RESOLVED"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941463144336",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM1-4",
+        "dataset_side": "right",
+        "nucleus_id": "72973694254711328",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941463144336",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941479034563",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM1-4",
+        "dataset_side": "right",
+        "nucleus_id": "72973694254710827",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941479034563",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941533190337",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM1-4",
+        "dataset_side": "right",
+        "nucleus_id": "72903325644750934",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941533190337",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941583644382",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM1-4",
+        "dataset_side": "right",
+        "nucleus_id": "72973762974188316",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941583644382",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941692400603",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DLM5",
+        "dataset_side": "right",
+        "nucleus_id": "72973625870778990",
+        "peripheral_target_type": "dorsal_longitudinal_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941692400603",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_VIGNETTE",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "SENT_TO_AELYSIA_TRACING",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941472734048",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM1a-c",
+        "dataset_side": "right",
+        "nucleus_id": "72973762974188678",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941472734048",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941597489344",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM1a-c",
+        "dataset_side": "right",
+        "nucleus_id": "72973762907079369",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941597489344",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941603635190",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM1a-c",
+        "dataset_side": "right",
+        "nucleus_id": "73044131651256867",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941603635190",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941530190027",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM2a-b",
+        "dataset_side": "right",
+        "nucleus_id": "72973969333944544",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941530190027",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941624985226",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM2a-b",
+        "dataset_side": "right",
+        "nucleus_id": "72974037784985770",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941624985226",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941487139138",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM3a-b",
+        "dataset_side": "right",
+        "nucleus_id": "72973694456037458",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941487139138",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941499558369",
+        "cell_sub_class": "wing_power_motor_neuron",
+        "cell_type": "DVM3a-b",
+        "dataset_side": "right",
+        "nucleus_id": "72973694456037761",
+        "peripheral_target_type": "dorsoventral_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941499558369",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941535457256",
+        "cell_sub_class": null,
+        "cell_type": "MNxm01",
+        "dataset_side": "right",
+        "nucleus_id": "72973694187603481",
+        "peripheral_target_type": "wing_muscle",
+        "project_named_atlas_status": "unresolved",
+        "proofread": true,
+        "root_id": "720575941535457256",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "IN_NERVE",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941643100754",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "PS1",
+        "dataset_side": "right",
+        "nucleus_id": "72903394297119125",
+        "peripheral_target_type": "ps1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941643100754",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941634053829",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "PS2",
+        "dataset_side": "right",
+        "nucleus_id": "72903463016595526",
+        "peripheral_target_type": "ps2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941634053829",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941555120612",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "PSn_u",
+        "dataset_side": "right",
+        "nucleus_id": "72973969199727008",
+        "peripheral_target_type": "pleurosternal_muscle",
+        "project_named_atlas_status": "unresolved",
+        "proofread": true,
+        "root_id": "720575941555120612",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941549822781",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "b1",
+        "dataset_side": "right",
+        "nucleus_id": "73044131584148598",
+        "peripheral_target_type": "b1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941549822781",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941655597785",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "b2",
+        "dataset_side": "right",
+        "nucleus_id": "73044131651256920",
+        "peripheral_target_type": "b2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941655597785",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941474574132",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "b3",
+        "dataset_side": "right",
+        "nucleus_id": "72973762974188282",
+        "peripheral_target_type": "b3_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941474574132",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941468897856",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "i1",
+        "dataset_side": "right",
+        "nucleus_id": "72973762974187927",
+        "peripheral_target_type": "i1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941468897856",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941475745898",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "i2",
+        "dataset_side": "right",
+        "nucleus_id": "73044200236516562",
+        "peripheral_target_type": "i2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941475745898",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941629172716",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iii1",
+        "dataset_side": "right",
+        "nucleus_id": "72973969266835801",
+        "peripheral_target_type": "iii1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941629172716",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941458961604",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iii3",
+        "dataset_side": "right",
+        "nucleus_id": "72973969199726999",
+        "peripheral_target_type": "iii3_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941458961604",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941516770670",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iii4",
+        "dataset_side": "right",
+        "nucleus_id": "72973969266835832",
+        "peripheral_target_type": "iii4_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941516770670",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941580669817",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iv1",
+        "dataset_side": "right",
+        "nucleus_id": "73044200303624651",
+        "peripheral_target_type": "iv1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941580669817",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941479658831",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iv2",
+        "dataset_side": "right",
+        "nucleus_id": "72973831559446813",
+        "peripheral_target_type": "iv2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941479658831",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941468288375",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iv3",
+        "dataset_side": "right",
+        "nucleus_id": "72973762907079543",
+        "peripheral_target_type": "iv3_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941468288375",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941513173763",
+        "cell_sub_class": "wing_steering_motor_neuron",
+        "cell_type": "iv4",
+        "dataset_side": "right",
+        "nucleus_id": "72974037784986053",
+        "peripheral_target_type": "iv4_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941513173763",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941569548402",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "tp1",
+        "dataset_side": "right",
+        "nucleus_id": "72973762974188653",
+        "peripheral_target_type": "tp1_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941569548402",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941669019635",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "tp2",
+        "dataset_side": "right",
+        "nucleus_id": "73044200303624798",
+        "peripheral_target_type": "tp2_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941669019635",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MALECNS_ALT_MATCH",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      },
+      {
+        "banc_v888_id": "720575941597267356",
+        "cell_sub_class": "wing_tension_motor_neuron",
+        "cell_type": "tpn",
+        "dataset_side": "right",
+        "nucleus_id": "72973762974188069",
+        "peripheral_target_type": "tpn_muscle",
+        "project_named_atlas_status": "accepted",
+        "proofread": true,
+        "root_id": "720575941597267356",
+        "status_flags": [
+          "HAS_MANUAL_ANNOTATION",
+          "MANC_ALT_MATCH",
+          "azevedo"
+        ]
+      }
+    ]
+  },
+  "cross_atlas_identity": {
+    "candidate_premotor_pairs_promoted_to_matches": [],
+    "direct_individual_neuron_id_joins": [],
+    "matched_premotor_pairs": [],
+    "policy": "BANC and FANC connectivity are independent observations. No BANC/FANC/FlyWire/MANC neuron IDs may be joined directly; external topological candidates remain candidates until an explicit, evidence-scored crosswalk is registered.",
+    "premotor_identity_status": "incomplete",
+    "premotor_matching_performed": false
+  },
+  "fanc_v840": {
+    "dataset_table": "fanc_production_mar2021",
+    "dnp26_rows": [
+      {
+        "cell_id": "10531",
+        "cell_type": "DNp26",
+        "dataset_side": "L",
+        "matrix_membership": true,
+        "root_id": "648518346475736802",
+        "systematic_type": "DNxn040",
+        "total_structural_synapse_count": 133,
+        "wing_motor_neuron_edges": [
+          {
+            "post_cell_type": "DLM_5",
+            "structural_synapse_count": 4
+          },
+          {
+            "post_cell_type": "b3_u",
+            "structural_synapse_count": 51
+          },
+          {
+            "post_cell_type": "hg1_u",
+            "structural_synapse_count": 22
+          },
+          {
+            "post_cell_type": "hg2",
+            "structural_synapse_count": 11
+          },
+          {
+            "post_cell_type": "i1",
+            "structural_synapse_count": 45
+          }
+        ]
+      },
+      {
+        "cell_id": "10824",
+        "cell_type": "DNp26",
+        "dataset_side": "R",
+        "matrix_membership": true,
+        "root_id": "648518346511814079",
+        "systematic_type": "DNxn040",
+        "total_structural_synapse_count": 20,
+        "wing_motor_neuron_edges": [
+          {
+            "post_cell_type": "hg2",
+            "structural_synapse_count": 20
+          }
+        ]
+      }
+    ],
+    "dnp26_to_wing_motor_neuron_summary": {
+      "edge_count": 6,
+      "source_neuron_count": 2,
+      "total_structural_synapse_count": 153
+    },
+    "materialization": 840,
+    "published_wing_premotor_matrix_summary": {
+      "matrix_only_motor_labels": [],
+      "maximum_pair_count": 416,
+      "minimum_positive_pair_count": 3,
+      "motor_columns": 29,
+      "nonzero_pairs": 7289,
+      "premotor_classification_counts": {
+        "ascending": 84,
+        "descending": 271,
+        "local": 916,
+        "local_intersegmental": 265,
+        "sensory": 248
+      },
+      "premotor_rows": 1784,
+      "properties_only_motor_labels": [],
+      "row_total_mismatch_count": 0,
+      "scope": "published one-sided wing premotor-to-MN matrix",
+      "thresholded_structural_synapse_count": 144668
+    },
+    "wing_motor_neurons": [
+      {
+        "cell_type": "DLM_1",
+        "root_id": "648518346473210468",
+        "total_structural_inputs": 5686
+      },
+      {
+        "cell_type": "DLM_2",
+        "root_id": "648518346486710961",
+        "total_structural_inputs": 6962
+      },
+      {
+        "cell_type": "DLM_3",
+        "root_id": "648518346489543769",
+        "total_structural_inputs": 6983
+      },
+      {
+        "cell_type": "DLM_4",
+        "root_id": "648518346494250631",
+        "total_structural_inputs": 6008
+      },
+      {
+        "cell_type": "DLM_5",
+        "root_id": "648518346517546564",
+        "total_structural_inputs": 8796
+      },
+      {
+        "cell_type": "DVM_1a",
+        "root_id": "648518346492294527",
+        "total_structural_inputs": 4498
+      },
+      {
+        "cell_type": "DVM_1b",
+        "root_id": "648518346492384195",
+        "total_structural_inputs": 3088
+      },
+      {
+        "cell_type": "DVM_1c",
+        "root_id": "648518346503730081",
+        "total_structural_inputs": 3757
+      },
+      {
+        "cell_type": "DVM_2a",
+        "root_id": "648518346499049025",
+        "total_structural_inputs": 814
+      },
+      {
+        "cell_type": "DVM_2b",
+        "root_id": "648518346509427075",
+        "total_structural_inputs": 478
+      },
+      {
+        "cell_type": "DVM_3a",
+        "root_id": "648518346512153646",
+        "total_structural_inputs": 3490
+      },
+      {
+        "cell_type": "DVM_3b",
+        "root_id": "648518346488827114",
+        "total_structural_inputs": 3552
+      },
+      {
+        "cell_type": "PS1",
+        "root_id": "648518346492244419",
+        "total_structural_inputs": 11181
+      },
+      {
+        "cell_type": "PS2",
+        "root_id": "648518346492233260",
+        "total_structural_inputs": 1603
+      },
+      {
+        "cell_type": "b1",
+        "root_id": "648518346501373528",
+        "total_structural_inputs": 4951
+      },
+      {
+        "cell_type": "b2",
+        "root_id": "648518346493634040",
+        "total_structural_inputs": 9068
+      },
+      {
+        "cell_type": "b3_u",
+        "root_id": "648518346471876251",
+        "total_structural_inputs": 7896
+      },
+      {
+        "cell_type": "dtpmn_u",
+        "root_id": "648518346490085915",
+        "total_structural_inputs": 4657
+      },
+      {
+        "cell_type": "hg1_u",
+        "root_id": "648518346515574010",
+        "total_structural_inputs": 5844
+      },
+      {
+        "cell_type": "hg2",
+        "root_id": "648518346492048172",
+        "total_structural_inputs": 1869
+      },
+      {
+        "cell_type": "hg3",
+        "root_id": "648518346492294783",
+        "total_structural_inputs": 5583
+      },
+      {
+        "cell_type": "hg4",
+        "root_id": "648518346480882144",
+        "total_structural_inputs": 7348
+      },
+      {
+        "cell_type": "i1",
+        "root_id": "648518346493247552",
+        "total_structural_inputs": 8408
+      },
+      {
+        "cell_type": "i2_u",
+        "root_id": "648518346491009453",
+        "total_structural_inputs": 7352
+      },
+      {
+        "cell_type": "iii1",
+        "root_id": "648518346488622926",
+        "total_structural_inputs": 6305
+      },
+      {
+        "cell_type": "iii3",
+        "root_id": "648518346509604297",
+        "total_structural_inputs": 3943
+      },
+      {
+        "cell_type": "iii4a_u",
+        "root_id": "648518346482131604",
+        "total_structural_inputs": 7985
+      },
+      {
+        "cell_type": "tp2",
+        "root_id": "648518346486682876",
+        "total_structural_inputs": 3538
+      },
+      {
+        "cell_type": "tpn",
+        "root_id": "648518346487480490",
+        "total_structural_inputs": 4991
+      }
+    ]
+  },
+  "generator": {
+    "script": "scripts/extract_banc_fanc_wing_evidence.py",
+    "serialization": "UTF-8 JSON; keys sorted; two-space indent; one trailing newline",
+    "source_snapshot_date": "2026-07-18",
+    "version": "1.0.0"
+  },
+  "identity_spaces": [
+    {
+      "identity_space": "banc:banc_888",
+      "scope": "brain and ventral nerve cord",
+      "sex": "female"
+    },
+    {
+      "identity_space": "fanc:fanc_production_mar2021@840",
+      "scope": "ventral nerve cord",
+      "sex": "female"
+    }
+  ],
+  "schema_version": "1.0.0",
+  "scientific_scope": {
+    "additional_user_synapse_threshold": "none",
+    "autapse_policy": "excluded from selected pathway edges",
+    "banc_edge_source": "positive paper-v2 aggregate edges",
+    "claim_level": "structural_connectome_evidence",
+    "count_semantics": "raw aggregate structural synapse counts",
+    "fanc_pair_threshold": "published matrix retains pairs with at least 3 synapses",
+    "functional_sign": "unknown",
+    "laterality": "dataset side labels are preserved without cross-dataset remapping",
+    "physiological_weight_interpretation": "forbidden"
+  },
+  "source_artifacts": [
+    {
+      "bytes": 305250378,
+      "dataset_identity_space": "banc:banc_888",
+      "logical_name": "banc_888_edgelist_simple_v2.feather",
+      "release": "BANC v888 synapses v2 (paper version)",
+      "sha256": "363fdef3813b72a5e45a42f17034cd5a544b654c838929cecf6e1ce5f60625cb",
+      "source_id": "banc_v888_edgelist_paper_v2",
+      "source_uri": "gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_edgelist_simple_v2.feather"
+    },
+    {
+      "bytes": 57550610,
+      "dataset_identity_space": "banc:banc_888",
+      "logical_name": "banc_888_meta.feather",
+      "release": "BANC v888",
+      "sha256": "819bbcff476e52702d6f8d8604ce1f12d1d7b11942281df2f49df2a73a6f15a5",
+      "source_id": "banc_v888_meta",
+      "source_uri": "gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_meta.feather"
+    },
+    {
+      "bytes": 156324,
+      "dataset_identity_space": "fanc:fanc_production_mar2021",
+      "logical_name": "Supplemental_files/Supplemental_file6_FANC_DNs.tsv",
+      "release": "2023neckconnective supplemental annotations",
+      "repository_commit": "94637d7d82920234ef0bfdbf383c000e74a8b45a",
+      "sha256": "3acb2bb2159e2cc6d5e005f66d0526c13dc50e933780ca4dbfe4460da72aee33",
+      "source_id": "fanc_dn_crosswalk",
+      "source_uri": "https://github.com/flyconnectome/2023neckconnective/blob/94637d7d82920234ef0bfdbf383c000e74a8b45a/Supplemental_files/Supplemental_file6_FANC_DNs.tsv"
+    },
+    {
+      "bytes": 457291,
+      "dataset_identity_space": "fanc:fanc_production_mar2021@840",
+      "logical_name": "pkls/preMN_to_MN_wing_v840.pkl",
+      "release": "FANC materialization 840",
+      "repository_commit": "93cafa55b8bbdb1493e8d73c941035969349b223",
+      "sha256": "ce48e91c462ae7ffbea122429e0e0b064064d20431e82dcb8735892b6292e46c",
+      "source_id": "fanc_v840_premotor_to_wing_mn_matrix",
+      "source_uri": "https://github.com/tuthill-lab/Lesser_Azevedo_2023/blob/93cafa55b8bbdb1493e8d73c941035969349b223/pkls/preMN_to_MN_wing_v840.pkl"
+    },
+    {
+      "bytes": 2046,
+      "dataset_identity_space": "fanc:fanc_production_mar2021@840",
+      "logical_name": "pkls/mn_properties_wing_v840.pkl",
+      "release": "FANC materialization 840",
+      "repository_commit": "93cafa55b8bbdb1493e8d73c941035969349b223",
+      "sha256": "265a9a8f93f6d297a79503e6d0c32e66f4e63801b61307ed3e0f234e48de9740",
+      "source_id": "fanc_v840_wing_mn_properties",
+      "source_uri": "https://github.com/tuthill-lab/Lesser_Azevedo_2023/blob/93cafa55b8bbdb1493e8d73c941035969349b223/pkls/mn_properties_wing_v840.pkl"
+    }
+  ]
+}

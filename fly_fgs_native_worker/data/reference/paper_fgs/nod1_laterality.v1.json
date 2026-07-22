@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0.0",
+  "dataset": "FlyWire FAFB materialization 783",
+  "queried_at_utc": "2026-07-21",
+  "source": {
+    "service": "http://54.160.228.98/search NeuronFinder rich search",
+    "query": "Nod1",
+    "coordinate_field": "soma",
+    "coordinate_units": "nm",
+    "anatomical_rule": "higher soma x is fly-left; lower soma x is fly-right",
+    "midline_x_nm": 533000
+  },
+  "cells": [
+    {
+      "root_id": "720575940628438427",
+      "raw_application_side": "L",
+      "dataset_side_label": "left",
+      "soma_nm": [378848, 184512, 215480],
+      "resolved_anatomical_side": "right"
+    },
+    {
+      "root_id": "720575940625528556",
+      "raw_application_side": "L",
+      "dataset_side_label": "left",
+      "soma_nm": [408352, 257440, 223600],
+      "resolved_anatomical_side": "right"
+    },
+    {
+      "root_id": "720575940623997949",
+      "raw_application_side": "R",
+      "dataset_side_label": "right",
+      "soma_nm": [641184, 271584, 209040],
+      "resolved_anatomical_side": "left"
+    },
+    {
+      "root_id": "720575940629456860",
+      "raw_application_side": "R",
+      "dataset_side_label": "right",
+      "soma_nm": [671680, 195872, 196640],
+      "resolved_anatomical_side": "left"
+    }
+  ],
+  "paper_effector_assignment": "raw_l_to_physical_right",
+  "scope": "Resolves the four NOD1 source/contralateral target lanes for paper assay execution only; it does not merge FAFB and MANC identifiers."
+}

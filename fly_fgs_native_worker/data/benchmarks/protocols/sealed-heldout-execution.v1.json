@@ -1,0 +1,24 @@
+{
+  "protocol_id": "sealed-heldout-execution",
+  "version": "1.0.0",
+  "registered_utc": "2026-07-18T08:21:55Z",
+  "status": "frozen_before_held_out_execution",
+  "purpose": "Prevent held-out observations from becoming iterative development data while retaining complete evidence for every attempted promotion run.",
+  "freeze_order": [
+    "Verify every source artifact and canonical intake-manifest digest.",
+    "Freeze group identities, exclusions, permanent split assignments, stable sample IDs, and availability timestamps.",
+    "Freeze preprocessing, model code, environment, parameters, checkpoint, evaluator, metric protocol, and expected evidence digests.",
+    "Record a no-held-out-access attestation and immutable freeze timestamp.",
+    "Execute the held-out evaluator once under a unique evaluation ID.",
+    "Persist targets, predictions, masks, hierarchical components, bootstrap draws, metric observations, logs, and failure traces atomically."
+  ],
+  "rules": {
+    "heldout_access_before_freeze_count": 0,
+    "heldout_model_selection_reference_count": 0,
+    "post_execution_threshold_change_count": 0,
+    "failed_execution_deletion_count": 0,
+    "retry_policy": "A retry is permitted only for a documented infrastructure fault that occurred before any held-out value or aggregate was disclosed. Every attempt remains immutable.",
+    "failed_scientific_result_policy": "A completed failing result is retained and cannot be replaced under the same protocol version. Any subsequent model or protocol is a new registered version and the original held-out partition is no longer pristine for that development lineage."
+  },
+  "promotion_rule": "Only a complete validation report with matching source, protocol, model, evaluator, environment, and evidence receipts may consume the observations. A missing or unpinned receipt is BLOCKED, not PASS."
+}

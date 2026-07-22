@@ -1,0 +1,906 @@
+{
+  "bundle_id": "fly-fgs-native-worker-be03a5865136d24f254e",
+  "excluded": [
+    "web/ (unrelated 429 MB development build and generated run assets)",
+    "artifacts/ and every generated scientific array",
+    "Python caches and local environments"
+  ],
+  "files": [
+    {
+      "bytes": 92,
+      "path": ".dockerignore",
+      "sha256": "e4911643120cc8068eee518a2765a60eca1cf9f7b3af0a2a3c08b530285173e7"
+    },
+    {
+      "bytes": 1389,
+      "path": "Dockerfile",
+      "sha256": "b0ac0ced4ea62f3e8ac0ad58f9e671894a45e5e84a6720b251cff808a71b693f"
+    },
+    {
+      "bytes": 35898,
+      "path": "README.md",
+      "sha256": "1b81c1dac0e48218e8b75af4822f880879a594e651e36c6f99dd2af767b864ee"
+    },
+    {
+      "bytes": 5137,
+      "path": "data/benchmarks/README.md",
+      "sha256": "714040eaf57b2af646b29d7cde662f11250dfe4520589d9412634ab2f8627f95"
+    },
+    {
+      "bytes": 3225,
+      "path": "data/benchmarks/protocols/asynchronous-power-muscle-heldout.v2.json",
+      "sha256": "927eacb716bc27573269a5b156bf258be376e6d73ddbd919e2ca6d0082d4dddc"
+    },
+    {
+      "bytes": 2883,
+      "path": "data/benchmarks/protocols/dng02-driver-line-heldout.v2.json",
+      "sha256": "ef2756ac18d43d9ed2683fe85cff9bde19bf3556e55cfc9a3ddbe1e0e965c410"
+    },
+    {
+      "bytes": 23692,
+      "path": "data/benchmarks/protocols/dng02-driver-line-heldout.v3.json",
+      "sha256": "bfe167a8768848d3d0ed1d22be8f9ba2d8f9c2fc8c7d21adf72f7ad87561ac45"
+    },
+    {
+      "bytes": 4014,
+      "path": "data/benchmarks/protocols/melis-wing-hinge-heldout.v2.json",
+      "sha256": "8c538c3866c81c349f2b3d7917df0cc0e4c47f50a436fff5b63fe726881dbf45"
+    },
+    {
+      "bytes": 1870,
+      "path": "data/benchmarks/protocols/sealed-heldout-execution.v1.json",
+      "sha256": "7946dfd6b5185c9d2eee39328c2c1eb96ac19ad86d1b00955c0433455b9247ff"
+    },
+    {
+      "bytes": 5761,
+      "path": "data/benchmarks/receipts/dng02-mendeley-public-artifacts.v1.json",
+      "sha256": "edb81f26d6c0b1c75ec04d020366aa45b401f70defc2e1e8514b5fd7bb74c019"
+    },
+    {
+      "bytes": 206328,
+      "path": "data/benchmarks/registry.v1.json",
+      "sha256": "880dcaf8b79f1b9869e8c7df8266ed7260cdb1cdf3fe24cfe5e0b53c96c04b1d"
+    },
+    {
+      "bytes": 2017,
+      "path": "data/benchmarks/scenarios/canonical-online-native-pair.v1.json",
+      "sha256": "b133bce4878e18db4eb860a3dc37436cd9825f10d1b5d3eef25c90954ece0361"
+    },
+    {
+      "bytes": 197,
+      "path": "data/benchmarks/scenarios/canonical-online-raw-l-iv2-silence.v1.json",
+      "sha256": "c99a59f33c763f4dd24728a69c910450811260b02c5983ed68f886d2fc7597ac"
+    },
+    {
+      "bytes": 2683,
+      "path": "data/evidence/README.md",
+      "sha256": "7cd66e6922b43ec8d398410d888e2027b491ecf9e56ea43024bfd8e2fa5e6eca"
+    },
+    {
+      "bytes": 30020,
+      "path": "data/evidence/seed_graph.v1.json",
+      "sha256": "2c78d07818d5c6aa2fc839a7d781afeefe67b20cb3a715e8b1b77d7cc0e537db"
+    },
+    {
+      "bytes": 875,
+      "path": "data/manifests/flywire_fafb_v783.json",
+      "sha256": "43abc5f3a514bb27f7dd7b17cab6c1b08c19198df2783082b6b80f984ae4ebb9"
+    },
+    {
+      "bytes": 5454,
+      "path": "data/manifests/legacy_nod1_v0.5.0.json",
+      "sha256": "3c91e451afbfd996302952782d7dff07bbd65bb379f361d57da3a4c1110632bd"
+    },
+    {
+      "bytes": 456,
+      "path": "data/manifests/male_cns_v1.0.json",
+      "sha256": "b98fa3bc071b98dd55d5a4d486a66bd8dfcb80e06d8498cdd686dabc0e24727d"
+    },
+    {
+      "bytes": 5163,
+      "path": "data/models/flight_model_registry.json",
+      "sha256": "842e58f77d89568cf31807bc5d02105ae528f5dc762079ec850d2e5aff787205"
+    },
+    {
+      "bytes": 10990,
+      "path": "data/reference/README.md",
+      "sha256": "ac52c9cfb6d5ff52318d2bfec4e78a539a1e83a8201370e144216cc1fd39e6e2"
+    },
+    {
+      "bytes": 56416,
+      "path": "data/reference/banc_fanc_wing_pathway_evidence.v1.json",
+      "sha256": "91763c068c74520d9c9f1aadd0ef80a295bae01cefc95c9091014eb0a0859c21"
+    },
+    {
+      "bytes": 3098921,
+      "path": "data/reference/fly_fgs/assets/bundle_fg.snapshot.json",
+      "sha256": "dc7ad294e54df7f4b8d4556f36e95b2676e19135d150557b8a16cfc17a4ac0dc"
+    },
+    {
+      "bytes": 22975,
+      "path": "data/reference/fly_fgs/assets/fgmodel.snapshot.js",
+      "sha256": "f6de20850d463399b308642222e0ef6dadf02129bf27440fd7f2d5cf7d45396f"
+    },
+    {
+      "bytes": 97244,
+      "path": "data/reference/fly_fgs/assets/index.snapshot.html",
+      "sha256": "f19434ee872984035fafbfb492538609cf458111ddb64ad9f998e6c371187932"
+    },
+    {
+      "bytes": 27370,
+      "path": "data/reference/fly_fgs/assets/wing_dns.excluded.snapshot.json",
+      "sha256": "b3ae85e6151228919617a87907730705ec3acb8d8b441465ce182926d6c32390"
+    },
+    {
+      "bytes": 380776,
+      "path": "data/reference/fly_fgs/fixed_step_capture.v1.json.gz",
+      "sha256": "5612cc9c2218a917bf2ad939d6aaa2a8402db5f11fd2de36cd3168d9198cbd83"
+    },
+    {
+      "bytes": 8209,
+      "path": "data/reference/fly_fgs/source_manifest.v1.json",
+      "sha256": "fef59e4b8abe5216081b6d64decd0d1775454d06e7631bb9af8ae409c1cd05c3"
+    },
+    {
+      "bytes": 131782,
+      "path": "data/reference/flybody_analytic_wingbeat_smoke.v1.json",
+      "sha256": "066fa6194875f985f65ca4bb12efef8bf6ada1dee9d1c5651c7188a287c6cede"
+    },
+    {
+      "bytes": 132300,
+      "path": "data/reference/flybody_analytic_wingbeat_smoke.v2.json",
+      "sha256": "5b66baacce124ae72c2a6d922f79b332e4e961b5e97ec2c7221c43a8c1583057"
+    },
+    {
+      "bytes": 137808,
+      "path": "data/reference/flybody_analytic_wingbeat_smoke.v3.json",
+      "sha256": "9e58e24af449d1744fe11a52f3ce8e49d63de3dc3d17ead557526c667cee7acc"
+    },
+    {
+      "bytes": 7503,
+      "path": "data/reference/flybody_ordinary_flight_release.expected.v1.json",
+      "sha256": "b706aba72eb71069019cd6bbcbaaba84cba81a5697028a6ae681e2bb339f6975"
+    },
+    {
+      "bytes": 7784364,
+      "path": "data/reference/nod1_browser_python_parity.v1.json.gz",
+      "sha256": "a76794e630533822468971cbdbe2164a3d1ddce8a8a38811c9b9c1ad5b97a8a4"
+    },
+    {
+      "bytes": 8289,
+      "path": "data/reference/paper_fgs/figure3_panel_a_600dpi.png",
+      "sha256": "f376a506ca02a19ea84190b9d983fd9ee776eb1d63ae97504f1efb720aff659f"
+    },
+    {
+      "bytes": 8491,
+      "path": "data/reference/paper_fgs/figure3_panel_b_600dpi.png",
+      "sha256": "d8a5d1060fe989f10d00f0de48c2dd37dca13683518ebd37aa636119bbef33ef"
+    },
+    {
+      "bytes": 8708,
+      "path": "data/reference/paper_fgs/figure3_panel_c_600dpi.png",
+      "sha256": "0456d5c4a3e031577119acc81f9c812784321bc27f8cc6fd3ab058529bed9390"
+    },
+    {
+      "bytes": 466640,
+      "path": "data/reference/paper_fgs/figure3_reference.v1.json",
+      "sha256": "9c3406a01aff3a7408492167e7915c229b5124527ce10071f6de199f7f6f9b7d"
+    },
+    {
+      "bytes": 1449,
+      "path": "data/reference/paper_fgs/nod1_laterality.v1.json",
+      "sha256": "5895bfd60b69bc5f605d71f559ca5e35bf9b1229d673d7046df0aa7abc632ea2"
+    },
+    {
+      "bytes": 1537,
+      "path": "data/reference/paper_fgs/paper_protocols.v1.json",
+      "sha256": "78c44d60a28146631421451a0954126a335b1d6b3bcfca8fa93dc615608001fc"
+    },
+    {
+      "bytes": 890,
+      "path": "data/reference/paper_fgs/paper_runtime_manifest.v1.json",
+      "sha256": "3fa00d5e6bd88a1c3b374df576d0e6e9d100d2e49843f7e3567bb7eb684afa0f"
+    },
+    {
+      "bytes": 3098,
+      "path": "data/reference/paper_fgs/scientific_release_matrix.v1.json",
+      "sha256": "bcea37446a9d2a9a4388113be7abcd77db9cf64aa99fd132bf8cde757dcf7fce"
+    },
+    {
+      "bytes": 14384,
+      "path": "data/reference/paper_fgs/torque_calibration.fixed_load_cell.v2.json",
+      "sha256": "438579294b97100e4fa448fbe340c48eaf86a2c99976166cbb9c548419bf0488"
+    },
+    {
+      "bytes": 36937,
+      "path": "docs/architecture.md",
+      "sha256": "f6fef79990c9666e531bb1cf626ac9323ec8a858d3d2dcb249a3ae5ada5918a6"
+    },
+    {
+      "bytes": 20113,
+      "path": "docs/calibration-roadmap.md",
+      "sha256": "1daac640dc5cd6d974b63ded336fd5f2281135c1d816bdb4bdf4144a4d2dbd52"
+    },
+    {
+      "bytes": 8679,
+      "path": "docs/canonical-online-runtime.md",
+      "sha256": "2497de14665a80e21c2973bea9f166359fe0f422cb2e6bbb432a8bb5827bd60c"
+    },
+    {
+      "bytes": 50954,
+      "path": "docs/evaluation.md",
+      "sha256": "e8f37d263e38f097ad7ba7419719302c0b56446bab0592a429f1a96a0571de22"
+    },
+    {
+      "bytes": 24885,
+      "path": "docs/figure-ground-behavior-validation.md",
+      "sha256": "c79a911edf92f318d30b449942cc84151c85fe9c0b5e075a5c48924930768558"
+    },
+    {
+      "bytes": 7262,
+      "path": "docs/paper-torque-metrology.md",
+      "sha256": "97be6e108515492237da39cfa3475b6ca81cb77a74442609d75944c7c7d5257f"
+    },
+    {
+      "bytes": 3945,
+      "path": "pyproject.toml",
+      "sha256": "0cf8984b412c0de8a75e0e4b94913be8504fd07de31a912761835873d5f50921"
+    },
+    {
+      "bytes": 3142446,
+      "path": "reference/BF00595226.pdf",
+      "sha256": "9159ec24548e1ee0eaf4edca0d4790d7656890d2fb611dd0b7d27cc85a6f05d7"
+    },
+    {
+      "bytes": 51315,
+      "path": "reference/figure_ground_relative_motion_simulation_spec.md",
+      "sha256": "c43b9ec417a52d5fac5333c1df01ca0765961f5c88779a3769fc9b3a2968647c"
+    },
+    {
+      "bytes": 192,
+      "path": "requirements-worker.txt",
+      "sha256": "401d0e3cb97637b1a81c67244dff4f19077b171c65e7d1a9d649302dc84ff509"
+    },
+    {
+      "bytes": 73798,
+      "path": "requirements.lock",
+      "sha256": "08127983d96640b824a55d9edcaeffe1540e5bee8f7973534bffde682a66480f"
+    },
+    {
+      "bytes": 11899,
+      "path": "scripts/README.md",
+      "sha256": "118f337ab71a46242fd5dad922ab8845ce2f4084bf8f704ef2d5e2fb63368345"
+    },
+    {
+      "bytes": 71,
+      "path": "scripts/__init__.py",
+      "sha256": "fefd02caefa005298e748bdfdc99fdc5e705bde1011a30049694a01fe78e94f1"
+    },
+    {
+      "bytes": 254738,
+      "path": "scripts/audit_web_release.py",
+      "sha256": "8c1c1714d6d6ce411d6c3564cddb2f71f0bf9fb47b86637ad66ad12b3f24ea01"
+    },
+    {
+      "bytes": 3590,
+      "path": "scripts/build_vendored_manifest.py",
+      "sha256": "47eba244c7f3a858ae4ad531d2a92043764e44131256486f1110e21b588783f1"
+    },
+    {
+      "bytes": 20860,
+      "path": "scripts/capture_fly_fgs_fixed_step.mjs",
+      "sha256": "a9e12c24a08d5aad3122cd5bb81bb5fb0b4f7f172377635251090195c0852ff2"
+    },
+    {
+      "bytes": 28611,
+      "path": "scripts/capture_nod1_browser_parity.py",
+      "sha256": "9fd0b4eabb851a0e3a8b2ba081fdf2ad829875cb07a2837d224133b690b5d203"
+    },
+    {
+      "bytes": 11845,
+      "path": "scripts/digitize_paper_figure3.py",
+      "sha256": "ab0962f11256bf22eabeb11aa2a902892937748c77843fd85837669ac062e33a"
+    },
+    {
+      "bytes": 22870,
+      "path": "scripts/extract_banc_fanc_wing_evidence.py",
+      "sha256": "1a3f300b65a6d95e1f1b614f51dfc4d2196e620150199441c446dd89bec845f1"
+    },
+    {
+      "bytes": 25778,
+      "path": "scripts/fly_fgs_runtime_rpc.mjs",
+      "sha256": "fbe8b269eb51f7913c78b720ae0be93a070e8628018f13b17a5a8c86cc3a517c"
+    },
+    {
+      "bytes": 470,
+      "path": "scripts/intake_flybody_release.py",
+      "sha256": "c6c4deca3b6a181522d3539c240ee6727c9ba150c6787f74fe8c8eacf3e4326d"
+    },
+    {
+      "bytes": 4530,
+      "path": "scripts/paper_fgs_preflight.py",
+      "sha256": "0acc6a2dcb36c8d5d6af6cc906941e9b126965bcb731c47511ba43e543f32773"
+    },
+    {
+      "bytes": 10569,
+      "path": "scripts/paper_fgs_runtime_rpc.mjs",
+      "sha256": "dc7b43a09743cbad7f4e747e532f3109298e79e65ad6cf982c176e237e43bef8"
+    },
+    {
+      "bytes": 12582,
+      "path": "scripts/probe_streaming_fresh_process.py",
+      "sha256": "ee7756d928c471dea2a651d361304571ef48e65678adefbeb5d862fb207d2240"
+    },
+    {
+      "bytes": 23456,
+      "path": "scripts/publish_canonical_web_run.py",
+      "sha256": "329c3c9c03706cf51da8ba4f0846a541676ca50f493c36aeafd9a45fb30a5b9b"
+    },
+    {
+      "bytes": 6041,
+      "path": "scripts/register_flybody_smoke_fixture.py",
+      "sha256": "4752825c18d003fffc840e43c5fbcad37082be25827d248d688fcc5e4591dbee"
+    },
+    {
+      "bytes": 8182,
+      "path": "scripts/run_canonical_native_smoke.py",
+      "sha256": "0b1ec81afeba2a1ad3d38c6cb51d9f20bc05c191b41a2cb64bb911e3126504c1"
+    },
+    {
+      "bytes": 216,
+      "path": "scripts/run_paper_fgs.py",
+      "sha256": "a51077852f3b87dc83f4894eed728d502ad4bc6c656f9e297bb2b2c8fef71851"
+    },
+    {
+      "bytes": 4165,
+      "path": "scripts/verify_scientific_release.py",
+      "sha256": "0dcf4b053531f32aa24ec0945ce5b4f01f17c2661437f11615f88ce858a6bf7b"
+    },
+    {
+      "bytes": 2533,
+      "path": "scripts/verify_vendored_bundle.py",
+      "sha256": "f72fd747b0b054b93c1c62262246e8b58a77f59b9ac75ea9b588d19234dfd993"
+    },
+    {
+      "bytes": 3462,
+      "path": "src/fly_sensor2behavior/__init__.py",
+      "sha256": "27a6ce6e8ad888b1b5d34a7b213b619f070209f581893a8f5ea6099dcf2cbc13"
+    },
+    {
+      "bytes": 145657,
+      "path": "src/fly_sensor2behavior/artifacts.py",
+      "sha256": "f8f05ee35861657ce946bbf1afba48042d0a2efff81fac6a6031fb4126e83919"
+    },
+    {
+      "bytes": 17263,
+      "path": "src/fly_sensor2behavior/banc_fanc_evidence.py",
+      "sha256": "0c576966b1d44b7f2f35361189b06b2f649e4eb47d52fc3b543882302de4baca"
+    },
+    {
+      "bytes": 35030,
+      "path": "src/fly_sensor2behavior/calibration.py",
+      "sha256": "b8dced6c9325af5da523c3d604ef7cae9203df00b9de4f2fa8a2184494082659"
+    },
+    {
+      "bytes": 132257,
+      "path": "src/fly_sensor2behavior/canonical_artifacts.py",
+      "sha256": "c3b01644f0daef0552e79dfab4cbaf2f2d5b364219c1debd691e866c060a1cc5"
+    },
+    {
+      "bytes": 46534,
+      "path": "src/fly_sensor2behavior/cli.py",
+      "sha256": "d0cf7ea8830059123fb3865d62b3761b9e902d4e137fd02541df12addd060c8e"
+    },
+    {
+      "bytes": 31492,
+      "path": "src/fly_sensor2behavior/dng02_intake.py",
+      "sha256": "48f7adf4a9c5c2c45121daea5eca47618a939c18cb1d9e73b495c8ea43ea53a9"
+    },
+    {
+      "bytes": 265961,
+      "path": "src/fly_sensor2behavior/evaluators.py",
+      "sha256": "c8ce5d4d12a4793082d49be86aa10212716b57d2b5b38d6dc1685f84e9e73050"
+    },
+    {
+      "bytes": 15502,
+      "path": "src/fly_sensor2behavior/evidence.py",
+      "sha256": "1ea0ce02ddc4ba371b6885be68b54b5a1208219a4ddf1d13223280945a8c3866"
+    },
+    {
+      "bytes": 6476,
+      "path": "src/fly_sensor2behavior/flight/__init__.py",
+      "sha256": "369ed9be2d15e851382f5dd842bd8f7fe398ec329cd759709f0a62a0a471fae6"
+    },
+    {
+      "bytes": 3963,
+      "path": "src/fly_sensor2behavior/flight/aerodynamics.py",
+      "sha256": "9377a168a8079498da54f9974a94a78b8a91c1ffc67e524cb55e054401245dbb"
+    },
+    {
+      "bytes": 52374,
+      "path": "src/fly_sensor2behavior/flight/bridge.py",
+      "sha256": "25571297ebe6568ccad8c1642fb363716c689f61338208b18aab983262b7f768"
+    },
+    {
+      "bytes": 57652,
+      "path": "src/fly_sensor2behavior/flight/canonical_closed_loop.py",
+      "sha256": "058c8f9d2e256d6a1f6e5a9aea7bd06c99481084e97394ad821f721439f1d947"
+    },
+    {
+      "bytes": 2268,
+      "path": "src/fly_sensor2behavior/flight/clock.py",
+      "sha256": "afee3dd80ca34182aa26aa12677ce6f29983764fd106595222ef129c82140863"
+    },
+    {
+      "bytes": 19207,
+      "path": "src/fly_sensor2behavior/flight/closed_loop.py",
+      "sha256": "4567c9eec581fdb43f458e9f125f7a3af7b98bf057c0ea0d1eae6c66d7327f2b"
+    },
+    {
+      "bytes": 7343,
+      "path": "src/fly_sensor2behavior/flight/effector_mapping.py",
+      "sha256": "75cd16a39a74f9e01d8b67341512a1a93e785aec14e4b7052882a713848e08dc"
+    },
+    {
+      "bytes": 66335,
+      "path": "src/fly_sensor2behavior/flight/episode.py",
+      "sha256": "ae0ba0b6cfc622735d269c6f9eeface27661753eb20f0c4f7b98b1e353eabec9"
+    },
+    {
+      "bytes": 8404,
+      "path": "src/fly_sensor2behavior/flight/hinge.py",
+      "sha256": "9d3de727bae7943003d6186cab4585b8c03a9a9c46d436698f123c39b42f9c10"
+    },
+    {
+      "bytes": 10731,
+      "path": "src/fly_sensor2behavior/flight/muscles.py",
+      "sha256": "e2a7b3567b7218e3fa68eef9f96a5853c671ca2f0a1dd5d04152aa73987f8562"
+    },
+    {
+      "bytes": 67722,
+      "path": "src/fly_sensor2behavior/flight/paper_open_loop.py",
+      "sha256": "4603bb0c4d70b4ef465c16a907e1cef6be9628d6be981535131cf41ee95ab003"
+    },
+    {
+      "bytes": 4576,
+      "path": "src/fly_sensor2behavior/flight/rigid_body.py",
+      "sha256": "2a75dce1489fae644049dc1361bcf9059b4cb700ca6f1f9fe515105c405b3e0a"
+    },
+    {
+      "bytes": 3881,
+      "path": "src/fly_sensor2behavior/flight/signals.py",
+      "sha256": "bf284e643c459bf12535bb73853a766b46728814158d0877d7a535a58036b108"
+    },
+    {
+      "bytes": 88853,
+      "path": "src/fly_sensor2behavior/flight/streaming_bridge.py",
+      "sha256": "0f7569c68ec6fad773ab7e2fab0c52e7dfb077565112d58b2cd086e982c18a36"
+    },
+    {
+      "bytes": 75763,
+      "path": "src/fly_sensor2behavior/flight/streaming_mechanics.py",
+      "sha256": "83af9018b437025957da0162db2ea6bbf7ccbbb72df2aab79bf4292094dde319"
+    },
+    {
+      "bytes": 16639,
+      "path": "src/fly_sensor2behavior/flight/types.py",
+      "sha256": "a1b19ad91a7ab95b1ddc2da7e2f46531a0f2b019781b363732c61093d08c23b5"
+    },
+    {
+      "bytes": 58170,
+      "path": "src/fly_sensor2behavior/fly_fgs.py",
+      "sha256": "c37b346006dc2fdebfab1f3562c9ba62a16509ddd5fdf8c069e216a92e8458ab"
+    },
+    {
+      "bytes": 24264,
+      "path": "src/fly_sensor2behavior/fly_fgs_runtime.py",
+      "sha256": "1b4cb7a4a9ca8e74d21739c1e8045edb514d41258b4852916268748f07c77a7b"
+    },
+    {
+      "bytes": 72161,
+      "path": "src/fly_sensor2behavior/flybody_adapter.py",
+      "sha256": "1a0218796c7e193a5882c51abf554f41c22189285bb853d5cbabaa2c320c52cb"
+    },
+    {
+      "bytes": 51962,
+      "path": "src/fly_sensor2behavior/flybody_ordinary_flight_release.py",
+      "sha256": "988469d119ae3213eea1b756cf9378145318e8567e85c65b409471838fbe7e76"
+    },
+    {
+      "bytes": 44257,
+      "path": "src/fly_sensor2behavior/flybody_release_intake.py",
+      "sha256": "02c733c5d9ea23e476349e1ef4a79c146fae0a66646cc9c2a8270662054638f1"
+    },
+    {
+      "bytes": 7630,
+      "path": "src/fly_sensor2behavior/nod1.py",
+      "sha256": "2652a92b39a123a8c605e5752b816e68602ad282de27a1eebd1331b97a40c39f"
+    },
+    {
+      "bytes": 39696,
+      "path": "src/fly_sensor2behavior/nod1_parity.py",
+      "sha256": "6936e37d578696fd8694bcf676714b82bfd4811397ff58a16d6313b4b47ce420"
+    },
+    {
+      "bytes": 5156,
+      "path": "src/fly_sensor2behavior/nod1_solver.py",
+      "sha256": "ccdfb99abdfed26befdad7f71687a877b2b7faf9f2395b3402c38c5a40a03dd5"
+    },
+    {
+      "bytes": 23412,
+      "path": "src/fly_sensor2behavior/paper_calibration.py",
+      "sha256": "6aef706578a18f893d0fc62c700aa39cd547ecc9e90cb607844d12bb1c28f466"
+    },
+    {
+      "bytes": 47451,
+      "path": "src/fly_sensor2behavior/paper_fgs.py",
+      "sha256": "c4faa6ea86bd4d01fab170931b248ac1af1df72e2fc8e24bc933defb484b1ec7"
+    },
+    {
+      "bytes": 11452,
+      "path": "src/fly_sensor2behavior/paper_fgs_cli.py",
+      "sha256": "cbaa426cbfcc2208c2f098c162079190b6732145a25effe310c5fd0416a483fd"
+    },
+    {
+      "bytes": 17916,
+      "path": "src/fly_sensor2behavior/paper_fgs_release_cli.py",
+      "sha256": "66899b27a02d0e3551b5a69f1bdb0bb508406e36d2b171cae063a7f8e663b5f7"
+    },
+    {
+      "bytes": 14223,
+      "path": "src/fly_sensor2behavior/paper_fgs_runtime.py",
+      "sha256": "a8c75e912b4c8db685b60e8e2cf3dbc13d2904eef4aa3d8349902cf3500733bc"
+    },
+    {
+      "bytes": 30046,
+      "path": "src/fly_sensor2behavior/paper_fgs_streaming.py",
+      "sha256": "ec5351f82c1b162dd9ca3429dbf7751f189ebb1f51417bd4e859d1f915742aec"
+    },
+    {
+      "bytes": 8807,
+      "path": "src/fly_sensor2behavior/paper_signal.py",
+      "sha256": "8d4316cf485dd17c5fedcf32c9b49522796cb18e6de595a04e1e6480ace5e07c"
+    },
+    {
+      "bytes": 58705,
+      "path": "src/fly_sensor2behavior/paper_tether.py",
+      "sha256": "fb5885ed9db725b216c214bac15964ca3d08fdddd4c9f4dab080badc9a7ba2ab"
+    },
+    {
+      "bytes": 48219,
+      "path": "src/fly_sensor2behavior/pipeline.py",
+      "sha256": "aaf88803b9fa0e6d8c7505f732e521317a8ba40599fc24c0789c1785bda42820"
+    },
+    {
+      "bytes": 81589,
+      "path": "src/fly_sensor2behavior/schema.py",
+      "sha256": "0ef618249bbd4dd59896a1907aca7962bd8009e95ca917d3c26f18c6520d17d8"
+    },
+    {
+      "bytes": 73573,
+      "path": "src/fly_sensor2behavior/validation.py",
+      "sha256": "e6f053282e5a933ec576093b6da80c5d50ea430e08827331c0201a4f30151283"
+    },
+    {
+      "bytes": 550,
+      "path": "src/fly_sensor2behavior/vision/__init__.py",
+      "sha256": "0fbd7a3449149654557adc478b6817a68b4db86e280e0ee76b5a7e985252d85f"
+    },
+    {
+      "bytes": 8344,
+      "path": "src/fly_sensor2behavior/vision/circuit.py",
+      "sha256": "9a4f5b2a6f4d5ce92633ea8991235ac1cc04e3069d68bef951fef7dc83cea014"
+    },
+    {
+      "bytes": 3614,
+      "path": "src/fly_sensor2behavior/vision/motion.py",
+      "sha256": "65df5f1b1ebca32aa80aef93ba6436a681892bb58b62c0485d9469984b9d31e1"
+    },
+    {
+      "bytes": 4095,
+      "path": "src/fly_sensor2behavior/vision/retina.py",
+      "sha256": "9e4d8998b2dd206809bfaba7cda488cd1273b348cb1f0ad71c0a1a54bc18f21e"
+    },
+    {
+      "bytes": 8259,
+      "path": "src/fly_sensor2behavior/vision/stimulus.py",
+      "sha256": "54686f46d8df71002985f5dcef9efc97f8120b647af90a22de662b4664e81a06"
+    },
+    {
+      "bytes": 50724,
+      "path": "src/fly_sensor2behavior/wing_hinge_intake.py",
+      "sha256": "5738d6d0a440efcb49354130106f141f9da52be32abe1797d4edfb616e0db2d4"
+    },
+    {
+      "bytes": 35828,
+      "path": "tests/test_artifacts.py",
+      "sha256": "45bef89aaffb1e6187a7e0ad1a08d7536e30a4e8e1739cd04703406f7da0a147"
+    },
+    {
+      "bytes": 76287,
+      "path": "tests/test_audit_web_release.py",
+      "sha256": "bba15121e3dc09096a4557a9c16cee3cde8480e19598d02440c5a010b905cbbf"
+    },
+    {
+      "bytes": 5723,
+      "path": "tests/test_banc_fanc_evidence_fixture.py",
+      "sha256": "87816a73039633bb77bb65ad23f8762a391aecccab11a02bdd4485594816390e"
+    },
+    {
+      "bytes": 14248,
+      "path": "tests/test_benchmark_registry_contracts.py",
+      "sha256": "7eca2d912195aa7ce2fb8cc0416b111ab3bebc67a25308e36b76f9c65e9132f4"
+    },
+    {
+      "bytes": 12135,
+      "path": "tests/test_calibration.py",
+      "sha256": "a7506cc78c66a647cb476c0ca8217f8e63a4b29e265b1dae3f88c84bb773d6d7"
+    },
+    {
+      "bytes": 35149,
+      "path": "tests/test_canonical_artifacts.py",
+      "sha256": "89212840033e7afeaf2a60420cc308457875e6a3515a20f48345953310250362"
+    },
+    {
+      "bytes": 41555,
+      "path": "tests/test_canonical_closed_loop.py",
+      "sha256": "b5400945f54a8891fffa81cc91b327262900b71d8b350b9e593a1d01052907ce"
+    },
+    {
+      "bytes": 18422,
+      "path": "tests/test_canonical_online_native_evaluator.py",
+      "sha256": "f11df2a4b909c0d6e888aec89c403f5ed4f743ddba3bf460833c552be3989139"
+    },
+    {
+      "bytes": 1759,
+      "path": "tests/test_canonical_online_scenario_contract.py",
+      "sha256": "e2b09039b1ac69c56d055b216a02a07f5fd2bc4b82f50cd6e11d347a07624153"
+    },
+    {
+      "bytes": 2796,
+      "path": "tests/test_capture_nod1_browser_parity.py",
+      "sha256": "afaf357b79cc3a0930e1ee9dd03aec9532a33c87bdd849ad2b44acd2d095ed26"
+    },
+    {
+      "bytes": 8587,
+      "path": "tests/test_cli.py",
+      "sha256": "b5af23350f33fcfa6f9aa5746d0887b368dae2b1ddf87e5214f6221a87431a61"
+    },
+    {
+      "bytes": 4358,
+      "path": "tests/test_closed_loop_yaw.py",
+      "sha256": "cf1f8e6eb301fa648696a35fa7851622c45a2a9d0fa4d910caa7a2bdef6a9a43"
+    },
+    {
+      "bytes": 11389,
+      "path": "tests/test_dng02_intake.py",
+      "sha256": "d56b8551857dc2ae611950c4fc9c9196d47596899f5717caaa4e812c8725b3d1"
+    },
+    {
+      "bytes": 4939,
+      "path": "tests/test_effector_mapping.py",
+      "sha256": "c94672385119a45bf7792fe58d9c3459289933c9bb56effa460d78658c0fe8bb"
+    },
+    {
+      "bytes": 2795,
+      "path": "tests/test_end_to_end_vertical_slice.py",
+      "sha256": "35d45322f950aab2be7066477feee806b461837917dfb75e9b46cf86851e90b7"
+    },
+    {
+      "bytes": 27970,
+      "path": "tests/test_evaluators_cli.py",
+      "sha256": "f3eab77233fc8424524a4917628015e994bde5e4298585d868acb6de8d95c025"
+    },
+    {
+      "bytes": 7813,
+      "path": "tests/test_evidence.py",
+      "sha256": "c3b4d1840ac474ff2a135c8c0964fcab4c1284b66ddebb2610831b42b9c35684"
+    },
+    {
+      "bytes": 21378,
+      "path": "tests/test_flight_bridge.py",
+      "sha256": "b031a4b72013cf9139ca9a1944efb59251e5d508dc40bcab9c63725b27dca103"
+    },
+    {
+      "bytes": 1855,
+      "path": "tests/test_flight_clock_and_signals.py",
+      "sha256": "76fd686a4057013d9ca6bfca4fc8f5be3351a5ab4926df006bbb616972eec66c"
+    },
+    {
+      "bytes": 4235,
+      "path": "tests/test_flight_episode.py",
+      "sha256": "adf30d57bc5e4e240ddabb0cf2a30873728519c6eca655c5661935e529ae0311"
+    },
+    {
+      "bytes": 15180,
+      "path": "tests/test_flight_individual_mechanics.py",
+      "sha256": "5447b414e1bf540fec8b576e1d9602407502b6a755e171c842423647ad2b6c6d"
+    },
+    {
+      "bytes": 1822,
+      "path": "tests/test_flight_muscles.py",
+      "sha256": "6b306d13b578dadd1937319bf45e27d000bb268d2373f616ea71236580d53e57"
+    },
+    {
+      "bytes": 10583,
+      "path": "tests/test_fly_fgs.py",
+      "sha256": "f1a038fabd49b545e135cc2349bbdd435885346cf73f9c27130082d36f042ddf"
+    },
+    {
+      "bytes": 12910,
+      "path": "tests/test_fly_fgs_cli_export.py",
+      "sha256": "0f8ab74cbd19efda081f672c3bf8b40cda1df7ae9c866cc1bd8a874dcde0f24f"
+    },
+    {
+      "bytes": 9260,
+      "path": "tests/test_fly_fgs_evaluators.py",
+      "sha256": "01bd1ebae7644fa7b64170ca0d24eb4f9b20629eb8391a948afeeaf456be2f8d"
+    },
+    {
+      "bytes": 10608,
+      "path": "tests/test_fly_fgs_pipeline.py",
+      "sha256": "cd31fd4498b8832144d792e9bb8722c1f6aa374a5624b7510b80f7e1301fccfe"
+    },
+    {
+      "bytes": 2810,
+      "path": "tests/test_fly_fgs_registry.py",
+      "sha256": "f56b74c9e256ca6b46d517251da43a06f4c9219697241811ef2a892f9e2c32b3"
+    },
+    {
+      "bytes": 10515,
+      "path": "tests/test_fly_fgs_runtime.py",
+      "sha256": "e8c2ad924a5ba2c980444a62e40721488acaf7f734c327aa38350ee4fa7ed9c2"
+    },
+    {
+      "bytes": 11610,
+      "path": "tests/test_flybody_adapter.py",
+      "sha256": "795f082d4a11e615da4a7a001bcddf07d23df964d8dda59673aee66005ee89e6"
+    },
+    {
+      "bytes": 8232,
+      "path": "tests/test_flybody_checkpoint.py",
+      "sha256": "8bdbce8ea466c0d74f378e53f05000062f1b07504db3e6205eda422f31c77109"
+    },
+    {
+      "bytes": 1396,
+      "path": "tests/test_flybody_checkpoint_registry.py",
+      "sha256": "07dcff05a1b16afc362b57dc0c61533665168c945e6ce229101d102239612132"
+    },
+    {
+      "bytes": 15084,
+      "path": "tests/test_flybody_ordinary_flight_release.py",
+      "sha256": "ba0e0e961dada3df9f15432b821151e29d474398aacb34d5587b156d641fa7fe"
+    },
+    {
+      "bytes": 16405,
+      "path": "tests/test_flybody_release_intake.py",
+      "sha256": "6c39b8ed4bd9bae6c9199c2e21f6e192126392adcf0935a078de5f9337d89b50"
+    },
+    {
+      "bytes": 1637,
+      "path": "tests/test_legacy_nod1_manifest.py",
+      "sha256": "dfc4b216e779667e4f3b59897d6fa4706373e068b964eb00e40a0f24da556eef"
+    },
+    {
+      "bytes": 15392,
+      "path": "tests/test_nod1_parity_pipeline.py",
+      "sha256": "1dbaa82a78153416bc2c4e31177ebcf5a59f494998d2cadc83ba33453b30ff26"
+    },
+    {
+      "bytes": 1336,
+      "path": "tests/test_nod1_solver.py",
+      "sha256": "c53a70f2bfdbf6f045374a1ee8be5bf4e889b78ca72551053e1ed5638168790c"
+    },
+    {
+      "bytes": 8063,
+      "path": "tests/test_paper_fgs.py",
+      "sha256": "1b573bcbd05864a5a5016fcc4ddccb69a862afce92edc5a114b79a21f57d4d51"
+    },
+    {
+      "bytes": 1640,
+      "path": "tests/test_paper_fgs_runtime.py",
+      "sha256": "2b63ceb9748b245a99ad3bcd746803c0abd3ca5fc88b4964a2945dbad5c4b1f2"
+    },
+    {
+      "bytes": 5120,
+      "path": "tests/test_paper_fgs_streaming.py",
+      "sha256": "fef050a5d5891e493f217c96816bfe01684d2159cbfe6e2b2d7c09cbe6e9360a"
+    },
+    {
+      "bytes": 5462,
+      "path": "tests/test_paper_open_loop.py",
+      "sha256": "6aab1f3817fee648f015194d533952f560f43c6a48e3774ab411d8b627522f6a"
+    },
+    {
+      "bytes": 1338,
+      "path": "tests/test_paper_signal.py",
+      "sha256": "f515d6b49f2ff3a8f7496191680a20a3be1c28250d42d600043f27a1c8d05add"
+    },
+    {
+      "bytes": 1612,
+      "path": "tests/test_paper_tether.py",
+      "sha256": "4f9a76640b50042f814426aa525511f95b165669013c7f452b2a60b1e90ea105"
+    },
+    {
+      "bytes": 5628,
+      "path": "tests/test_paper_tether_native.py",
+      "sha256": "e45321a7d8c55d809549a54b68497905ad45f72f1e128185869cb83ce44c4b74"
+    },
+    {
+      "bytes": 14141,
+      "path": "tests/test_pipeline.py",
+      "sha256": "c0826ebe5b23d7e2548b1c0d8d38e076cadbdc92c6c7745eea9abd7436aaf0f3"
+    },
+    {
+      "bytes": 11263,
+      "path": "tests/test_publish_canonical_web_run.py",
+      "sha256": "e49756a9841f98bf423fee9551b92f78e83de0e2df9ada95b0408c825862cd08"
+    },
+    {
+      "bytes": 1493,
+      "path": "tests/test_register_flybody_smoke_fixture.py",
+      "sha256": "ddc78692621c876d087341b801b5cd26ba3fc907d2e404f5b1a902806a407801"
+    },
+    {
+      "bytes": 26722,
+      "path": "tests/test_schema.py",
+      "sha256": "3979f08e7a805f215f5a9b86c15e7d4df11464333463859a9f7af57723cce9a4"
+    },
+    {
+      "bytes": 25143,
+      "path": "tests/test_streaming_bridge.py",
+      "sha256": "358fd38a93876565946ec2c3a527df8655bb67fbdb3348e1ad2f3d9b0e36d17a"
+    },
+    {
+      "bytes": 4386,
+      "path": "tests/test_streaming_fresh_process_reentry.py",
+      "sha256": "2a16c6a9fa1e19bf5d087b1cf16133fd2296c7d6909b5d1d8715887e4ea254ba"
+    },
+    {
+      "bytes": 28857,
+      "path": "tests/test_streaming_mechanics.py",
+      "sha256": "2e96e7e4a25738b9599d8e4b4f4f23b4132b8537c370c01e9f78ed4c5c22bd50"
+    },
+    {
+      "bytes": 8309,
+      "path": "tests/test_streaming_runtime_evaluators.py",
+      "sha256": "6d19215944445ad41a28f89a135593f5219bbe3783c916db2f237692e53489cb"
+    },
+    {
+      "bytes": 24597,
+      "path": "tests/test_validation.py",
+      "sha256": "cb6990d22fbd33e8fbf9bfbbfe7e3b064c9a00c55d7777c52e525197908fbfbe"
+    },
+    {
+      "bytes": 5172,
+      "path": "tests/test_vision_self_supervised.py",
+      "sha256": "2ff3abaa3b0f31125040c8e70ff011566cdac5c6d7459343f059a3959a7eda6c"
+    },
+    {
+      "bytes": 22099,
+      "path": "tests/test_wing_hinge_intake.py",
+      "sha256": "d5dac4678ce748cf77139ef475a4cb629d33bdd21cf05b5ab019f0f2019cd2db"
+    }
+  ],
+  "inventory_sha256": "be03a5865136d24f254e3532c062735212e7d248473bed4d45f57b9fb75224d2",
+  "origin": {
+    "repository": "https://github.com/Mabdel-03/fly-sensor2behavior.git",
+    "revision": "78bfb26c7a4137f183bf864c6215c41dab72eb85",
+    "snapshot_note": "The paper-metrology implementation originated in a dirty local worktree. This per-file inventory, not the origin revision alone, is the reproducible source authority."
+  },
+  "reference_inputs": {
+    "reference/BF00595226.pdf": "9159ec24548e1ee0eaf4edca0d4790d7656890d2fb611dd0b7d27cc85a6f05d7",
+    "reference/figure_ground_relative_motion_simulation_spec.md": "c43b9ec417a52d5fac5333c1df01ca0765961f5c88779a3769fc9b3a2968647c"
+  },
+  "runtime": {
+    "dependency_lock": "requirements.lock",
+    "flygym": "2.1.0",
+    "mujoco": "3.9.0",
+    "node": "22.22.1",
+    "node_base_image": "node:22.22.1-bookworm-slim@sha256:4f77a690f2f8946ab16fe1e791a3ac0667ae1c3575c3e4d0d4589e9ed5bfaf3d",
+    "platform": "linux/amd64",
+    "python": "3.12.11",
+    "python_base_image": "python:3.12.11-slim-bookworm@sha256:519591d6871b7bc437060736b9f7456b8731f1499a57e22e6c285135ae657bf7"
+  },
+  "schema_version": "fly_fgs_native_worker_bundle.v1"
+}
