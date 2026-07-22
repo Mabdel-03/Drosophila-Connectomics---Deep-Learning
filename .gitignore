@@ -9,6 +9,10 @@ data/
 results/
 reports/data_card_*.md
 
+# The browser simulator ships small, prepared model inputs rather than bulk data.
+!fly_fgs_source/data/
+!fly_fgs_source/data/*.json
+
 # Allow small committable reports if explicitly forced with `git add -f`.
 # (The canonical data card is regenerated on scratch; commit a copy only when desired.)
 

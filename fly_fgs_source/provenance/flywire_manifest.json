@@ -1,0 +1,140 @@
+{
+  "ok": true,
+  "dataset": "FlyWire FAFB",
+  "materialization": 783,
+  "generated_utc": "2026-07-20T18:05:51.758Z",
+  "start_here": {
+    "ssh": "ssh -i <key.pem> -o StrictHostKeyChecking=no ec2-user@54.160.228.98 '<cmd>'",
+    "flydata": "import sys; sys.path.insert(0,'/home/ec2-user/drosophila_experiments'); import flydata as fly",
+    "guide": "~/website/data/shared/drosophila/README_EXPERIMENTS.md"
+  },
+  "neuron_universe": {
+    "proofread": 139255,
+    "community_named_ni2": 112790,
+    "catalog_total": 144248
+  },
+  "datasets": [
+    {
+      "name": "skeletons",
+      "path": "~/website/data/shared/drosophila/all_skeletons/skeleton_<root>.csv",
+      "format": "csv",
+      "count": 139259,
+      "schema": "node_id,x,y,z,parent_id,radius,type (nm)",
+      "scope": "~99.99% of proofread"
+    },
+    {
+      "name": "connectome_matrix",
+      "path": "~/drosophila_experiments/full_connectome/conn_matrix.npz + index.json",
+      "format": "scipy_csr+json",
+      "shape": "139255x139255",
+      "scope": "proofread x proofread, directed synapse counts"
+    },
+    {
+      "name": "edges",
+      "path": "~/drosophila_experiments/full_connectome/edges_full.parquet",
+      "format": "parquet",
+      "schema": "pre,post,syn_count,sign,post_in_set"
+    },
+    {
+      "name": "synapses_full",
+      "path": "~/drosophila_experiments/synapses_full/syn_*.parquet",
+      "format": "parquet_zstd",
+      "synapses": 214375963,
+      "size_gb": 12.89,
+      "schema": "pre_root,post_root,pre/post x/y/z(nm),cleft_score,conn_score,gaba,ach,glut,oct,ser,da",
+      "scope": "pre in proofread; incl autapses (filter pre_root!=post_root)"
+    },
+    {
+      "name": "annotations",
+      "path": "~/drosophila_experiments/flywire_annotations_full.parquet",
+      "format": "parquet",
+      "schema": "root_id,cell_type,super_class,cell_class,side,top_nt,...",
+      "count": 139244
+    },
+    {
+      "name": "neuropil_rankings",
+      "path": "~/website/data/shared/drosophila/neuropil_rankings.json",
+      "format": "json"
+    }
+  ],
+  "access": {
+    "unified_module": "flydata.py (~/drosophila_experiments/): skeleton/annotation/partners/weight/synapses/neuropils/info/datasets/cave",
+    "rest_api_base": "/drosophila/api/ (status,catalog,neuron/:id,search,skeleton/:id,list-types,neuropil-rankings,manifest)",
+    "cave": "flywire_fafb_public v783; token in ~/website/data/settings-*.json (never print it)"
+  },
+  "tools": [
+    {
+      "url": "/neuron_viz/",
+      "name": "neuron 3D viewer",
+      "purpose": "1-10 neurons: skeletons+synapses+partners",
+      "api": [
+        "/neuron_viz/view?ids=a,b,c",
+        "/neuron_viz/api/partners?id=&dir=up|down&limit=N"
+      ]
+    },
+    {
+      "url": "/search",
+      "name": "NeuronFinder",
+      "purpose": "faceted+connectivity neuron search",
+      "api": [
+        "/search/api/search?q=<cell_type|tag>&limit=N"
+      ]
+    },
+    {
+      "url": "/brain/",
+      "name": "brain region explorer",
+      "purpose": "3D neuropil atlas + per-neuron projectome",
+      "api": [
+        "/brain/api/search",
+        "/brain/api/skeleton"
+      ]
+    },
+    {
+      "url": "/descending/",
+      "name": "DN output atlas",
+      "purpose": "descending-neuron output census",
+      "scope": "MANC/male-CNS - NOT FAFB",
+      "api": [
+        "/descending/dn_master.csv",
+        "/descending/dn_partners.json"
+      ]
+    },
+    {
+      "url": "/passive_sim/",
+      "name": "passive simulator",
+      "purpose": "compartmental sim of any FlyWire neuron"
+    },
+    {
+      "url": "/ct1_borst/",
+      "name": "CT1 model",
+      "purpose": "Meier & Borst 2019 reproduction"
+    }
+  ],
+  "code": [
+    {
+      "path": "~/drosophila_experiments/full_connectome/",
+      "purpose": "connectome matrix + synapse download pipeline"
+    },
+    {
+      "path": "~/drosophila_experiments/region_connectivity/",
+      "purpose": "distance->connectivity analysis (run_regions.py)"
+    },
+    {
+      "path": "~/drosophila_experiments/mb_learning/",
+      "purpose": "mushroom-body learning subgraph"
+    }
+  ],
+  "conventions": [
+    "Simulators / interactive tools MUST run CLIENT-SIDE (browser JS) - never as server-side per-request compute. This box is shared and serves the live dashboard; a runaway server-side sim can OOM/thrash it. Ship a self-contained static page under ~/website/public/<name>/ and bake heavy precompute into static JSON the page loads (e.g. /passive_sim, /ct1_borst)."
+  ],
+  "gotchas": [
+    "side/soma_side left-right is FLIPPED (FAFB image-view vs fly-view) - do NOT trust the label for anatomical L/R. It is positional (side=left => low soma_x, side=right => high soma_x; midline soma_x ~133,300 voxels ~533k nm) but the naming is inverted: judge hemisphere from soma position - HIGHER x = fly LEFT, LOWER x = fly RIGHT. Helper: flydata.hemisphere(rid).",
+    "Positions in skeletons & synapses_full are nm (skeleton-aligned); do NOT multiply by [4,4,40]. CAVE table pt_position is voxels; local neuron_information_v2.json pt_position is nm.",
+    "synapses_full includes autapses (~9.7%); filter pre_root!=post_root for the ~193.7M conventional connectome.",
+    "Two neuron universes: 112,790 community-named (neuron_information_v2) vs 139,255 proofread; matrix & synapses are proofread-scoped.",
+    "/descending is MANC/male-CNS (neuPrint) - a DIFFERENT dataset than FAFB.",
+    "cleft_score has NO default threshold (matches published connectome); filter >=50 for high-confidence.",
+    "root_ids are v783; new roots from CAVE -> verify with chunkedgraph.is_latest_roots.",
+    "Skeletons are NOT on the CAVE skeleton service (NoL2CacheException) - use local CSVs / flydata."
+  ]
+}

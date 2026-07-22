@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "source_spec": "figure_ground_relative_motion_simulation_spec.md",
+  "defaults": {
+    "figure_mean_azimuth_deg": 30,
+    "figure_width_deg": 12,
+    "frequency_hz": 2.5,
+    "initial_relative_phase_deg": 0,
+    "phase_transition_duration_s": 0.4,
+    "phase_transition_mode": "one_period_phase_ramp",
+    "repetitions": 100,
+    "stimulus_eye_update_rate_hz": 400,
+    "raw_yaw_reaction_logging_rate_hz": 10000,
+    "synchronized_channel_logging_rate_hz": 1000,
+    "physics_rate_hz": 10000,
+    "web_replay_rate_hz": 200
+  },
+  "protocols": {
+    "R83_Fig3a_0_to_90": {
+      "label": "Reichardt et al. 1983 Figure 3a: 0 to +90 degrees",
+      "trial_duration_s": 2.0,
+      "figure_amplitude_deg": 5.0,
+      "ground_amplitude_deg": 5.0,
+      "phase_transition_start_s": 0.4,
+      "target_relative_phase_deg": 90,
+      "signed_phase_delta_deg": 90
+    },
+    "R83_Fig3b_0_to_270": {
+      "label": "Reichardt et al. 1983 Figure 3b: 0 to 270 degrees",
+      "trial_duration_s": 2.0,
+      "figure_amplitude_deg": 5.0,
+      "ground_amplitude_deg": 5.0,
+      "phase_transition_start_s": 0.4,
+      "target_relative_phase_deg": 270,
+      "signed_phase_delta_deg": -90
+    },
+    "R83_Fig3c_0_to_180": {
+      "label": "Reichardt et al. 1983 Figure 3c: 0 to 180 degrees",
+      "trial_duration_s": 4.0,
+      "figure_amplitude_deg": 7.5,
+      "ground_amplitude_deg": 7.5,
+      "phase_transition_start_s": 1.2,
+      "target_relative_phase_deg": 180,
+      "signed_phase_delta_deg": 180
+    }
+  }
+}

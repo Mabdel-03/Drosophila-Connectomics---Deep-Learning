@@ -1,0 +1,220 @@
+{
+  "ok": true,
+  "l2_neurons": 144248,
+  "neuron_total": 144248,
+  "neurons_with_skeleton": 139264,
+  "type_count": 12097,
+  "type_breakdown": [
+    {
+      "tag": "optic",
+      "count": 14176,
+      "pct": 9.827519272364261
+    },
+    {
+      "tag": "central",
+      "count": 13626,
+      "pct": 9.446231490211304
+    },
+    {
+      "tag": "Retinula axon; R1-6",
+      "count": 5948,
+      "pct": 4.123454051355998
+    },
+    {
+      "tag": "not a neuron",
+      "count": 3963,
+      "pct": 2.7473517830403194
+    },
+    {
+      "tag": "Kenyon_Cell_L",
+      "count": 2588,
+      "pct": 1.7941323276579224
+    },
+    {
+      "tag": "visual_projection",
+      "count": 2346,
+      "pct": 1.6263657035106207
+    },
+    {
+      "tag": "Putative AN; Part of comprehensive neck connective tracing, contact Connectomics Group Cambridge for more detailed information on descending/ascending neurons",
+      "count": 2258,
+      "pct": 1.5653596583661473
+    },
+    {
+      "tag": "antennal lobe olfactory and thermo/hygrosensory receptor neuron (ALRN)",
+      "count": 2073,
+      "pct": 1.4371083134601519
+    },
+    {
+      "tag": "sensory",
+      "count": 1867,
+      "pct": 1.2942987077810437
+    },
+    {
+      "tag": "T2a; FBbt_00003729",
+      "count": 1808,
+      "pct": 1.2533969275137264
+    },
+    {
+      "tag": "T3; FBbt_00003730",
+      "count": 1686,
+      "pct": 1.16882036492707
+    },
+    {
+      "tag": "T4c; FBbt_00003734",
+      "count": 1638,
+      "pct": 1.1355443403028118
+    },
+    {
+      "tag": "Mi1; Medullary intrinsic neuron 1; FBbt_00003776",
+      "count": 1593,
+      "pct": 1.1043480672175696
+    },
+    {
+      "tag": "T4d; FBbt_00003735",
+      "count": 1565,
+      "pct": 1.084937052853419
+    },
+    {
+      "tag": "Mi4; Medullary intrinsic neuron 4; FBbt_00003779",
+      "count": 1476,
+      "pct": 1.0232377571959403
+    },
+    {
+      "tag": "T4a; FBbt_00003732",
+      "count": 1469,
+      "pct": 1.0183850036049027
+    },
+    {
+      "tag": "T5d; FBbt_00003740",
+      "count": 1466,
+      "pct": 1.0163052520658866
+    },
+    {
+      "tag": "T4b; FBbt_00003733",
+      "count": 1461,
+      "pct": 1.0128389995008595
+    },
+    {
+      "tag": "Tm1; Transmedullary neuron 1; FBbt_00003789",
+      "count": 1453,
+      "pct": 1.0072929953968166
+    },
+    {
+      "tag": "T2; FBbt_00003728",
+      "count": 1430,
+      "pct": 0.9913482335976929
+    },
+    {
+      "tag": "T5c; FBbt_00003739",
+      "count": 1427,
+      "pct": 0.9892684820586768
+    },
+    {
+      "tag": "T5b; FBbt_00003738",
+      "count": 1396,
+      "pct": 0.9677777161555099
+    },
+    {
+      "tag": "Lamina monopolar 5; L5",
+      "count": 1391,
+      "pct": 0.964311463590483
+    },
+    {
+      "tag": "Dm3; Distal medullary amacrine neuron 3; FBbt_00003770",
+      "count": 1385,
+      "pct": 0.9601519605124507
+    },
+    {
+      "tag": "Retinula axon 1-6; R1-6",
+      "count": 1384,
+      "pct": 0.9594587099994454
+    },
+    {
+      "tag": "T1",
+      "count": 1375,
+      "pct": 0.953219455382397
+    },
+    {
+      "tag": "T5a; FBbt_00003737",
+      "count": 1368,
+      "pct": 0.9483667017913594
+    },
+    {
+      "tag": "Tm4; Transmedullary neuron 4; FBbt_00003792",
+      "count": 1347,
+      "pct": 0.9338084410182464
+    },
+    {
+      "tag": "Lamina monopolar 1; L1",
+      "count": 1321,
+      "pct": 0.9157839276801065
+    },
+    {
+      "tag": "Dm3; Distal medullary amacrine neuron 3; Fbbt_00003770",
+      "count": 1158,
+      "pct": 0.8027840940602295
+    }
+  ],
+  "skeleton_total": 5295,
+  "skeleton_failed": 5400,
+  "skeleton_size": 1052097406,
+  "full_skeleton_total": 139259,
+  "full_skeleton_size": 13194887807,
+  "full_skeleton_failed": 4981,
+  "avg_nodes": 1598,
+  "max_nodes": 165598,
+  "synapse_files": [
+    {
+      "name": "close_pair_synapses.json",
+      "size": 318352
+    },
+    {
+      "name": "close_pair_synapses_1000.json",
+      "size": 4109
+    },
+    {
+      "name": "t4_input_sites.json",
+      "size": 31892
+    },
+    {
+      "name": "vch_synapse_positions.csv",
+      "size": 4975536
+    },
+    {
+      "name": "vch_synapse_positions.json",
+      "size": 15424963
+    },
+    {
+      "name": "vch_synapses_nt_v1.json",
+      "size": 35405703
+    }
+  ],
+  "synapse_table": {
+    "parts": 697,
+    "synapses": 214375963,
+    "bytes": 12891032516,
+    "gb": 12.89,
+    "columns": [
+      "pre_root",
+      "post_root",
+      "pre_x",
+      "pre_y",
+      "pre_z",
+      "post_x",
+      "post_y",
+      "post_z",
+      "cleft_score",
+      "conn_score",
+      "gaba",
+      "ach",
+      "glut",
+      "oct",
+      "ser",
+      "da"
+    ],
+    "position_units": "nm (4x4x40 voxel space x scale already applied by CAVE; same space as skeletons)",
+    "scope": "pre in proofread (139,255 neurons), all synapses incl autapses, synapses_nt_v1 mat v783",
+    "compression": "zstd parquet"
+  }
+}

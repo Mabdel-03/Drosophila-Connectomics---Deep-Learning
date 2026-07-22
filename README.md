@@ -45,7 +45,12 @@ configs/model_base.yaml shared stage-3 hyperparameters
 configs/experiments/    24 leaf configs (6 subgraphs x 2 archs x 2 inits)
 slurm/                  batch scripts (account=mit_general, partition=pi_tpoggio)
 tests/                  pytest unit tests
+fly_fgs_source/         self-contained browser figure-ground circuit simulator
 ```
+
+The [`fly_fgs_source/`](fly_fgs_source/) snapshot is a client-side interactive
+figure-ground circuit simulator. It keeps its browser assets, prepared model inputs,
+tests, and dataset provenance together and separate from the Python training pipeline.
 
 ## Environments and setup
 

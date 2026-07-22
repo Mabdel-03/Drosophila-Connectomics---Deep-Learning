@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Retinotopic activity map — T4a &amp; LLPC1</title>
+<style>
+  :root{ --bg:#070a0f; --panel:#0e131c; --ink:#e7eef7; --dim:#8fa3ba; --dim2:#5f7186; --accent:#7fbdff; --accent2:#c9a0ff; --line:#20293a; }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 50% -10%, #101826 0%, var(--bg) 60%);color:var(--ink);
+    font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+  header{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  header h1{font-size:17px;margin:0;font-weight:700}
+  header h1 b{color:var(--accent2)}
+  .sub{color:var(--dim);font-size:12.5px}
+  .spacer{flex:1}
+  .livebadge{font-size:11.5px;color:var(--dim2);border:1px solid var(--line);border-radius:999px;padding:4px 11px;
+    display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .livebadge.on{color:#4fe3a0;border-color:#1e5a44;background:#0c1a15}
+  a.btn{color:var(--accent);text-decoration:none;border:1px solid #2b3a52;border-radius:999px;
+    padding:6px 13px;font-size:12.5px;background:#101826;white-space:nowrap}
+  a.btn:hover{background:#16202f;border-color:#3a4a66}
+  main{max-width:900px;margin:0 auto;padding:18px 22px 60px}
+  .map{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px 8px;margin-bottom:16px}
+  .map h2{font-size:12px;letter-spacing:.05em;text-transform:uppercase;margin:0 0 2px;font-weight:700}
+  .map h2 .n{color:var(--dim);font-weight:500;text-transform:none;letter-spacing:0;margin-left:8px}
+  .map h2 .live{float:right;color:var(--dim);font-weight:500;text-transform:none;letter-spacing:0;font-family:ui-monospace,Menlo,Consolas,monospace}
+  canvas.mapcv{display:block;width:100%;height:auto;border-radius:8px;background:#05070b}
+  .axis{display:flex;justify-content:space-between;color:var(--dim2);font-size:10.5px;margin-top:3px}
+  .ctrls{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;padding:11px 15px;font-size:12.5px;color:var(--dim)}
+  .ctrls label{display:flex;align-items:center;gap:7px}
+  .ctrls input[type=range]{width:120px}
+  .ctrls b{color:var(--accent);font-family:ui-monospace,Menlo,Consolas,monospace}
+  button.play{background:#16202f;color:var(--ink);border:1px solid #2b3a52;border-radius:8px;padding:6px 14px;cursor:pointer;font-size:12.5px}
+  button.play:hover{border-color:#3a4a66}
+  .legend{display:flex;align-items:center;gap:8px;color:var(--dim2);font-size:10.5px}
+  .bar{width:120px;height:9px;border-radius:5px;background:linear-gradient(90deg,#0a0e14,#2850c8,#3cc8dc,#f0dc5a,#fff)}
+  .note{color:var(--dim2);font-size:11.5px;margin-top:14px;line-height:1.6}
+  #status{padding:40px;text-align:center;color:var(--dim)}
+</style>
+</head>
+<body>
+<header>
+  <h1><b>Retinotopic</b> activity map <span class="sub">T4a motion detectors &amp; LLPC1 output cells, firing as the bar sweeps</span></h1>
+  <span class="livebadge" id="livebadge">◦ standalone demo</span>
+  <div class="spacer"></div>
+  <a class="btn" href="../">← Flight simulator</a>
+  <a class="btn" href="http://54.160.228.98/nod1_sim" target="_blank">nod1_sim ↗</a>
+</header>
+<main>
+  <div id="status">loading model &amp; connectome bundle…</div>
+  <div id="content" style="display:none">
+    <div class="map">
+      <h2>T4a · ON-motion detectors <span class="n" id="t4n"></span><span class="live" id="t4live"></span></h2>
+      <canvas class="mapcv" id="t4map" width="1720" height="520"></canvas>
+      <div class="axis"><span>left −140°</span><span>ahead 0°</span><span>right +140°</span></div>
+    </div>
+    <div class="map">
+      <h2>LLPC1 · lobula-plate output <span class="n" id="lln"></span><span class="live" id="lllive"></span></h2>
+      <canvas class="mapcv" id="llmap" width="1720" height="520"></canvas>
+      <div class="axis"><span>left −140°</span><span>ahead 0°</span><span>right +140°</span></div>
+    </div>
+    <div class="ctrls">
+      <button class="play" id="play">❚❚ pause</button>
+      <label>bar speed <input type="range" id="speed" min="5" max="90" value="30"/><b id="speedV">30°/s</b></label>
+      <label><input type="checkbox" id="barchk" checked/> bar</label>
+      <div class="spacer" style="flex:1"></div>
+      <div class="legend">rest <span class="bar"></span> firing</div>
+    </div>
+    <div class="note">Each dot is one neuron at its position in the fly's visual field (azimuth × elevation). Colour = membrane potential
+      (dark ≈ −60&nbsp;mV rest → bright ≈ −30&nbsp;mV firing). The white band is the moving bar. Watch a <b>vertical stripe</b> of
+      T4a cells light up at the bar's leading edge and sweep across the field; LLPC1 pools T4a within its receptive field.
+      Same conductance model and connectome as the <a href="../" style="color:var(--accent)">flight simulator</a>.
+      Open the flight sim in another tab and this map streams <b>its</b> live neuron state (badge turns <span style="color:#4fe3a0">● LIVE</span>);
+      on its own it runs a standalone bar-sweep demo.</div>
+  </div>
+</main>
+
+<script src="../lib/fgmodel.js?v=10"></script>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a,b)=>x<a?a:x>b?b:x;
+// cool→hot activity colour scale
+const STOPS=[[10,14,22],[40,80,200],[60,200,220],[240,220,90],[255,255,255]];
+function heat(t){ t=clamp(t,0,1); const f=t*(STOPS.length-1), i=Math.min(STOPS.length-2,Math.floor(f)), u=f-i;
+  const a=STOPS[i], b=STOPS[i+1]; return 'rgb('+(a[0]+(b[0]-a[0])*u|0)+','+(a[1]+(b[1]-a[1])*u|0)+','+(a[2]+(b[2]-a[2])*u|0)+')'; }
+
+const AZ=145, ELlo=-82, ELhi=84;                      // field extent shown
+function px(az,W){ return (az+AZ)/(2*AZ)*W; }
+function py(el,H){ return H-(el-ELlo)/(ELhi-ELlo)*H; }
+
+let model=null, t4=[], llpc=[], figAz=-110, figDir=1, figVel=30, figW=24, figOn=true, playing=true;
+const OSC=125, DT=0.005;
+// live stream from the flight-sim page (same origin) — render its neuron state when it's broadcasting
+let live=null, lastLiveT=-9999;
+const STREAM=('BroadcastChannel' in window)?new BroadcastChannel('fgs-stream'):null;
+if(STREAM) STREAM.onmessage=e=>{ live=e.data; lastLiveT=performance.now(); };
+
+async function boot(){
+  let bundle=null;
+  try{ bundle=await fetch('../data/bundle_fg.json',{cache:'no-store'}).then(r=>r.json()); }
+  catch(e){ $('status').textContent='failed to load bundle: '+e.message; return; }
+  if(!window.FGModel){ $('status').textContent='fgmodel.js failed to load'; return; }
+  model=FGModel.init(bundle,{dt:DT, figW:figW, figH:180, scale:8, inputScale:3, llpcBoost:1, gratingPeriod:3});
+  // build retinotopic cell lists (index → model.voltage[i])
+  bundle.cells.forEach((c,i)=>{ if(c.retinoAzimuth==null||c.retinoElevation==null) return;
+    const t=String(c.type||'').toUpperCase();
+    if(t.indexOf('T4A')>=0) t4.push({i, az:c.retinoAzimuth, el:c.retinoElevation});
+    else if(t.indexOf('LLPC1')>=0) llpc.push({i, az:c.retinoAzimuth, el:c.retinoElevation}); });
+  $('t4n').textContent='('+t4.length+' cells)'; $('lln').textContent='('+llpc.length+' cells)';
+  $('status').style.display='none'; $('content').style.display='block';
+  wireControls();
+  requestAnimationFrame(loop);
+}
+
+function stepBar(dt){
+  figAz+=figDir*figVel*dt; if(figAz>OSC){figAz=OSC;figDir=-1;} if(figAz<-OSC){figAz=-OSC;figDir=1;}
+  model.scene.figOn=figOn;
+  FGModel.step(model,{heading:0,headingVel:0,figWorldAz:figAz,figVelWorld:figDir*figVel,groundVelWorld:0});
+}
+
+function drawMap(cv, cells, restMv, hotMv, dot, getMv, bar){
+  const ctx=cv.getContext('2d'), W=cv.width, H=cv.height;
+  ctx.clearRect(0,0,W,H);
+  // faint grid: ahead line + horizon
+  ctx.strokeStyle='rgba(120,140,170,0.14)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(px(0,W),0); ctx.lineTo(px(0,W),H); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0,py(0,H)); ctx.lineTo(W,py(0,H)); ctx.stroke();
+  // moving bar band at its retinal azimuth
+  if(bar.on){ const x0=px(bar.az-bar.w/2,W), x1=px(bar.az+bar.w/2,W);
+    ctx.fillStyle='rgba(255,255,255,0.10)'; ctx.fillRect(Math.min(x0,x1),0,Math.abs(x1-x0),H);
+    ctx.strokeStyle='rgba(255,255,255,0.5)'; ctx.beginPath(); ctx.moveTo(px(bar.az,W),0); ctx.lineTo(px(bar.az,W),H); ctx.stroke(); }
+  // cells
+  let firing=0;
+  for(const c of cells){ const mv=getMv(c.i); const t=(mv-restMv)/(hotMv-restMv);
+    if(mv > -53) firing++;
+    ctx.fillStyle=heat(t); const x=px(c.az,W), y=py(c.el,H);
+    ctx.fillRect(x-dot/2,y-dot/2,dot,dot); }
+  return firing;
+}
+
+function render(){
+  const isLive = live && (performance.now()-lastLiveT < 700);
+  const getMv = isLive ? (i)=>live.v[i]*1000 : (i)=>model.voltage[i]*1000;
+  const bar = isLive ? {az:live.figRet, w:live.figW, on:live.figOn} : {az:figAz, w:figW, on:figOn};
+  const nT4=drawMap($('t4map'), t4, -60, -32, 8, getMv, bar);
+  const nLL=drawMap($('llmap'), llpc, -60, -40, 15, getMv, bar);
+  $('t4live').textContent='bar '+Math.round(bar.az)+'°  ·  '+nT4+' firing';
+  $('lllive').textContent=nLL+' firing';
+  const b=$('livebadge');
+  if(isLive){ b.textContent='● LIVE · streaming from flight sim'; b.className='livebadge on'; }
+  else { b.textContent='◦ standalone demo — open the flight sim for live data'; b.className='livebadge'; }
+}
+
+let acc=0, last=0;
+function loop(ts){
+  const dt=last?Math.min((ts-last)/1000,0.05):0.016; last=ts;
+  const isLive = live && (performance.now()-lastLiveT < 700);
+  if(playing && !isLive){ acc+=dt; while(acc>=DT){ stepBar(DT); acc-=DT; } }   // own sim only when not streaming
+  render();
+  requestAnimationFrame(loop);
+}
+
+function wireControls(){
+  $('play').onclick=()=>{ playing=!playing; $('play').textContent=playing?'❚❚ pause':'▶ play'; };
+  $('speed').oninput=e=>{ figVel=+e.target.value; $('speedV').textContent=e.target.value+'°/s'; };
+  $('barchk').onchange=e=>{ figOn=e.target.checked; };
+}
+window.__M={ stepBar, render, get model(){return model}, get t4(){return t4}, get llpc(){return llpc}, pause(){playing=false}, seek(v){figAz=v;figDir=1;} };
+boot();
+</script>
+</body>
+</html>

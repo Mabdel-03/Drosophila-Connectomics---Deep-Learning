@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Drosophila Figure-Ground Circuit — vision steering flapping flight</title>
+<style>
+  :root{
+    --bg:#0a0e14; --panel:rgba(16,22,32,0.82); --panel2:rgba(22,30,44,0.9);
+    --line:#1e2a3a; --ink:#dfe8f2; --dim:#8fa3ba; --dim2:#5f7186;
+    --accent:#38e2c8; --accent2:#7aa2ff; --power:#ff7a45; --steer:#38e2c8;
+    --escape:#ff5d7a; --gaba:#c07bff; --warn:#ffcf5d;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    overflow:hidden;-webkit-font-smoothing:antialiased}
+  #app{position:fixed;inset:0}
+  canvas{display:block}
+  #topbar{position:absolute;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;
+    gap:14px;padding:10px 16px;background:linear-gradient(180deg,rgba(6,9,14,0.92),rgba(6,9,14,0));
+    pointer-events:none}
+  #topbar h1{font-size:15px;font-weight:650;margin:0;letter-spacing:.2px;white-space:nowrap;flex:0 0 auto}
+  #topbar h1 span{color:var(--accent)}
+  #topbar .sub{font-size:11.5px;color:var(--dim);margin-left:2px;white-space:nowrap;overflow:hidden;
+    text-overflow:ellipsis;flex:0 1 auto;min-width:0}
+  #topbar .grow{flex:1 1 0;min-width:8px}
+  .badge{pointer-events:auto;font-size:11px;color:var(--dim);border:1px solid var(--line);white-space:nowrap;
+    border-radius:20px;padding:4px 11px;background:var(--panel);text-decoration:none;cursor:pointer;flex:0 0 auto}
+  .badge:hover{color:var(--ink);border-color:var(--accent)}
+  .panel{position:absolute;z-index:15;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+    box-shadow:0 10px 40px rgba(0,0,0,.45)}
+  .panel h2{font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:var(--dim);
+    margin:0;padding:12px 14px 8px;font-weight:700}
+  .panel .scroll{overflow-y:auto;padding:0 10px 10px}
+  .panel .scroll::-webkit-scrollbar{width:8px}
+  .panel .scroll::-webkit-scrollbar-thumb{background:#26344a;border-radius:8px}
+  #dnPanel{left:14px;top:56px;width:322px;bottom:118px;display:flex;flex-direction:column}
+  #musclePanel{right:14px;top:56px;width:300px;bottom:118px;display:flex;flex-direction:column}
+  #dnPanel .scroll,#musclePanel .scroll{flex:1}
+  #circuitPanel{left:14px;top:56px;width:322px;bottom:118px;display:flex;flex-direction:column}
+  #circuitPanel .npscroll{flex:1;overflow-y:auto;overflow-x:hidden;padding-top:2px}
+  #circuitPanel canvas{width:100%;height:auto;display:block}
+  .ptabs{display:flex;gap:2px;padding:6px 8px 0}
+  .ptab{flex:1;background:none;border:none;border-bottom:2px solid transparent;color:var(--dim);
+    font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:7px 4px 8px;cursor:pointer;transition:color .12s}
+  .ptab:hover{color:var(--ink)}
+  .ptab.on{color:var(--accent);border-bottom-color:var(--accent)}
+  #circuitPanel .pane{display:flex;flex-direction:column;flex:1;min-height:0;border-top:1px solid var(--line)}
+  .panemeta{font-size:10px;color:var(--dim2);padding:8px 12px 3px}
+  .panemeta b{color:var(--accent);font-weight:700}
+  #statCanvas{border-bottom:1px solid var(--line);margin-bottom:2px}
+  #npLegend{font-size:10px;color:var(--dim2);padding:1px 2px 5px;letter-spacing:.2px;border-bottom:1px solid var(--line);margin-bottom:2px}
+  #npLegend span{font-weight:700}
+  #npLegend .np-t4{color:#7fbdff}#npLegend .np-ch{color:#7aa2ff}#npLegend .np-nod{color:#c9a0ff}#npLegend .np-ll{color:#ffb26b}
+  .circuit-status{display:flex;gap:4px;flex-wrap:wrap;padding:5px 10px 4px;border-bottom:1px solid var(--line)}
+  .csbadge{font-size:8px;line-height:1.25;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:2px 6px;background:#0c121b}
+  .csbadge.preview{color:var(--warn);border-color:#594921}.csbadge.boundary{color:#c9a0ff;border-color:#4a3766}
+  .csbadge.authoritative{color:var(--accent);border-color:#23645c}.csbadge.legacy{color:#7fbdff;border-color:#294c6c}
+  .circuit-signal{font-size:9px;color:var(--dim2);padding:0 10px 5px;border-bottom:1px solid var(--line)}
+  .circuit-signal b{color:var(--warn);font-family:ui-monospace,Menlo,monospace;font-weight:600}
+  #neuronCanvas{cursor:crosshair}
+  .selected-neuron{margin:8px 2px 6px;padding:8px;border:1px solid #33465f;border-radius:8px;background:#0b111a;font-size:9px;color:var(--dim);line-height:1.45}
+  .selected-neuron .sel-title{color:var(--ink);font-size:10px;font-weight:700;margin-bottom:2px}
+  .selected-neuron b{color:var(--accent);font-family:ui-monospace,Menlo,monospace;font-weight:600}
+  .selected-neuron a{color:#7fbdff;text-decoration:none}.selected-neuron a:hover{text-decoration:underline}
+  .individual-title{font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);margin:10px 3px 5px;display:flex;justify-content:space-between;gap:5px}
+  .individual-title span{color:var(--dim2);font-size:8px;letter-spacing:0;text-transform:none}
+  .cable-cell-list{display:flex;flex-direction:column;gap:4px;padding-bottom:4px}
+  .cable-cell{border:1px solid var(--line);border-radius:7px;background:#0c121b;padding:5px 6px;cursor:pointer}
+  .cable-cell:hover,.cable-cell.selected{border-color:#4a5d78}.cable-cell.motor{border-left:2px solid #c9a0ff}
+  .cable-cell .cc-top,.cable-cell .cc-values{display:flex;align-items:center;gap:5px}
+  .cable-cell .cc-type{font-size:9.5px;font-weight:700;color:var(--ink)}
+  .cable-cell .cc-root{font:8px ui-monospace,Menlo,monospace;color:var(--dim2);margin-left:auto}
+  .cable-cell .cc-side{font-size:8px;color:var(--dim);margin-top:1px}
+  .cable-cell .cc-values{margin-top:4px;font:8.5px ui-monospace,Menlo,monospace;color:var(--dim)}
+  .cable-cell .cc-values b{color:#cdd8e6;font-weight:600;min-width:49px}
+  .cc-track{height:4px;border-radius:3px;background:#172131;overflow:hidden;flex:1}.cc-fill{height:100%;width:0;background:#c9a0ff}
+  .circuit-provenance{font-size:8px;color:var(--dim2);line-height:1.4;margin:7px 3px 3px;padding-top:6px;border-top:1px solid var(--line)}
+  #dnSearch{margin:0 10px 8px;padding:6px 9px;background:#0e1520;border:1px solid var(--line);
+    border-radius:8px;color:var(--ink);font-size:11.5px;outline:none}
+  #dnSearch:focus{border-color:var(--accent)}
+  #dnSearch::placeholder{color:var(--dim2)}
+  .hcount{font-weight:400;text-transform:none;letter-spacing:0;color:var(--dim2);font-size:10px;margin-left:4px}
+  .hcount b{color:var(--accent);font-weight:700}
+  .grp-label{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--dim);margin:12px 4px 6px;display:flex;align-items:center;gap:7px}
+  .grp-label .dot{width:8px;height:8px;border-radius:50%}
+  .grp-label .gcount{margin-left:auto;color:var(--dim2);font-weight:600;font-size:9.5px}
+  .dn{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:6px 0;cursor:pointer;
+    background:var(--panel2);transition:border-color .12s,background .12s;position:relative;overflow:hidden}
+  .dn:hover{border-color:#33465f}
+  .dn.on{border-color:var(--accent);background:rgba(56,226,200,0.08)}
+  .dn .row1{display:flex;align-items:baseline;gap:8px}
+  .dn .name{font-weight:700;font-size:13.5px}
+  .dn .nt{font-size:10px;color:var(--dim);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+  .dn .nt.gaba{color:var(--gaba);border-color:#4a3766}
+  .dn .cells{margin-left:auto;font-size:10.5px;color:var(--dim2)}
+  .dn .role{font-size:11px;color:var(--dim);margin-top:3px;line-height:1.35}
+  .dn .fireflag{position:absolute;top:8px;right:9px;font-size:9.5px;color:var(--accent);opacity:0;font-weight:700}
+  .dn.on .fireflag{opacity:1}
+  .dn .nt.glut{color:#9ab4ff;border-color:#2a3a5a}
+  .dn .chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+  .chip{font-size:9.5px;padding:1px 6px;border-radius:5px;border:1px solid var(--line);color:var(--dim);background:#141d2b}
+  .chip b{font-weight:600;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .chip.power{border-color:#5a3a24;color:#ffb38a}.chip.power b{color:#ff9a68}
+  .chip.tension{border-color:#5a4d24;color:#ffe19a}.chip.tension b{color:#ffcf5d}
+  .chip.steer{border-color:#1f4a44;color:#8fe6d6}.chip.steer b{color:#38e2c8}
+  .dn .turnrow{margin-top:6px;min-height:1px}
+  .turntag{font-size:9.5px;padding:1px 7px;border-radius:5px;border:1px solid var(--line);font-weight:600;cursor:help}
+  .turntag.tt-contra{color:#ff9a68;border-color:#5a3a24;background:rgba(255,122,69,.09)}
+  .turntag.tt-ipsi{color:#8fd0ff;border-color:#22465e;background:rgba(70,170,226,.09)}
+  .turntag.tt-bi{color:var(--dim2);border-color:var(--line)}
+  .turntag.tt-unc{color:var(--dim2);border-color:var(--line)}
+  .turntag.tt-esc{color:var(--escape);border-color:#5a2436;background:rgba(255,93,122,.08)}
+  .tconf{letter-spacing:.5px;font-size:8px;opacity:.9}
+  .dn .sidesel{display:none;margin-top:7px;align-items:center;gap:4px;font-size:9.5px;color:var(--dim2)}
+  .dn.on .sidesel{display:flex}
+  .sidesel button{font-size:10px;min-width:28px;padding:2px 6px;border-radius:6px;border:1px solid var(--line);background:#141d2b;color:var(--dim);cursor:pointer}
+  .sidesel button:hover{border-color:#33465f}
+  .sidesel button.on{border-color:var(--accent2);color:#eaf0ff;background:rgba(122,162,255,.16)}
+  .dockhint{font-size:10px;color:var(--dim2);white-space:nowrap}
+  .msc{margin:5px 2px;padding:6px 8px;border-radius:8px;background:var(--panel2);border:1px solid transparent}
+  .msc .top{display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer}
+  .msc .mid{width:9px;height:9px;border-radius:3px;flex:none}
+  .msc .nm{font-weight:650}
+  .msc .meta{font-size:10px;color:var(--dim);margin-left:auto}
+  .msc .lr{display:flex;gap:6px;margin-top:5px}
+  .msc .lrbar{flex:1}
+  .msc .lrbar .lab{font-size:8.5px;color:var(--dim2);margin-bottom:2px}
+  .msc .track{height:6px;border-radius:4px;background:#131c29;overflow:hidden}
+  .msc .fill{height:100%;width:0;border-radius:4px;transition:width .05s linear}
+  .msc .note{font-size:10px;color:var(--dim);margin-top:4px;line-height:1.3;display:none}
+  .msc.exp .note{display:block}
+  .sclerite{font-size:9.5px;color:var(--dim2);margin:10px 4px 2px;letter-spacing:.04em}
+  #dock{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;z-index:16;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);padding:10px 14px;
+    display:flex;gap:16px;align-items:center;box-shadow:0 10px 40px rgba(0,0,0,.5);max-width:calc(100vw - 28px);flex-wrap:wrap;justify-content:center}
+  .modes{display:flex;gap:6px}
+  .mode{font-size:11.5px;padding:6px 11px;border-radius:9px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--ink);cursor:pointer;white-space:nowrap}
+  .mode:hover{border-color:#33465f}
+  .mode.on{border-color:var(--accent);background:rgba(56,226,200,0.12);color:#eafffb}
+  .mode.esc.on{border-color:var(--escape);background:rgba(255,93,122,0.14)}
+  .ctl{display:flex;flex-direction:column;gap:3px;min-width:118px}
+  .ctl label{font-size:9.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;
+    display:flex;justify-content:space-between}
+  .ctl label b{color:var(--accent);font-weight:700;font-family:ui-monospace,Menlo,Consolas,monospace}
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:3px;
+    background:#26344a;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;
+    border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid #0a0e14}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--accent);
+    cursor:pointer;border:2px solid #0a0e14}
+  .side-toggle{display:flex;gap:3px}
+  .side-toggle button{font-size:11px;min-width:30px;padding:5px 6px;border-radius:7px;border:1px solid var(--line);
+    background:var(--panel2);color:var(--dim);cursor:pointer}
+  .side-toggle button.on{border-color:var(--accent2);color:#eaf0ff;background:rgba(122,162,255,.14)}
+  .sep{width:1px;align-self:stretch;background:var(--line);min-height:34px}
+  #hud{position:absolute;top:52px;left:50%;transform:translateX(-50%);z-index:14;display:flex;gap:16px;
+    font-size:11px;color:var(--dim);background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:6px 14px;pointer-events:none}
+  #hud b{color:var(--ink);font-family:ui-monospace,Menlo,Consolas,monospace}
+  #hud .yaw{color:var(--accent2)}
+  .fgtag{font-size:11px;color:#c9a0ff;font-weight:600;border:1px solid #4a3766;border-radius:20px;padding:1px 8px;margin-left:4px}
+  .fgbadge{cursor:pointer;color:#c9a0ff;border-color:#4a3766}
+  .fgbadge.on{color:#0a0e14;background:#c9a0ff;border-color:#c9a0ff;font-weight:700}
+  .assaybadge.on{color:#07120f;background:var(--accent);border-color:var(--accent);font-weight:700}
+  #paperPanel{position:absolute;right:14px;top:56px;width:374px;bottom:24px;z-index:18;
+    display:none;flex-direction:column;background:var(--panel);border:1px solid #23645c;border-radius:14px;
+    padding:12px 14px;backdrop-filter:blur(9px);box-shadow:0 10px 40px rgba(0,0,0,.5);overflow-y:auto}
+  #paperPanel.show{display:flex}
+  .paperstatus{font-size:10px;line-height:1.4;color:var(--dim);border:1px solid var(--line);
+    border-radius:8px;padding:7px 9px;margin:5px 0 8px;background:#0c121b}
+  .paperstatus strong{color:var(--warn)} .paperstatus.authoritative strong{color:var(--accent)}
+  .papercontrols{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px}
+  .papercontrols label{font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim)}
+  .papercontrols select,.papercontrols button{width:100%;margin-top:3px;background:#111a27;color:var(--ink);
+    border:1px solid var(--line);border-radius:7px;padding:5px;font-size:10px}
+  #paperStimulusCanvas,#paperWingPlotCanvas,#paperPlotCanvas{width:100%;height:auto;background:#080c12;border-radius:8px;display:block;flex:0 0 auto}
+  #paperWingPlotCanvas,#paperPlotCanvas{margin-top:7px}
+  .papercharttitle{font-size:8.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin:7px 2px -3px}
+  .papermetrics{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;margin-top:7px;font-size:9px;color:var(--dim)}
+  .papermetrics b{color:var(--ink);font-family:ui-monospace,Menlo,monospace;font-weight:600}
+  .paperfoot{font-size:8.5px;color:var(--dim2);line-height:1.35;margin-top:7px;overflow:auto}
+  .metabadges{display:flex;gap:4px;flex-wrap:wrap;margin:5px 0 6px}
+  .metabadges span{border:1px solid var(--line);border-radius:999px;padding:2px 6px;
+    color:var(--dim);font-size:8px;letter-spacing:.02em}
+  .metabadges span.ok{border-color:#238a78;color:#65ead3;background:rgba(56,226,200,.08)}
+  #muscleBtn.on{color:var(--ink);border-color:var(--accent);background:#132029}
+  #fgPanel{position:absolute;right:14px;top:56px;width:344px;z-index:16;display:none;
+    background:var(--panel);border:1px solid #3a2f52;border-radius:14px;padding:12px 14px 12px;
+    backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  #fgPanel.show{display:block}
+  .fgtitle{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#c9a0ff;margin-bottom:3px;position:relative}
+  .fgtitle .fgsub{color:var(--dim2);font-weight:500;text-transform:none;letter-spacing:0;margin-left:6px}
+  .fgclose{position:absolute;right:0;top:-2px;cursor:pointer;color:var(--dim);font-size:15px}
+  .fgclose:hover{color:var(--ink)}
+  #fgCanvas{display:block;border-radius:8px;background:#0b0f16;width:100%;height:auto}
+  .fgctrls{display:flex;align-items:center;gap:9px;margin-top:4px;font-size:10px;color:var(--dim);flex-wrap:wrap}
+  .fgctrls label{display:flex;align-items:center;gap:5px}
+  .fgctrls input[type=range]{width:64px}
+  .fgctrls b{color:var(--accent);font-family:ui-monospace,Menlo,Consolas,monospace}
+  .fgctrls label.abl{color:#e0946b;padding-left:9px;margin-left:2px;border-left:1px solid var(--line)}
+  .fgctrls label.abl:has(input:checked){color:#ff5c5c;font-weight:700}
+  .fgchk{font-size:10.5px;padding:3px 9px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);color:var(--dim);cursor:pointer}
+  .fgchk.on{border-color:#c9a0ff;color:#eadcff;background:rgba(201,160,255,.14)}
+  .fgread{margin-left:auto;color:var(--dim);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px}
+  #trackPanel{position:absolute;right:14px;top:210px;width:344px;z-index:16;display:none;
+    background:var(--panel);border:1px solid #3a2f52;border-radius:14px;padding:12px 14px 10px;
+    backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  #trackPanel.show{display:block}
+  #trackCanvas{display:block;border-radius:8px;background:#0b0f16;width:100%;height:auto;margin-top:6px}
+  .tklegend{display:flex;gap:13px;font-size:10px;color:var(--dim);margin-top:4px;flex-wrap:wrap}
+  .tkkey{display:inline-flex;align-items:center;gap:4px}
+  .tkkey i{width:11px;height:3px;border-radius:2px;display:inline-block}
+  .tkkey b{color:var(--ink);font-weight:600;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .tkfoot{font-size:8.5px;color:var(--dim2);margin-top:5px;line-height:1.35}
+  #sci{position:absolute;left:14px;bottom:118px;z-index:17;width:322px;max-height:54vh;
+    display:none;flex-direction:column}
+  #sci .scroll{font-size:11.5px;line-height:1.5;color:var(--dim)}
+  #sci .scroll b{color:var(--ink)} #sci .scroll .k{color:var(--accent)}
+  #sci .scroll h3{color:var(--ink);font-size:11.5px;margin:12px 0 4px}
+  #sci .scroll a{color:var(--accent2)}
+  #sci cite{color:var(--dim2);font-style:normal;font-size:10.5px}
+  #sci .refs{display:flex;flex-direction:column;gap:6px;margin-top:4px;font-size:11px}
+  #sci .refs .ref{line-height:1.35;color:var(--dim)}
+  #sci .refs a{color:var(--accent2);text-decoration:none;font-weight:600}
+  #sci .refs a:hover{text-decoration:underline}
+  #sci .refgrp{color:var(--ink);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.05em;margin:10px 0 1px}
+  .closex{position:absolute;top:9px;right:11px;cursor:pointer;color:var(--dim);font-size:16px;pointer-events:auto;z-index:2}
+  .closex:hover{color:var(--ink)}
+  #loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    z-index:40;color:var(--dim);font-size:13px;background:var(--bg)}
+  @media (max-width:900px){
+    #circuitPanel,#musclePanel{position:absolute;bottom:auto;height:auto;max-height:40vh}
+    #circuitPanel{width:46vw} #musclePanel{width:46vw}
+    #hud{display:none} #sci{max-height:44vh}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="loading">loading figure-ground circuit…</div>
+
+<div id="topbar">
+  <h1><span>Drosophila</span> Figure-Ground Circuit <span class="fgtag">paper assay</span></h1>
+  <div class="sub">retina → T4·T5 EMDs → vCH·DCH → NOD1 → descending steering → flapping flight</div>
+  <div class="grow"></div>
+  <a class="badge assaybadge on" id="paperModeBtn">paper assay</a>
+  <a class="badge assaybadge" id="legacyModeBtn">legacy tracking</a>
+  <a class="badge" id="sciBtn">ⓘ the science</a>
+  <a class="badge" href="map/">▦ retinotopic map</a>
+</div>
+
+<!-- top status HUD removed (redundant with the retina/steering panel) -->
+
+<div id="paperPanel" class="show">
+  <div class="fgtitle">Reichardt–Poggio–Hausen assay <span class="fgsub">open loop · fixed body</span></div>
+  <div id="paperStatus" class="paperstatus"><strong>LIVE PREVIEW — NOT PHYSICAL TORQUE</strong><br/>No native tether artifact is loaded; the live trace is a dimensionless circuit steering signal.</div>
+  <div class="metabadges"><span id="paperAbsoluteBadge">arbitrary units</span><span id="paperWholeFlyBadge">whole-fly paper comparison</span><span id="paperWingBadge">wing torque unavailable</span><span id="paperSemBadge">paper has no per-wing trace</span><span id="paperNoFitBadge">no amplitude/offset/time fit</span></div>
+  <div class="papercontrols">
+    <label>Protocol<select id="paperProtocol"></select></label>
+    <label>Texture relation<select id="paperTextureMode"><option value="registered_copy">registered copy</option><option value="independent_matched_statistics">independent matched statistics</option></select></label>
+    <label>Playback<button id="paperRestart">restart trial</button></label>
+    <label>Readout<select id="paperUnits"><option value="dyne_cm">dyne·cm</option><option value="Nm">N·m</option></select></label>
+    <label>Raw trial<select id="paperTrial" disabled><option value="0">unavailable</option></select></label>
+    <label>Signal product<select id="paperSignalProduct"><option value="paper_comparison">paper comparison</option><option value="lowpass_10hz">low-pass 10 Hz</option><option value="lowpass_25hz">low-pass 25 Hz</option><option value="lowpass_50hz">low-pass 50 Hz</option><option value="wingbeat_averaged">wingbeat averaged</option></select></label>
+  </div>
+  <canvas id="paperStimulusCanvas" width="346" height="126"></canvas>
+  <div class="papercharttitle">Per-wing mechanics · simulation decomposition</div>
+  <canvas id="paperWingPlotCanvas" width="346" height="142"></canvas>
+  <div class="papercharttitle">Whole-fly tether torque · Figure 3 comparison</div>
+  <canvas id="paperPlotCanvas" width="346" height="190"></canvas>
+  <div class="papermetrics">
+    <span>time <b id="paperTime">0.000 s</b></span><span>interval <b id="paperInterval">synchronous</b></span>
+    <span>figure cmd / real <b id="paperFigure">0.00° / 0.00°</b></span><span>ground cmd / real <b id="paperGround">0.00° / 0.00°</b></span>
+    <span>relative phase <b id="paperPhase">0.0°</b></span><span>raw trial <b id="paperOutput">— a.u.</b></span>
+    <span>mean ± SEM <b id="paperMean">—</b></span><span>harmonic <b id="paperHarmonic">—</b></span>
+    <span>left / right wing <b id="paperWingInstant">unavailable</b></span><span>wing sum / residual <b id="paperWingBalance">unavailable</b></span>
+    <span>post mean L / R <b id="paperWingPost">unavailable</b></span><span>wing harmonic L / R <b id="paperWingHarmonic">unavailable</b></span>
+    <span>Figure 3 RMSE / NRMSE <b id="paperScores">unavailable</b></span><span>MAE / bias / corr <b id="paperScores2">unavailable</b></span>
+    <span>validation <b id="paperValidation">live preview only</b></span><span>meter / product <b id="paperMeter">unavailable</b></span>
+  </div>
+  <div class="paperfoot">Canonical texture: 3°×3° binary cells, 12° figure at +30°, 700 cd/m² mean, registered-copy seed 123456. The stimulus is prescribed independently of the fly. Figure 3 is compared only with the authoritative whole-fly tether load cell. Left/right traces are calibrated simulation-only hinge-wrench decompositions; the paper reports no per-wing trace.</div>
+</div>
+
+<div id="fgPanel">
+  <div class="fgtitle">Stimulus control <span class="fgsub">figure bar + rotating grating drum</span></div>
+  <div class="fgctrls">
+    <label title="show/hide the moving bar (figure)"><input type="checkbox" id="figChk" checked/> bar</label>
+    <label>bar speed <input type="range" id="fgSpeed" min="0" max="90" value="9"/><b id="fgSpeedV">9°/s</b></label>
+    <label title="rotating grating background (optomotor drum)"><input type="checkbox" id="gratChk"/> grating drum</label>
+    <label>drum spin <input type="range" id="gratSpeed" min="-120" max="120" value="12"/><b id="gratSpeedV">12°/s</b></label>
+    <label title="oscillate the drum sinusoidally (velocity = peak·cos) instead of spinning constantly"><input type="checkbox" id="gratOscChk"/> oscillate</label>
+    <label>osc rate <input type="range" id="gratOscRate" min="0.05" max="1" step="0.05" value="0.2"/><b id="gratOscRateV">0.2 Hz</b></label>
+    <label class="abl" title="lesion: silence BOTH wide-field inhibitory neurons — vCH and DCH, both sides (clamp to rest). Removes their inhibition of T4a / LLPC1 / NOD1 — the classic figure-ground ablation."><input type="checkbox" id="ablVchChk"/> ablate vCH+DCH</label>
+    <button class="fgchk" id="resetBtn">recenter</button>
+    <span class="fgread" id="fgRead">—</span>
+  </div>
+</div>
+<div id="trackPanel">
+  <div class="fgtitle">Tracking <span class="fgsub">head direction vs figure direction · over time</span></div>
+  <div class="tklegend">
+    <span class="tkkey"><i style="background:#5ec8ff"></i>head dir <b id="tkHead">0°</b></span>
+    <span class="tkkey"><i style="background:#c9a0ff"></i>figure dir <b id="tkFig">0°</b></span>
+    <span class="tkkey">retinal error <b id="tkErr">0°</b></span>
+  </div>
+  <canvas id="trackCanvas" width="316" height="118"></canvas>
+  <div class="tkfoot">world azimuth (deg) vs time → · when the fly tracks the bar, <b style="color:#5ec8ff">blue</b> chases <b style="color:#c9a0ff">purple</b>; the gap is the retinal error the circuit nulls.</div>
+</div>
+
+<div id="circuitPanel" class="panel">
+  <div class="ptabs">
+    <button class="ptab on" id="tabNeurons">Circuit neurons</button>
+    <button class="ptab" id="tabMuscles">Flight muscles</button>
+  </div>
+  <div id="paneNeurons" class="pane">
+    <div class="panemeta">membrane potential · <b id="npCells">—</b> cells</div>
+    <div id="npLegend">retina → <span class="np-t4">T4a·T5a</span> → <span class="np-ch">vCH·DCH</span> → <span class="np-nod">NOD1</span> → <span class="np-ll">LLPC1</span></div>
+    <div id="circuitStatus" class="circuit-status">
+      <span id="circuitModeBadge" class="csbadge preview">paper neural preview</span>
+      <span id="circuitBoundaryBadge" class="csbadge boundary">four-cell NOD1 motor boundary</span>
+      <span id="circuitAuthorityBadge" class="csbadge">live · non-physical</span>
+    </div>
+    <div class="circuit-signal">steering_signal_au <b id="circuitSteeringAu">0.0000</b></div>
+    <canvas id="statCanvas" width="296" height="66"></canvas>
+    <div class="scroll npscroll">
+      <canvas id="neuronCanvas" width="296" height="694" aria-label="Interactive retinotopic neural circuit monitor"></canvas>
+      <div id="selectedNeuron" class="selected-neuron"><div class="sel-title">Neuron inspector</div>Click a T4a/T5a or LLPC1 map point to inspect its exact live state.</div>
+      <div class="individual-title">Individual cable neurons <span>all 8 output cells</span></div>
+      <div id="cableCellList" class="cable-cell-list"></div>
+      <div class="circuit-provenance">FAFB materialization 783 circuit → type-level MANC <code>male-cns:v1.0</code> motor table. Synapse counts are structural, relative exploratory weights—not calibrated physiology. vCH/DCH sides remain raw application labels.</div>
+    </div>
+  </div>
+  <div id="paneMuscles" class="pane" style="display:none">
+    <div class="scroll" id="muscleList"></div>
+  </div>
+</div>
+
+<div id="dnPanel" class="panel" style="display:none">
+  <h2>Descending neurons → wing muscles <span class="hcount"><b id="dnCount">0</b> connected</span></h2>
+  <input id="dnSearch" type="text" placeholder="filter — DN name or muscle (e.g. iii1, DNa, gaba)"/>
+  <div class="scroll" id="dnList"></div>
+</div>
+
+<div id="sci" class="panel">
+  <span class="closex" id="sciClose">×</span>
+  <h2>The science</h2>
+  <div class="scroll" id="sciBody"></div>
+</div>
+
+<script src="lib/three.min.js"></script>
+<script src="lib/OrbitControls.js"></script>
+<script src="lib/paper_stimulus.js?v=1"></script>
+<script src="lib/fgmodel.js?v=14"></script>
+<script src="lib/paper_motor_monitor.js?v=1"></script>
+<script src="lib/paper_app.js?v=4"></script>
+<script>
+/* ============================================================================
+   Drosophila Flight Simulator
+   3D fly with two wings, indirect (power) + direct (steering) flight muscles,
+   driven by real descending neurons from the MANC / male-CNS connectome
+   (/descending). See the "ⓘ the science" drawer for the model + citations.
+   ========================================================================== */
+
+/* ---- 1. REAL MANC data — DN → individual-muscle wiring ----
+   From neuPrint male-cns:v1.0: wing motor neurons (subclass 'wm') resolve to
+   named muscles; each DN's `musc` = summed synapses onto that muscle's motor
+   neurons (dn_edges). Muscle identities & DN→muscle wiring are REAL data;
+   only the kinematic effect signs (MUSCLE_META.amp) are from the flight
+   literature (Lindsay et al. 2017, Cheong et al. 2024).                        */
+const MUSCLE_META = {
+  DLM :{group:'power',   full:'Dorsal longitudinal', role:'DOWNSTROKE', col:'#ff7a45'},
+  DVM :{group:'power',   full:'Dorsoventral',        role:'UPSTROKE',   col:'#42a5f5'},
+  ps1 :{group:'tension', full:'Pleurosternal 1', scl:'Pleurosternal', col:'#ffcf5d'},
+  ps2 :{group:'tension', full:'Pleurosternal 2', scl:'Pleurosternal', col:'#ffcf5d'},
+  tp1 :{group:'tension', full:'Tergopleural 1', scl:'Tergopleural', col:'#ffcf5d'},
+  tp2 :{group:'tension', full:'Tergopleural 2', scl:'Tergopleural', col:'#ffcf5d'},
+  tpn :{group:'tension', full:'Tergopleural (tpN)', scl:'Tergopleural', col:'#ffcf5d'},
+  // amp = effect on that wing's beat amplitude (+ raises, − lowers). Signs graded by evidence:
+  // b1/b2/b3/i1 (high — DNp03 saccade model + physiology), i2 (high — optogenetics), iii/hg (low/unknown).
+  b1  :{group:'steer', scl:'Basalar', tonic:true,  amp:+0.30, conf:'med',  note:'Tonic maintenance of stroke amplitude; firing phase controls wing rotation (Tu & Dickinson 1996).'},
+  b2  :{group:'steer', scl:'Basalar', tonic:false, amp:+0.90, conf:'high', note:'All-or-none INCREASE in stroke amplitude → fast turns (Tu & Dickinson 1996).'},
+  b3  :{group:'steer', scl:'Basalar', tonic:true,  amp:-0.30, conf:'med',  note:'Antagonist of b1 (push–pull on amplitude).'},
+  i1  :{group:'steer', scl:'1st axillary', tonic:false, amp:-0.70, conf:'high', note:'Phasic DECREASE in stroke amplitude (large saccades; inside wing).'},
+  i2  :{group:'steer', scl:'1st axillary', tonic:true,  amp:-0.60, conf:'high', note:'Tonic decrease of stroke amplitude (2nd-best amplitude predictor, Lindsay 2017).'},
+  iii1:{group:'steer', scl:'3rd axillary', tonic:false, amp:+0.50, conf:'high', note:'Third-axillary; INCREASES stroke amplitude (phasic).'},
+  iii3:{group:'steer', scl:'3rd axillary', tonic:true,  amp:+0.80, conf:'high', note:'Single BEST predictor of stroke amplitude; tonic INCREASE (Lindsay 2017).'},
+  hg1 :{group:'steer', scl:'4th axillary', tonic:false, amp:+0.10, conf:'low',  note:'Fourth axillary; acts mainly on angle of attack (Melis 2024) — weak amplitude/turn effect.'},
+  hg2 :{group:'steer', scl:'4th axillary', tonic:false, amp:+0.15, conf:'low',  note:'Fourth axillary; angle-of-attack control — weak amplitude/turn effect.'},
+  hg3 :{group:'steer', scl:'4th axillary', tonic:false, amp:+0.10, conf:'low',  note:'Fourth axillary; angle-of-attack control — weak amplitude/turn effect.'},
+  hg4 :{group:'steer', scl:'4th axillary', tonic:true,  amp:+0.20, conf:'low',  note:'Fourth axillary; lowers angle of attack / raises amplitude (Melis 2024) — low confidence.'},
+};
+const MN_PER_SIDE = {DLM:5,DVM:7,ps1:1,ps2:1,tp1:1,tp2:1,tpn:1,b1:1,b2:1,b3:1,i1:1,i2:1,iii1:1,iii3:1,hg1:1,hg2:1,hg3:1,hg4:1};
+const MUSCLE_ORDER = ['DLM','DVM','ps1','ps2','tp1','tp2','tpn','b1','b2','b3','i1','i2','iii1','iii3','hg1','hg2','hg3','hg4'];
+const MUSCLES = MUSCLE_ORDER.map(id => Object.assign({id, mns:MN_PER_SIDE[id]}, MUSCLE_META[id]));
+const STEER_M = MUSCLES.filter(m=>m.group==='steer');
+const TENSION_M = MUSCLES.filter(m=>m.group==='tension');
+
+// DN list is fetched from data/wing_dns.json at boot — ALL 74 DN types with well-supported
+// wing-muscle output (≥100 synapses via ≥5-synapse edges), from neuPrint male-cns:v1.0.
+// Small inline fallback (covers the presets) so the core still works if the fetch fails.
+let DNS_BY_T = new Map();   // type → DN record, rebuilt when DNS loads (see boot)
+let DNS = [
+  {t:'DNg02',grp:'tension',nt:'ach',cells:29,musc:{tp2:1375,DVM:1205,ps1:778,DLM:725,tpn:92,tp1:81},role:'Amplitude-coding population (~15/side): drives the tension muscles (power control) + DLM/DVM.'},
+  {t:'DNp31',grp:'power',nt:'ach',cells:2,musc:{DLM:1284,DVM:1077,ps1:593},role:'Top wing-motor DN — DLM+DVM power + ps1 tension.'},
+  {t:'DNa08',grp:'power',nt:'ach',cells:2,musc:{DLM:793,DVM:712,b3:459},role:'Bilateral DLM+DVM power + b3 steering.'},
+  {t:'DNg17',grp:'steer',nt:'ach',cells:2,musc:{b2:218,DLM:123},role:'b2-dominant steering (amplitude-raising).'},
+  {t:'DNa04',grp:'steer',nt:'ach',cells:2,musc:{hg1:379,b3:167,i1:154},role:'hg1-dominant steering.'},
+  {t:'DNp01',grp:'escape',nt:'ach',cells:2,musc:{DVM:4},role:'Giant Fiber — escape takeoff via PSI→DLM + →TTM jump. Direct wing-MN synapses are sparse.'},
+  {t:'DNp10',grp:'escape',nt:'ach',cells:2,musc:{ps2:56,DVM:6},role:'Jump/escape-dominant.'},
+];
+const SCALE_M = 520;   // synapses onto a muscle → full single-muscle drive
+const NT_SIGN = nt => nt==='gaba' ? -1 : 1;   // GABA inhibitory; ACh/Glut excitatory here
+
+/* ---- 3. Global state ---- */
+const state={
+  power:0.55, viewSpeed:0.42,
+  fireDN:new Map(), mode:'hover', escapePulse:0,   // fireDN: DN type → its firing side ('L'|'R'|'both')
+  dnDrive:new Map(),   // continuous per-DN drive from the figure-ground circuit: DN type → {L,R} activation
+  powerAct:0, dlm:0, dvm:0,
+  muscleAct:{},
+  ampL:0, ampR:0, aoaL:45, aoaR:45, yaw:0, freqHz:200,
+};
+
+/* ============================================================================
+   THREE.JS SCENE (three r128, vendored locally)
+   ========================================================================== */
+let scene,camera,renderer,controls,clock;
+let flyRoot, bodyGroup;
+let wingR, wingL;
+let dlmMeshes=[], dvmMeshes=[], steerClusterL, steerClusterR, thoraxMesh;
+let figMesh=null;   // the white bar (world object)
+let gratingMesh=null, gratTex=null, gratCv=null;   // the optomotor drum (rotating striped cylinder)
+const FGS_CHAN=('BroadcastChannel' in window)?new BroadcastChannel('fgs-stream'):null;   // live neuron stream → /fly-fgs/map/
+let phase=0;
+
+function cylGeo(r1,r2,len,seg){ return new THREE.CylinderGeometry(r1,r2,len,seg||10); }
+
+function init(){
+  scene=new THREE.Scene();
+  scene.background=new THREE.Color(0x000000);   // black background (the fly's world = white bar on black)
+  scene.fog=new THREE.FogExp2(0x000000, 0.026);
+
+  const w=window.innerWidth,h=window.innerHeight;
+  camera=new THREE.PerspectiveCamera(48, w/h, 0.1, 200);
+  camera.position.set(-6.8, 2.6, 0.9);   // behind the fly (head faces +X), looking forward at the figure bar
+
+  renderer=new THREE.WebGLRenderer({antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(w,h);
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  document.getElementById('app').appendChild(renderer.domElement);
+
+  controls=new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping=true; controls.dampingFactor=0.08;
+  controls.minDistance=3.2; controls.maxDistance=26;
+  controls.target.set(1.6,0.45,0);   // look forward toward the head + the figure bar ahead
+
+  scene.add(new THREE.HemisphereLight(0x9fc0ff, 0x141a24, 0.75));
+  const key=new THREE.DirectionalLight(0xffffff,1.05); key.position.set(-5,8,6); scene.add(key);
+  const rim=new THREE.DirectionalLight(0x6fd8ff,0.5); rim.position.set(6,3,-6); scene.add(rim);
+  const fill=new THREE.PointLight(0x38e2c8,0.35,40); fill.position.set(3,-2,4); scene.add(fill);
+
+  const grid=new THREE.GridHelper(60, 60, 0x1c2a3a, 0x121a26);
+  grid.position.y=-3.2; scene.add(grid);
+
+  clock=new THREE.Clock();
+  buildFly();
+  fgBuildScene();
+  window.addEventListener('resize', onResize);
+  document.getElementById('loading').style.display='none';
+  animate();
+}
+
+function fibreAlongX(len, rad, col){
+  const m=new THREE.Mesh(cylGeo(rad,rad,len,12), new THREE.MeshStandardMaterial(
+    {color:col, emissive:new THREE.Color(col), emissiveIntensity:0.0, roughness:0.55, metalness:0.05}));
+  m.rotation.z=Math.PI/2;   // default cylinder axis Y → lay along X
+  return m;
+}
+
+function buildFly(){
+  flyRoot=new THREE.Group(); scene.add(flyRoot);
+  bodyGroup=new THREE.Group(); flyRoot.add(bodyGroup);
+
+  const cuticle=(c,rough,metal)=>new THREE.MeshStandardMaterial(
+    {color:c, roughness:rough==null?0.5:rough, metalness:metal==null?0.15:metal});
+
+  // ---- THORAX + indirect flight muscles ----
+  // Real proportions: thorax ~1 mm long, wing ~2.4 mm → wing ≈ 2.2× thorax length.
+  // The wing geometry (~2.35 u ≈ 2.4 mm) is already correct, so the thorax+muscle
+  // assembly is scaled down as one unit (TS) to hit that ratio; muscle layout is preserved.
+  const TS=0.46;
+  const SHOW_ENGINE=false;   // set true to reveal the internal flight-muscle "engine" (DLM/DVM + steering clusters) through a translucent cutaway thorax
+  const core=new THREE.Group(); core.scale.setScalar(TS); bodyGroup.add(core);
+
+  const thoraxGeo=new THREE.SphereGeometry(1.02, 40, 32);
+  thoraxGeo.scale(1.16, 0.98, 0.90);   // length : height : width ≈ 1 : 0.85 : 0.78
+  thoraxMesh=new THREE.Mesh(thoraxGeo, new THREE.MeshStandardMaterial({
+    color:0x6b4a2f, roughness:0.5, metalness:0.2, transparent:SHOW_ENGINE, opacity:SHOW_ENGINE?0.34:1.0,
+    depthWrite:!SHOW_ENGINE, side:SHOW_ENGINE?THREE.DoubleSide:THREE.FrontSide, emissive:0x2a1c10, emissiveIntensity:SHOW_ENGINE?0.25:0.16}));
+  core.add(thoraxMesh);
+  const shell=new THREE.Mesh(thoraxGeo.clone(), new THREE.MeshStandardMaterial({
+    color:0x8a6238, roughness:0.35, metalness:0.35, transparent:true, opacity:0.16, side:THREE.BackSide}));
+  shell.visible=SHOW_ENGINE;   // the translucent outer cuticle only reads with the cutaway; skip it on the solid body
+  core.add(shell);
+
+  // ---- INDIRECT FLIGHT MUSCLES (children of core → scaled with the thorax) ----
+  // DLM: dorsal longitudinal, antero-posterior (+X), upper thorax, both halves
+  for(let s=-1;s<=1;s+=2){
+    for(let k=0;k<3;k++){
+      const m=fibreAlongX(1.15, 0.14, 0xff7a45);
+      m.position.set(-0.05, 0.30 - k*0.02, s*(0.16+k*0.14));
+      m.userData.kind='DLM'; dlmMeshes.push(m); core.add(m);
+    }
+  }
+  // DVM: dorsoventral, vertical (+Y), central thorax
+  for(let s=-1;s<=1;s+=2){
+    for(let k=0;k<3;k++){
+      const m=new THREE.Mesh(cylGeo(0.12,0.12,0.95,12), new THREE.MeshStandardMaterial(
+        {color:0x42a5f5, emissive:0x42a5f5, emissiveIntensity:0.0, roughness:0.55, metalness:0.05}));
+      m.position.set(-0.28 + k*0.28, -0.10, s*0.22);
+      m.userData.kind='DVM'; dvmMeshes.push(m); core.add(m);
+    }
+  }
+
+  // ---- HEAD (≈0.7× thorax length; connects to the front of the thorax) ----
+  const head=new THREE.Group(); head.position.set(0.74, 0.0, 0); head.scale.setScalar(0.68);
+  head.add(new THREE.Mesh(new THREE.SphereGeometry(0.5,28,24), cuticle(0x4a3520,0.55,0.1)));
+  for(let s=-1;s<=1;s+=2){
+    const eye=new THREE.Mesh(new THREE.SphereGeometry(0.31,22,18),
+      new THREE.MeshStandardMaterial({color:0x9b1c22, roughness:0.25, metalness:0.35,
+        emissive:0x3a0608, emissiveIntensity:0.4}));
+    eye.position.set(0.14, 0.10, s*0.32); eye.scale.set(0.85,1.0,0.9); head.add(eye);
+  }
+  for(let s=-1;s<=1;s+=2){
+    const a=new THREE.Mesh(cylGeo(0.02,0.03,0.34,8), cuticle(0x2a1d12,0.6,0.1));
+    a.position.set(0.42,0.30,s*0.12); a.rotation.z=-0.5; a.rotation.x=s*0.2; head.add(a);
+  }
+  bodyGroup.add(head);
+
+  // ---- STEERING-MUSCLE CLUSTERS at each wing hinge ----
+  steerClusterR=makeSteerCluster( 0.34); bodyGroup.add(steerClusterR.group);
+  steerClusterL=makeSteerCluster(-0.34); bodyGroup.add(steerClusterL.group);
+  // hide the internal flight-muscle "engine" — show a clean opaque body (the muscles still drive the
+  // wing kinematics; only their 3-D visualisation is hidden, and the 2-D "flight muscles" panel is unaffected)
+  if(!SHOW_ENGINE){ [...dlmMeshes, ...dvmMeshes, ...steerClusterL.meshes, ...steerClusterR.meshes].forEach(m=>{ m.visible=false; }); }
+
+  // ---- WINGS ----
+  wingR=makeWing(+1); bodyGroup.add(wingR.root);
+  wingL=makeWing(-1); bodyGroup.add(wingL.root);
+}
+
+function makeSteerCluster(zside){
+  const group=new THREE.Group();
+  group.position.set(0.0, 0.30, zside);   // at the wing base on the (smaller) thorax
+  const meshes=[]; const cols=[0x38e2c8,0x2fbfd6,0x44d1a0,0x35c7c7,0x50e0b0];
+  for(let i=0;i<5;i++){
+    const m=new THREE.Mesh(cylGeo(0.035,0.035,0.15,8), new THREE.MeshStandardMaterial(
+      {color:cols[i], emissive:cols[i], emissiveIntensity:0.0, roughness:0.5}));
+    const a=(i/5)*Math.PI*2;
+    m.position.set(Math.cos(a)*0.075, Math.sin(a)*0.06, zside*0.04); m.rotation.z=a;
+    meshes.push(m); group.add(m);
+  }
+  return {group, meshes};
+}
+
+function wingOutline(){
+  // Drosophila wing: elongate (aspect ~2.5), near-straight leading/costal margin (+x),
+  // strongly convex trailing margin (-x), rounded apex set toward the leading edge.
+  const s=new THREE.Shape(); const L=2.42;
+  s.moveTo(0.05, 0.00);                                   // wing base at the hinge
+  s.bezierCurveTo( 0.30,0.08,  0.40,0.42,  0.42,0.90);    // leading (costal) margin
+  s.bezierCurveTo( 0.43,1.30,  0.40,1.70,  0.30,2.02);
+  s.bezierCurveTo( 0.22,2.24,  0.10,L,    -0.04,L-0.01);  // rounded apex
+  s.bezierCurveTo(-0.20,2.39, -0.34,2.20, -0.44,1.88);    // upper trailing margin
+  s.bezierCurveTo(-0.53,1.52, -0.55,1.10, -0.48,0.70);    // widest point (~mid)
+  s.bezierCurveTo(-0.42,0.42, -0.34,0.24, -0.22,0.14);    // toward base (alula region)
+  s.bezierCurveTo(-0.12,0.06, -0.03,0.02,  0.05,0.00);
+  return s;
+}
+
+function makeWing(side){
+  // Three-angle wing kinematics (Fry/Dickinson stroke-plane convention):
+  //   root(base) → phi(stroke sweep, about Y = stroke-plane normal)
+  //             → theta(deviation, about X, 2× freq → figure-8) → alpha(angle of attack, about span Z) → blade
+  const root=new THREE.Group();
+  root.position.set(-0.05, 0.34, side*0.30);   // dorsal-lateral thorax
+  if(side<0) root.rotation.y=Math.PI;          // left wing points -Z
+  const phiG=new THREE.Group(); root.add(phiG);
+  const thetaG=new THREE.Group(); phiG.add(thetaG);
+  const alphaG=new THREE.Group(); thetaG.add(alphaG);
+
+  const shape=wingOutline();
+  const geo=new THREE.ShapeGeometry(shape, 48);
+  geo.rotateX(-Math.PI/2);   // lay flat: span→+Z, chord→X (+X = leading edge), normal +Y
+  const mesh=new THREE.Mesh(geo, new THREE.MeshStandardMaterial({color:0xdfeef7,
+    roughness:0.16, metalness:0.0, transparent:true, opacity:0.19, side:THREE.DoubleSide,
+    depthWrite:false, emissive:0x122733, emissiveIntensity:0.16}));
+  alphaG.add(mesh);
+  const sheen=new THREE.Mesh(geo.clone(), new THREE.MeshStandardMaterial({color:0xffffff,
+    roughness:0.05, metalness:0.0, transparent:true, opacity:0.05, side:THREE.DoubleSide, depthWrite:false}));
+  alphaG.add(sheen);
+  const per=shape.getPoints(90).map(p=>new THREE.Vector3(p.x,0,p.y)); per.push(per[0].clone());
+  alphaG.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(per),
+    new THREE.LineBasicMaterial({color:0x9a866a, transparent:true, opacity:0.9})));
+  alphaG.add(buildVeins());
+
+  root.add(new THREE.Mesh(new THREE.SphereGeometry(0.09,12,10),
+    new THREE.MeshStandardMaterial({color:0x3a2a1c, roughness:0.5})));
+  return {root, phi:phiG, theta:thetaG, alpha:alphaG, mesh, side};
+}
+
+function buildVeins(){
+  // Drosophila venation in (chord x, span y): L1–L6 longitudinals + 2 cross-veins.
+  const longV=[
+    [[0.14,0.12],[0.28,0.60],[0.36,1.00],[0.40,1.35],[0.415,1.52]],       // L1 (R1) — meets margin mid-wing
+    [[0.10,0.32],[0.20,0.90],[0.27,1.50],[0.26,1.95],[0.16,2.20]],        // L2 (R2+3)
+    [[0.02,0.40],[0.08,1.00],[0.11,1.55],[0.06,2.10],[-0.04,2.34]],       // L3 (R4+5) → apex
+    [[-0.05,0.45],[-0.04,1.05],[-0.10,1.60],[-0.22,2.00],[-0.30,2.12]],   // L4 (M1+2)
+    [[-0.14,0.40],[-0.22,0.85],[-0.33,1.30],[-0.42,1.62],[-0.46,1.78]],   // L5 (M3+4 / CuA)
+    [[-0.18,0.22],[-0.28,0.50],[-0.36,0.82],[-0.40,1.00]],                // L6 / anal
+  ];
+  const crossV=[
+    [[0.09,1.05],[-0.05,1.08]],   // anterior cross-vein (r-m)
+    [[-0.10,1.50],[-0.30,1.42]],  // posterior cross-vein (dm-cu)
+  ];
+  const g=new THREE.Group();
+  const matL=new THREE.LineBasicMaterial({color:0x8a7a60, transparent:true, opacity:0.6});
+  const matC=new THREE.LineBasicMaterial({color:0x8a7a60, transparent:true, opacity:0.42});
+  const mk=(pts,mat,smooth)=>{
+    let v=pts.map(p=>new THREE.Vector3(p[0],0,p[1]));
+    if(smooth && v.length>2) v=new THREE.CatmullRomCurve3(v).getPoints(44);
+    return new THREE.Line(new THREE.BufferGeometry().setFromPoints(v), mat);
+  };
+  longV.forEach(s=>g.add(mk(s,matL,true))); crossV.forEach(s=>g.add(mk(s,matC,false)));
+  return g;
+}
+
+/* ============================================================================
+   CONTROL MODEL — DN firing + sliders → muscle activation → wing kinematics
+   ========================================================================== */
+function clamp(v,a,b){return v<a?a:(v>b?b:v);}
+
+function computeControl(){
+  // reset steer + tension activations (both sides); power muscles set below
+  STEER_M.concat(TENSION_M).forEach(m=>{ state.muscleAct[m.id+'_L']=0; state.muscleAct[m.id+'_R']=0; });
+
+  // accumulate DN → muscle drive, distributed by each DN's MEASURED ipsi/contra targeting.
+  // each DN carries its OWN firing side (cs): 'L' → ipsi = left wing; 'R' → ipsi = right;
+  // 'both' → both copies fire (symmetric). Different DNs can fire on different sides.
+  // Power/tension muscles act bilaterally (both wings).
+  let dlmDrive=0, dvmDrive=0;
+  state.fireDN.forEach((cs, t)=>{
+    const d=DNS_BY_T.get(t)||DNS.find(x=>x.t===t); if(!d) return;
+    const sign=NT_SIGN(d.nt);
+    const ipsi=d.ipsi||d.musc||{}, contra=d.contra||{};
+    const keys={}; for(const m in ipsi) keys[m]=1; for(const m in contra) keys[m]=1;
+    for(const mus in keys){
+      const meta=MUSCLE_META[mus]; if(!meta) continue;
+      const si=(ipsi[mus]||0), sc=(contra[mus]||0);
+      let toL, toR;   // map ipsi/contra → left/right wing
+      if(cs==='L'){ toL=si; toR=sc; } else if(cs==='R'){ toL=sc; toR=si; } else { toL=si+sc; toR=si+sc; }
+      toL=sign*toL/SCALE_M; toR=sign*toR/SCALE_M;
+      if(meta.group==='power'){ const b=(toL+toR)/2; if(mus==='DLM') dlmDrive+=b; else dvmDrive+=b; }
+      else if(meta.group==='tension'){ const b=(toL+toR)/2; state.muscleAct[mus+'_L']+=b; state.muscleAct[mus+'_R']+=b; }
+      else { state.muscleAct[mus+'_L']+=toL; state.muscleAct[mus+'_R']+=toR; }
+    }
+  });
+
+  // continuous descending drive from the figure-ground circuit: each DN's left/right copy
+  // is driven by the ipsilateral circuit output; the DN spreads that onto its OWN measured
+  // ipsi/contra steering muscles → the left–right muscle imbalance IS the turn.
+  state.dnDrive.forEach((act, t)=>{
+    const d=DNS_BY_T.get(t)||DNS.find(x=>x.t===t); if(!d) return;
+    const sign=NT_SIGN(d.nt);
+    const ipsi=d.ipsi||d.musc||{}, contra=d.contra||{};
+    const keys={}; for(const m in ipsi) keys[m]=1; for(const m in contra) keys[m]=1;
+    for(const mus in keys){
+      const meta=MUSCLE_META[mus]; if(!meta) continue;
+      const si=(ipsi[mus]||0), sc=(contra[mus]||0);
+      const toL=sign*(si*act.L + sc*act.R)/SCALE_M;   // L wing: L-copy's ipsi + R-copy's contra
+      const toR=sign*(si*act.R + sc*act.L)/SCALE_M;   // R wing: R-copy's ipsi + L-copy's contra
+      if(meta.group==='power'){ const b=(toL+toR)/2; if(mus==='DLM') dlmDrive+=b; else dvmDrive+=b; }
+      else if(meta.group==='tension'){ const b=(toL+toR)/2; state.muscleAct[mus+'_L']+=b; state.muscleAct[mus+'_R']+=b; }
+      else { state.muscleAct[mus+'_L']+=toL; state.muscleAct[mus+'_R']+=toR; }
+    }
+  });
+
+  // tension muscles (pleurosternal/tergopleural) modulate overall power/amplitude
+  let tension=0; TENSION_M.forEach(m=>{ tension+=(clamp(state.muscleAct[m.id+'_L'],0,1)+clamp(state.muscleAct[m.id+'_R'],0,1))/2; });
+  tension = TENSION_M.length ? tension/TENSION_M.length : 0;
+
+  // power activation = slider baseline + DN DLM/DVM drive + tension gain
+  // (drives compressed so a single strong DN is sub-max; combinations saturate → visible headroom)
+  const powDN=(clamp(dlmDrive,0,1)+clamp(dvmDrive,0,1))/2;
+  state.powerAct = clamp(state.power + powDN*0.42 + tension*0.32, 0, 1.4);
+  state.dlm = state.dvm = state.powerAct;
+  state.muscleAct['DLM_L']=state.muscleAct['DLM_R']=state.powerAct;   // IFM bars reflect drive level
+  state.muscleAct['DVM_L']=state.muscleAct['DVM_R']=state.powerAct;
+
+  // tonic steering muscles keep a floor of activity while flying
+  STEER_M.forEach(m=>{ if(m.tonic){ const fl=0.30*Math.min(1,state.powerAct);
+    state.muscleAct[m.id+'_L']+=fl; state.muscleAct[m.id+'_R']+=fl; } });
+  STEER_M.concat(TENSION_M).forEach(m=>{ ['L','R'].forEach(s=>{
+    state.muscleAct[m.id+'_'+s]=clamp(state.muscleAct[m.id+'_'+s], -0.4, 1.4); }); });
+
+  // steering signal per side (signed sum of steering-muscle effects)
+  const SD={L:0,R:0};
+  ['L','R'].forEach(side=>{ let d=0; STEER_M.forEach(m=>{ d+=(state.muscleAct[m.id+'_'+side]||0)*(m.amp||0); }); SD[side]=d; });
+  const scom=(SD.L+SD.R)/2, sdL=SD.L-scom, sdR=SD.R-scom;
+
+  const baseAmp=45+95*clamp(state.powerAct,0,1.3);
+  // steering muscles change per-wing WINGBEAT AMPLITUDE (the variable the muscles control); the
+  // left–right difference drives the turn. Symmetric steering barely changes bilateral amplitude.
+  state.ampL=clamp(baseAmp + scom*10 + sdL*40, 12, 165);
+  state.ampR=clamp(baseAmp + scom*10 + sdR*40, 12, 165);
+  // angle of attack: base ~45°, modest secondary modulation (aerodynamic feathering)
+  state.aoaL=clamp(45 + sdL*10, 8, 78);
+  state.aoaR=clamp(45 + sdR*10, 8, 78);
+  // yaw: AWAY from the higher-amplitude wing (contraversive; ΔWBA / DNp03 convention). + = right.
+  state.yaw=(state.ampL-state.ampR)*0.9 + (state.aoaL-state.aoaR)*0.3;
+
+  state.escapePulse=Math.max(0, state.escapePulse-0.02);
+  state.freqHz=Math.round(170+55*clamp(state.powerAct,0,1.3));
+}
+
+/* ============================================================================
+   FIGURE-GROUND CIRCUIT (real-time, closed-loop) — functional port of /nod1_sim
+   Visual panorama (background texture + a figure bar) → T4a/T5a EMDs (Reichardt)
+   → vCH/DCH wide-field pooling → NOD1 relative-motion figure detection →
+   descending steering command → the fly turns to FIXATE the figure (closed loop);
+   the wide-field (CH) signal also drives optomotor course stabilisation.
+   ========================================================================== */
+const D2R=Math.PI/180;
+function wrap180(v){ let m=(v+180)%360; if(m<0)m+=360; return m-180; }
+/* The figure-ground circuit is now the REAL multi-compartment conductance model
+   ported from /nod1_sim (see lib/fgmodel.js): retinotopic T4a/T5a → bilateral
+   vCH/DCH & NOD1 passive cables solved with a Hines cable solver + conductance
+   synapses on real FlyWire wiring (downsampled). We drive it frame-by-frame with
+   the fly's live heading and read the bilateral cable activity back as steering. */
+const FG={
+  on:false, ready:false, bundle:null, model:null,
+  heading:0,                          // fly heading (deg)
+  figAz:-18, figW:24, figH:180, figOn:true, figMode:'bounce', figVel:9, figDir:1, oscAmp:28,   // the white bar: width + height (deg) + visibility + motion (world az)
+  gratingOn:false, bgVel:12, gratingPeriod:3,   // optomotor drum: toggleable rotating grating; bgVel = spin/peak speed (deg/s, slow default), gratingPeriod = stripe width (deg, dense)
+  gratOsc:false, gratOscHz:0.2, gratPhase:0,    // sinusoidal mode: drum velocity = bgVel·cos(2π·gratOscHz·t) (oscillates back and forth)
+  modelDt:0.005,                      // the conductance solver's fixed timestep (s)
+  inputScale:3.0, scale:8,            // visual drive scale (3× compensates the downsampled bundle + thin bar so NOD1 reaches the real ~−38 mV, matching /nod1_sim)
+  llpcBoost:1, dnGain:2.5, yawToRate:120, maxRate:90, headingVel:0,   // NO LLPC1 boost — faithful: LLPC1 is silent in /nod1_sim; steering comes from the T4/T5 optomotor imbalance; circuit→DN gain; yaw→rate
+  headLeak:0.12,                      // frontal-centering time-constant (1/s): suppresses slow drift, keeps the tracking oscillation
+  nod1L:0, nod1R:0, vchL:0, vchR:0, dchL:0, dchR:0,
+  steer:0, ro:null,
+  smYaw:0, smSteer:0, smHeading:0, smTau:0.25,   // temporally-smoothed copies of the (jittery) reported values; smTau = low-pass time constant (s)
+};
+// Real FlyWire connectivity: figure-ground output neurons → descending neurons (synapse counts).
+// wL = synapses from LLPC1 sheet, wN = synapses from NOD1. Turn direction / muscles come from the
+// DN's own MANC wiring in wing_dns.json (via computeControl). Source: ~/drosophila_experiments/llpc1_dn.
+const FG_DN=[
+  {t:'DNp26',  wL:149, wN:289, actL:0, actR:0},   // top NOD1 target (289) + LLPC1; contraversive steer
+  {t:'DNae002',wL:530, wN:0,   actL:0, actR:0},   // top LLPC1 target; ipsiversive steer
+  {t:'DNbe001',wL:724, wN:2,   actL:0, actR:0},   // biggest LLPC1 target; steer + power
+  {t:'DNa04',  wL:51,  wN:0,   actL:0, actR:0},   // ipsiversive steer
+  {t:'DNg32',  wL:0,   wN:41,  actL:0, actR:0},   // NOD1 target; ipsiversive steer
+  {t:'DNge107',wL:0,   wN:10,  actL:0, actR:0},   // NOD1 target; GABAergic (inhibitory) steer
+  {t:'DNp07',  wL:35,  wN:0,   actL:0, actR:0},   // LLPC1 target; bilateral steer
+];
+const DN_WMAX=300;
+// Paper and legacy circuit histories remain separate so switching assays never
+// blends traces sampled at different rates or from different model instances.
+function makeNP(){ return { len:200, vchL:[], vchR:[], dchL:[], dchR:[], nod1L:[], nod1R:[], llpcL:[], llpcR:[] }; }
+const NP_LEGACY=makeNP(), NP_PAPER=makeNP();
+function npReset(target){ for(const key of Object.keys(target)) if(Array.isArray(target[key])) target[key].length=0; }
+function npPush(o,target){ const p=(a,v)=>{ a.push(Number.isFinite(v)?v:0); if(a.length>target.len)a.shift(); };
+  p(target.vchL,o.mv.vchL); p(target.vchR,o.mv.vchR); p(target.dchL,o.mv.dchL); p(target.dchR,o.mv.dchR);
+  p(target.nod1L,o.mv.nod1L); p(target.nod1R,o.mv.nod1R); p(target.llpcL,o.llpcL); p(target.llpcR,o.llpcR); }
+
+let NOD1_LATERALITY=null;
+const PAPER_CIRCUIT={
+  model:null, readout:null, stimulus:null, previewSteeringAu:0, motor:null,
+  mode:'paper-live-preview', error:null,
+};
+const CIRCUIT_MAP_LAYOUTS={ motion:null, llpc1:null };
+let CIRCUIT_RETINO={ bundle:null, motion:[], llpc1:[] };
+let selectedCircuitCellIndex=null;
+
+function ensureRetinotopicIndices(){
+  if(!FG.bundle || !window.PaperMotorMonitor || CIRCUIT_RETINO.bundle===FG.bundle) return;
+  CIRCUIT_RETINO={
+    bundle:FG.bundle,
+    motion:PaperMotorMonitor.buildRetinotopicIndex(FG.bundle,'motion'),
+    llpc1:PaperMotorMonitor.buildRetinotopicIndex(FG.bundle,'llpc1'),
+  };
+  selectedCircuitCellIndex=null;
+}
+function activeCircuitContext(){
+  if(window.PaperUI && PaperUI.isPaperActive() && PAPER_CIRCUIT.model && PAPER_CIRCUIT.readout){
+    const sample=PAPER_CIRCUIT.stimulus;
+    return {model:PAPER_CIRCUIT.model, readout:PAPER_CIRCUIT.readout, history:NP_PAPER,
+      mode:PAPER_CIRCUIT.mode, paper:true, figureOn:true, figureWidth:12,
+      figureRetinalAz:sample?wrap180(30+sample.figure_angle_realized_deg):30};
+  }
+  if(FG.model && FG.ro) return {model:FG.model, readout:FG.ro, history:NP_LEGACY,
+    mode:'legacy-tracking', paper:false, figureOn:FG.figOn!==false, figureWidth:FG.figW,
+    figureRetinalAz:wrap180(FG.figAz-FG.heading)};
+  return null;
+}
+function applyPaperMotorPreview(readout){
+  if(!window.PaperMotorMonitor || !NOD1_LATERALITY) throw new Error('NOD1 laterality receipt unavailable');
+  const motor=PaperMotorMonitor.computePaperDNDrive(readout,FG_DN,NOD1_LATERALITY,{
+    nod1_full_scale:0.9, dn_gain:FG.dnGain, dn_weight_max:DN_WMAX, maximum_dn_drive:1.3,
+  });
+  state.dnDrive.clear();
+  for(const drive of motor.drives){
+    const dn=FG_DN.find(item=>item.t===drive.type); if(!dn) continue;
+    dn.actL=drive.left; dn.actR=drive.right;
+    if(drive.left>0.002 || drive.right>0.002) state.dnDrive.set(drive.type,{L:drive.left,R:drive.right});
+  }
+  PAPER_CIRCUIT.motor=motor;
+}
+function onPaperCircuitSample(snapshot){
+  PAPER_CIRCUIT.model=snapshot.model; PAPER_CIRCUIT.readout=snapshot.readout;
+  PAPER_CIRCUIT.stimulus=snapshot.stimulus; PAPER_CIRCUIT.previewSteeringAu=snapshot.previewSteeringAu;
+  PAPER_CIRCUIT.mode=snapshot.mode; PAPER_CIRCUIT.error=null;
+  if(snapshot.reset) npReset(NP_PAPER);
+  npPush(snapshot.readout,NP_PAPER);
+  try{ applyPaperMotorPreview(snapshot.readout); }
+  catch(error){
+    PAPER_CIRCUIT.error=String(error&&error.message||error); state.dnDrive.clear();
+    for(const dn of FG_DN){ dn.actL=dn.actR=0; }
+  }
+}
+// stack the tracking panel directly under the stimulus panel (whose height depends on control wrap)
+function positionRightPanels(){ const fp=document.getElementById('fgPanel'), tp=document.getElementById('trackPanel');
+  if(!fp||!tp||!fp.classList.contains('show')) return; const r=fp.getBoundingClientRect();
+  if(r.height>0) tp.style.top=(Math.round(r.bottom)+12)+'px'; }
+// ── heading-vs-figure tracking plot (behavioural readout of the closed loop) ──
+function fgDrawTrack(){
+  const cv=document.getElementById('trackCanvas'); if(!cv||cv.offsetParent===null) return;
+  const ctx=cv.getContext('2d'), W=cv.width, H=cv.height; ctx.clearRect(0,0,W,H);
+  const T=FG.trace, n=T?T.head.length:0;
+  const padL=4, padR=34, padT=7, padB=5, PW=W-padL-padR, PH=H-padT-padB;
+  if(n<2){ ctx.fillStyle='#5f7186'; ctx.font='10px system-ui'; ctx.textAlign='left'; ctx.fillText('recording…',padL+4,H/2); return; }
+  let lo=Infinity, hi=-Infinity;                               // fit both traces (skip NaN = figure hidden)
+  for(let k=0;k<n;k++){ const a=T.head[k]; if(a<lo)lo=a; if(a>hi)hi=a; const b=T.fig[k]; if(!isNaN(b)){ if(b<lo)lo=b; if(b>hi)hi=b; } }
+  if(!isFinite(lo)){ lo=-30; hi=30; }
+  const mid=(lo+hi)/2, hr=Math.max(30,(hi-lo)/2*1.18); lo=mid-hr; hi=mid+hr;
+  const X=k=>padL+(k/(n-1))*PW, Y=v=>padT+PH-((v-lo)/(hi-lo))*PH;
+  ctx.font='8px ui-monospace,Menlo,monospace'; ctx.textAlign='left';
+  [hi,mid,lo].forEach(g=>{ const y=Y(g); ctx.strokeStyle='rgba(120,140,170,0.10)'; ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(padL+PW,y); ctx.stroke();
+    ctx.fillStyle='#5f7186'; ctx.fillText((g>0?'+':'')+Math.round(g)+'°',padL+PW+3,y+3); });
+  if(lo<0&&hi>0){ const y=Y(0); ctx.strokeStyle='rgba(120,140,170,0.30)'; ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(padL+PW,y); ctx.stroke(); }
+  const plot=(arr,color,w)=>{ ctx.strokeStyle=color; ctx.lineWidth=w; ctx.beginPath(); let started=false;
+    for(let k=0;k<n;k++){ const v=arr[k];
+      if(isNaN(v)||(k>0&&Math.abs(v-arr[k-1])>180)){ started=false; continue; }   // break on hidden / wrap
+      const x=X(k),y=Y(v); if(!started){ctx.moveTo(x,y);started=true;}else ctx.lineTo(x,y); }
+    ctx.stroke(); ctx.lineWidth=1; };
+  plot(T.fig,'#c9a0ff',1.6); plot(T.head,'#5ec8ff',1.6);
+  const eh=T.head[n-1], ef=T.fig[n-1];                          // current-value end dots
+  ctx.fillStyle='#5ec8ff'; ctx.beginPath(); ctx.arc(X(n-1),Y(eh),2.4,0,7); ctx.fill();
+  if(!isNaN(ef)){ ctx.fillStyle='#c9a0ff'; ctx.beginPath(); ctx.arc(X(n-1),Y(ef),2.4,0,7); ctx.fill(); }
+  const wr=v=>Math.round(wrap180(v));                           // live legend values (compass bearings + tracking error)
+  const sh=document.getElementById('tkHead'); if(sh) sh.textContent=wr(eh)+'°';
+  const sf=document.getElementById('tkFig'); if(sf) sf.textContent=isNaN(ef)?'—':wr(ef)+'°';
+  const se=document.getElementById('tkErr'); if(se) se.textContent=isNaN(ef)?'—':(wr(ef-eh)>=0?'+':'')+wr(ef-eh)+'°'; }
+function fgInitModel(){
+  if(!FG.bundle || !window.FGModel) return false;
+  FG.model=FGModel.init(FG.bundle,{dt:FG.modelDt, figW:FG.figW, figH:FG.figH, scale:FG.scale, inputScale:FG.inputScale, llpcBoost:FG.llpcBoost, gratingPeriod:FG.gratingPeriod});
+  FG.model.ablateWf=!!FG.ablateWf;   // preserve the vCH+DCH lesion toggle across re-inits
+  return true;
+}
+function fgReset(){
+  FG.heading=0; FG.figAz=-38; FG.figDir=1; FG.steer=0; FG.headingVel=0;
+  FG.smYaw=FG.smSteer=FG.smHeading=0;
+  FG.nod1L=FG.nod1R=FG.vchL=FG.vchR=FG.dchL=FG.dchR=0;
+  for(const dn of FG_DN){ dn.actL=dn.actR=0; dn.smL=dn.smR=0; }
+  if(state.dnDrive) state.dnDrive.clear();
+  npReset(NP_LEGACY);
+  fgInitModel();
+}
+function fgStep(dt){
+  if(!FG.model) return;
+  const md=FG.modelDt, ns=Math.max(1,Math.min(2,Math.round(dt/md)));   // ≤2 solver substeps/frame → 60fps with the full T4 population
+  const hv=FG.headingVel;                              // yaw rate the DNs produced last frame (deg/s)
+  for(let s=0;s<ns;s++){
+    if(FG.figMode==='sweep') FG.figAz=wrap180(FG.figAz+FG.figVel*md);           // advance the figure in the world
+    else { FG.figAz+=FG.figDir*FG.figVel*md;                                    // 'bounce': reflect at ±oscAmp
+      if(FG.figAz>FG.oscAmp){FG.figAz=FG.oscAmp;FG.figDir=-1;} if(FG.figAz<-FG.oscAmp){FG.figAz=-FG.oscAmp;FG.figDir=1;} }
+    let gVel=0;                                        // drum angular velocity (deg/s): constant spin or sinusoidal oscillation
+    if(FG.gratingOn){ if(FG.gratOsc){ FG.gratPhase+=2*Math.PI*FG.gratOscHz*md; gVel=FG.bgVel*Math.cos(FG.gratPhase); } else gVel=FG.bgVel; }
+    FGModel.step(FG.model,{heading:FG.heading, headingVel:hv,
+      figWorldAz:FG.figAz, figVelWorld:FG.figDir*FG.figVel, groundVelWorld:gVel});
+    FG.heading += hv*md;                               // integrate self-motion INSIDE the loop so the ground slips across the retina (real optic flow)
+  }                                                    // (no fixation leak: with no visual drive the heading holds; frontal fixation emerges from the tracking loop itself)
+  const o=FGModel.readout(FG.model); FG.ro=o; npPush(o,NP_LEGACY);
+  FG.nod1L=o.nod1L; FG.nod1R=o.nod1R; FG.vchL=o.vchL; FG.vchR=o.vchR; FG.dchL=o.dchL; FG.dchR=o.dchR;
+  // CLOSE THE LOOP THROUGH THE CIRCUIT OUTPUT. The lateralised steering command is the LIVE per-hemifield
+  // figure-ground output (pooled LLPC1 + NOD1 side activity); each DN is then driven by that command times
+  // its real FlyWire figure-ground synapse count (wL+wN), via the SAME known-good DN->muscle wiring as
+  // before, so the net turn direction is preserved. A figure detected on
+  // one side now genuinely commands the turn (turn toward the moving figure); a symmetric — or
+  // saturated-on-both-sides — output produces no lateralisation, hence no turn. LLPC1 and NOD1 are each
+  // normalised to a ~0..1 pathway signal first so both contribute in proportion to their synapse counts
+  // (raw LLPC1 activity is ~10× smaller than NOD1). This makes vCH/DCH ablation change the BEHAVIOUR, not
+  // just the on-screen traces.
+  state.dnDrive.clear();
+  const LLN=0.08, NON=0.9;                                          // per-side activity -> full pathway drive (~peak figure response)
+  const sL=clamp(((o.nod1L||0)/NON + (o.llpcL||0)/LLN)*0.5, 0, 1);  // left-hemifield figure-ground command (pooled circuit output)
+  const sR=clamp(((o.nod1R||0)/NON + (o.llpcR||0)/LLN)*0.5, 0, 1);  // right-hemifield figure-ground command
+  // computeControl's yaw is CONTRAVERSIVE (ΔWBA convention: a DN's L-copy raises the LEFT wingbeat
+  // amplitude → yaw to the RIGHT). Figure tracking / optomotor following is IPSIVERSIVE (turn TOWARD the
+  // moving figure). The two are opposite, so the hemifield command must be CROSSED onto the DN copies:
+  // the right-field command drives each DN's LEFT copy, which yields a rightward (toward-figure) turn.
+  for(const dn of FG_DN){
+    const w=(dn.wL+dn.wN)/DN_WMAX;                                  // this DN's figure-ground input strength (real FlyWire synapse counts)
+    dn.actL=clamp(sR*w*FG.dnGain, 0, 1.3);                          // right-field circuit output → L-copy → turn right (toward)
+    dn.actR=clamp(sL*w*FG.dnGain, 0, 1.3);                          // left-field  circuit output → R-copy → turn left  (toward)
+    if(dn.actL>0.002 || dn.actR>0.002) state.dnDrive.set(dn.t, {L:dn.actL, R:dn.actR});
+  }
+  // behavioural trace: fly heading (head direction) vs figure world azimuth, sampled once per frame
+  { const T=FG.trace||(FG.trace={head:[],fig:[],len:600});
+    T.head.push(FG.heading); T.fig.push(FG.figOn!==false?FG.figAz:NaN);
+    if(T.head.length>T.len){ T.head.shift(); T.fig.shift(); } }
+  // figure-position readout for the stimulus panel
+  const rd=document.getElementById('fgRead'); if(rd){ const fr=wrap180(FG.figAz-FG.heading); rd.textContent=(FG.figOn!==false?'figure at '+Math.round(fr)+'° retinal':'figure hidden'); }
+  // stream the live neuron state to the retinotopic map page (if open, same origin)
+  if(FGS_CHAN){ const vv=FG.model.voltage, buf=new Float32Array(vv.length); for(let i=0;i<vv.length;i++) buf[i]=vv[i];
+    FGS_CHAN.postMessage({ v:buf, figRet:wrap180(FG.figAz-FG.heading), figW:FG.figW, figOn:FG.figOn!==false }); }
+}
+function fgBuildScene(){
+  // the object: a single WHITE bar that orbits the fly against a black background
+  figMesh=new THREE.Mesh(new THREE.BoxGeometry(0.32,5.2,0.4),
+    new THREE.MeshStandardMaterial({color:0xffffff, emissive:0xffffff, emissiveIntensity:0.95, roughness:0.4}));
+  figMesh.position.set(5.4,0.3,0); figMesh.visible=false; scene.add(figMesh);
+  // the optomotor drum: a striped cylinder surrounding the fly (grating drawn to a canvas texture)
+  gratCv=document.createElement('canvas'); gratCv.width=2048; gratCv.height=4;
+  gratTex=new THREE.CanvasTexture(gratCv); gratTex.wrapS=THREE.RepeatWrapping; gratTex.wrapT=THREE.ClampToEdgeWrapping;
+  fgDrawGrating(FG.gratingPeriod);
+  gratingMesh=new THREE.Mesh(new THREE.CylinderGeometry(20,20,32,120,1,true),
+    new THREE.MeshBasicMaterial({map:gratTex, side:THREE.BackSide}));           // far backdrop (r20), well behind the bar (r5.4); viewed from inside
+  gratingMesh.position.y=0.3; gratingMesh.visible=false; scene.add(gratingMesh);
+}
+// paint the drum's square-wave grating; stripeDeg = model gratingPeriod (each light/dark band, deg)
+function fgDrawGrating(stripeDeg){
+  if(!gratCv) return; const ctx=gratCv.getContext('2d'), W=gratCv.width, H=gratCv.height;
+  const cycles=Math.max(2,Math.min(120,Math.round(180/stripeDeg)));   // light+dark pairs around 360°
+  ctx.fillStyle='#b8c0cc'; ctx.fillRect(0,0,W,H);                     // light stripe (~0.75)
+  ctx.fillStyle='#0a0d12';                                           // dark stripe (~0)
+  for(let i=0;i<cycles;i++) ctx.fillRect((i+0.5)/cycles*W,0,W/cycles/2+1,H);
+  if(gratTex) gratTex.needsUpdate=true;
+}
+function fgSetOn(v){
+  FG.on=v; if(v) fgReset();
+  if(figMesh) figMesh.visible=v;
+  if(v){ setMode(null); state.power=Math.max(state.power,0.5); }   // must be flying to steer
+}
+function fgDraw(){
+  const cv=document.getElementById('fgCanvas'); if(!cv||!FG.model) return;
+  const ctx=cv.getContext('2d'), W=cv.width, H=cv.height, st=FG.model;
+  ctx.clearRect(0,0,W,H);
+  const fov=280, half=fov/2;   // ±140° field
+  // retina preview: the current stimulus the controls produce — white bar (figure) + grating drum on black
+  const NA=200;
+  for(let i=0;i<NA;i++){ const az=-half+(i/(NA-1))*fov; const g=Math.round(FGModel.lumNow(st,az,0)*255);
+    ctx.fillStyle='rgb('+g+','+g+','+g+')'; ctx.fillRect(i/NA*W,13,W/NA+1,18); }
+  ctx.fillStyle='#6b7686'; ctx.font='9px system-ui'; ctx.fillText('retina  ·  what the fly sees',6,10);
+  ctx.strokeStyle='rgba(255,255,255,0.3)'; ctx.beginPath(); ctx.moveTo(W/2,12); ctx.lineTo(W/2,32); ctx.stroke();
+  const figRet=wrap180(FG.figAz-FG.heading);
+  if(FG.figOn!==false && Math.abs(figRet)<=half){ const fx=(figRet+half)/fov*W; ctx.strokeStyle='#c9a0ff'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(fx,31); ctx.lineTo(fx,37); ctx.stroke(); ctx.lineWidth=1; }
+  const rd=document.getElementById('fgRead'); if(rd) rd.textContent=(FG.figOn!==false?'figure at '+Math.round(figRet)+'° retinal':'figure hidden');
+}
+// The circuit-neuron panel: live membrane potential of every related neuron group —
+// T4a/T5a motion detectors (retinotopic), the vCH/DCH wide-field & NOD1 figure cables, and LLPC1.
+// compact bilateral (L/R) activity summary at the top of the neurons tab
+function drawStatBars(circuit){
+  const cv=document.getElementById('statCanvas'), C=circuit||activeCircuitContext(); if(!cv||cv.offsetParent===null||!C) return;
+  const ctx=cv.getContext('2d'), W=cv.width, H=cv.height, o=C.readout;
+  ctx.clearRect(0,0,W,H);
+  const bl=48, br=W-6, bcx=(bl+br)/2, bhw=(br-bl)/2-1;
+  ctx.fillStyle='#5f7186'; ctx.font='8px system-ui'; ctx.fillText('bilateral activity',6,8);
+  ctx.textAlign='center'; ctx.fillText('L  ·  R',bcx,8); ctx.textAlign='left';
+  const rows=[['NOD1',o.nod1L,o.nod1R,0.15,'#c9a0ff'],['vCH',o.vchL,o.vchR,0.12,'#7aa2ff'],['DCH',o.dchL,o.dchR,0.12,'#38e2c8'],['LLPC1',o.llpcL,o.llpcR,0.06,'#ffb26b']];
+  let y=15;
+  for(const r of rows){ const name=r[0], L=r[1]||0, R=r[2]||0, sc=r[3], col=r[4];
+    ctx.fillStyle='#aebccb'; ctx.font='9px system-ui'; ctx.fillText(name,6,y+7);
+    const nl=clamp(L/sc,0,1), nr=clamp(R/sc,0,1);
+    ctx.fillStyle='#151b26'; ctx.fillRect(bl,y,bhw,8); ctx.fillRect(bcx+1,y,bhw,8);
+    ctx.fillStyle=col; ctx.fillRect(bcx-bhw*nl,y,bhw*nl,8); ctx.fillRect(bcx+1,y,bhw*nr,8);
+    ctx.strokeStyle='rgba(255,255,255,0.16)'; ctx.beginPath(); ctx.moveTo(bcx,y); ctx.lineTo(bcx,y+8); ctx.stroke();
+    y+=13; }
+}
+function fgDrawNeurons(){
+  const cv=document.getElementById('neuronCanvas'), C=activeCircuitContext(); if(!cv||cv.offsetParent===null||!C) return;   // skip when the muscles tab is showing
+  ensureRetinotopicIndices(); drawStatBars(C);
+  const ctx=cv.getContext('2d'), W=cv.width, H=cv.height, st=C.model, o=C.readout, histStore=C.history;
+  ctx.clearRect(0,0,W,H);
+  const L=8, IW=W-16, fov=280, half=140;   // ±140°: full receptive field (~147°/eye)
+  // ── RETINA input strip — what the fly sees (raw luminance across azimuth) ──
+  ctx.fillStyle='#8ea2b8'; ctx.font='10px system-ui'; ctx.fillText('RETINA · what the fly sees',L,11);
+  const rty=16, rth=13, RNA=180;
+  for(let i=0;i<RNA;i++){ const az=-half+(i/(RNA-1))*fov, gg=Math.round(FGModel.lumNow(st,az,0)*255);
+    ctx.fillStyle='rgb('+gg+','+gg+','+gg+')'; ctx.fillRect(L+i/RNA*IW,rty,IW/RNA+1,rth); }
+  { const rFig=C.figureRetinalAz;
+    if(C.figureOn && Math.abs(rFig)<=half){ const fx=L+(rFig+half)/fov*IW; ctx.strokeStyle='#c9a0ff'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(fx,rty+rth); ctx.lineTo(fx,rty+rth+3); ctx.stroke(); ctx.lineWidth=1; } }
+  // ── T4a/T5a retinotopic FIRING MAP (azimuth × elevation) — every motion detector at its position in the visual field ──
+  const M=st.M;
+  let firing=0; for(let j=0;j<M.idx.length;j++) if(st.act[M.idx[j]]>0.15) firing++;
+  ctx.fillStyle='#8ea2b8'; ctx.font='10px system-ui';
+  ctx.fillText('MOTION DETECTORS · T4a/T5a',L,44);
+  ctx.fillStyle=firing>0?'#7fbdff':'#5f7186'; ctx.font='9px ui-monospace,Menlo,monospace'; ctx.textAlign='right';
+  ctx.fillText(firing+' / '+M.idx.length+' firing',W-8,44); ctx.textAlign='left';
+  const ty=50, th=80, AZ=145, ELlo=-84, ELhi=86, sx=IW/(2*AZ), sey=th/(ELhi-ELlo);
+  CIRCUIT_MAP_LAYOUTS.motion={x:L,y:ty,width:IW,height:th,az_min_deg:-AZ,az_max_deg:AZ,el_min_deg:ELlo,el_max_deg:ELhi};
+  ctx.fillStyle='#080b11'; ctx.fillRect(L,ty,IW,th);
+  ctx.strokeStyle='rgba(120,140,170,0.12)'; ctx.lineWidth=1;                                  // ahead + horizon gridlines
+  ctx.beginPath(); ctx.moveTo(L+IW/2,ty); ctx.lineTo(L+IW/2,ty+th); ctx.stroke();
+  const yHor=ty+th-(0-ELlo)*sey; ctx.beginPath(); ctx.moveTo(L,yHor); ctx.lineTo(L+IW,yHor); ctx.stroke();
+  const figRet=C.figureRetinalAz;
+  if(C.figureOn && Math.abs(figRet)<=half){ const fx=L+(figRet+half)/fov*IW, fw=Math.max(2,(C.figureWidth/(2*AZ))*IW);
+    ctx.fillStyle='rgba(201,160,255,0.12)'; ctx.fillRect(fx-fw/2,ty,fw,th);
+    ctx.strokeStyle='rgba(201,160,255,0.5)'; ctx.beginPath(); ctx.moveTo(fx,ty); ctx.lineTo(fx,ty+th); ctx.stroke(); }
+  ctx.fillStyle='rgba(56,96,150,0.30)';                                                        // pass 1: all cells (retinotopic layout)
+  for(let j=0;j<M.idx.length;j++){ const x=L+(M.az[j]+AZ)*sx, y=ty+th-(M.el[j]-ELlo)*sey; ctx.fillRect(x-1.3,y-1.3,2.6,2.6); }
+  for(let j=0;j<M.idx.length;j++){ const a=st.act[M.idx[j]]; if(a<0.06) continue;             // pass 2: firing cells, bright
+    const x=L+(M.az[j]+AZ)*sx, y=ty+th-(M.el[j]-ELlo)*sey, t=clamp(a*1.3,0,1);
+    ctx.fillStyle='rgba('+(110+t*145|0)+','+(200+t*55|0)+',255,'+(0.55+0.45*t).toFixed(2)+')';
+    ctx.fillRect(x-1.8,y-1.8,3.6,3.6); }
+  if(selectedCircuitCellIndex!=null && CIRCUIT_RETINO.motion.some(cell=>cell.index===selectedCircuitCellIndex)){
+    const cell=CIRCUIT_RETINO.motion.find(item=>item.index===selectedCircuitCellIndex), p=PaperMotorMonitor.projectRetinotopicCell(cell,CIRCUIT_MAP_LAYOUTS.motion);
+    ctx.strokeStyle='#ffffff'; ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(p.x,p.y,4.2,0,Math.PI*2); ctx.stroke(); ctx.lineWidth=1;
+  }
+  ctx.fillStyle='#5f7186'; ctx.font='8px system-ui';
+  ctx.fillText('left −140°',L,ty+th+9); ctx.fillText('ahead',L+IW/2-11,ty+th+9);
+  ctx.textAlign='right'; ctx.fillText('right +140°',W-8,ty+th+9); ctx.textAlign='left';
+  // ── cable membrane-potential traces ──
+  const hy=ty+th+22; ctx.fillStyle='#8ea2b8'; ctx.font='10px system-ui';
+  ctx.fillText('CABLE NEURONS · membrane potential',L,hy);
+  const lanes=[['vCH L','vchL','#7aa2ff'],['vCH R','vchR','#7aa2ff'],
+    ['DCH L','dchL','#38e2c8'],['DCH R','dchR','#38e2c8'],
+    ['NOD1 L','nod1L','#c9a0ff'],['NOD1 R','nod1R','#c9a0ff']];
+  const VMIN=-63, VMAX=-38, lh=44, gap=5, ly0=hy+6;
+  for(let i=0;i<lanes.length;i++){
+    const name=lanes[i][0], key=lanes[i][1], col=lanes[i][2], hist=histStore[key];
+    const y=ly0+i*(lh+gap);
+    ctx.fillStyle='#0a0e15'; ctx.fillRect(L,y,IW,lh);
+    const restY=y+lh-(( -60-VMIN)/(VMAX-VMIN))*lh;   // −60 mV resting reference
+    ctx.strokeStyle='rgba(255,255,255,0.07)'; ctx.beginPath(); ctx.moveTo(L,restY); ctx.lineTo(L+IW,restY); ctx.stroke();
+    if(hist.length>1){ ctx.strokeStyle=col; ctx.lineWidth=1.4; ctx.beginPath();
+      for(let k=0;k<hist.length;k++){ const x=L+(k/(histStore.len-1))*IW; const vv=clamp(hist[k],VMIN,VMAX);
+        const yy=y+lh-((vv-VMIN)/(VMAX-VMIN))*lh; k?ctx.lineTo(x,yy):ctx.moveTo(x,yy); }
+      ctx.stroke(); ctx.lineWidth=1; }
+    ctx.fillStyle=col; ctx.font='10px system-ui'; ctx.fillText(name,L+4,y+12);
+    ctx.fillStyle='#cdd8e6'; ctx.font='11px ui-monospace,Menlo,monospace'; ctx.textAlign='right';
+    ctx.fillText(o.mv[key].toFixed(1)+' mV',W-10,y+12); ctx.textAlign='left';
+  }
+  // ── LLPC1 retinotopic activity map (azimuth × elevation) — the figure-detection output cells ──
+  const lc=CIRCUIT_RETINO.llpc1.map(cell=>({i:cell.index,az:cell.azimuth_deg,el:cell.elevation_deg}));
+  const lhead=ly0+lanes.length*(lh+gap)+4;
+  let llFire=0; for(let j=0;j<lc.length;j++) if(st.act[lc[j].i]>0.06) llFire++;
+  ctx.fillStyle='#8ea2b8'; ctx.font='10px system-ui'; ctx.fillText('LLPC1 · retinotopic activity',L,lhead+8);
+  ctx.fillStyle=llFire>0?'#ffb26b':'#5f7186'; ctx.font='9px ui-monospace,Menlo,monospace'; ctx.textAlign='right';
+  ctx.fillText(llFire+' / '+lc.length+' active',W-8,lhead+8); ctx.textAlign='left';
+  const lly=lhead+13, llth=66, llsey=llth/(ELhi-ELlo);
+  CIRCUIT_MAP_LAYOUTS.llpc1={x:L,y:lly,width:IW,height:llth,az_min_deg:-AZ,az_max_deg:AZ,el_min_deg:ELlo,el_max_deg:ELhi};
+  ctx.fillStyle='#080b11'; ctx.fillRect(L,lly,IW,llth);
+  ctx.strokeStyle='rgba(120,140,170,0.12)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(L+IW/2,lly); ctx.lineTo(L+IW/2,lly+llth); ctx.stroke();
+  const llHor=lly+llth-(0-ELlo)*llsey; ctx.beginPath(); ctx.moveTo(L,llHor); ctx.lineTo(L+IW,llHor); ctx.stroke();
+  { const rF=C.figureRetinalAz; if(C.figureOn && Math.abs(rF)<=half){ const fx=L+(rF+half)/fov*IW;
+    ctx.fillStyle='rgba(201,160,255,0.10)'; ctx.fillRect(fx-Math.max(2,(C.figureWidth/(2*AZ))*IW)/2,lly,Math.max(2,(C.figureWidth/(2*AZ))*IW),llth);
+    ctx.strokeStyle='rgba(201,160,255,0.45)'; ctx.beginPath(); ctx.moveTo(fx,lly); ctx.lineTo(fx,lly+llth); ctx.stroke(); } }
+  ctx.fillStyle='rgba(150,108,58,0.32)';                                   // pass1: all LLPC1 cells (retinotopic layout)
+  for(let j=0;j<lc.length;j++){ const x=L+(lc[j].az+AZ)*sx, y=lly+llth-(lc[j].el-ELlo)*llsey; ctx.fillRect(x-1.6,y-1.6,3.2,3.2); }
+  for(let j=0;j<lc.length;j++){ const a=st.act[lc[j].i]; if(a<0.04) continue;   // pass2: active LLPC1, bright orange
+    const x=L+(lc[j].az+AZ)*sx, y=lly+llth-(lc[j].el-ELlo)*llsey, t=clamp(a*3,0,1);
+    ctx.fillStyle='rgba(255,'+(150+t*85|0)+','+(70+t*70|0)+','+(0.55+0.45*t).toFixed(2)+')';
+    ctx.fillRect(x-2.3,y-2.3,4.6,4.6); }
+  if(selectedCircuitCellIndex!=null && CIRCUIT_RETINO.llpc1.some(cell=>cell.index===selectedCircuitCellIndex)){
+    const cell=CIRCUIT_RETINO.llpc1.find(item=>item.index===selectedCircuitCellIndex), p=PaperMotorMonitor.projectRetinotopicCell(cell,CIRCUIT_MAP_LAYOUTS.llpc1);
+    ctx.strokeStyle='#ffffff'; ctx.lineWidth=1.2; ctx.beginPath(); ctx.arc(p.x,p.y,4.5,0,Math.PI*2); ctx.stroke(); ctx.lineWidth=1;
+  }
+  ctx.fillStyle='#5f7186'; ctx.font='8px system-ui'; ctx.fillText('left −140°',L,lly+llth+9); ctx.textAlign='right'; ctx.fillText('right +140°',W-8,lly+llth+9); ctx.textAlign='left';
+  // ── the descending neurons the circuit drives (real FlyWire LLPC1/NOD1 → DN wiring) ──
+  const dy0=lly+llth+22;
+  ctx.fillStyle='#8ea2b8'; ctx.font='10px system-ui'; ctx.fillText('↓ DESCENDING NEURONS · L / R drive',L,dy0-3);
+  const rowh=15, lbw=56, bx=L+lbw, halfB=(IW-lbw)/2-2, cx2=bx+halfB;
+  for(let i=0;i<FG_DN.length;i++){
+    const dn=FG_DN[i], y=dy0+2+i*rowh;
+    ctx.fillStyle='#aebccb'; ctx.font='9.5px system-ui'; ctx.fillText(dn.t,L,y+9);
+    const aL=clamp(dn.smL??dn.actL,0,1), aR=clamp(dn.smR??dn.actR,0,1);   // smoothed for a steady bar
+    ctx.fillStyle='#0a0e15'; ctx.fillRect(bx,y+1,halfB*2,10);
+    ctx.strokeStyle='rgba(255,255,255,0.14)'; ctx.beginPath(); ctx.moveTo(cx2,y+1); ctx.lineTo(cx2,y+11); ctx.stroke();
+    ctx.fillStyle='#5fd39a'; ctx.fillRect(cx2-halfB*aL,y+1,halfB*aL,10);   // left copy (drives left wing)
+    ctx.fillStyle='#ff9a68'; ctx.fillRect(cx2,y+1,halfB*aR,10);            // right copy
+  }
+  const yend=dy0+2+FG_DN.length*rowh;
+  ctx.fillStyle='#5f7186'; ctx.font='8px system-ui'; ctx.fillText('L copy',bx,yend+8); ctx.textAlign='right'; ctx.fillText('R copy',W-8,yend+8); ctx.textAlign='left';
+  renderCircuitInspector(C);
+}
+
+let cableInspectorBundle=null;
+const cableInspectorRows=new Map();
+function updateCircuitStatus(C){
+  const mode=document.getElementById('circuitModeBadge'), boundary=document.getElementById('circuitBoundaryBadge');
+  const authority=document.getElementById('circuitAuthorityBadge'), steering=document.getElementById('circuitSteeringAu');
+  if(!mode||!boundary||!authority||!steering) return;
+  mode.className='csbadge '+(C.paper?'preview':'legacy');
+  mode.textContent=C.paper?'paper neural preview · exploratory':'legacy tracking circuit';
+  boundary.textContent=C.paper?'four-cell NOD1 motor boundary':'legacy pooled LLPC1 + NOD1 motor';
+  if(C.paper && PAPER_CIRCUIT.error){ authority.className='csbadge'; authority.textContent='motor preview unavailable'; authority.title=PAPER_CIRCUIT.error; }
+  else if(C.mode==='paper-replay'){ authority.className='csbadge authoritative'; authority.textContent='native replay authoritative'; authority.title='Neural preview is parallel; replay torque and wing joints remain authoritative.'; }
+  else { authority.className='csbadge'; authority.textContent=C.paper?'live · non-physical':'closed-loop legacy'; authority.title=''; }
+  const value=C.paper && PAPER_CIRCUIT.motor?PAPER_CIRCUIT.motor.steering_signal_au:FG.smSteer;
+  steering.textContent=(Number.isFinite(value)?value:0).toFixed(4);
+}
+function buildCableInspector(C){
+  const host=document.getElementById('cableCellList'); if(!host||!FG.bundle||!window.PaperMotorMonitor) return;
+  if(cableInspectorBundle!==FG.bundle){
+    cableInspectorBundle=FG.bundle; cableInspectorRows.clear(); host.innerHTML='';
+    const cells=PaperMotorMonitor.extractCableCells(FG.bundle,C.model,NOD1_LATERALITY);
+    for(const cell of cells){
+      const row=document.createElement('div'); row.className='cable-cell'+(cell.motor_boundary?' motor':''); row.dataset.index=String(cell.index);
+      const side=cell.anatomical_side==='unresolved'
+        ? `raw ${cell.raw_application_side} · anatomy unresolved`
+        : `raw ${cell.raw_application_side} → anatomical ${cell.anatomical_side}`;
+      row.innerHTML='<div class="cc-top"><span class="cc-type"></span><span class="cc-root"></span></div>'+ 
+        '<div class="cc-side"></div><div class="cc-values"><b data-v>— mV</b><span data-a>act —</span><span class="cc-track"><span class="cc-fill"></span></span></div>';
+      row.querySelector('.cc-type').textContent=cell.type+(cell.motor_boundary?' · MOTOR':'');
+      row.querySelector('.cc-root').textContent=cell.root_id;
+      row.querySelector('.cc-side').textContent=side;
+      row.addEventListener('click',()=>{ selectedCircuitCellIndex=cell.index; renderCircuitInspector(activeCircuitContext()); });
+      host.appendChild(row); cableInspectorRows.set(cell.index,row);
+    }
+  }
+}
+function renderSelectedCircuitCell(C){
+  const host=document.getElementById('selectedNeuron'); if(!host||!C||selectedCircuitCellIndex==null||!FG.bundle) return;
+  const cell=FG.bundle.cells[selectedCircuitCellIndex]; if(!cell) return;
+  const rootId=PaperMotorMonitor.normalizeRootId(FG.bundle.ids[selectedCircuitCellIndex]||cell.id);
+  const cable=PaperMotorMonitor.extractCableCells(FG.bundle,C.model,NOD1_LATERALITY).find(item=>item.index===selectedCircuitCellIndex);
+  const type=String(cell.type||'unknown'), raw=String(cell.side||'?').toUpperCase();
+  const voltage=C.model.voltage[selectedCircuitCellIndex]*1000, activity=C.model.act[selectedCircuitCellIndex];
+  const anatomical=cable?cable.anatomical_side:'unresolved';
+  const retino=cell.retinoAzimuth==null?'not retinotopic':Number(cell.retinoAzimuth).toFixed(2)+'° az · '+Number(cell.retinoElevation).toFixed(2)+'° el';
+  const boundary=cable&&cable.motor_boundary?'yes · NOD1':'no · monitored upstream/context';
+  host.innerHTML='<div class="sel-title">'+type+' · root '+rootId+'</div>'+ 
+    '<div>raw dataset side <b>'+raw+'</b> · anatomical side <b>'+anatomical+'</b></div>'+ 
+    '<div>position <b>'+retino+'</b></div><div>potential <b>'+voltage.toFixed(2)+' mV</b> · activation <b>'+activity.toFixed(4)+'</b></div>'+ 
+    '<div>crosses paper motor boundary <b>'+boundary+'</b> · <a href="/neuron_viz/view?ids='+rootId+'" target="_blank" rel="noopener">open morphology ↗</a></div>';
+  cableInspectorRows.forEach((row,index)=>row.classList.toggle('selected',index===selectedCircuitCellIndex));
+}
+function renderCircuitInspector(C){
+  if(!C) return; updateCircuitStatus(C); buildCableInspector(C);
+  const cells=PaperMotorMonitor.extractCableCells(FG.bundle,C.model,NOD1_LATERALITY);
+  for(const cell of cells){
+    const row=cableInspectorRows.get(cell.index); if(!row) continue;
+    row.querySelector('[data-v]').textContent=Number.isFinite(cell.voltage_mv)?cell.voltage_mv.toFixed(2)+' mV':'— mV';
+    row.querySelector('[data-a]').textContent=Number.isFinite(cell.activation)?'act '+cell.activation.toFixed(3):'act —';
+    row.querySelector('.cc-fill').style.width=(100*clamp(cell.activation||0,0,1)).toFixed(1)+'%';
+  }
+  renderSelectedCircuitCell(C);
+}
+function selectCircuitMapCell(event){
+  const cv=document.getElementById('neuronCanvas'), C=activeCircuitContext(); if(!cv||!C||!window.PaperMotorMonitor) return;
+  ensureRetinotopicIndices(); const rect=cv.getBoundingClientRect();
+  const point=PaperMotorMonitor.canvasPointFromClient(event.clientX,event.clientY,rect,cv.width,cv.height);
+  const hits=[];
+  if(CIRCUIT_MAP_LAYOUTS.motion) hits.push(PaperMotorMonitor.nearestRetinotopicCell(CIRCUIT_RETINO.motion,point,CIRCUIT_MAP_LAYOUTS.motion,7));
+  if(CIRCUIT_MAP_LAYOUTS.llpc1) hits.push(PaperMotorMonitor.nearestRetinotopicCell(CIRCUIT_RETINO.llpc1,point,CIRCUIT_MAP_LAYOUTS.llpc1,8));
+  const hit=hits.filter(Boolean).sort((a,b)=>a.distance_px-b.distance_px)[0];
+  if(hit){ selectedCircuitCellIndex=hit.cell.index; renderCircuitInspector(C); fgDrawNeurons(); }
+}
+function smoothCircuitDN(dt){
+  const sa=1-Math.exp(-dt/FG.smTau);
+  for(const dn of FG_DN){ dn.smL=(dn.smL||0)+sa*(dn.actL-(dn.smL||0)); dn.smR=(dn.smR||0)+sa*(dn.actR-(dn.smR||0)); }
+}
+let lastPaperBroadcastMs=-Infinity;
+function broadcastPaperCircuit(){
+  if(!FGS_CHAN || !PAPER_CIRCUIT.model || !PAPER_CIRCUIT.stimulus) return;
+  const now=performance.now(); if(now-lastPaperBroadcastMs<30) return; lastPaperBroadcastMs=now;
+  const vv=PAPER_CIRCUIT.model.voltage, buf=new Float32Array(vv.length); for(let i=0;i<vv.length;i++) buf[i]=vv[i];
+  FGS_CHAN.postMessage({v:buf,figRet:wrap180(30+PAPER_CIRCUIT.stimulus.figure_angle_realized_deg),figW:12,figOn:true,mode:PAPER_CIRCUIT.mode});
+}
+
+/* ============================================================================
+   ANIMATION
+   ========================================================================== */
+function animate(){
+  requestAnimationFrame(animate);
+  const dt=Math.min(clock.getDelta(),0.05);
+  const paperActive=Boolean(window.PaperUI&&PaperUI.isPaperActive());
+  // Paper mode advances its neural circuit before the motor preview is
+  // evaluated. Legacy mode retains the historical one-frame control order.
+  if(paperActive) PaperUI.tick(dt);
+  computeControl();
+
+  // ── figure-ground closed loop: the FG circuit's descending command drives the turn ──
+  if(FG.on && FG.model){
+    fgStep(dt);                                 // steps the conductance model + drives the DNs (state.dnDrive)
+    // computeControl() (already run above) turned the DN drive into wing amplitudes + yaw;
+    // that DN-produced yaw is the fly's turn rate — nothing hand-wired here.
+    const yawN=Number.isFinite(state.yaw)?state.yaw:0;   // final safety net: never integrate a NaN into heading
+    FG.headingVel=clamp(yawN*FG.yawToRate, -FG.maxRate, FG.maxRate);
+    FG.steer=FG.headingVel;
+    // low-pass the REPORTED values (display only — the control loop above is untouched) so the on-screen readouts don't flicker
+    const sa=1-Math.exp(-dt/FG.smTau);
+    FG.smYaw    += sa*((state.yaw||0)-FG.smYaw);
+    FG.smSteer  += sa*(FG.steer-FG.smSteer);
+    FG.smHeading+= sa*(FG.heading-FG.smHeading);
+    smoothCircuitDN(dt);
+    if(figMesh){ const a=FG.figAz*D2R, R=5.4;   // move the 3-D figure bar to its world azimuth
+      figMesh.position.set(R*Math.cos(a), 0.3, R*Math.sin(a)); }
+    if(gratingMesh && gratingMesh.visible)       // spin the drum to match the model's grating displacement
+      gratingMesh.rotation.y = -FG.model.groundWorldDisp*D2R;
+    fgDrawNeurons(); fgDrawTrack();
+  }
+  if(paperActive && PAPER_CIRCUIT.model){
+    smoothCircuitDN(dt);
+    fgDrawNeurons();
+    broadcastPaperCircuit();
+  }
+
+  const visHz = 0.4 + state.viewSpeed*7.5;
+  phase += dt*visHz*Math.PI*2;
+  const psi=phase;                       // wingbeat cycle phase
+
+  const flying = state.powerAct>0.02 ? 1 : 0;
+  const esc=state.escapePulse;
+  const escDip = esc>0.01 ? -0.9*esc : 0;   // takeoff: wings dip down
+
+  // three-angle wing kinematics: φ = fore-aft sweep in a near-horizontal stroke plane;
+  // θ = deviation at 2× the beat → figure-eight tip path; α = angle of attack that flips
+  // (pronation/supination) at each stroke reversal so the wing makes lift on both half-strokes.
+  const THAMP=0.20, THMEAN=0.12, AOAK=3.0;
+  const setWing=(w, ampDeg, aoaDeg)=>{
+    const sgn=w.side;
+    const phiAmp=(ampDeg*Math.PI/180)/2;
+    const aoaMag=(aoaDeg*Math.PI/180);
+    const phi   = flying*phiAmp*Math.cos(psi);
+    const theta = flying*(THMEAN + THAMP*Math.sin(2*psi)) + escDip;
+    const aoa   = flying*aoaMag*Math.tanh(AOAK*Math.sin(psi));
+    w.phi.rotation.y   = sgn>0 ?  phi  : -phi;   // mirror sweep for the left wing
+    w.theta.rotation.x = theta;                   // deviation shared (both tips rise together)
+    w.alpha.rotation.z = sgn>0 ?  aoa  : -aoa;    // mirror angle of attack for the left wing
+  };
+  setWing(wingR, state.ampR, state.aoaR);
+  setWing(wingL, state.ampL, state.aoaL);
+  if(window.PaperUI) PaperUI.applyMeasuredWingFrame(wingL,wingR);
+
+  const downstroke = Math.max(0, -Math.sin(phase));
+  const upstroke   = Math.max(0,  Math.sin(phase));
+  const dlmGlow = (0.15 + downstroke)*state.dlm*(1+2*esc);
+  const dvmGlow = (0.15 + upstroke)*state.dvm;
+  dlmMeshes.forEach(m=>{ m.material.emissiveIntensity=0.15+1.5*dlmGlow;
+    m.scale.y=1 - 0.06*downstroke*state.dlm - 0.18*esc; });   // scale.y = fibre length (rotated to lie along X)
+  dvmMeshes.forEach(m=>{ m.material.emissiveIntensity=0.15+1.5*dvmGlow;
+    m.scale.y=1 - 0.06*upstroke*state.dvm; });
+
+  const squish = 0.04*(downstroke*state.dlm) + 0.10*esc;
+  bodyGroup.scale.set(1+squish*0.5, 1-squish, 1);
+
+  const glowCluster=(cl, side)=>{
+    let tot=0; STEER_M.forEach(m=>tot+=state.muscleAct[m.id+'_'+side]||0);
+    tot=clamp(tot/STEER_M.length*2.2,0,1.4);
+    cl.meshes.forEach((m,i)=>{ m.material.emissiveIntensity=0.1+1.8*tot;
+      m.scale.setScalar(1+0.12*tot*Math.sin(phase*3+i)); });
+  };
+  glowCluster(steerClusterR,'R'); glowCluster(steerClusterL,'L');
+
+  // body attitude — X=longitudinal(roll), Y=vertical(yaw), Z=lateral(pitch)
+  const yawN = clamp(state.yaw/70, -1, 1);
+  if(window.PaperUI && PaperUI.isPaperActive()) flyRoot.rotation.y = 0; // rigid open-loop paper tether
+  else if(FG.on) flyRoot.rotation.y = -FG.heading*D2R;             // track: face the current heading
+  else flyRoot.rotation.y += (-(yawN*0.5) - flyRoot.rotation.y)*0.05;   // yaw the nose into the turn
+  if(window.PaperUI && PaperUI.isPaperActive()) flyRoot.rotation.x = 0;
+  else flyRoot.rotation.x += (( yawN*0.35) - flyRoot.rotation.x)*0.05;  // bank/roll into the turn
+  const pitch = (state.mode==='forward')?-0.22:0.0;               // nose-down in forward flight
+  if(window.PaperUI && PaperUI.isPaperActive()) flyRoot.rotation.z = 0;
+  else flyRoot.rotation.z += (pitch - flyRoot.rotation.z)*0.04;    // pitch (about the lateral axis)
+
+  const hopY = esc*0.9*Math.sin(Math.min(esc*Math.PI,Math.PI));
+  if(window.PaperUI && PaperUI.isPaperActive()) flyRoot.position.y = 0;
+  else if(state.mode==='hover' && esc<0.01) flyRoot.position.y = Math.sin(clock.elapsedTime*1.4)*0.05;
+  else flyRoot.position.y = hopY;
+
+  controls.update();
+  renderer.render(scene,camera);
+  updateHUD(); syncMuscleBars();
+}
+
+function onResize(){
+  const w=window.innerWidth,h=window.innerHeight;
+  camera.aspect=w/h; camera.updateProjectionMatrix(); renderer.setSize(w,h);
+}
+
+/* ============================================================================
+   UI
+   ========================================================================== */
+const $=id=>document.getElementById(id);
+let fillEls={};   // cached [data-fill] elements → avoid per-frame querySelector
+const GRP_META={
+  power:{label:'Power / amplitude', col:'#ff7a45'},
+  tension:{label:'Tension (power control)', col:'#ffcf5d'},
+  steer:{label:'Steering (turns)', col:'#38e2c8'},
+  escape:{label:'Escape (Giant Fiber)', col:'#ff5d7a'},
+};
+
+function buildDNPanel(){
+  const host=$('dnList'); host.innerHTML='';
+  ['power','tension','steer','escape'].forEach(g=>{
+    const inG=DNS.filter(d=>d.grp===g); if(!inG.length) return;
+    const lab=document.createElement('div'); lab.className='grp-label';
+    lab.innerHTML='<span class="dot" style="background:'+GRP_META[g].col+'"></span>'+GRP_META[g].label+
+      ' <span class="gcount">'+inG.length+'</span>';
+    host.appendChild(lab);
+    inG.forEach(d=>host.appendChild(dnCard(d)));
+  });
+  const c=$('dnCount'); if(c) c.textContent=DNS.length;
+}
+function filterDN(q){
+  q=(q||'').trim().toLowerCase();
+  document.querySelectorAll('#dnList .dn').forEach(el=>{
+    const d=DNS.find(x=>x.t===el.dataset.t); if(!d) return;
+    const hay=(d.t+' '+d.grp+' '+Object.keys(d.musc).join(' ')).toLowerCase();
+    el.style.display=(!q||hay.indexOf(q)>=0)?'':'none';
+  });
+  document.querySelectorAll('#dnList .grp-label').forEach(lab=>{   // hide empty groups
+    let n=lab.nextElementSibling, any=false;
+    while(n && !n.classList.contains('grp-label')){
+      if(n.classList.contains('dn') && n.style.display!=='none') any=true; n=n.nextElementSibling; }
+    lab.style.display=any?'':'none';
+  });
+}
+const TURN_META={
+  contra:{lab:'↻ contraversive', cls:'tt-contra', tip:'Predicted to turn the fly AWAY from the firing side'},
+  ipsi:  {lab:'↺ ipsiversive',   cls:'tt-ipsi',   tip:'Predicted to turn the fly TOWARD the firing side'},
+  bilateral:{lab:'⇄ bilateral', cls:'tt-bi', tip:'Symmetric drive — no net turn (power/amplitude)'},
+  unclear:{lab:'? direction unclear', cls:'tt-unc', tip:'Muscle targets do not give a confident turn direction'},
+  escape:{lab:'⚡ escape', cls:'tt-esc', tip:'Escape command — non-directional'},
+};
+function turnBadge(d){
+  const T=TURN_META[d.turn||'unclear']; if(!T) return '';
+  let dots='';
+  if((d.turn==='contra'||d.turn==='ipsi') && d.conf!=null){
+    const n=Math.max(1,Math.min(3,Math.round(d.conf*3)));
+    dots=' <span class="tconf">'+'●'.repeat(n)+'○'.repeat(3-n)+'</span>';
+  }
+  return '<span class="turntag '+T.cls+'" title="'+T.tip+(d.ipsi_frac!=null?' · ipsi '+Math.round(d.ipsi_frac*100)+'%':'')+'">'+T.lab+dots+'</span>';
+}
+function dnCard(d){
+  const el=document.createElement('div'); el.className='dn'; el.dataset.t=d.t;
+  const ntlab = d.nt==='gaba'?'GABA −' : d.nt==='glut'?'Glu' : 'ACh +';
+  const ntcls = d.nt==='gaba'?'gaba' : d.nt==='glut'?'glut' : '';
+  const tot = Object.values(d.musc).reduce((a,b)=>a+b,0);
+  const chips = Object.entries(d.musc).sort((a,b)=>b[1]-a[1]).slice(0,6).map(function(e){
+    const g=(MUSCLE_META[e[0]]||{}).group||'steer';
+    return '<span class="chip '+g+'">'+e[0]+' <b>'+e[1]+'</b></span>';
+  }).join('');
+  el.innerHTML=
+    '<span class="fireflag">▶ FIRING</span>'+
+    '<div class="row1"><span class="name">'+d.t+'</span>'+
+      '<span class="nt '+ntcls+'">'+ntlab+'</span>'+
+      '<span class="cells">'+d.cells+' cell'+(d.cells>1?'s':'')+' · '+tot+' syn</span></div>'+
+    '<div class="role">'+d.role+'</div>'+
+    '<div class="turnrow">'+turnBadge(d)+'</div>'+
+    '<div class="chips">'+chips+'</div>'+
+    '<div class="sidesel">fire <button data-s="L">L</button><button data-s="both">L+R</button><button data-s="R">R</button></div>';
+  el.onclick=e=>{ if(e.target.closest('.sidesel')) return; toggleDN(d.t, el); };
+  el.querySelectorAll('.sidesel button').forEach(b=> b.onclick=e=>{ e.stopPropagation(); setDNSide(d.t, b.dataset.s, el); });
+  return el;
+}
+function toggleDN(t, el){
+  if(state.fireDN.has(t)){ state.fireDN.delete(t); }
+  else { state.fireDN.set(t,'both');
+    const d=DNS.find(x=>x.t===t); if(d && d.grp==='escape') state.escapePulse=1; }  // kick a takeoff
+  setMode(null); syncDNCard(el);
+}
+function setDNSide(t, side, el){   // fire this DN on a specific side (activates it if needed)
+  state.fireDN.set(t, side);
+  const d=DNS.find(x=>x.t===t); if(d && d.grp==='escape') state.escapePulse=1;
+  setMode(null); syncDNCard(el);
+}
+function syncDNCard(el){
+  const t=el.dataset.t, firing=state.fireDN.has(t), side=firing?state.fireDN.get(t):null;
+  el.classList.toggle('on', firing);
+  el.querySelectorAll('.sidesel button').forEach(b=> b.classList.toggle('on', firing && b.dataset.s===side));
+}
+
+function grpLabel(col,txt){ const d=document.createElement('div'); d.className='grp-label';
+  d.innerHTML='<span class="dot" style="background:'+col+'"></span>'+txt; return d; }
+function sclNote(txt){ const d=document.createElement('div'); d.className='sclerite'; d.textContent=txt; return d; }
+function lrBars(m,cl,cr){ return '<div class="lr">'+
+  '<div class="lrbar"><div class="lab">L</div><div class="track"><div class="fill" data-fill="'+m.id+'_L" style="background:'+cl+'"></div></div></div>'+
+  '<div class="lrbar"><div class="lab">R</div><div class="track"><div class="fill" data-fill="'+m.id+'_R" style="background:'+cr+'"></div></div></div></div>'; }
+
+function buildMusclePanel(){
+  const host=$('muscleList'); host.innerHTML='';
+  host.appendChild(grpLabel('#ff7a45','Indirect (power) muscles'));
+  MUSCLES.filter(m=>m.group==='power').forEach(m=>host.appendChild(powerRow(m)));
+  host.appendChild(sclNote('asynchronous · stretch-activated · resonate at ~200 Hz'));
+  host.appendChild(grpLabel('#ffcf5d','Tension muscles (power control)'));
+  MUSCLES.filter(m=>m.group==='tension').forEach(m=>host.appendChild(tensionRow(m)));
+  host.appendChild(grpLabel('#38e2c8','Direct (steering) muscles'));
+  let lastScl='';
+  STEER_M.forEach(m=>{ if(m.scl!==lastScl){ host.appendChild(sclNote(m.scl+' sclerite')); lastScl=m.scl; }
+    host.appendChild(steerRow(m)); });
+  fillEls={};
+  host.querySelectorAll('[data-fill]').forEach(el=>{ fillEls[el.getAttribute('data-fill')]=el; });
+}
+function powerRow(m){
+  const el=document.createElement('div'); el.className='msc'; el.dataset.id=m.id;
+  el.innerHTML=
+    '<div class="top"><span class="mid" style="background:'+m.col+'"></span>'+
+      '<span class="nm">'+m.id+'</span><span class="meta">'+m.role+' · '+m.mns+' MNs/side</span></div>'+
+    lrBars(m,m.col,m.col)+
+    '<div class="note">'+m.full+' muscles — '+(m.role==='DOWNSTROKE'?'contraction bows the notum → wing downstroke.':'contraction pulls the notum in → wing upstroke.')+'</div>';
+  el.querySelector('.top').onclick=()=>el.classList.toggle('exp');
+  return el;
+}
+function tensionRow(m){
+  const el=document.createElement('div'); el.className='msc'; el.dataset.id=m.id;
+  el.innerHTML=
+    '<div class="top"><span class="mid" style="background:'+m.col+'"></span>'+
+      '<span class="nm">'+m.id+'</span><span class="meta">tension</span></div>'+
+    lrBars(m,'#e0b84a',m.col)+
+    '<div class="note">'+m.full+' — thorax-tension muscle; stiffens the thorax to modulate flight power / amplitude.</div>';
+  el.querySelector('.top').onclick=()=>el.classList.toggle('exp');
+  return el;
+}
+function steerRow(m){
+  const el=document.createElement('div'); el.className='msc'; el.dataset.id=m.id;
+  const sign=m.amp>=0?'+':'−';
+  el.innerHTML=
+    '<div class="top"><span class="mid" style="background:#38e2c8"></span>'+
+      '<span class="nm">'+m.id+'</span><span class="meta">'+(m.tonic?'tonic':'phasic')+' · amp '+sign+'</span></div>'+
+    lrBars(m,'#7aa2ff','#38e2c8')+
+    '<div class="note">'+m.note+'</div>';
+  el.querySelector('.top').onclick=()=>el.classList.toggle('exp');
+  return el;
+}
+function syncMuscleBars(){
+  const dsEnv=0.5+0.5*Math.max(0,-Math.sin(phase));   // downstroke envelope (DLM)
+  const usEnv=0.5+0.5*Math.max(0, Math.sin(phase));    // upstroke envelope (DVM)
+  MUSCLES.forEach(m=>{
+    ['L','R'].forEach(s=>{
+      const f=fillEls[m.id+'_'+s]; if(!f) return;
+      let v=state.muscleAct[m.id+'_'+s]||0;
+      if(m.id==='DLM') v=state.dlm*dsEnv; else if(m.id==='DVM') v=state.dvm*usEnv;
+      f.style.width=Math.min(100,Math.max(0,Math.round(100*v/1.2)))+'%';
+    });
+  });
+}
+function updateHUD(){
+  if(!$('hudFreq')) return;   // top HUD removed — no-op
+  $('hudFreq').textContent=state.freqHz;
+  $('hudAmpL').textContent=Math.round(state.ampL)+'°';
+  $('hudAmpR').textContent=Math.round(state.ampR)+'°';
+  $('hudAoaL').textContent=Math.round(state.aoaL)+'°';
+  $('hudAoaR').textContent=Math.round(state.aoaR)+'°';
+  const y=(FG.on&&FG.smSteer!=null)?FG.smSteer:state.yaw;   // smoothed DN yaw-rate (°/s) in figure-ground mode
+  $('hudYaw').textContent=(Math.abs(y)<3?'0 · straight':(y>0?'→ right '+Math.round(y):'← left '+Math.round(-y)));
+  $('hudMode').textContent=FG.on?'figure-ground':(state.mode||'idle');
+}
+
+const MODES={
+  hover:   {dns:['DNg02'], side:'both', pow:0.42},
+  forward: {dns:['DNg02','DNp31','DNa08'], side:'both', pow:0.72},
+  left:    {dns:['DNg17','DNa04'], side:'L', pow:0.5},   // ipsiversive DNs, left copy → yaw left
+  right:   {dns:['DNg17','DNa04'], side:'R', pow:0.5},   // ipsiversive DNs, right copy → yaw right
+  escape:  {dns:['DNp01','DNp10'], side:'both', pow:0.85},
+};
+function setMode(mode){
+  state.mode=mode;
+  document.querySelectorAll('.mode[data-mode]').forEach(b=>b.classList.toggle('on', b.dataset.mode===mode));
+  if(!mode) return;
+  const M=MODES[mode];
+  state.fireDN=new Map();
+  (M.dns||[]).forEach(t=> state.fireDN.set(t, M.side||'both'));   // preset sets each DN's side
+  state.power=M.pow;   // (flight-power / wingbeat sliders removed — power is preset + FG auto-start)
+  if(mode==='escape') state.escapePulse=1;
+  refreshDNCards();
+}
+function refreshDNCards(){ document.querySelectorAll('.dn').forEach(syncDNCard); }
+
+function wireUI(){
+  buildDNPanel(); buildMusclePanel(); buildSci();
+  $('neuronCanvas').addEventListener('click',selectCircuitMapCell);
+  $('dnSearch').oninput=e=>filterDN(e.target.value);
+  $('resetBtn').onclick=()=>{ if(FG.model) fgReset(); };   // recenter the figure-ground loop
+  $('sciBtn').onclick=()=>{ const s=$('sci'); s.style.display=(s.style.display==='flex')?'none':'flex'; };
+  $('sciClose').onclick=()=>{ $('sci').style.display='none'; };
+  // combined panel: switch between the circuit-neurons and flight-muscles tabs
+  const switchTab=n=>{ $('paneNeurons').style.display=n?'flex':'none'; $('paneMuscles').style.display=n?'none':'flex';
+    $('tabNeurons').classList.toggle('on',n); $('tabMuscles').classList.toggle('on',!n); };
+  $('tabNeurons').onclick=()=>switchTab(true);
+  $('tabMuscles').onclick=()=>switchTab(false);
+  // stimulus control (the circuit itself is always live)
+  $('figChk').onchange=e=>{ FG.figOn=e.target.checked;                      // show/hide the moving bar (retina + 3D)
+    if(FG.model) FG.model.scene.figOn=FG.figOn; if(figMesh) figMesh.visible=FG.figOn; };
+  $('fgSpeed').oninput=e=>{ FG.figVel=+e.target.value; $('fgSpeedV').textContent=e.target.value+'°/s'; };
+  // optomotor drum: toggle the rotating grating background + set its spin speed
+  $('gratChk').onchange=e=>{ FG.gratingOn=e.target.checked;
+    if(FG.model) FG.model.scene.gratingOn=FG.gratingOn;
+    if(gratingMesh) gratingMesh.visible=FG.gratingOn; };
+  $('gratSpeed').oninput=e=>{ FG.bgVel=+e.target.value; $('gratSpeedV').textContent=e.target.value+'°/s'; };
+  $('gratOscChk').onchange=e=>{ FG.gratOsc=e.target.checked; if(!FG.gratOsc) FG.gratPhase=0; };   // sinusoidal vs constant spin
+  $('gratOscRate').oninput=e=>{ FG.gratOscHz=+e.target.value; $('gratOscRateV').textContent=(+e.target.value).toFixed(2)+' Hz'; };
+  $('ablVchChk').onchange=e=>{ FG.ablateWf=e.target.checked; if(FG.model) FG.model.ablateWf=FG.ablateWf; };   // lesion both wide-field inhibitory cells (vCH + DCH)
+  setMode('hover');
+}
+
+function buildSci(){
+  $('sciBody').innerHTML=
+  '<p><b>Three muscle systems drive the wing.</b> Every muscle identity and DN→muscle number below is read '+
+  'directly from the <b>MANC / male-CNS connectome</b> (neuPrint <code>male-cns:v1.0</code>).</p>'+
+  '<h3>Power — indirect flight muscles (IFMs)</h3>'+
+  '<p>The <span class="k">DLM</span> (dorsal longitudinal, 5 MNs/side) and <span class="k">DVM</span> '+
+  '(dorsoventral, 7 MNs/side) don\'t attach to the wing — they deform the thorax. DLM → <b>downstroke</b>, '+
+  'DVM → <b>upstroke</b>. <b>Asynchronous & stretch-activated</b>: the thorax resonates at ~200 Hz while the '+
+  'motor neurons fire only ~5–20 Hz. <cite>Gordon & Dickinson 2006</cite></p>'+
+  '<h3>Tension — power control</h3>'+
+  '<p>The <span class="k">pleurosternal</span> (ps1, ps2) and <span class="k">tergopleural</span> (tp1, tp2, tpn) '+
+  'muscles stiffen the thorax to modulate how much power the IFMs deliver. The amplitude-coding population '+
+  '<span class="k">DNg02</span> targets these most heavily. <cite>Lindsay et al. 2017</cite></p>'+
+  '<h3>Steering — direct control muscles</h3>'+
+  '<p>Muscles on the wing-hinge sclerites — <b>basalar</b> (b1–b3), <b>1st axillary</b> (i1, i2), '+
+  '<b>3rd axillary</b> (iii1, iii3), <b>4th axillary</b> (hg1–hg4) — fire phase-locked to the wingbeat to '+
+  'sculpt each stroke. <span class="k">b2</span> <b>increases</b> ipsilateral amplitude; <span class="k">i2</span> '+
+  'gives the strongest <b>decrease</b>. Left–right asymmetry yaws the fly <i>away</i> from the harder-beating wing. '+
+  '<cite>Lindsay, Sustar & Dickinson 2017; Cheong et al. 2024</cite></p>'+
+  '<h3>Descending neurons</h3>'+
+  '<p>Each card shows a DN\'s <b>real target muscles</b> + synapse counts (<code>dn_edges</code>). '+
+  '<span class="k">DNg02</span> drives tension (tp2/ps1) → flight power; <span class="k">DNp49</span> is nearly '+
+  'pure iii1; <span class="k">DNge107</span> is GABAergic onto b1/b2; <span class="k">DNp01</span> is the '+
+  '<b>Giant Fiber</b> (escape via PSI→DLM + →TTM jump — sparse direct synapses). 220 DN types touch the '+
+  'wing muscles; the <b>74 with well-supported connections</b> (≥100 synapses via ≥5-synapse edges) are '+
+  'connected here, grouped by dominant system. <cite>Namiki 2018; Cheong 2024</cite></p>'+
+  '<h3>How the wing moves</h3>'+
+  '<p>Animated with the standard three angles: <b>stroke sweep</b> (φ — the big fore-aft rowing in a '+
+  'near-horizontal stroke plane, ~150°), a small <b>deviation</b> (θ, at 2× the beat → the figure-eight '+
+  'tip path), and the <b>angle of attack</b> (α ~45° that <b>flips</b> — pronation/supination — at each '+
+  'reversal, so the wing makes lift on both half-strokes). <cite>Fry, Sayaman & Dickinson 2003, 2005</cite></p>'+
+  '<h3>Which way does each DN turn?</h3>'+
+  '<p>Turn direction is <b>computed from the connectome</b>, not assumed. For each DN we split its synapses '+
+  'into the <b>ipsilateral</b> vs <b>contralateral</b> wing muscles (from each cell\'s soma side and each motor '+
+  'neuron\'s wing side), then apply the measured amplitude sign of each steering muscle '+
+  '(<span class="k">b2, iii3, iii1</span> raise amplitude; <span class="k">i1, i2, b3</span> lower it). The fly '+
+  'yaws <b>away</b> from the higher-amplitude wing. Each card is tagged <b>↻ contraversive</b> (turns away from '+
+  'the firing side), <b>↺ ipsiversive</b> (toward it), <b>⇄ bilateral</b>, or <b>? unclear</b>, with a '+
+  'confidence. <cite>Lindsay, Sustar & Dickinson 2017; DNp03 saccade paper, Curr Biol 2025</cite></p>'+
+  '<p style="color:#5f7186;margin-top:6px">Honest limits: DNs can cross the midline (e.g. DNp03 — my data has '+
+  'it contralaterally-biased, and it is validated as <b>contraversive</b>, steering away from looming), so soma '+
+  'side ≠ muscle side. The fourth-axillary (hg) muscles act on angle of attack, not amplitude, so their turn '+
+  'effect is unestablished — many DNs are legitimately <b>unclear</b>. And the muscle→motion transform runs '+
+  'through a nonlinear <b>wing hinge</b> with no closed-form solution. <cite>Melis, Siwanowicz & Dickinson 2024, '+
+  'Nature</cite></p>'+
+  '<p style="color:#5f7186;margin-top:8px">Model notes: muscle identities, DN→muscle wiring, and each DN\'s '+
+  'ipsi/contra split are <i>real MANC data</i>; the per-muscle amplitude signs are from the flight literature; '+
+  'the turn direction is a confidence-weighted <i>prediction</i>. MANC is a male CNS (a different specimen from '+
+  'the FAFB brain). Proportions match measured <i>D. melanogaster</i>: wing ≈2.4 mm, thorax ≈1 mm, head ≈0.7× '+
+  'thorax.</p>'+
+  '<h3>Figure-ground: how vision steers the fly</h3>'+
+  '<p>Switch on <b>figure-ground</b> and the simulator closes the sensorimotor loop — vision now drives the '+
+  'steering. A small dark <b>figure</b> drifts around the fly against a striped <b>ground</b>. The retina is '+
+  'sampled into a 1-D azimuth strip, and neighbouring samples feed <b>correlation-type motion detectors</b> '+
+  '(Hassenstein–Reichardt EMDs) — the elementary computation carried in the fly by <b>T4/T5</b>. '+
+  '<cite>Hassenstein &amp; Reichardt 1956; Maisak et al. 2013</cite></p>'+
+  '<p>Pooling the detectors gives the <b>wide-field</b> signal (self-motion / optic flow — the job of the '+
+  'lobula-plate tangential cells and the <b>vCH/DCH</b> horizontal cells). Subtracting that wide-field average '+
+  'from each local detector leaves the <b>relative motion</b> that betrays an object moving differently from its '+
+'background — the classic figure-ground computation, read out here by the <b>NOD1</b> figure cells. '+
+  '<cite>Reichardt, Poggio &amp; Hausen 1983; Egelhaaf 1985; Krapp &amp; Hengstenberg 1996</cite></p>'+
+  '<p>Crucially, the visual circuit reaches the wing preview only through <b>descending neurons</b>. In the '+
+  '<b>paper assay</b>, only the four exact <b>NOD1</b> cells cross that boundary; LLPC1 remains visible for '+
+  'monitoring but does not drive muscles. NOD1 structural targets with non-zero counts — <b>DNp26</b>, '+
+  '<b>DNbe001</b>, <b>DNg32</b>, and <b>DNge107</b> — then use the type-level MANC muscle table. The historical '+
+  '<b>legacy tracking</b> mode retains its original pooled LLPC1+NOD1 controller. FAFB and MANC are different '+
+  'specimens and identifier spaces; their structural counts are relative exploratory weights, not calibrated '+
+  'synaptic efficacy. <cite>llpc1_dn analysis; MANC premotor connectome</cite></p>'+
+  '<p style="color:#5f7186;margin-top:6px">What is actually running: the <b>real multi-compartment conductance '+
+  'model</b> from <code>/nod1_sim</code>, imported wholesale — a <b>Hines cable solver</b> over real FlyWire '+
+  'vCH/DCH/NOD1 morphologies with <b>conductance synapses</b> on prepared connectome wiring — stepped at '+
+  '<b>2.5&nbsp;ms (400 Hz)</b> in the paper assay, then read out at the explicit NOD1-only motor boundary. It runs the '+
+  '~1450 T4a motion-cell population</b> (≈62k synapses) with cables reduced to ~50 compartments — a couple of '+
+  'milliseconds per solver step, comfortably real-time. The T4→LLPC1 conductance is scaled up so LLPC1 fires and '+
+  'is visible upstream. Legacy tracking is imperfect — this circuit has no wide-field→DN optomotor damping '+
+  '(vCH/DCH barely touch DNs), so the fly <i>follows</i> the figure rather than fixating it tightly. The cable '+
+  'dynamics and structural wiring are mechanistic, but the browser DN/muscle transform remains exploratory '+
+  'and its steering signal is reported only in arbitrary units.</p>'+
+  '<h3>Key references</h3>'+
+  '<div class="refs">'+
+  '<div class="refgrp">Connectome & neurons</div>'+
+  '<div class="ref"><a href="https://elifesciences.org/articles/96084" target="_blank" rel="noopener">Cheong, Eichler, Stürner et al. 2024 · eLife</a> — MANC premotor connectome (DN→muscle wiring & laterality).</div>'+
+  '<div class="ref"><a href="https://elifesciences.org/reviewed-preprints/97769" target="_blank" rel="noopener">Marin, Court, Takemura et al. 2024 · eLife</a> — MANC neuron typing (motor-neuron→muscle identities).</div>'+
+  '<div class="ref"><a href="https://elifesciences.org/articles/34272" target="_blank" rel="noopener">Namiki, Dickinson, Korff & Card 2018 · eLife</a> — descending-neuron atlas.</div>'+
+  '<div class="refgrp">Steering muscles & wing hinge</div>'+
+  '<div class="ref"><a href="https://www.sciencedirect.com/science/article/pii/S0960982216314658" target="_blank" rel="noopener">Lindsay, Sustar & Dickinson 2017 · Curr. Biol.</a> — the 12 steering muscles & amplitude control.</div>'+
+  '<div class="ref"><a href="https://www.nature.com/articles/s41586-024-07293-4" target="_blank" rel="noopener">Melis, Siwanowicz & Dickinson 2024 · Nature</a> — machine-learning model of the wing hinge.</div>'+
+  '<div class="ref"><a href="https://pubmed.ncbi.nlm.nih.gov/8667294/" target="_blank" rel="noopener">Tu & Dickinson 1996 · J. Comp. Physiol. A</a> — b1/b2 basalar-muscle physiology.</div>'+
+  '<div class="ref"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9750141/" target="_blank" rel="noopener">Whitehead et al. 2022 · Sci. Adv.</a> — b1/b2 optogenetics (pitch control).</div>'+
+  '<div class="ref"><a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001822" target="_blank" rel="noopener">Walker, Schwyn, Mokso et al. 2014 · PLOS Biol.</a> — how flight steering muscles work (X-ray tomography).</div>'+
+  '<div class="ref"><a href="https://www.pnas.org/doi/10.1073/pnas.0603045103" target="_blank" rel="noopener">Gordon & Dickinson 2006 · PNAS</a> — stretch-activation of the indirect flight muscles.</div>'+
+  '<div class="refgrp">Kinematics & aerodynamics</div>'+
+  '<div class="ref"><a href="https://www.science.org/doi/10.1126/science.1092055" target="_blank" rel="noopener">Fry, Sayaman & Dickinson 2003 · Science</a> — aerodynamics of free-flight maneuvers.</div>'+
+  '<div class="ref"><a href="https://journals.biologists.com/jeb/article/208/12/2303/" target="_blank" rel="noopener">Fry, Sayaman & Dickinson 2005 · J. Exp. Biol.</a> — aerodynamics of hovering flight.</div>'+
+  '<div class="ref"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4992712/" target="_blank" rel="noopener">Dickinson & Muijres 2016 · Phil. Trans. R. Soc. B</a> — control of free-flight maneuvers.</div>'+
+  '<div class="ref"><a href="https://dragonfly.tam.cornell.edu/publications/2010_PRL_Bergou_Wang.pdf" target="_blank" rel="noopener">Bergou, Ristroph, Cohen & Wang 2010 · Phys. Rev. Lett.</a> — passive wing pitching generates turns.</div>'+
+  '<div class="ref"><a href="https://journals.biologists.com/jeb/article/182/1/173/" target="_blank" rel="noopener">Dickinson, Lehmann & Götz 1993 · J. Exp. Biol.</a> — active control of wing rotation.</div>'+
+  '<div class="refgrp">Descending control of turning & escape</div>'+
+  '<div class="ref"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12977095/" target="_blank" rel="noopener">DNp03 flight-saccade network 2025 · Curr. Biol.</a> — DNp03 steers away from looming (validates contraversive).</div>'+
+  '<div class="ref"><a href="https://www.cell.com/current-biology/fulltext/S0960-9822(19)30138-1" target="_blank" rel="noopener">Ache, Kadow-Grunwald, Card et al. 2019 · Curr. Biol.</a> — Giant Fiber (DNp01) escape.</div>'+
+  '<div class="ref"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9206711/" target="_blank" rel="noopener">Namiki, Ros, Morrow, Card et al. 2022 · Curr. Biol.</a> — DNg02 population controls flight power.</div>'+
+  '<div class="ref"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12279373/" target="_blank" rel="noopener">Rayshubskiy et al. 2025 · eLife</a> — DNa02 steering (ipsiversive).</div>'+
+  '<div class="refgrp">Motion vision & figure-ground</div>'+
+  '<div class="ref"><a href="https://www.nature.com/articles/nature12320" target="_blank" rel="noopener">Maisak, Haag, Ammer et al. 2013 · Nature</a> — T4/T5 are the ON/OFF direction-selective motion detectors.</div>'+
+  '<div class="ref"><a href="https://www.nature.com/articles/384463a0" target="_blank" rel="noopener">Krapp & Hengstenberg 1996 · Nature</a> — lobula-plate tangential cells encode optic-flow fields.</div>'+
+  '<div class="ref"><a href="https://doi.org/10.1146/annurev-neuro-060909-153155" target="_blank" rel="noopener">Borst, Haag & Reiff 2010 · Annu. Rev. Neurosci.</a> — fly motion vision: EMD → T4/T5 → tangential cells.</div>'+
+  '<div class="ref"><a href="https://www.nature.com/articles/nn.2492" target="_blank" rel="noopener">Maimon, Straw & Dickinson 2010 · Nat. Neurosci.</a> — active flight increases the gain of visual motion processing.</div>'+
+  '<div class="refgrp">Body size</div>'+
+  '<div class="ref"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3227175/" target="_blank" rel="noopener">Shingleton et al. · PMC</a> — morphological scaling (thorax & wing size).</div>'+
+  '<div class="ref" style="color:#5f7186;margin-top:6px">Data: neuPrint <code>male-cns:v1.0</code> (MANC) via the /descending atlas; FlyWire FAFB for brain-connectome context.</div>'+
+  '</div>';
+}
+
+/* ---- boot ---- */
+function boot(){
+  try{ init(); wireUI(); }
+  catch(err){ document.getElementById('loading').textContent='WebGL error: '+(err&&err.message||err);
+    console.error(err); }
+}
+// load the DN set + the REAL figure-ground conductance-model bundle, then boot
+Promise.all([
+  fetch('data/wing_dns.json', {cache:'no-store'}).then(r=>r.json()).catch(e=>{ console.warn('DN data fetch failed — inline fallback', e); return null; }),
+  fetch('data/bundle_fg.json', {cache:'no-store'}).then(r=>r.json()).catch(e=>{ console.warn('figure-ground bundle fetch failed', e); return null; }),
+  fetch('data/nod1_laterality.v1.json', {cache:'no-store'}).then(r=>r.json()).catch(e=>{ console.warn('NOD1 laterality receipt failed', e); return null; }),
+]).then(([dn, bundle, laterality])=>{
+  if(dn && Array.isArray(dn.dns) && dn.dns.length) DNS=dn.dns;
+  DNS_BY_T=new Map(DNS.map(d=>[d.t,d]));   // index once (avoids per-frame DNS.find in the DN-drive loop)
+  if(bundle && bundle.ids && window.FGModel){ FG.bundle=bundle; FG.ready=true; }
+  if(laterality && window.PaperMotorMonitor){
+    try{ PaperMotorMonitor.lateralityByRoot(laterality); NOD1_LATERALITY=laterality; }
+    catch(error){ console.error('NOD1 laterality receipt rejected',error); }
+  }
+  boot();
+  // Paper assay is the default.  The historical closed-loop application is
+  // retained behind the explicitly labelled legacy mode.
+  if(FG.ready){
+    fgSetOn(false);
+    const np=document.getElementById('npCells'); if(np) np.textContent=FG.bundle.ids.length;
+    PaperUI.start({
+      bundle:FG.bundle, scene, figureMesh:figMesh, groundMesh:gratingMesh,
+      setLegacyMode(active){
+        fgSetOn(active);
+        if(!active && PAPER_CIRCUIT.readout){ try{ applyPaperMotorPreview(PAPER_CIRCUIT.readout); }catch(error){ PAPER_CIRCUIT.error=String(error&&error.message||error); } }
+        document.getElementById('fgPanel').classList.toggle('show',active);
+        document.getElementById('trackPanel').classList.toggle('show',active);
+        if(active) positionRightPanels();
+      },
+      onCircuitSample:onPaperCircuitSample,
+      onCircuitError(error){ PAPER_CIRCUIT.error=String(error&&error.message||error); }
+    }).catch(err=>{
+      console.error('paper assay failed to initialize',err);
+      const ps=document.getElementById('paperStatus'); if(ps) ps.innerHTML='<strong>PAPER ASSAY FAILED</strong><br/>'+String(err&&err.message||err);
+    });
+    window.addEventListener('resize', positionRightPanels);
+  } else {
+    const b=document.getElementById('fgBtn'); if(b){ b.textContent='● figure-ground · model failed to load'; b.classList.remove('on'); }
+  }
+});
+</script>
+</body>
+</html>
