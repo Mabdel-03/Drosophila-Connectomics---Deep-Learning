@@ -1,0 +1,1197 @@
+{
+  "meta": {
+    "investigation": "Stage 9 \u2014 how the left and right figure-ground circuits connect and communicate",
+    "papers": [
+      "Figure_Ground_Circuit.pdf (Ziyin ... Poggio)",
+      "Egelhaaf 1985 (FD cells)"
+    ],
+    "flywire_track": "live",
+    "flywire_datastack": "flywire_fafb_public v783 (synapses_nt_v1, no cleft threshold)",
+    "synapse_space_midline_um": 529.0,
+    "midline_self_test_ok": true,
+    "verdict_counts": {
+      "CONFIRMED": 21,
+      "UNVERIFIABLE": 6
+    },
+    "n_claims": 27
+  },
+  "midline": {
+    "ref_type": "LLPC1",
+    "sides": {
+      "left": {
+        "median_x": 331.59000000000003,
+        "p10_x": 292.1556,
+        "p90_x": 378.924,
+        "n": 83020
+      },
+      "right": {
+        "median_x": 726.422,
+        "p10_x": 678.2628,
+        "p90_x": 765.672,
+        "n": 100348
+      }
+    },
+    "midline_x_um": 529.0,
+    "right_lobe_is_high_x": true,
+    "side_gap_um": 394.8,
+    "within_side_spread_um": 87.1,
+    "separation_ratio": 4.53,
+    "self_test_ok": true
+  },
+  "channels": {
+    "N1": {
+      "title": "Readout crossing: Nod1 -> contralateral DNp26 command",
+      "verdicts": {
+        "CONFIRMED": 8,
+        "UNVERIFIABLE": 1
+      },
+      "claims": [
+        {
+          "id": "N1.left_nod1_crosses",
+          "description": "Left-soma Nod1 reaches the RIGHT DNp26 (readout crosses midline)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N1.right_nod1_crosses",
+          "description": "Right-soma Nod1 reaches the LEFT DNp26 (readout crosses midline)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N1.left_nod1_to_right_dnp26_count",
+          "description": "Left Nod1 -> right DNp26 synapse count",
+          "report_value": 159,
+          "computed_primary": 159,
+          "computed_secondary": null,
+          "tolerance": "+/-10% or +/-20 (drift down)",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "primary diff +0 (+0.0%)",
+          "extra": {}
+        },
+        {
+          "id": "N1.right_nod1_to_left_dnp26_count",
+          "description": "Right Nod1 -> left DNp26 synapse count",
+          "report_value": 289,
+          "computed_primary": 289,
+          "computed_secondary": null,
+          "tolerance": "+/-10% or +/-20 (drift down)",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "primary diff +0 (+0.0%)",
+          "extra": {}
+        },
+        {
+          "id": "N1.nod1_output_crosses",
+          "description": "Nod1 output is majority cross-midline (position-based; 86.9%)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N1.dnp26_left_contra_driven",
+          "description": "DNp26_left Nod1 input is dominantly contralateral (100.0%)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N1.dnp26_right_contra_driven",
+          "description": "DNp26_right Nod1 input is dominantly contralateral (100.0%)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N1.shared_convergence",
+          "description": "Left and right Nod1 converge on shared downstream cells (95 cells)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N1.asymmetry",
+          "description": "Readout-crossing asymmetry left vs right (ratio 1.82)",
+          "report_value": "L->R 289 vs R->L 159",
+          "computed_primary": null,
+          "computed_secondary": null,
+          "tolerance": "n/a",
+          "verdict": "UNVERIFIABLE",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "the two crossing directions differ in strength (ratio 1.82); reported as a structural asymmetry of the inter-hemispheric readout link, consistent with the per-hemisphere proofreading-completeness differences seen in Stage 8.",
+          "extra": {}
+        }
+      ],
+      "derived": {
+        "left_nod1": {
+          "nod1_side": "left",
+          "to_dnp26_by_side": {
+            "right": 159
+          },
+          "to_steering_by_side": {
+            "left": 1,
+            "right": 250
+          },
+          "n_nod1": 2
+        },
+        "right_nod1": {
+          "nod1_side": "right",
+          "to_dnp26_by_side": {
+            "left": 289
+          },
+          "to_steering_by_side": {
+            "left": 392,
+            "right": 2
+          },
+          "n_nod1": 2
+        },
+        "left_nod1_to_right_dnp26": 159,
+        "right_nod1_to_left_dnp26": 289,
+        "asymmetry_ratio": 1.82,
+        "dnp26_input_composition": {
+          "left": {
+            "nod1_input_by_soma_side": {
+              "right": 289
+            },
+            "total_nod1_input": 289,
+            "contra_nod1_input": 289,
+            "contra_frac_of_nod1_input": 100.0,
+            "total_input_syn": 9146
+          },
+          "right": {
+            "nod1_input_by_soma_side": {
+              "left": 159
+            },
+            "total_nod1_input": 159,
+            "contra_nod1_input": 159,
+            "contra_frac_of_nod1_input": 100.0,
+            "total_input_syn": 6899
+          }
+        },
+        "shared_steering_targets": {
+          "n_left_targets": 8452,
+          "n_right_targets": 8253,
+          "n_shared": 95,
+          "shared_target_types": {
+            "cLP03": 6,
+            "Nod1": 4,
+            "CB2417": 3,
+            "OA-VUMa4": 2,
+            "H1": 2,
+            "PLP032": 2,
+            "PVLP011": 2,
+            "LAL055": 2,
+            "Nod3": 2,
+            "PLP035": 2,
+            "PLP071": 2,
+            "PLP038": 2,
+            "PLP078": 2,
+            "LPT30": 2,
+            "LPT51": 2
+          }
+        },
+        "nod1_output_crossing_pct": 86.9,
+        "midline_x_um": 529.0,
+        "track": "live"
+      }
+    },
+    "N2": {
+      "title": "Heterolateral input bridges (Egelhaaf regressive inhibition)",
+      "verdicts": {
+        "CONFIRMED": 3,
+        "UNVERIFIABLE": 2
+      },
+      "claims": [
+        {
+          "id": "N2.bridges_found",
+          "description": "Heterolateral bridges onto the figure pathway are present (['H1'])",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N2.H1_regressive",
+          "description": "H1 (the contralateral bridge) reads REGRESSIVE motion (layer-b)",
+          "report_value": "b",
+          "computed_primary": "b",
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N2.egelhaaf_regressive_inhibition",
+          "description": "The dominant horizontal-motion inhibitory bridge onto the FD1/Nod1 pathway is REGRESSIVE (Egelhaaf 1985): H1 (regressive, 2185 synapses)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N2.vertical_inhibition_extension",
+          "description": "Additional contralateral inhibitory bridges reading VERTICAL motion (['MeLp2', 'cLP05'])",
+          "report_value": true,
+          "computed_primary": null,
+          "computed_secondary": null,
+          "tolerance": "n/a",
+          "verdict": "UNVERIFIABLE",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "beyond the horizontal regressive inhibition Egelhaaf described, the connectome shows weaker contralateral inhibitory bridges tuned to vertical motion: ['MeLp2', 'cLP05']. A horizontal-motion paradigm could not have detected these.",
+          "extra": {}
+        },
+        {
+          "id": "N2.bridge_inventory",
+          "description": "Inventory of heterolateral bridges onto the figure pathway",
+          "report_value": 12,
+          "computed_primary": null,
+          "computed_secondary": null,
+          "tolerance": "n/a",
+          "verdict": "UNVERIFIABLE",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "bridges (type -> nt/direction/crossing synapses): {'H1': {'nt': 'glutamate', 'dir': 'regressive', 'cross_syn': 2185}, 'MeLp2': {'nt': 'gaba', 'dir': 'upward', 'cross_syn': 469}, 'LC14a1': {'nt': 'acetylcholine', 'dir': 'upward', 'cross_syn': 433}, 'PLP248': {'nt': 'glutamate', 'dir': None, 'cross_syn': 200}, 'LC14b': {'nt': 'acetylcholine', 'dir': 'progressive', 'cross_syn': 138}, 'OA-VUMa4': {'nt': 'octopamine', 'dir': None, 'cross_syn': 120}, 'CB0053': {'nt': 'dopamine', 'dir': None, 'cross_syn': 116}, 'cLP05': {'nt': 'gaba', 'dir': 'upward', 'cross_syn': 112}, 'MeMe_e13': {'nt': 'acetylcholine', 'dir': 'regressive', 'cross_syn': 92}, 'DNp27': {'nt': 'serotonin', 'dir': 'downward', 'cross_syn': 81}, 'PLP078': {'nt': 'glutamate', 'dir': None, 'cross_syn': 69}, 'MeMe_e08': {'nt': 'glutamate', 'dir': 'progressive', 'cross_syn': 57}}",
+          "extra": {}
+        }
+      ],
+      "derived": {
+        "midline_x_um": 529.0,
+        "n_bridges": 12,
+        "bridges": [
+          {
+            "bridge_type": "H1",
+            "nt": "glutamate",
+            "super_class": "optic",
+            "is_inhibitory_sign": true,
+            "cross_syn_onto_machinery": 2185,
+            "targets": {
+              "LLPC1": 2070,
+              "Nod1": 115
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": true,
+              "layer_frac": {
+                "a": 0.8,
+                "b": 98.3,
+                "c": 0.5,
+                "d": 0.4
+              },
+              "dominant_layer": "b",
+              "dominant_direction": "regressive",
+              "n_t4t5": 2204
+            }
+          },
+          {
+            "bridge_type": "MeLp2",
+            "nt": "gaba",
+            "super_class": "optic",
+            "is_inhibitory_sign": true,
+            "cross_syn_onto_machinery": 469,
+            "targets": {
+              "Nod1": 293,
+              "LLPC1": 176
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": true,
+              "layer_frac": {
+                "a": 5.9,
+                "b": 31.6,
+                "c": 53.5,
+                "d": 9.0
+              },
+              "dominant_layer": "c",
+              "dominant_direction": "upward",
+              "n_t4t5": 177
+            }
+          },
+          {
+            "bridge_type": "LC14a1",
+            "nt": "acetylcholine",
+            "super_class": "optic",
+            "is_inhibitory_sign": false,
+            "cross_syn_onto_machinery": 433,
+            "targets": {
+              "LLPC1": 433
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": true,
+              "layer_frac": {
+                "a": 40.0,
+                "b": 5.0,
+                "c": 55.0,
+                "d": 0.0
+              },
+              "dominant_layer": "c",
+              "dominant_direction": "upward",
+              "n_t4t5": 22
+            }
+          },
+          {
+            "bridge_type": "PLP248",
+            "nt": "glutamate",
+            "super_class": "central",
+            "is_inhibitory_sign": true,
+            "cross_syn_onto_machinery": 200,
+            "targets": {
+              "LLPC1": 199,
+              "Nod1": 1
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": false
+            }
+          },
+          {
+            "bridge_type": "LC14b",
+            "nt": "acetylcholine",
+            "super_class": "optic",
+            "is_inhibitory_sign": false,
+            "cross_syn_onto_machinery": 138,
+            "targets": {
+              "LLPC1": 138
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": true,
+              "layer_frac": {
+                "a": 42.4,
+                "b": 20.3,
+                "c": 13.6,
+                "d": 23.7
+              },
+              "dominant_layer": "a",
+              "dominant_direction": "progressive",
+              "n_t4t5": 44
+            }
+          },
+          {
+            "bridge_type": "OA-VUMa4",
+            "nt": "octopamine",
+            "super_class": "central",
+            "is_inhibitory_sign": false,
+            "cross_syn_onto_machinery": 120,
+            "targets": {
+              "LLPC1": 117,
+              "Nod1": 3
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": false
+            }
+          },
+          {
+            "bridge_type": "CB0053",
+            "nt": "dopamine",
+            "super_class": "central",
+            "is_inhibitory_sign": false,
+            "cross_syn_onto_machinery": 116,
+            "targets": {
+              "LLPC1": 101,
+              "Nod1": 15
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": false
+            }
+          },
+          {
+            "bridge_type": "cLP05",
+            "nt": "gaba",
+            "super_class": "visual_centrifugal",
+            "is_inhibitory_sign": true,
+            "cross_syn_onto_machinery": 112,
+            "targets": {
+              "LLPC1": 112
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": true,
+              "layer_frac": {
+                "a": 0.5,
+                "b": 1.5,
+                "c": 71.9,
+                "d": 26.0
+              },
+              "dominant_layer": "c",
+              "dominant_direction": "upward",
+              "n_t4t5": 143
+            }
+          },
+          {
+            "bridge_type": "MeMe_e13",
+            "nt": "acetylcholine",
+            "super_class": "optic",
+            "is_inhibitory_sign": false,
+            "cross_syn_onto_machinery": 92,
+            "targets": {
+              "LLPC1": 81,
+              "Nod1": 11
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": true,
+              "layer_frac": {
+                "a": 25.0,
+                "b": 31.9,
+                "c": 20.6,
+                "d": 22.5
+              },
+              "dominant_layer": "b",
+              "dominant_direction": "regressive",
+              "n_t4t5": 121
+            }
+          },
+          {
+            "bridge_type": "DNp27",
+            "nt": "serotonin",
+            "super_class": "descending",
+            "is_inhibitory_sign": false,
+            "cross_syn_onto_machinery": 81,
+            "targets": {
+              "LLPC1": 76,
+              "Nod1": 5
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": true,
+              "layer_frac": {
+                "a": 13.0,
+                "b": 7.8,
+                "c": 24.7,
+                "d": 54.5
+              },
+              "dominant_layer": "d",
+              "dominant_direction": "downward",
+              "n_t4t5": 49
+            }
+          },
+          {
+            "bridge_type": "PLP078",
+            "nt": "glutamate",
+            "super_class": "central",
+            "is_inhibitory_sign": true,
+            "cross_syn_onto_machinery": 69,
+            "targets": {
+              "Nod1": 69
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": false
+            }
+          },
+          {
+            "bridge_type": "MeMe_e08",
+            "nt": "glutamate",
+            "super_class": "visual_projection",
+            "is_inhibitory_sign": true,
+            "cross_syn_onto_machinery": 57,
+            "targets": {
+              "LLPC1": 55,
+              "Nod1": 2
+            },
+            "touches_fd1_pathway": true,
+            "input_layer": {
+              "has_t4t5": true,
+              "layer_frac": {
+                "a": 32.5,
+                "b": 32.5,
+                "c": 14.2,
+                "d": 20.7
+              },
+              "dominant_layer": "a",
+              "dominant_direction": "progressive",
+              "n_t4t5": 183
+            }
+          }
+        ],
+        "inhibitory_fd1_bridges": [
+          "H1",
+          "MeLp2",
+          "cLP05",
+          "MeMe_e08"
+        ],
+        "inhibitory_horizontal_bridges": [
+          "H1",
+          "MeMe_e08"
+        ],
+        "inhibitory_vertical_bridges": [
+          "MeLp2",
+          "cLP05"
+        ],
+        "regressive_inhibitory_fd1_bridges": [
+          "H1"
+        ],
+        "dominant_horizontal_inhibitory_bridge": "H1",
+        "dominant_horizontal_inhibitory_direction": "regressive",
+        "dominant_horizontal_inhibitory_cross_syn": 2185,
+        "egelhaaf_regressive_inhibition_holds": true,
+        "track": "live"
+      }
+    },
+    "N3": {
+      "title": "Centrifugal gating: soma-vs-arbor laterality",
+      "verdicts": {
+        "CONFIRMED": 5
+      },
+      "claims": [
+        {
+          "id": "N3.VCH_not_axonal_bridge",
+          "description": "VCH is NOT an inter-hemispheric axonal bridge (soma 99.2%% contra but arbor does not cross; position 0.1%%)",
+          "report_value": false,
+          "computed_primary": false,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N3.VCH_soma_arbor_swapped",
+          "description": "VCH soma and arbor are on opposite sides (displaced soma, contralateral arbor)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N3.DCH_not_axonal_bridge",
+          "description": "DCH is NOT an inter-hemispheric axonal bridge (soma 99.2%% contra but arbor does not cross; position 0.1%%)",
+          "report_value": false,
+          "computed_primary": false,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N3.DCH_soma_arbor_swapped",
+          "description": "DCH soma and arbor are on opposite sides (displaced soma, contralateral arbor)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N3.gaters_not_directly_coupled",
+          "description": "The left and right gating cells do not synapse on each other directly",
+          "report_value": false,
+          "computed_primary": false,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        }
+      ],
+      "derived": {
+        "midline_x_um": 529.0,
+        "gater_laterality": {
+          "VCH": {
+            "soma_contra_pct": 99.2,
+            "position_cross_pct": 0.1,
+            "per_cell": {
+              "720575940627502338": {
+                "soma_side": "right",
+                "arbor_side": "left",
+                "soma_arbor_swapped": true
+              },
+              "720575940627706398": {
+                "soma_side": "left",
+                "arbor_side": "right",
+                "soma_arbor_swapped": true
+              }
+            },
+            "is_axonal_bridge": false,
+            "soma_arbor_swapped": true
+          },
+          "DCH": {
+            "soma_contra_pct": 99.2,
+            "position_cross_pct": 0.1,
+            "per_cell": {
+              "720575940631147776": {
+                "soma_side": "right",
+                "arbor_side": "left",
+                "soma_arbor_swapped": true
+              },
+              "720575940639209956": {
+                "soma_side": "left",
+                "arbor_side": "right",
+                "soma_arbor_swapped": true
+              }
+            },
+            "is_axonal_bridge": false,
+            "soma_arbor_swapped": true
+          }
+        },
+        "direct_gater_coupling": {
+          "VCH": {
+            "left_to_right": 0,
+            "right_to_left": 0,
+            "directly_coupled": false
+          },
+          "DCH": {
+            "left_to_right": 0,
+            "right_to_left": 0,
+            "directly_coupled": false
+          }
+        },
+        "vch_is_axonal_bridge": false,
+        "vch_soma_arbor_swapped": true,
+        "gaters_directly_coupled": false,
+        "track": "live"
+      }
+    },
+    "N4": {
+      "title": "Shared downstream convergence (bilateral integration)",
+      "verdicts": {
+        "CONFIRMED": 3,
+        "UNVERIFIABLE": 2
+      },
+      "claims": [
+        {
+          "id": "N4.convergence_exists",
+          "description": "Left and right figure readouts converge on shared downstream cells (95)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N4.nod1_crosstalk",
+          "description": "The two readouts cross-talk (Nod1 among shared targets: ['Nod3', 'Nod3', 'Nod1', 'Nod2', 'Nod1', 'Nod1', 'Nod5', 'Nod1'])",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N4.bridge_feedback",
+          "description": "A heterolateral bridge (H1) receives from both readouts (feedback loop)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N4.neuromodulatory_convergence",
+          "description": "Neuromodulatory convergence onto both readouts' shared pool (['OA-VUMa4', 'OA-VUMa1', 'OA-VUMa4'])",
+          "report_value": true,
+          "computed_primary": null,
+          "computed_secondary": null,
+          "tolerance": "n/a",
+          "verdict": "UNVERIFIABLE",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "shared neuromodulatory cells: ['OA-VUMa4', 'OA-VUMa1', 'OA-VUMa4']; reported as a discovery (octopaminergic convergence onto the bilateral figure pool), not a prediction.",
+          "extra": {}
+        },
+        {
+          "id": "N4.role_breakdown",
+          "description": "Roles of the shared convergence cells",
+          "report_value": {
+            "other": 30,
+            "central": 25,
+            "premotor_central": 26,
+            "bridge_feedback": 3,
+            "readout_crosstalk": 8,
+            "neuromodulatory": 3
+          },
+          "computed_primary": null,
+          "computed_secondary": null,
+          "tolerance": "n/a",
+          "verdict": "UNVERIFIABLE",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "shared-target roles: {'other': 30, 'central': 25, 'premotor_central': 26, 'bridge_feedback': 3, 'readout_crosstalk': 8, 'neuromodulatory': 3}",
+          "extra": {}
+        }
+      ],
+      "derived": {
+        "midline_x_um": 529.0,
+        "n_left_nod1_targets": 8452,
+        "n_right_nod1_targets": 8253,
+        "n_shared": 95,
+        "shared_by_role": {
+          "other": 30,
+          "central": 25,
+          "premotor_central": 26,
+          "bridge_feedback": 3,
+          "readout_crosstalk": 8,
+          "neuromodulatory": 3
+        },
+        "shared_target_types": {
+          "cLP03": 6,
+          "Nod1": 4,
+          "CB2417": 3,
+          "OA-VUMa4": 2,
+          "H1": 2,
+          "PLP032": 2,
+          "PVLP011": 2,
+          "LAL055": 2,
+          "Nod3": 2,
+          "PLP035": 2,
+          "PLP071": 2,
+          "PLP038": 2,
+          "PLP078": 2,
+          "LPT30": 2,
+          "LPT51": 2,
+          "5-HTPMPV03": 2,
+          "cLP01": 2,
+          "H2": 1,
+          "CB3888": 1,
+          "CB0143": 1
+        },
+        "nod1_crosstalk_cells": [
+          {
+            "root": 720575940621047943,
+            "cell_type": "Nod3",
+            "super_class": "visual_projection",
+            "side": "right",
+            "role": "readout_crosstalk"
+          },
+          {
+            "root": 720575940623384781,
+            "cell_type": "Nod3",
+            "super_class": "visual_projection",
+            "side": "left",
+            "role": "readout_crosstalk"
+          },
+          {
+            "root": 720575940625528556,
+            "cell_type": "Nod1",
+            "super_class": "visual_projection",
+            "side": "left",
+            "role": "readout_crosstalk"
+          },
+          {
+            "root": 720575940633656147,
+            "cell_type": "Nod2",
+            "super_class": "visual_projection",
+            "side": "right",
+            "role": "readout_crosstalk"
+          },
+          {
+            "root": 720575940628438427,
+            "cell_type": "Nod1",
+            "super_class": "visual_projection",
+            "side": "left",
+            "role": "readout_crosstalk"
+          },
+          {
+            "root": 720575940629456860,
+            "cell_type": "Nod1",
+            "super_class": "visual_projection",
+            "side": "right",
+            "role": "readout_crosstalk"
+          },
+          {
+            "root": 720575940621739503,
+            "cell_type": "Nod5",
+            "super_class": "visual_projection",
+            "side": "right",
+            "role": "readout_crosstalk"
+          },
+          {
+            "root": 720575940623997949,
+            "cell_type": "Nod1",
+            "super_class": "visual_projection",
+            "side": "right",
+            "role": "readout_crosstalk"
+          }
+        ],
+        "bridge_feedback_cells": [
+          {
+            "root": 720575940632427603,
+            "cell_type": "H2",
+            "super_class": "visual_projection",
+            "side": "right",
+            "role": "bridge_feedback"
+          },
+          {
+            "root": 720575940627348617,
+            "cell_type": "H1",
+            "super_class": "optic",
+            "side": "right",
+            "role": "bridge_feedback"
+          },
+          {
+            "root": 720575940613091290,
+            "cell_type": "H1",
+            "super_class": "optic",
+            "side": "left",
+            "role": "bridge_feedback"
+          }
+        ],
+        "neuromodulatory_convergence": [
+          {
+            "root": 720575940636479668,
+            "cell_type": "OA-VUMa4",
+            "super_class": "central",
+            "side": "center",
+            "role": "neuromodulatory"
+          },
+          {
+            "root": 720575940613891442,
+            "cell_type": "OA-VUMa1",
+            "super_class": "central",
+            "side": "center",
+            "role": "neuromodulatory"
+          },
+          {
+            "root": 720575940630460919,
+            "cell_type": "OA-VUMa4",
+            "super_class": "central",
+            "side": "center",
+            "role": "neuromodulatory"
+          }
+        ],
+        "descending_convergence": [],
+        "has_nod1_crosstalk": true,
+        "has_bridge_feedback": true,
+        "has_neuromod_convergence": true,
+        "track": "live"
+      }
+    },
+    "N5": {
+      "title": "Systematic discovery of inter-hemispheric edges",
+      "verdicts": {
+        "CONFIRMED": 2,
+        "UNVERIFIABLE": 1
+      },
+      "claims": [
+        {
+          "id": "N5.recovers_known_bridges",
+          "description": "Systematic discovery recovers the dominant axonal bridge H1 among 20 genuine bridges",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N5.artifact_removed_by_position",
+          "description": "The centrifugal gaters (VCH/DCH) are a soma-side artifact removed by the position test (['DCH', 'VCH'])",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "N5.position_cross_fraction",
+          "description": "Position-based inter-hemispheric input fraction onto the circuit (2.8%)",
+          "report_value": 2.8,
+          "computed_primary": null,
+          "computed_secondary": null,
+          "tolerance": "n/a",
+          "verdict": "UNVERIFIABLE",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "of 255579 input synapses onto the circuit, 7094 (2.8%) are genuine position-based inter-hemispheric crossings. Top genuine bridges: [{'type': 'H1', 'syn': 2190}, {'type': 'MeLp2', 'syn': 843}, {'type': 'LC14a1', 'syn': 400}, {'type': 'CB0025', 'syn': 396}, {'type': 'CB1138', 'syn': 351}, {'type': 'CB0237', 'syn': 278}, {'type': 'AN_multi_28', 'syn': 210}, {'type': 'PLP248', 'syn': 202}]",
+          "extra": {}
+        }
+      ],
+      "derived": {
+        "midline_x_um": 529.0,
+        "n_circuit_cells": 229,
+        "total_input_syn": 255579,
+        "position_cross_syn": 7094,
+        "position_cross_frac": 2.8,
+        "bridges_position": [
+          {
+            "type": "H1",
+            "syn": 2190
+          },
+          {
+            "type": "MeLp2",
+            "syn": 843
+          },
+          {
+            "type": "LC14a1",
+            "syn": 400
+          },
+          {
+            "type": "CB0025",
+            "syn": 396
+          },
+          {
+            "type": "CB1138",
+            "syn": 351
+          },
+          {
+            "type": "CB0237",
+            "syn": 278
+          },
+          {
+            "type": "AN_multi_28",
+            "syn": 210
+          },
+          {
+            "type": "PLP248",
+            "syn": 202
+          },
+          {
+            "type": "OA-VUMa4",
+            "syn": 178
+          },
+          {
+            "type": "vCal1",
+            "syn": 159
+          },
+          {
+            "type": "LCe07",
+            "syn": 155
+          },
+          {
+            "type": "LC14b",
+            "syn": 140
+          },
+          {
+            "type": "CL131",
+            "syn": 136
+          },
+          {
+            "type": "AN_multi_11",
+            "syn": 129
+          },
+          {
+            "type": "CB0053",
+            "syn": 113
+          },
+          {
+            "type": "MeMe_e13",
+            "syn": 93
+          },
+          {
+            "type": "DNp27",
+            "syn": 85
+          },
+          {
+            "type": "LPT50",
+            "syn": 83
+          },
+          {
+            "type": "PLP078",
+            "syn": 75
+          },
+          {
+            "type": "CB0432",
+            "syn": 74
+          }
+        ],
+        "bridges_soma": [
+          {
+            "type": "H1",
+            "syn": 2190
+          },
+          {
+            "type": "VCH",
+            "syn": 1253
+          },
+          {
+            "type": "MeLp2",
+            "syn": 843
+          },
+          {
+            "type": "mALC5",
+            "syn": 756
+          },
+          {
+            "type": "DCH",
+            "syn": 745
+          },
+          {
+            "type": "Nod1",
+            "syn": 592
+          },
+          {
+            "type": "LC14a1",
+            "syn": 464
+          },
+          {
+            "type": "CB0025",
+            "syn": 396
+          },
+          {
+            "type": "CB1138",
+            "syn": 359
+          },
+          {
+            "type": "OA-VUMa4",
+            "syn": 349
+          },
+          {
+            "type": "CB0237",
+            "syn": 278
+          },
+          {
+            "type": "CB0053",
+            "syn": 238
+          },
+          {
+            "type": "CB0399",
+            "syn": 235
+          },
+          {
+            "type": "AN_multi_28",
+            "syn": 207
+          },
+          {
+            "type": "CL131",
+            "syn": 206
+          },
+          {
+            "type": "PLP248",
+            "syn": 202
+          },
+          {
+            "type": "vCal1",
+            "syn": 159
+          },
+          {
+            "type": "LCe07",
+            "syn": 155
+          },
+          {
+            "type": "LC14b",
+            "syn": 141
+          },
+          {
+            "type": "cLP05",
+            "syn": 120
+          }
+        ],
+        "artifact_types_soma_only": [
+          "CB0399",
+          "DCH",
+          "Nod1",
+          "VCH",
+          "cLP05",
+          "mALC5"
+        ],
+        "genuine_bridge_types": [
+          "AN_multi_11",
+          "AN_multi_28",
+          "CB0025",
+          "CB0053",
+          "CB0237",
+          "CB0432",
+          "CB1138",
+          "CL131",
+          "DNp27",
+          "H1",
+          "LC14a1",
+          "LC14b",
+          "LCe07",
+          "LPT50",
+          "MeLp2",
+          "MeMe_e13",
+          "OA-VUMa4",
+          "PLP078",
+          "PLP248",
+          "vCal1"
+        ],
+        "track": "live"
+      }
+    }
+  }
+}

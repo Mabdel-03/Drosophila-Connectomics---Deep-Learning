@@ -1,0 +1,181 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\definecolor{vgreen}{HTML}{1B7837}
+\definecolor{vorange}{HTML}{C97A0A}
+\definecolor{vred}{HTML}{C0392B}
+\definecolor{vgray}{HTML}{555555}
+
+\title{Closing Three Open Anatomical Questions in the Figure-Ground Circuit}
+\author{Stage 6 -- Open Questions}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We resolve three open anatomical questions left by the figure-ground circuit report (VCH$\rightarrow$T4/T5$\rightarrow$LLPC1$\rightarrow$Nod1$\rightarrow$DNp26$\rightarrow$wing-steering) end to end from connectome data, each yielding a neutral, falsifiable verdict. single-animal closure: CONFIRMED; bilateral generalization: CONFIRMED, UNVERIFIABLE; escape-route separability: CONFIRMED. Across all claims the tally is CONFIRMED=19, UNVERIFIABLE=1. Every number is re-derived from the FlyWire FAFB v783 live CAVE synapse table (\texttt{synapses\_nt\_v1}, no cleft threshold) and the male whole-CNS (MCNS) v1.0 offline bulk feathers; negatives are reported faithfully.
+\end{abstract}
+
+\section{Q1 -- Single-Animal Closure of the LLPC1$\rightarrow$Nod1$\rightarrow$DNp26 Readout}
+
+\subsection*{Question}
+Does the figure-ground readout chain close inside a SINGLE animal? The published circuit is split across two specimens of different sex (female FlyWire FAFB for the optic-lobe/DN side, male MCNS for the motor side). We test whether LLPC1, Nod1 and DNp26 exist in MCNS and whether the LLPC1$\rightarrow$Nod1$\rightarrow$DNp26 wiring reproduces within MCNS alone, and report the fraction of the chain recovered in one animal.
+
+\subsection*{Methods}
+Both connectome layers are queried offline from the MCNS v1.0 public bulk feathers (\texttt{body-annotations.feather}, \texttt{connectome-weights.feather}; synapse counts as edge weights). Cell identity is resolved through the \texttt{type} column; the LLPC1$\rightarrow$Nod1 and Nod1$\rightarrow$DNp26 edges are summed over all bodies of each type. The within-MCNS motif is compared row-for-row against the paper's FlyWire numbers (Nod1 the dominant excitatory readout; Nod1$\rightarrow$DNp26 the strongest convergent steering target).
+
+\subsection*{Results}
+\begin{longtable}{@{}p{0.30\textwidth}p{0.62\textwidth}@{}}
+\toprule
+\textbf{Quantity} & \textbf{Value} \\
+\midrule
+\endhead
+question & Q1\_single\_animal\_closure \\
+existence & LLPC1=285, Nod1=4, DNp26=2, DNa04=2, DNbe001=2 \\
+wiring & llpc1\_to\_nod1\_syn=10871, llpc1\_contacting\_nod1=272, nod1\_to\_dnp26\_syn=504, nod1\_contactin… \\
+nod1\_readout\_rank & nod1\_rank=2, nod1\_syn=10871, n\_target\_types=673, top5\_targets=[\{'type': 'PLP249', 'weight… \\
+chain\_reproduced & 1 \\
+verdict & CONFIRMED \\
+track & mcns \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Verdict}
+\noindent Overall: \textcolor{vgreen}{\textbf{CONFIRMED}}\par\medskip
+\begin{longtable}{@{}llp{0.30\textwidth}rrl@{}}
+\toprule
+\textbf{ID} & & \textbf{Description} & \textbf{Report} & \textbf{Computed} & \textbf{Verdict} \\
+\midrule
+\endhead
+\texttt{Q1.llpc1\_present} & & LLPC1 present in MCNS (>=1 body) & >=1 body (\textasciitilde{}285) & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q1.nod1\_present} & & Nod1 present in MCNS (>=1 body) & >=1 body (\textasciitilde{}4) & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q1.dnp26\_present} & & DNp26 present in MCNS (>=1 body) & >=1 body (\textasciitilde{}2) & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q1.llpc1\_to\_nod1\_edge} & & LLPC1 -> Nod1 synaptic edge exists in MCNS (syn>0) & syn>0 & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q1.nod1\_to\_dnp26\_edge} & & Nod1 -> DNp26 synaptic edge exists in MCNS (syn>0) & syn>0 & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q1.nod1\_dominant\_readout} & & Nod1 among LLPC1's top excitatory targets in MCNS & top excitatory readout & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q1.chain\_reproduced} & & Fraction of LLPC1->Nod1->DNp26 chain reproduced within MCNS alone & 1.0 (full chain, single animal) & 1 & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\bottomrule
+\end{longtable}
+
+\section{Q2 -- Bilateral / Four-Direction Generalization of the Sheet}
+
+\subsection*{Question}
+Do the headline numbers GENERALIZE across hemisphere and direction, or are they specific to the shown exemplar (right LLPC1 sheet, front-to-back layer-a T4a)? We derive the LEFT LLPC1 sheet (and, where feasible, the other directional T4/T5 channels) and test, per hemisphere, whether (a) VCH presynaptically gates the driving terminals, (b) pooling is spatially local/retinotopic, and (c) Nod1 dominates the readout.
+
+\subsection*{Methods}
+The brain side is queried live from FlyWire FAFB v783 via CAVE (\texttt{synapses\_nt\_v1}, no cleft threshold, reproducing the paper counts exactly). Positions are in nanometres. The LEFT sheet uses the RIGHT-soma VCH/DCH centrifugal cells (centrifugal cells cross, so the right VCH gates the left sheet). Retinotopic locality is assessed on synapse positions; each headline number is computed per hemisphere and compared to its right-sheet analogue.
+
+\subsection*{Results}
+\begin{longtable}{@{}p{0.30\textwidth}p{0.62\textwidth}@{}}
+\toprule
+\textbf{Quantity} & \textbf{Value} \\
+\midrule
+\endhead
+question & Q2\_bilateral\_generalization \\
+right & sheet\_side=right, gating\_soma\_side=left, gating\_present=True, n\_vch=1, n\_dch=1, vch\_in\_sy… \\
+left & sheet\_side=left, gating\_soma\_side=right, gating\_present=True, n\_vch=1, n\_dch=1, vch\_in\_sy… \\
+track & live \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Verdict}
+\noindent Overall: \textcolor{vgreen}{\textbf{CONFIRMED}} \textcolor{vgray}{\textbf{UNVERIFIABLE}}\par\medskip
+\begin{longtable}{@{}llp{0.30\textwidth}rrl@{}}
+\toprule
+\textbf{ID} & & \textbf{Description} & \textbf{Report} & \textbf{Computed} & \textbf{Verdict} \\
+\midrule
+\endhead
+\texttt{Q2.right.reciprocal} & & RIGHT sheet reciprocal T4/T5 fraction (control) & 89.2 & 89.2 & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q2.right.vch\_gating} & & RIGHT sheet: VCH presynaptically gates driving terminals (control) & present & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q2.right.nod1\_dominant} & & RIGHT sheet: Nod1 dominant excitatory readout (control) & dominant & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q2.left.vch\_gating} & & LEFT sheet: VCH (right-soma) presynaptically gates driving terminals & present & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q2.left.nod1\_dominant} & & LEFT sheet: Nod1 dominates the readout (rank parallels right) & dominant & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q2.left.pooling\_local} & & LEFT sheet: pooling is spatially local / retinotopic & local & -- & \textcolor{vgray}{\textbf{UNVERIFIABLE}} \\
+\texttt{Q2.left.reciprocal\_parallel} & & LEFT reciprocal T4/T5 fraction parallels RIGHT (within tolerance) & \textasciitilde{}89.2\% (right) & 86.3 & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\bottomrule
+\end{longtable}
+
+\section{Q3 -- Escape-Route Census to Muscle and Its Separability}
+
+\subsection*{Question}
+Is the PLP/PVLP$\rightarrow$LPLC2/LC4 escape arm ANATOMICALLY SEPARABLE from the LLPC1 course-control / wing-steering output? We enumerate the full descending-neuron census downstream of LPLC2/LC4 and the broadcast cells (giant-fibre DNp01 plus DNp02/03/04/06), trace them to the muscle level in MCNS with the same DN$\rightarrow$motor-neuron$\rightarrow$muscle method as the Nod1 arm, and test whether the two outputs use distinct DNs and distinct muscles rather than converging.
+
+\subsection*{Methods}
+DN identity and the broadcast/escape cluster are resolved in FlyWire FAFB v783 (live CAVE); the DN$\rightarrow$motor-neuron$\rightarrow$muscle trace is read offline from the MCNS v1.0 feathers using the same tracer as the Nod1 arm (motor neurons annotated by innervated muscle and \texttt{somaSide}; wing-steering = subclass \texttt{wm} excluding DLM/DVM power muscles). Separability is the overlap of the escape DN/muscle sets with the LLPC1$\rightarrow$Nod1$\rightarrow$DNp26 sets.
+
+\subsection*{Results}
+\begin{longtable}{@{}p{0.30\textwidth}p{0.62\textwidth}@{}}
+\toprule
+\textbf{Quantity} & \textbf{Value} \\
+\midrule
+\endhead
+question & Q3\_escape\_route\_census \\
+flywire & n\_lplc2=210, n\_lc4=104, n\_dn\_types=28, command\_dn\_syn=\{'DNp01': 3875, 'DNp03': 741, 'DNp0… \\
+mcns & escape\_dns\_in\_mcns=['DNa07', 'DNae007', 'DNb05', 'DNc02', 'DNg40', 'DNge054', 'DNp01', 'D… \\
+separability & dn\_overlap=[], dn\_separable=True, muscle\_overlap=[], muscle\_separable=True, separable=True \\
+track & live \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Verdict}
+\noindent Overall: \textcolor{vgreen}{\textbf{CONFIRMED}}\par\medskip
+\begin{longtable}{@{}llp{0.30\textwidth}rrl@{}}
+\toprule
+\textbf{ID} & & \textbf{Description} & \textbf{Report} & \textbf{Computed} & \textbf{Verdict} \\
+\midrule
+\endhead
+\texttt{Q3.census\_nonempty} & & Escape-route DN census downstream of LPLC2/LC4 is non-empty & >=1 DN & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q3.looming\_cluster} & & Looming command cluster (DNp01/03/04/06) downstream of LPLC2/LC4 & present (giant fibre DNp01 + DNp03/04/06) & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q3.reaches\_jump\_muscle} & & Escape route reaches jump/TTM (tergotrochanter) muscle in MCNS & reaches jump/TTM & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q3.dn\_separable} & & Escape DN-set disjoint from steering (LLPC1) DN-set & overlap=0 (separable) & 0 & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q3.muscle\_separable} & & Escape muscle-targets disjoint from wing-steering muscles & overlap=0 (separable) & 0 & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\texttt{Q3.escape\_separable} & & Escape output anatomically separable from LLPC1 steering output & separable (distinct DNs + muscles) & True & \textcolor{vgreen}{\textbf{CONFIRMED}} \\
+\bottomrule
+\end{longtable}
+
+\section{Verdict Tally}
+
+\begin{longtable}{@{}lr@{}}
+\toprule
+\textbf{Verdict} & \textbf{Count} \\
+\midrule
+\endhead
+\textcolor{vgreen}{\textbf{CONFIRMED}} & 19 \\
+\textcolor{vgray}{\textbf{UNVERIFIABLE}} & 1 \\
+\midrule
+\textbf{Total} & \textbf{20} \\
+\bottomrule
+\end{longtable}
+
+\section{Provenance \& Reproducibility}
+
+All materializations and the run environment:
+
+\begin{longtable}{@{}lp{0.66\textwidth}@{}}
+\toprule
+\textbf{Item} & \textbf{Value} \\
+\midrule
+\endhead
+FlyWire FAFB & \{'materialization': 783\} \\
+Male CNS (MCNS) & \{'materialization': 'v1.0'\} \\
+Seeds & LLPC1, Nod1, DNp26, LPLC2, LC4, DNp01, DNp03, DNp04, DNp06 \\
+Python env & flyconn\_cave conda env \\
+PYTHONPATH & src \\
+FLYCONN\_DATA\_ROOT & /orcd/data/tpoggio/001/mabdel03/connectome\_data \\
+\bottomrule
+\end{longtable}
+
+\noindent\textbf{Exact command:}
+\begin{quote}\ttfamily python -m flyconn.openq run \&\& python -m flyconn.openq report\end{quote}
+
+\noindent\textbf{Token-free re-run.} This PDF is regenerated from \texttt{openq\_results.json} and \texttt{openq\_raw.json} alone (\texttt{python -m flyconn.openq report}); the report step reads neither the live CAVE API nor the MCNS feathers, so a reviewer with only the two JSON files and a TeX engine reproduces the identical document with no FlyWire token and no network.
+
+\end{document}

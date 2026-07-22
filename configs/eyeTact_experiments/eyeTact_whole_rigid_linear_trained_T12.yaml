@@ -1,0 +1,16 @@
+run_name: eyeTact_whole_rigid_linear_trained_T12
+subgraph_id: whole
+arch: ff_unroll
+init_mode: from_data
+T: 12
+learn_core: true
+epochs: 25
+family: eyeTact
+eye: rigid
+eye_source: columns
+learn_readout: true
+decision: linear
+readout_mode: accum
+dynamics: linear
+state_norm: none
+target_radius: 0.9

@@ -1,0 +1,2815 @@
+{
+  "meta": {
+    "flywire_version": "783",
+    "flywire_track": "offline",
+    "artifact": "fd3_disambig"
+  },
+  "families": {
+    "KD": {
+      "title": "Disambiguation: FD3 is LPT42_Nod4, not Nod3 (Nod3 = FD2)",
+      "derived": {
+        "meta": {
+          "flywire_version": "783",
+          "seed": 12345,
+          "n_boot": 2000,
+          "n_perms": 500,
+          "contra_hetero_pct": 70.0,
+          "primary_track": "offline",
+          "live_available": true
+        },
+        "cells_audit": {
+          "LPT42_Nod4": {
+            "right": 720575940619612142,
+            "left": 720575940625992781
+          },
+          "Nod3": {
+            "right": 720575940621047943,
+            "left": 720575940623384781
+          },
+          "LPT21": {
+            "right": 720575940627341736,
+            "left": 720575940634017453
+          },
+          "Nod1": {
+            "right": 720575940629456860,
+            "left": 720575940628438427
+          }
+        },
+        "candidates_offline": {
+          "LPT42_Nod4": {
+            "candidate": "LPT42_Nod4",
+            "track": "offline",
+            "profile": {
+              "cell_type": "LPT42_Nod4",
+              "n_cells": 2,
+              "sides": {
+                "right": 1,
+                "left": 1
+              },
+              "nt": "acetylcholine",
+              "mean_nt_conf": 0.8943,
+              "nt_unanimous": true,
+              "super_class": "visual_projection",
+              "layer_frac": {
+                "a": 0.09,
+                "b": 98.58,
+                "c": 1.18,
+                "d": 0.15
+              },
+              "dominant_layer": "b",
+              "dominant_direction": "back_to_front",
+              "contra_output_pct": 90.33,
+              "feeds_inhibitors": true,
+              "inhibitors_dominant": false,
+              "inhibitor_syn": 11,
+              "inhibitor_out_frac": 0.21,
+              "top_targets": {
+                "PLP230": 687,
+                "WED075": 295,
+                "PLP178": 275,
+                "PLP012": 219,
+                "PLP078": 164,
+                "LAL203": 157,
+                "WED095": 154,
+                "PS010": 148
+              }
+            },
+            "rf": {
+              "axis_selftest": {
+                "nod1_centroid_p": -6.979,
+                "nod1_centroid_q": 0.349,
+                "convention": "lateral = +p (Nod1=FD1 sits frontal at p<0)"
+              },
+              "per_side": {
+                "right": {
+                  "centroid_offset_p": 11.935,
+                  "offset_ci95": [
+                    10.893,
+                    12.89
+                  ],
+                  "more_lateral": true,
+                  "width_ratio": 0.908,
+                  "wider": false,
+                  "cand_frontal_occ": 0.0306,
+                  "ref_frontal_occ": 0.6528,
+                  "has_frontal_gap": true,
+                  "q_span_frac": 0.647,
+                  "abs_peak_az_deg": 106.5,
+                  "abs_width_deg": 67.9,
+                  "n_inputs": 541,
+                  "dropout_frac": 0.0148
+                },
+                "left": {
+                  "centroid_offset_p": 13.383,
+                  "offset_ci95": [
+                    12.38,
+                    14.342
+                  ],
+                  "more_lateral": true,
+                  "width_ratio": 1.231,
+                  "wider": true,
+                  "cand_frontal_occ": 0.0187,
+                  "ref_frontal_occ": 0.6262,
+                  "has_frontal_gap": true,
+                  "q_span_frac": 0.618,
+                  "abs_peak_az_deg": 100.4,
+                  "abs_width_deg": 75.8,
+                  "n_inputs": 481,
+                  "dropout_frac": 0.0128
+                }
+              },
+              "sides_present": [
+                "left",
+                "right"
+              ],
+              "bilateral_ok": true,
+              "calibration_error_budget": {
+                "linearity_deg": 12.5,
+                "landmark_deg": 6.5,
+                "eye_span_deg": 7.5,
+                "dropout_deg": 1.5,
+                "combined_deg": 16.0,
+                "model": "linear two-anchor p->azimuth; azimuth is p-driven, q->elevation coarse",
+                "verdict_ceiling": "CONFIRMED_WITH_CAVEAT (no ground-truth degree field exists)"
+              }
+            },
+            "smallfield_null": {
+              "obs_radius": 6.602,
+              "null_radius": 10.907,
+              "z_score": -24.5,
+              "p_value": 0.002,
+              "n_perms": 500,
+              "bounded": true,
+              "p_value_bh": 0.002
+            },
+            "morphology": {
+              "available": true,
+              "source": "skeleton",
+              "noduli_landmark_um": [
+                531.7,
+                248.4,
+                163.4
+              ],
+              "cells": [
+                {
+                  "root_id": 720575940619612142,
+                  "side": "right",
+                  "source": "fafbseg",
+                  "n_vertices": 36744,
+                  "n_edges": 36733,
+                  "dendrite": {
+                    "n": 33118,
+                    "centroid": [
+                      687.5,
+                      258.3,
+                      201.3
+                    ],
+                    "span_x": 175.3,
+                    "span_y": 155.3,
+                    "span_z": 132.3
+                  },
+                  "axon": {
+                    "n": 3626,
+                    "centroid": [
+                      459.4,
+                      237.1,
+                      140.3
+                    ],
+                    "span_x": 176.2,
+                    "span_y": 66.8,
+                    "span_z": 118.2
+                  },
+                  "dv_span_um": 155.3,
+                  "ml_span_um": 351.8,
+                  "axon_ml_shift_um": -228.1,
+                  "axon_crosses_contra": true,
+                  "axon_to_noduli_um": 76.7,
+                  "dend_to_noduli_um": 160.7,
+                  "axon_nearer_noduli": true
+                },
+                {
+                  "root_id": 720575940625992781,
+                  "side": "left",
+                  "source": "fafbseg",
+                  "n_vertices": 35808,
+                  "n_edges": 35782,
+                  "dendrite": {
+                    "n": 32313,
+                    "centroid": [
+                      373.3,
+                      244.2,
+                      225.9
+                    ],
+                    "span_x": 170.6,
+                    "span_y": 147.5,
+                    "span_z": 156.3
+                  },
+                  "axon": {
+                    "n": 3495,
+                    "centroid": [
+                      598.2,
+                      242.3,
+                      130.8
+                    ],
+                    "span_x": 174.7,
+                    "span_y": 68.9,
+                    "span_z": 101.2
+                  },
+                  "dv_span_um": 147.5,
+                  "ml_span_um": 345.6,
+                  "axon_ml_shift_um": 224.9,
+                  "axon_crosses_contra": true,
+                  "axon_to_noduli_um": 74.3,
+                  "dend_to_noduli_um": 170.3,
+                  "axon_nearer_noduli": true
+                }
+              ]
+            },
+            "soma": {
+              "available": true,
+              "centroid_xyz": {
+                "soma_x": 134080.0,
+                "soma_y": 65664.0,
+                "soma_z": 5415.0
+              },
+              "bilateral_split": true,
+              "post_z_percentile": 0.781,
+              "midline_x": 133292.0,
+              "mean_soma_z": 5415.0,
+              "dz_to_anchor": 135.2,
+              "dz_to_anterior": 4289.5
+            },
+            "contra_inhibition": {
+              "available": true,
+              "n_contra_gaba": 108,
+              "n_classified": 6,
+              "syn_progressive": 387,
+              "syn_regressive": 30,
+              "frac_progressive": 0.928,
+              "frac_regressive": 0.072,
+              "both_present": true,
+              "dominant_direction": "progressive",
+              "minority_frac": 0.072,
+              "substantially_bidirectional": false,
+              "sufficient": true
+            },
+            "layer_b_pct": 98.58,
+            "dominant_layer": "b",
+            "nt": "acetylcholine",
+            "nt_conf": 0.8943,
+            "contra_output_pct": 90.33,
+            "heterolateral": true,
+            "homolateral": false,
+            "rf_more_lateral_both": true,
+            "rf_frontal_gap_both": true,
+            "rf_lateral_gap_both": true,
+            "frontal_field": false,
+            "frontal_colocated": false,
+            "mean_rf_offset": 12.658999999999999,
+            "smallfield_bounded": true,
+            "axon_crosses_contra_both": true,
+            "projects_contralateral_pof": true,
+            "morphology_source": "skeleton"
+          },
+          "Nod3": {
+            "candidate": "Nod3",
+            "track": "offline",
+            "profile": {
+              "cell_type": "Nod3",
+              "n_cells": 2,
+              "sides": {
+                "right": 1,
+                "left": 1
+              },
+              "nt": "acetylcholine",
+              "mean_nt_conf": 0.8784,
+              "nt_unanimous": true,
+              "super_class": "visual_projection",
+              "layer_frac": {
+                "a": 0.1,
+                "b": 97.73,
+                "c": 1.95,
+                "d": 0.23
+              },
+              "dominant_layer": "b",
+              "dominant_direction": "back_to_front",
+              "contra_output_pct": 44.66,
+              "feeds_inhibitors": true,
+              "inhibitors_dominant": false,
+              "inhibitor_syn": 9,
+              "inhibitor_out_frac": 0.21,
+              "top_targets": {
+                "PLP035": 416,
+                "SMP292,SMP293,SMP584": 179,
+                "cLP03": 153,
+                "WED095": 130,
+                "cLP01": 119,
+                "PLP230": 109,
+                "CB0194": 102,
+                "CB3140": 99
+              }
+            },
+            "rf": {
+              "axis_selftest": {
+                "nod1_centroid_p": -6.979,
+                "nod1_centroid_q": 0.349,
+                "convention": "lateral = +p (Nod1=FD1 sits frontal at p<0)"
+              },
+              "per_side": {
+                "right": {
+                  "centroid_offset_p": 2.932,
+                  "offset_ci95": [
+                    1.763,
+                    4.045
+                  ],
+                  "more_lateral": true,
+                  "width_ratio": 1.289,
+                  "wider": true,
+                  "cand_frontal_occ": 0.4849,
+                  "ref_frontal_occ": 0.6528,
+                  "has_frontal_gap": false,
+                  "q_span_frac": 0.821,
+                  "abs_peak_az_deg": 62.7,
+                  "abs_width_deg": 96.4,
+                  "n_inputs": 623,
+                  "dropout_frac": 0.0086
+                },
+                "left": {
+                  "centroid_offset_p": 3.358,
+                  "offset_ci95": [
+                    2.457,
+                    4.267
+                  ],
+                  "more_lateral": true,
+                  "width_ratio": 1.208,
+                  "wider": true,
+                  "cand_frontal_occ": 0.3625,
+                  "ref_frontal_occ": 0.6262,
+                  "has_frontal_gap": false,
+                  "q_span_frac": 0.647,
+                  "abs_peak_az_deg": 51.6,
+                  "abs_width_deg": 74.4,
+                  "n_inputs": 491,
+                  "dropout_frac": 0.0074
+                }
+              },
+              "sides_present": [
+                "left",
+                "right"
+              ],
+              "bilateral_ok": false,
+              "calibration_error_budget": {
+                "linearity_deg": 12.5,
+                "landmark_deg": 6.5,
+                "eye_span_deg": 7.5,
+                "dropout_deg": 1.5,
+                "combined_deg": 16.0,
+                "model": "linear two-anchor p->azimuth; azimuth is p-driven, q->elevation coarse",
+                "verdict_ceiling": "CONFIRMED_WITH_CAVEAT (no ground-truth degree field exists)"
+              }
+            },
+            "smallfield_null": {
+              "obs_radius": 8.125,
+              "null_radius": 10.908,
+              "z_score": -16.28,
+              "p_value": 0.002,
+              "n_perms": 500,
+              "bounded": true,
+              "p_value_bh": 0.002
+            },
+            "morphology": {
+              "available": true,
+              "source": "skeleton",
+              "noduli_landmark_um": [
+                531.7,
+                248.4,
+                163.4
+              ],
+              "cells": [
+                {
+                  "root_id": 720575940621047943,
+                  "side": "right",
+                  "source": "fafbseg",
+                  "n_vertices": 36507,
+                  "n_edges": 36495,
+                  "dendrite": {
+                    "n": 31315,
+                    "centroid": [
+                      712.5,
+                      293.6,
+                      201.1
+                    ],
+                    "span_x": 139.0,
+                    "span_y": 170.0,
+                    "span_z": 57.2
+                  },
+                  "axon": {
+                    "n": 5192,
+                    "centroid": [
+                      539.2,
+                      235.2,
+                      135.4
+                    ],
+                    "span_x": 228.0,
+                    "span_y": 87.4,
+                    "span_z": 124.1
+                  },
+                  "dv_span_um": 172.8,
+                  "ml_span_um": 346.7,
+                  "axon_ml_shift_um": -173.3,
+                  "axon_crosses_contra": true,
+                  "axon_to_noduli_um": 31.9,
+                  "dend_to_noduli_um": 190.2,
+                  "axon_nearer_noduli": true
+                },
+                {
+                  "root_id": 720575940623384781,
+                  "side": "left",
+                  "source": "fafbseg",
+                  "n_vertices": 29987,
+                  "n_edges": 29978,
+                  "dendrite": {
+                    "n": 24913,
+                    "centroid": [
+                      345.0,
+                      280.3,
+                      234.6
+                    ],
+                    "span_x": 142.4,
+                    "span_y": 150.5,
+                    "span_z": 78.5
+                  },
+                  "axon": {
+                    "n": 5074,
+                    "centroid": [
+                      528.5,
+                      237.6,
+                      142.5
+                    ],
+                    "span_x": 223.5,
+                    "span_y": 102.6,
+                    "span_z": 125.9
+                  },
+                  "dv_span_um": 157.6,
+                  "ml_span_um": 346.5,
+                  "axon_ml_shift_um": 183.5,
+                  "axon_crosses_contra": true,
+                  "axon_to_noduli_um": 23.7,
+                  "dend_to_noduli_um": 202.3,
+                  "axon_nearer_noduli": true
+                }
+              ]
+            },
+            "soma": {
+              "available": true,
+              "centroid_xyz": {
+                "soma_x": 132636.0,
+                "soma_y": 53168.0,
+                "soma_z": 5231.0
+              },
+              "bilateral_split": true,
+              "post_z_percentile": 0.737,
+              "midline_x": 133292.0,
+              "mean_soma_z": 5231.0,
+              "dz_to_anchor": 48.8,
+              "dz_to_anterior": 4105.5
+            },
+            "contra_inhibition": {
+              "available": true,
+              "n_contra_gaba": 122,
+              "n_classified": 6,
+              "syn_progressive": 569,
+              "syn_regressive": 12,
+              "frac_progressive": 0.979,
+              "frac_regressive": 0.021,
+              "both_present": true,
+              "dominant_direction": "progressive",
+              "minority_frac": 0.021,
+              "substantially_bidirectional": false,
+              "sufficient": true
+            },
+            "layer_b_pct": 97.73,
+            "dominant_layer": "b",
+            "nt": "acetylcholine",
+            "nt_conf": 0.8784,
+            "contra_output_pct": 44.66,
+            "heterolateral": false,
+            "homolateral": false,
+            "rf_more_lateral_both": true,
+            "rf_frontal_gap_both": false,
+            "rf_lateral_gap_both": false,
+            "frontal_field": true,
+            "frontal_colocated": false,
+            "mean_rf_offset": 3.145,
+            "smallfield_bounded": true,
+            "axon_crosses_contra_both": true,
+            "projects_contralateral_pof": false,
+            "morphology_source": "skeleton"
+          },
+          "LPT21": {
+            "candidate": "LPT21",
+            "track": "offline",
+            "profile": {
+              "cell_type": "LPT21",
+              "n_cells": 2,
+              "sides": {
+                "right": 1,
+                "left": 1
+              },
+              "nt": "acetylcholine",
+              "mean_nt_conf": 0.8132,
+              "nt_unanimous": true,
+              "super_class": "visual_projection",
+              "layer_frac": {
+                "a": 0.1,
+                "b": 99.17,
+                "c": 0.42,
+                "d": 0.31
+              },
+              "dominant_layer": "b",
+              "dominant_direction": "back_to_front",
+              "contra_output_pct": 1.48,
+              "feeds_inhibitors": true,
+              "inhibitors_dominant": false,
+              "inhibitor_syn": 29,
+              "inhibitor_out_frac": 0.47,
+              "top_targets": {
+                "Tlp1": 524,
+                "PLP230": 429,
+                "Tlp4": 388,
+                "WED007": 278,
+                "WED075": 258,
+                "TmY20": 225,
+                "Y3": 168,
+                "LAL158": 165
+              }
+            },
+            "rf": {
+              "axis_selftest": {
+                "nod1_centroid_p": -6.979,
+                "nod1_centroid_q": 0.349,
+                "convention": "lateral = +p (Nod1=FD1 sits frontal at p<0)"
+              },
+              "per_side": {
+                "right": {
+                  "centroid_offset_p": -0.167,
+                  "offset_ci95": [
+                    -1.21,
+                    0.903
+                  ],
+                  "more_lateral": false,
+                  "width_ratio": 1.066,
+                  "wider": true,
+                  "cand_frontal_occ": 0.6128,
+                  "ref_frontal_occ": 0.6528,
+                  "has_frontal_gap": false,
+                  "q_span_frac": 0.765,
+                  "abs_peak_az_deg": 47.7,
+                  "abs_width_deg": 79.8,
+                  "n_inputs": 631,
+                  "dropout_frac": 0.0072
+                },
+                "left": {
+                  "centroid_offset_p": 0.223,
+                  "offset_ci95": [
+                    -0.658,
+                    1.105
+                  ],
+                  "more_lateral": false,
+                  "width_ratio": 1.158,
+                  "wider": true,
+                  "cand_frontal_occ": 0.6043,
+                  "ref_frontal_occ": 0.6262,
+                  "has_frontal_gap": false,
+                  "q_span_frac": 0.765,
+                  "abs_peak_az_deg": 36.4,
+                  "abs_width_deg": 71.3,
+                  "n_inputs": 596,
+                  "dropout_frac": 0.0125
+                }
+              },
+              "sides_present": [
+                "left",
+                "right"
+              ],
+              "bilateral_ok": false,
+              "calibration_error_budget": {
+                "linearity_deg": 12.5,
+                "landmark_deg": 6.5,
+                "eye_span_deg": 7.5,
+                "dropout_deg": 1.5,
+                "combined_deg": 16.0,
+                "model": "linear two-anchor p->azimuth; azimuth is p-driven, q->elevation coarse",
+                "verdict_ceiling": "CONFIRMED_WITH_CAVEAT (no ground-truth degree field exists)"
+              }
+            },
+            "smallfield_null": {
+              "obs_radius": 8.084,
+              "null_radius": 10.902,
+              "z_score": -17.67,
+              "p_value": 0.002,
+              "n_perms": 500,
+              "bounded": true,
+              "p_value_bh": 0.002
+            },
+            "morphology": {
+              "available": true,
+              "source": "skeleton",
+              "noduli_landmark_um": [
+                531.7,
+                248.4,
+                163.4
+              ],
+              "cells": [
+                {
+                  "root_id": 720575940627341736,
+                  "side": "right",
+                  "source": "fafbseg",
+                  "n_vertices": 40221,
+                  "n_edges": 40209,
+                  "dendrite": {
+                    "n": 35971,
+                    "centroid": [
+                      738.3,
+                      301.3,
+                      204.7
+                    ],
+                    "span_x": 106.8,
+                    "span_y": 169.9,
+                    "span_z": 57.0
+                  },
+                  "axon": {
+                    "n": 4250,
+                    "centroid": [
+                      638.3,
+                      249.9,
+                      166.7
+                    ],
+                    "span_x": 90.3,
+                    "span_y": 138.8,
+                    "span_z": 134.6
+                  },
+                  "dv_span_um": 169.9,
+                  "ml_span_um": 181.9,
+                  "axon_ml_shift_um": -100.0,
+                  "axon_crosses_contra": true,
+                  "axon_to_noduli_um": 106.7,
+                  "dend_to_noduli_um": 217.3,
+                  "axon_nearer_noduli": true
+                },
+                {
+                  "root_id": 720575940634017453,
+                  "side": "left",
+                  "source": "fafbseg",
+                  "n_vertices": 35758,
+                  "n_edges": 35738,
+                  "dendrite": {
+                    "n": 31609,
+                    "centroid": [
+                      318.8,
+                      287.9,
+                      240.0
+                    ],
+                    "span_x": 110.5,
+                    "span_y": 151.5,
+                    "span_z": 51.7
+                  },
+                  "axon": {
+                    "n": 4149,
+                    "centroid": [
+                      410.8,
+                      237.2,
+                      184.6
+                    ],
+                    "span_x": 80.2,
+                    "span_y": 86.3,
+                    "span_z": 141.1
+                  },
+                  "dv_span_um": 152.9,
+                  "ml_span_um": 175.5,
+                  "axon_ml_shift_um": 92.0,
+                  "axon_crosses_contra": true,
+                  "axon_to_noduli_um": 123.2,
+                  "dend_to_noduli_um": 229.6,
+                  "axon_nearer_noduli": true
+                }
+              ]
+            },
+            "soma": {
+              "available": true,
+              "centroid_xyz": {
+                "soma_x": 129852.0,
+                "soma_y": 50068.0,
+                "soma_z": 5228.0
+              },
+              "bilateral_split": true,
+              "post_z_percentile": 0.736,
+              "midline_x": 133292.0,
+              "mean_soma_z": 5228.0,
+              "dz_to_anchor": 51.8,
+              "dz_to_anterior": 4102.5
+            },
+            "contra_inhibition": {
+              "available": true,
+              "n_contra_gaba": 103,
+              "n_classified": 5,
+              "syn_progressive": 369,
+              "syn_regressive": 30,
+              "frac_progressive": 0.925,
+              "frac_regressive": 0.075,
+              "both_present": true,
+              "dominant_direction": "progressive",
+              "minority_frac": 0.075,
+              "substantially_bidirectional": false,
+              "sufficient": false
+            },
+            "layer_b_pct": 99.17,
+            "dominant_layer": "b",
+            "nt": "acetylcholine",
+            "nt_conf": 0.8132,
+            "contra_output_pct": 1.48,
+            "heterolateral": false,
+            "homolateral": true,
+            "rf_more_lateral_both": false,
+            "rf_frontal_gap_both": false,
+            "rf_lateral_gap_both": false,
+            "frontal_field": true,
+            "frontal_colocated": true,
+            "mean_rf_offset": 0.027999999999999997,
+            "smallfield_bounded": true,
+            "axon_crosses_contra_both": true,
+            "projects_contralateral_pof": false,
+            "morphology_source": "skeleton"
+          }
+        },
+        "live": {
+          "available": true,
+          "track": "live",
+          "candidates": {
+            "LPT42_Nod4": {
+              "candidate": "LPT42_Nod4",
+              "track": "live",
+              "profile": {
+                "cell_type": "LPT42_Nod4",
+                "n_cells": 2,
+                "sides": {
+                  "right": 1,
+                  "left": 1
+                },
+                "nt": "acetylcholine",
+                "mean_nt_conf": 0.8943,
+                "nt_unanimous": true,
+                "super_class": "visual_projection",
+                "layer_frac": {
+                  "a": 0.16,
+                  "b": 98.36,
+                  "c": 1.24,
+                  "d": 0.24
+                },
+                "dominant_layer": "b",
+                "dominant_direction": "back_to_front",
+                "contra_output_pct": 80.47,
+                "feeds_inhibitors": true,
+                "inhibitors_dominant": false,
+                "inhibitor_syn": 32,
+                "inhibitor_out_frac": 0.36,
+                "top_targets": {
+                  "PLP230": 1032,
+                  "WED075": 428,
+                  "PLP178": 375,
+                  "PLP012": 332,
+                  "LAL203": 258,
+                  "PLP078": 250,
+                  "PS010": 241,
+                  "WED095": 210
+                }
+              },
+              "rf": {
+                "axis_selftest": {
+                  "nod1_centroid_p": -7.183,
+                  "nod1_centroid_q": 0.111,
+                  "convention": "lateral = +p (Nod1=FD1 sits frontal at p<0)"
+                },
+                "per_side": {
+                  "right": {
+                    "centroid_offset_p": 12.046,
+                    "offset_ci95": [
+                      11.061,
+                      13.02
+                    ],
+                    "more_lateral": true,
+                    "width_ratio": 0.925,
+                    "wider": false,
+                    "cand_frontal_occ": 0.0263,
+                    "ref_frontal_occ": 0.6086,
+                    "has_frontal_gap": true,
+                    "q_span_frac": 0.647,
+                    "abs_peak_az_deg": 106.1,
+                    "abs_width_deg": 68.5,
+                    "n_inputs": 563,
+                    "dropout_frac": 0.014
+                  },
+                  "left": {
+                    "centroid_offset_p": 13.143,
+                    "offset_ci95": [
+                      12.153,
+                      14.171
+                    ],
+                    "more_lateral": true,
+                    "width_ratio": 1.177,
+                    "wider": true,
+                    "cand_frontal_occ": 0.0169,
+                    "ref_frontal_occ": 0.6037,
+                    "has_frontal_gap": true,
+                    "q_span_frac": 0.618,
+                    "abs_peak_az_deg": 100.7,
+                    "abs_width_deg": 75.1,
+                    "n_inputs": 499,
+                    "dropout_frac": 0.0102
+                  }
+                },
+                "sides_present": [
+                  "left",
+                  "right"
+                ],
+                "bilateral_ok": true,
+                "calibration_error_budget": {
+                  "linearity_deg": 12.5,
+                  "landmark_deg": 6.5,
+                  "eye_span_deg": 7.5,
+                  "dropout_deg": 1.5,
+                  "combined_deg": 16.0,
+                  "model": "linear two-anchor p->azimuth; azimuth is p-driven, q->elevation coarse",
+                  "verdict_ceiling": "CONFIRMED_WITH_CAVEAT (no ground-truth degree field exists)"
+                }
+              },
+              "smallfield_null": {
+                "obs_radius": 6.751,
+                "null_radius": 10.909,
+                "z_score": -24.89,
+                "p_value": 0.002,
+                "n_perms": 500,
+                "bounded": true,
+                "p_value_bh": 0.002
+              },
+              "morphology": {
+                "available": true,
+                "source": "skeleton",
+                "noduli_landmark_um": [
+                  530.1,
+                  249.3,
+                  165.8
+                ],
+                "cells": [
+                  {
+                    "root_id": 720575940619612142,
+                    "side": "right",
+                    "source": "fafbseg",
+                    "n_vertices": 36744,
+                    "n_edges": 36733,
+                    "dendrite": {
+                      "n": 33055,
+                      "centroid": [
+                        687.7,
+                        258.4,
+                        201.5
+                      ],
+                      "span_x": 165.6,
+                      "span_y": 155.3,
+                      "span_z": 128.4
+                    },
+                    "axon": {
+                      "n": 3689,
+                      "centroid": [
+                        461.7,
+                        236.7,
+                        139.6
+                      ],
+                      "span_x": 186.0,
+                      "span_y": 66.8,
+                      "span_z": 118.2
+                    },
+                    "dv_span_um": 155.3,
+                    "ml_span_um": 351.8,
+                    "axon_ml_shift_um": -226.0,
+                    "axon_crosses_contra": true,
+                    "axon_to_noduli_um": 74.3,
+                    "dend_to_noduli_um": 161.8,
+                    "axon_nearer_noduli": true
+                  },
+                  {
+                    "root_id": 720575940625992781,
+                    "side": "left",
+                    "source": "fafbseg",
+                    "n_vertices": 35808,
+                    "n_edges": 35782,
+                    "dendrite": {
+                      "n": 32271,
+                      "centroid": [
+                        373.2,
+                        244.2,
+                        226.0
+                      ],
+                      "span_x": 163.8,
+                      "span_y": 147.5,
+                      "span_z": 153.3
+                    },
+                    "axon": {
+                      "n": 3537,
+                      "centroid": [
+                        596.6,
+                        242.0,
+                        130.5
+                      ],
+                      "span_x": 181.7,
+                      "span_y": 68.9,
+                      "span_z": 101.2
+                    },
+                    "dv_span_um": 147.5,
+                    "ml_span_um": 345.6,
+                    "axon_ml_shift_um": 223.4,
+                    "axon_crosses_contra": true,
+                    "axon_to_noduli_um": 75.6,
+                    "dend_to_noduli_um": 168.2,
+                    "axon_nearer_noduli": true
+                  }
+                ]
+              },
+              "soma": {
+                "available": true,
+                "centroid_xyz": {
+                  "soma_x": 134080.0,
+                  "soma_y": 65664.0,
+                  "soma_z": 5415.0
+                },
+                "bilateral_split": true,
+                "post_z_percentile": 0.781,
+                "midline_x": 133292.0,
+                "mean_soma_z": 5415.0,
+                "dz_to_anchor": 135.2,
+                "dz_to_anterior": 4289.5
+              },
+              "contra_inhibition": {
+                "available": true,
+                "n_contra_gaba": 132,
+                "n_classified": 6,
+                "syn_progressive": 653,
+                "syn_regressive": 59,
+                "frac_progressive": 0.917,
+                "frac_regressive": 0.083,
+                "both_present": true,
+                "dominant_direction": "progressive",
+                "minority_frac": 0.083,
+                "substantially_bidirectional": false,
+                "sufficient": true
+              },
+              "layer_b_pct": 98.36,
+              "dominant_layer": "b",
+              "nt": "acetylcholine",
+              "nt_conf": 0.8943,
+              "contra_output_pct": 80.47,
+              "heterolateral": true,
+              "homolateral": false,
+              "rf_more_lateral_both": true,
+              "rf_frontal_gap_both": true,
+              "rf_lateral_gap_both": true,
+              "frontal_field": false,
+              "frontal_colocated": false,
+              "mean_rf_offset": 12.5945,
+              "smallfield_bounded": true,
+              "axon_crosses_contra_both": true,
+              "projects_contralateral_pof": true,
+              "morphology_source": "skeleton"
+            },
+            "Nod3": {
+              "candidate": "Nod3",
+              "track": "live",
+              "profile": {
+                "cell_type": "Nod3",
+                "n_cells": 2,
+                "sides": {
+                  "right": 1,
+                  "left": 1
+                },
+                "nt": "acetylcholine",
+                "mean_nt_conf": 0.8784,
+                "nt_unanimous": true,
+                "super_class": "visual_projection",
+                "layer_frac": {
+                  "a": 0.2,
+                  "b": 97.13,
+                  "c": 2.29,
+                  "d": 0.37
+                },
+                "dominant_layer": "b",
+                "dominant_direction": "back_to_front",
+                "contra_output_pct": 39.19,
+                "feeds_inhibitors": true,
+                "inhibitors_dominant": false,
+                "inhibitor_syn": 22,
+                "inhibitor_out_frac": 0.31,
+                "top_targets": {
+                  "PLP035": 612,
+                  "SMP292,SMP293,SMP584": 257,
+                  "cLP03": 217,
+                  "CB0194": 166,
+                  "WED095": 165,
+                  "cLP01": 165,
+                  "PLP230": 149,
+                  "LAL203": 136
+                }
+              },
+              "rf": {
+                "axis_selftest": {
+                  "nod1_centroid_p": -7.183,
+                  "nod1_centroid_q": 0.111,
+                  "convention": "lateral = +p (Nod1=FD1 sits frontal at p<0)"
+                },
+                "per_side": {
+                  "right": {
+                    "centroid_offset_p": 3.478,
+                    "offset_ci95": [
+                      2.372,
+                      4.574
+                    ],
+                    "more_lateral": true,
+                    "width_ratio": 1.312,
+                    "wider": true,
+                    "cand_frontal_occ": 0.4185,
+                    "ref_frontal_occ": 0.6086,
+                    "has_frontal_gap": false,
+                    "q_span_frac": 0.804,
+                    "abs_peak_az_deg": 64.4,
+                    "abs_width_deg": 97.2,
+                    "n_inputs": 654,
+                    "dropout_frac": 0.0086
+                  },
+                  "left": {
+                    "centroid_offset_p": 3.305,
+                    "offset_ci95": [
+                      2.319,
+                      4.243
+                    ],
+                    "more_lateral": true,
+                    "width_ratio": 1.176,
+                    "wider": true,
+                    "cand_frontal_occ": 0.3408,
+                    "ref_frontal_occ": 0.6037,
+                    "has_frontal_gap": false,
+                    "q_span_frac": 0.647,
+                    "abs_peak_az_deg": 52.8,
+                    "abs_width_deg": 75.1,
+                    "n_inputs": 527,
+                    "dropout_frac": 0.0087
+                  }
+                },
+                "sides_present": [
+                  "left",
+                  "right"
+                ],
+                "bilateral_ok": false,
+                "calibration_error_budget": {
+                  "linearity_deg": 12.5,
+                  "landmark_deg": 6.5,
+                  "eye_span_deg": 7.5,
+                  "dropout_deg": 1.5,
+                  "combined_deg": 16.0,
+                  "model": "linear two-anchor p->azimuth; azimuth is p-driven, q->elevation coarse",
+                  "verdict_ceiling": "CONFIRMED_WITH_CAVEAT (no ground-truth degree field exists)"
+                }
+              },
+              "smallfield_null": {
+                "obs_radius": 8.392,
+                "null_radius": 10.912,
+                "z_score": -15.72,
+                "p_value": 0.002,
+                "n_perms": 500,
+                "bounded": true,
+                "p_value_bh": 0.002
+              },
+              "morphology": {
+                "available": true,
+                "source": "skeleton",
+                "noduli_landmark_um": [
+                  530.1,
+                  249.3,
+                  165.8
+                ],
+                "cells": [
+                  {
+                    "root_id": 720575940621047943,
+                    "side": "right",
+                    "source": "fafbseg",
+                    "n_vertices": 36507,
+                    "n_edges": 36495,
+                    "dendrite": {
+                      "n": 31044,
+                      "centroid": [
+                        713.2,
+                        293.9,
+                        201.3
+                      ],
+                      "span_x": 135.8,
+                      "span_y": 170.0,
+                      "span_z": 57.2
+                    },
+                    "axon": {
+                      "n": 5463,
+                      "centroid": [
+                        543.9,
+                        236.2,
+                        137.5
+                      ],
+                      "span_x": 230.0,
+                      "span_y": 90.4,
+                      "span_z": 124.1
+                    },
+                    "dv_span_um": 172.8,
+                    "ml_span_um": 346.7,
+                    "axon_ml_shift_um": -169.3,
+                    "axon_crosses_contra": true,
+                    "axon_to_noduli_um": 34.1,
+                    "dend_to_noduli_um": 191.7,
+                    "axon_nearer_noduli": true
+                  },
+                  {
+                    "root_id": 720575940623384781,
+                    "side": "left",
+                    "source": "fafbseg",
+                    "n_vertices": 29987,
+                    "n_edges": 29978,
+                    "dendrite": {
+                      "n": 24685,
+                      "centroid": [
+                        344.2,
+                        280.6,
+                        234.9
+                      ],
+                      "span_x": 137.7,
+                      "span_y": 150.5,
+                      "span_z": 72.8
+                    },
+                    "axon": {
+                      "n": 5302,
+                      "centroid": [
+                        524.2,
+                        237.6,
+                        145.0
+                      ],
+                      "span_x": 224.8,
+                      "span_y": 102.6,
+                      "span_z": 129.1
+                    },
+                    "dv_span_um": 157.6,
+                    "ml_span_um": 346.5,
+                    "axon_ml_shift_um": 180.0,
+                    "axon_crosses_contra": true,
+                    "axon_to_noduli_um": 24.6,
+                    "dend_to_noduli_um": 200.8,
+                    "axon_nearer_noduli": true
+                  }
+                ]
+              },
+              "soma": {
+                "available": true,
+                "centroid_xyz": {
+                  "soma_x": 132636.0,
+                  "soma_y": 53168.0,
+                  "soma_z": 5231.0
+                },
+                "bilateral_split": true,
+                "post_z_percentile": 0.737,
+                "midline_x": 133292.0,
+                "mean_soma_z": 5231.0,
+                "dz_to_anchor": 48.8,
+                "dz_to_anterior": 4105.5
+              },
+              "contra_inhibition": {
+                "available": true,
+                "n_contra_gaba": 149,
+                "n_classified": 6,
+                "syn_progressive": 873,
+                "syn_regressive": 35,
+                "frac_progressive": 0.961,
+                "frac_regressive": 0.039,
+                "both_present": true,
+                "dominant_direction": "progressive",
+                "minority_frac": 0.039,
+                "substantially_bidirectional": false,
+                "sufficient": true
+              },
+              "layer_b_pct": 97.13,
+              "dominant_layer": "b",
+              "nt": "acetylcholine",
+              "nt_conf": 0.8784,
+              "contra_output_pct": 39.19,
+              "heterolateral": false,
+              "homolateral": false,
+              "rf_more_lateral_both": true,
+              "rf_frontal_gap_both": false,
+              "rf_lateral_gap_both": false,
+              "frontal_field": true,
+              "frontal_colocated": false,
+              "mean_rf_offset": 3.3915,
+              "smallfield_bounded": true,
+              "axon_crosses_contra_both": true,
+              "projects_contralateral_pof": false,
+              "morphology_source": "skeleton"
+            },
+            "LPT21": {
+              "candidate": "LPT21",
+              "track": "live",
+              "profile": {
+                "cell_type": "LPT21",
+                "n_cells": 2,
+                "sides": {
+                  "right": 1,
+                  "left": 1
+                },
+                "nt": "acetylcholine",
+                "mean_nt_conf": 0.8132,
+                "nt_unanimous": true,
+                "super_class": "visual_projection",
+                "layer_frac": {
+                  "a": 0.22,
+                  "b": 98.47,
+                  "c": 0.77,
+                  "d": 0.54
+                },
+                "dominant_layer": "b",
+                "dominant_direction": "back_to_front",
+                "contra_output_pct": 1.58,
+                "feeds_inhibitors": true,
+                "inhibitors_dominant": false,
+                "inhibitor_syn": 70,
+                "inhibitor_out_frac": 0.64,
+                "top_targets": {
+                  "Tlp1": 832,
+                  "PLP230": 641,
+                  "Tlp4": 600,
+                  "WED007": 425,
+                  "WED075": 386,
+                  "TmY20": 384,
+                  "Y3": 292,
+                  "LPT23": 245
+                }
+              },
+              "rf": {
+                "axis_selftest": {
+                  "nod1_centroid_p": -7.183,
+                  "nod1_centroid_q": 0.111,
+                  "convention": "lateral = +p (Nod1=FD1 sits frontal at p<0)"
+                },
+                "per_side": {
+                  "right": {
+                    "centroid_offset_p": 0.028,
+                    "offset_ci95": [
+                      -1.056,
+                      1.07
+                    ],
+                    "more_lateral": false,
+                    "width_ratio": 1.077,
+                    "wider": true,
+                    "cand_frontal_occ": 0.5688,
+                    "ref_frontal_occ": 0.6086,
+                    "has_frontal_gap": false,
+                    "q_span_frac": 0.765,
+                    "abs_peak_az_deg": 47.6,
+                    "abs_width_deg": 79.8,
+                    "n_inputs": 668,
+                    "dropout_frac": 0.0096
+                  },
+                  "left": {
+                    "centroid_offset_p": 0.114,
+                    "offset_ci95": [
+                      -0.835,
+                      1.035
+                    ],
+                    "more_lateral": false,
+                    "width_ratio": 1.141,
+                    "wider": true,
+                    "cand_frontal_occ": 0.5944,
+                    "ref_frontal_occ": 0.6037,
+                    "has_frontal_gap": false,
+                    "q_span_frac": 0.765,
+                    "abs_peak_az_deg": 37.3,
+                    "abs_width_deg": 72.8,
+                    "n_inputs": 631,
+                    "dropout_frac": 0.0136
+                  }
+                },
+                "sides_present": [
+                  "left",
+                  "right"
+                ],
+                "bilateral_ok": false,
+                "calibration_error_budget": {
+                  "linearity_deg": 12.5,
+                  "landmark_deg": 6.5,
+                  "eye_span_deg": 7.5,
+                  "dropout_deg": 1.5,
+                  "combined_deg": 16.0,
+                  "model": "linear two-anchor p->azimuth; azimuth is p-driven, q->elevation coarse",
+                  "verdict_ceiling": "CONFIRMED_WITH_CAVEAT (no ground-truth degree field exists)"
+                }
+              },
+              "smallfield_null": {
+                "obs_radius": 8.182,
+                "null_radius": 10.911,
+                "z_score": -17.39,
+                "p_value": 0.002,
+                "n_perms": 500,
+                "bounded": true,
+                "p_value_bh": 0.002
+              },
+              "morphology": {
+                "available": true,
+                "source": "skeleton",
+                "noduli_landmark_um": [
+                  530.1,
+                  249.3,
+                  165.8
+                ],
+                "cells": [
+                  {
+                    "root_id": 720575940627341736,
+                    "side": "right",
+                    "source": "fafbseg",
+                    "n_vertices": 40221,
+                    "n_edges": 40209,
+                    "dendrite": {
+                      "n": 35843,
+                      "centroid": [
+                        738.5,
+                        301.3,
+                        204.7
+                      ],
+                      "span_x": 104.6,
+                      "span_y": 169.9,
+                      "span_z": 57.0
+                    },
+                    "axon": {
+                      "n": 4378,
+                      "centroid": [
+                        639.6,
+                        251.5,
+                        167.8
+                      ],
+                      "span_x": 94.5,
+                      "span_y": 143.1,
+                      "span_z": 136.3
+                    },
+                    "dv_span_um": 169.9,
+                    "ml_span_um": 181.9,
+                    "axon_ml_shift_um": -98.9,
+                    "axon_crosses_contra": true,
+                    "axon_to_noduli_um": 109.5,
+                    "dend_to_noduli_um": 218.3,
+                    "axon_nearer_noduli": true
+                  },
+                  {
+                    "root_id": 720575940634017453,
+                    "side": "left",
+                    "source": "fafbseg",
+                    "n_vertices": 35758,
+                    "n_edges": 35738,
+                    "dendrite": {
+                      "n": 31498,
+                      "centroid": [
+                        318.6,
+                        287.9,
+                        240.0
+                      ],
+                      "span_x": 110.5,
+                      "span_y": 151.5,
+                      "span_z": 51.7
+                    },
+                    "axon": {
+                      "n": 4260,
+                      "centroid": [
+                        409.8,
+                        238.4,
+                        185.9
+                      ],
+                      "span_x": 80.2,
+                      "span_y": 139.8,
+                      "span_z": 142.9
+                    },
+                    "dv_span_um": 152.9,
+                    "ml_span_um": 175.5,
+                    "axon_ml_shift_um": 91.2,
+                    "axon_crosses_contra": true,
+                    "axon_to_noduli_um": 122.5,
+                    "dend_to_noduli_um": 227.5,
+                    "axon_nearer_noduli": true
+                  }
+                ]
+              },
+              "soma": {
+                "available": true,
+                "centroid_xyz": {
+                  "soma_x": 129852.0,
+                  "soma_y": 50068.0,
+                  "soma_z": 5228.0
+                },
+                "bilateral_split": true,
+                "post_z_percentile": 0.736,
+                "midline_x": 133292.0,
+                "mean_soma_z": 5228.0,
+                "dz_to_anchor": 51.8,
+                "dz_to_anterior": 4102.5
+              },
+              "contra_inhibition": {
+                "available": true,
+                "n_contra_gaba": 132,
+                "n_classified": 6,
+                "syn_progressive": 610,
+                "syn_regressive": 65,
+                "frac_progressive": 0.904,
+                "frac_regressive": 0.096,
+                "both_present": true,
+                "dominant_direction": "progressive",
+                "minority_frac": 0.096,
+                "substantially_bidirectional": false,
+                "sufficient": true
+              },
+              "layer_b_pct": 98.47,
+              "dominant_layer": "b",
+              "nt": "acetylcholine",
+              "nt_conf": 0.8132,
+              "contra_output_pct": 1.58,
+              "heterolateral": false,
+              "homolateral": true,
+              "rf_more_lateral_both": false,
+              "rf_frontal_gap_both": false,
+              "rf_lateral_gap_both": false,
+              "frontal_field": true,
+              "frontal_colocated": true,
+              "mean_rf_offset": 0.07100000000000001,
+              "smallfield_bounded": true,
+              "axon_crosses_contra_both": true,
+              "projects_contralateral_pof": false,
+              "morphology_source": "skeleton"
+            }
+          }
+        },
+        "cross_version": {
+          "LPT42_Nod4": {
+            "available": true,
+            "v630": {
+              "dominant_layer": "b",
+              "layer_b": 98.41,
+              "contra_output_pct": 82.55
+            },
+            "v783": {
+              "dominant_layer": "b",
+              "layer_b": 98.36,
+              "contra_output_pct": 80.47
+            },
+            "agree": {
+              "dominant_layer": true,
+              "layer_b_within_5pp": true,
+              "contra_both_ge70": true,
+              "rf_lateral_gap": true
+            },
+            "all_core_agree": true
+          },
+          "Nod3": {
+            "available": true,
+            "v630": {
+              "dominant_layer": "b",
+              "layer_b": 94.66,
+              "contra_output_pct": 46.8
+            },
+            "v783": {
+              "dominant_layer": "b",
+              "layer_b": 97.13,
+              "contra_output_pct": 39.19
+            },
+            "agree": {
+              "dominant_layer": true,
+              "layer_b_within_5pp": true,
+              "contra_both_ge70": false,
+              "rf_lateral_gap": false
+            },
+            "all_core_agree": false
+          },
+          "LPT21": {
+            "available": true,
+            "v630": {
+              "dominant_layer": "b",
+              "layer_b": 98.96,
+              "contra_output_pct": 0.47
+            },
+            "v783": {
+              "dominant_layer": "b",
+              "layer_b": 98.47,
+              "contra_output_pct": 1.58
+            },
+            "agree": {
+              "dominant_layer": true,
+              "layer_b_within_5pp": true,
+              "contra_both_ge70": false,
+              "rf_lateral_gap": false
+            },
+            "all_core_agree": false
+          }
+        },
+        "constructive": {
+          "score_matrix": {
+            "FD1": {
+              "LPT42_Nod4": 1,
+              "Nod3": 1,
+              "LPT21": 1,
+              "Nod1": 3,
+              "Nod2": 2,
+              "Nod5": 0
+            },
+            "FD2": {
+              "LPT42_Nod4": 1,
+              "Nod3": 3,
+              "LPT21": 3,
+              "Nod1": 1,
+              "Nod2": 2,
+              "Nod5": 1
+            },
+            "FD3": {
+              "LPT42_Nod4": 3,
+              "Nod3": 1,
+              "LPT21": 1,
+              "Nod1": 1,
+              "Nod2": 0,
+              "Nod5": 1
+            },
+            "FD4": {
+              "LPT42_Nod4": 2,
+              "Nod3": 0,
+              "LPT21": 0,
+              "Nod1": 2,
+              "Nod2": 1,
+              "Nod5": 1
+            }
+          },
+          "lpt42_best_fd": "FD3",
+          "lpt42_best_score": 3,
+          "lpt42_scores": {
+            "FD1": 1,
+            "FD2": 1,
+            "FD3": 3,
+            "FD4": 2
+          },
+          "lpt42_fd3_score": 3,
+          "nod3_best_fd": "FD2",
+          "nod3_scores": {
+            "FD1": 1,
+            "FD2": 3,
+            "FD3": 1,
+            "FD4": 0
+          },
+          "lpt21_best_fd": "FD2",
+          "lpt21_scores": {
+            "FD1": 1,
+            "FD2": 3,
+            "FD3": 1,
+            "FD4": 0
+          },
+          "nod3_fd2_score": 3,
+          "nod3_fd3_score": 1,
+          "lpt21_fd2_score": 3,
+          "lpt21_fd3_score": 1,
+          "fd2_candidate": "LPT21",
+          "lpt21_fd2_fine": 2,
+          "nod3_fd2_fine": 0,
+          "nod3_identity": "intermediate",
+          "anchor_best_fd": "FD1",
+          "fd3_best_candidate": "LPT42_Nod4",
+          "fd3_margin": 2,
+          "reciprocal_fd3_lpt42": true,
+          "fd2_is_lpt21": true,
+          "n_candidates": 6
+        },
+        "contra_cutoff_sweep": {
+          "grid": [
+            {
+              "cutoff": 60.0,
+              "lpt42_hetero": true,
+              "nod3_hetero": false,
+              "ordering_ok": true
+            },
+            {
+              "cutoff": 65.0,
+              "lpt42_hetero": true,
+              "nod3_hetero": false,
+              "ordering_ok": true
+            },
+            {
+              "cutoff": 70.0,
+              "lpt42_hetero": true,
+              "nod3_hetero": false,
+              "ordering_ok": true
+            },
+            {
+              "cutoff": 75.0,
+              "lpt42_hetero": true,
+              "nod3_hetero": false,
+              "ordering_ok": true
+            },
+            {
+              "cutoff": 80.0,
+              "lpt42_hetero": true,
+              "nod3_hetero": false,
+              "ordering_ok": true
+            }
+          ],
+          "invariant": true,
+          "first_break_cutoff": null
+        },
+        "concordance": {
+          "offline_vs_live": {
+            "LPT42_Nod4": {
+              "contra_offline": 90.33,
+              "contra_live": 80.47,
+              "contra_pp_gap": 9.9,
+              "heterolateral_agree": true,
+              "dominant_layer_agree": true
+            },
+            "Nod3": {
+              "contra_offline": 44.66,
+              "contra_live": 39.19,
+              "contra_pp_gap": 5.5,
+              "heterolateral_agree": true,
+              "dominant_layer_agree": true
+            },
+            "LPT21": {
+              "contra_offline": 1.48,
+              "contra_live": 1.58,
+              "contra_pp_gap": 0.1,
+              "heterolateral_agree": true,
+              "dominant_layer_agree": true
+            }
+          },
+          "bilateral": {
+            "LPT42_Nod4": {
+              "rf_lateral_gap_both": true,
+              "axon_crosses_contra_both": true
+            },
+            "Nod3": {
+              "rf_lateral_gap_both": false,
+              "axon_crosses_contra_both": true
+            },
+            "LPT21": {
+              "rf_lateral_gap_both": false,
+              "axon_crosses_contra_both": true
+            }
+          }
+        },
+        "comparison_rows": [
+          {
+            "property": "Preferred direction (lobula-plate layer)",
+            "egelhaaf": "FD2 and FD3 both regressive (layer-b)",
+            "lpt21": "layer-b 99.17%",
+            "nod3": "layer-b 97.73%",
+            "lpt42": "layer-b 98.58%",
+            "discriminates": false,
+            "assigns": "none"
+          },
+          {
+            "property": "Neurotransmitter",
+            "egelhaaf": "excitatory figure-detection output",
+            "lpt21": "acetylcholine (0.8132)",
+            "nod3": "acetylcholine (0.8784)",
+            "lpt42": "acetylcholine (0.8943)",
+            "discriminates": false,
+            "assigns": "none"
+          },
+          {
+            "property": "Small-field selectivity (bounded vs null)",
+            "egelhaaf": "stronger to small figure than wide field",
+            "lpt21": "bounded",
+            "nod3": "bounded",
+            "lpt42": "bounded",
+            "discriminates": false,
+            "assigns": "none"
+          },
+          {
+            "property": "Receptive-field position vs FD1 anchor",
+            "egelhaaf": "FD2 frontal; FD3 fronto-lateral with a gap",
+            "lpt21": "frontal, co-located with FD1 (offset +0.0)",
+            "nod3": "slightly lateral of FD1, no gap (offset +3.1)",
+            "lpt42": "lateral of FD1, with frontal gap (offset +12.7)",
+            "discriminates": true,
+            "assigns": "FD2=LPT21; FD3=LPT42_Nod4"
+          },
+          {
+            "property": "Frontal gap (unique to FD3)",
+            "egelhaaf": "FD3 alone spares the most-frontal field",
+            "lpt21": "no gap (fills frontal band)",
+            "nod3": "no gap (fills frontal band)",
+            "lpt42": "gap present (both sides)",
+            "discriminates": true,
+            "assigns": "FD3=LPT42_Nod4"
+          },
+          {
+            "property": "Output laterality (contralateral %), offline",
+            "egelhaaf": "FD2 homolateral (ipsi); FD3 heterolateral (contra)",
+            "lpt21": "1.48% (ipsilateral (homolateral))",
+            "nod3": "44.66% (mixed / bilateral)",
+            "lpt42": "90.33% (contralateral (heterolateral))",
+            "discriminates": true,
+            "assigns": "FD2=LPT21; FD3=LPT42_Nod4"
+          },
+          {
+            "property": "Output laterality (contralateral %), live",
+            "egelhaaf": "FD2 homolateral (ipsi); FD3 heterolateral (contra)",
+            "lpt21": "1.58%",
+            "nod3": "39.19%",
+            "lpt42": "80.47%",
+            "discriminates": true,
+            "assigns": "FD2=LPT21; FD3=LPT42_Nod4"
+          },
+          {
+            "property": "Projection target region",
+            "egelhaaf": "FD2 ipsilateral POF; FD3 contralateral POF",
+            "lpt21": "ipsilateral POF",
+            "nod3": "mixed / bilateral",
+            "lpt42": "contralateral POF",
+            "discriminates": true,
+            "assigns": "FD2=LPT21; FD3=LPT42_Nod4"
+          },
+          {
+            "property": "FD-family assignment",
+            "egelhaaf": "each cell should map to one FD identity",
+            "lpt21": "FD2 (homolateral + frontal)",
+            "nod3": "intermediate (not clean FD2 or FD3)",
+            "lpt42": "FD3 (lateral + gap + heterolateral)",
+            "discriminates": true,
+            "assigns": "FD2=LPT21; Nod3 intermediate; FD3=LPT42_Nod4"
+          }
+        ],
+        "track": "offline"
+      },
+      "claims": [
+        {
+          "id": "KD.shared_layer_b",
+          "description": "Both candidates are regressive (layer-b): cannot discriminate",
+          "report_value": 98.58,
+          "computed_primary": 97.73,
+          "computed_secondary": null,
+          "tolerance": "+/-100.0 pp",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "LPT42_Nod4 layer-b 98.58%, Nod3 layer-b 97.73% -- SHARED, not evidence for either",
+          "extra": {}
+        },
+        {
+          "id": "KD.shared_nt",
+          "description": "Both candidates are cholinergic: cannot discriminate",
+          "report_value": "acetylcholine (both)",
+          "computed_primary": "LPT42_Nod4=acetylcholine, Nod3=acetylcholine",
+          "computed_secondary": null,
+          "tolerance": "shared property",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "direction and transmitter are shared; the split rests on the discriminators",
+          "extra": {}
+        },
+        {
+          "id": "KD.shared_smallfield",
+          "description": "Both candidates are small-field selective: cannot discriminate",
+          "report_value": "bounded (both)",
+          "computed_primary": "LPT42_Nod4 bounded=True, Nod3 bounded=True",
+          "computed_secondary": null,
+          "tolerance": "shared property",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "both are FD cells; small-field selectivity does not separate FD2 from FD3",
+          "extra": {}
+        },
+        {
+          "id": "KD.D1_heterolateral",
+          "description": "Discriminator: output crosses to the contralateral side (>=70%)",
+          "report_value": "FD3 has it; FD2 does not",
+          "computed_primary": "LPT42_Nod4=True, Nod3=False",
+          "computed_secondary": null,
+          "tolerance": "FD3-consistent iff True",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "favors LPT42_Nod4",
+          "extra": {}
+        },
+        {
+          "id": "KD.D2_rf_lateral_gap",
+          "description": "Discriminator: receptive field lateral of FD1 with a frontal gap (both sides)",
+          "report_value": "FD3 has it; FD2 does not",
+          "computed_primary": "LPT42_Nod4=True, Nod3=False",
+          "computed_secondary": null,
+          "tolerance": "FD3-consistent iff True",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "favors LPT42_Nod4",
+          "extra": {}
+        },
+        {
+          "id": "KD.D3_axon_crosses",
+          "description": "Discriminator: axon crosses the midline (both cells)",
+          "report_value": "FD3 has it; FD2 does not",
+          "computed_primary": "LPT42_Nod4=True, Nod3=True",
+          "computed_secondary": null,
+          "tolerance": "FD3-consistent iff True",
+          "verdict": "CONFIRMED_WITH_CAVEAT",
+          "numeric_outcome": "MINOR_DIFF",
+          "drift_explains": false,
+          "notes": "favors neither",
+          "extra": {}
+        },
+        {
+          "id": "KD.D4_contra_pof",
+          "description": "Discriminator: projects to the contralateral posterior optic foci",
+          "report_value": "FD3 has it; FD2 does not",
+          "computed_primary": "LPT42_Nod4=True, Nod3=False",
+          "computed_secondary": null,
+          "tolerance": "FD3-consistent iff True",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "favors LPT42_Nod4",
+          "extra": {}
+        },
+        {
+          "id": "KD.D5_family_fd3",
+          "description": "Discriminator: the whole-family screen assigns the cell to FD3",
+          "report_value": "FD3 has it; FD2 does not",
+          "computed_primary": "LPT42_Nod4=True, Nod3=False",
+          "computed_secondary": null,
+          "tolerance": "FD3-consistent iff True",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "favors LPT42_Nod4",
+          "extra": {}
+        },
+        {
+          "id": "KD.contra_two_track",
+          "description": "Output laterality separates the candidates on both offline and live tracks",
+          "report_value": "LPT42_Nod4 heterolateral, Nod3 bilateral",
+          "computed_primary": "offline: LPT42_Nod4 90.33% vs Nod3 44.66%",
+          "computed_secondary": "live: LPT42_Nod4 80.47% vs Nod3 39.19%",
+          "tolerance": "LPT42_Nod4 >= 70% and Nod3 < 70% on the primary track (confirmed on live)",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "the contra% metric is data-source sensitive; the ~90 vs ~45 gap far exceeds any track drift",
+          "extra": {}
+        },
+        {
+          "id": "KD.contra_cutoff_invariant",
+          "description": "The heterolateral ordering (LPT42_Nod4 yes, Nod3 no) is invariant to the cutoff",
+          "report_value": "invariant over 60-80% cutoff grid",
+          "computed_primary": "invariant=True",
+          "computed_secondary": null,
+          "tolerance": "ordering holds across the whole grid",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "first_break_cutoff=None",
+          "extra": {}
+        },
+        {
+          "id": "KD.fd2_is_lpt21",
+          "description": "FD2 is LPT21: cleanly homolateral (ipsilateral projection) with a frontal RF",
+          "report_value": "FD2 -> LPT21",
+          "computed_primary": "LPT21 homolateral=True (contra 1.48%), frontal_colocated=True; fd2_candidate=LPT21",
+          "computed_secondary": null,
+          "tolerance": "LPT21 homolateral AND frontal-co-located, and the chosen FD2 candidate is LPT21",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "Egelhaaf FD2 is a regressive cell with a frontal field projecting to the IPSILATERAL posterior optic foci (homolateral, non-noduli, p.201). LPT21 matches on both axes; the coarse 3-feature screen ties LPT21 and Nod3 at FD2 because it bins contra<70 together, so the homolateral (contra ~0) + frontal-co-location metrics break the tie.",
+          "extra": {}
+        },
+        {
+          "id": "KD.nod3_intermediate",
+          "description": "Nod3 is an intermediate regressive cell: neither the clean FD2 nor FD3",
+          "report_value": "Nod3 -> intermediate",
+          "computed_primary": "Nod3 contra 44.66% (mixed), RF offset 3.145, homolateral=False, frontal_colocated=False, lateral_gap=False",
+          "computed_secondary": null,
+          "tolerance": "Nod3 fails the FD3 gate (no lateral+gap+heterolateral) AND the clean-FD2 gate (homolateral+frontal); its contra% and RF offset sit between LPT21 and LPT42_Nod4",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "Nod3 is regressive and cholinergic like the FD cells but its ~45% contralateral output and slightly-lateral RF place it between FD2 (LPT21) and FD3 (LPT42_Nod4); it is not assigned a single Egelhaaf identity here.",
+          "extra": {}
+        },
+        {
+          "id": "KD.lpt42_is_fd3",
+          "description": "LPT42_Nod4 is the reciprocal-best FD3 match across the Nod/LPT family",
+          "report_value": "LPT42_Nod4 <-> FD3 (reciprocal)",
+          "computed_primary": "best_for_FD3=LPT42_Nod4, LPT42_Nod4 best_fd=FD3, margin=2",
+          "computed_secondary": null,
+          "tolerance": "reciprocal best hit for FD3",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "anchor Nod1 screens best = FD1 (positive control expects FD1)",
+          "extra": {}
+        },
+        {
+          "id": "KD.decision_verdict",
+          "description": "OVERALL: FD3, FD2, and the status of Nod3 among the regressive noduli cells",
+          "report_value": "FD3=LPT42_Nod4; FD2=LPT21; Nod3=intermediate",
+          "computed_primary": "FD3=LPT42_Nod4; FD2=LPT21; Nod3=intermediate",
+          "computed_secondary": null,
+          "tolerance": "LPT42 all 5 FD3 discriminators; LPT21 homolateral+frontal; Nod3 residual -> CONFIRMED",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "FD3 discriminators: LPT42_Nod4 5/5 {'D1_heterolateral': True, 'D2_rf_lateral_gap': True, 'D3_axon_crosses': True, 'D4_contra_pof': True, 'D5_family_fd3': True}. FD2: LPT21 homolateral=True frontal=True (contra 1.48%). Nod3 contra 44.66% = intermediate. Overturning condition: Nod3 would take FD3 only if it hit the four FD3 anatomy/laterality discriminators while LPT42_Nod4 failed >=2 of 5.",
+          "extra": {}
+        }
+      ]
+    },
+    "K": {
+      "title": "LPT42_Nod4 is the modern correlate of Egelhaaf-1985 FD3",
+      "derived": {
+        "candidate": "LPT42_Nod4",
+        "anchor": "Nod1",
+        "cand_n_cells": 2,
+        "cand_sides": {
+          "right": 1,
+          "left": 1
+        },
+        "cand_nt": "acetylcholine",
+        "cand_mean_nt_conf": 0.8943,
+        "cand_nt_unanimous": true,
+        "cand_super_class": "visual_projection",
+        "cand_layer_frac": {
+          "a": 0.09,
+          "b": 98.58,
+          "c": 1.18,
+          "d": 0.15
+        },
+        "cand_dominant_layer": "b",
+        "cand_dominant_direction": "back_to_front",
+        "cand_contra_output_pct": 90.33,
+        "cand_feeds_inhibitors": true,
+        "cand_inhibitors_dominant": false,
+        "cand_inhibitor_out_frac": 0.21,
+        "cand_top_targets": {
+          "PLP230": 687,
+          "WED075": 295,
+          "PLP178": 275,
+          "PLP012": 219,
+          "PLP078": 164,
+          "LAL203": 157,
+          "WED095": 154,
+          "PS010": 148
+        },
+        "profiles": {
+          "Nod1": {
+            "cell_type": "Nod1",
+            "n_cells": 4,
+            "sides": {
+              "right": 2,
+              "left": 2
+            },
+            "nt": "acetylcholine",
+            "mean_nt_conf": 0.8574,
+            "nt_unanimous": true,
+            "super_class": "visual_projection",
+            "layer_frac": {
+              "a": 95.38,
+              "b": 2.45,
+              "c": 2.17,
+              "d": 0.0
+            },
+            "dominant_layer": "a",
+            "dominant_direction": "front_to_back",
+            "contra_output_pct": 89.29,
+            "feeds_inhibitors": true,
+            "inhibitors_dominant": false,
+            "inhibitor_syn": 11,
+            "inhibitor_out_frac": 0.13,
+            "top_targets": {
+              "WED007": 589,
+              "WED075": 510,
+              "CB1827": 490,
+              "PLP078": 391,
+              "LAL158": 356,
+              "DNp26": 315,
+              "LC9": 288,
+              "PLP230": 234
+            }
+          },
+          "Nod3": {
+            "cell_type": "Nod3",
+            "n_cells": 2,
+            "sides": {
+              "right": 1,
+              "left": 1
+            },
+            "nt": "acetylcholine",
+            "mean_nt_conf": 0.8784,
+            "nt_unanimous": true,
+            "super_class": "visual_projection",
+            "layer_frac": {
+              "a": 0.1,
+              "b": 97.73,
+              "c": 1.95,
+              "d": 0.23
+            },
+            "dominant_layer": "b",
+            "dominant_direction": "back_to_front",
+            "contra_output_pct": 44.66,
+            "feeds_inhibitors": true,
+            "inhibitors_dominant": false,
+            "inhibitor_syn": 9,
+            "inhibitor_out_frac": 0.21,
+            "top_targets": {
+              "PLP035": 416,
+              "SMP292,SMP293,SMP584": 179,
+              "cLP03": 153,
+              "WED095": 130,
+              "cLP01": 119,
+              "PLP230": 109,
+              "CB0194": 102,
+              "CB3140": 99
+            }
+          },
+          "LPT42_Nod4": {
+            "cell_type": "LPT42_Nod4",
+            "n_cells": 2,
+            "sides": {
+              "right": 1,
+              "left": 1
+            },
+            "nt": "acetylcholine",
+            "mean_nt_conf": 0.8943,
+            "nt_unanimous": true,
+            "super_class": "visual_projection",
+            "layer_frac": {
+              "a": 0.09,
+              "b": 98.58,
+              "c": 1.18,
+              "d": 0.15
+            },
+            "dominant_layer": "b",
+            "dominant_direction": "back_to_front",
+            "contra_output_pct": 90.33,
+            "feeds_inhibitors": true,
+            "inhibitors_dominant": false,
+            "inhibitor_syn": 11,
+            "inhibitor_out_frac": 0.21,
+            "top_targets": {
+              "PLP230": 687,
+              "WED075": 295,
+              "PLP178": 275,
+              "PLP012": 219,
+              "PLP078": 164,
+              "LAL203": 157,
+              "WED095": 154,
+              "PS010": 148
+            }
+          },
+          "Nod2": {
+            "cell_type": "Nod2",
+            "n_cells": 2,
+            "sides": {
+              "right": 1,
+              "left": 1
+            },
+            "nt": "gaba",
+            "mean_nt_conf": 0.8033,
+            "nt_unanimous": true,
+            "super_class": "visual_projection",
+            "layer_frac": {
+              "a": 98.41,
+              "b": 1.22,
+              "c": 0.06,
+              "d": 0.31
+            },
+            "dominant_layer": "a",
+            "dominant_direction": "front_to_back",
+            "contra_output_pct": 46.55,
+            "feeds_inhibitors": true,
+            "inhibitors_dominant": false,
+            "inhibitor_syn": 5,
+            "inhibitor_out_frac": 0.1,
+            "top_targets": {
+              "PLP035": 636,
+              "PS057": 525,
+              "cLP01": 227,
+              "CB1980": 198,
+              "WED146a": 193,
+              "LAL133a": 188,
+              "PS118": 175,
+              "LAL052": 175
+            }
+          },
+          "Nod5": {
+            "cell_type": "Nod5",
+            "n_cells": 2,
+            "sides": {
+              "right": 1,
+              "left": 1
+            },
+            "nt": "acetylcholine",
+            "mean_nt_conf": 0.794,
+            "nt_unanimous": true,
+            "super_class": "visual_projection",
+            "layer_frac": {
+              "a": 0.48,
+              "b": 4.96,
+              "c": 80.6,
+              "d": 13.97
+            },
+            "dominant_layer": "c",
+            "dominant_direction": "upward",
+            "contra_output_pct": 42.52,
+            "feeds_inhibitors": true,
+            "inhibitors_dominant": true,
+            "inhibitor_syn": 1532,
+            "inhibitor_out_frac": 37.15,
+            "top_targets": {
+              "VCH": 588,
+              "DCH": 539,
+              "Am1": 405,
+              "PS047a": 336,
+              "PS047b": 242,
+              "DNb03": 177,
+              "LPT22": 113,
+              "H1": 99
+            }
+          }
+        },
+        "rf": {
+          "axis_selftest": {
+            "nod1_centroid_p": -6.979,
+            "nod1_centroid_q": 0.349,
+            "convention": "lateral = +p (Nod1=FD1 sits frontal at p<0)"
+          },
+          "per_side": {
+            "right": {
+              "centroid_offset_p": 11.935,
+              "offset_ci95": [
+                10.893,
+                12.89
+              ],
+              "more_lateral": true,
+              "width_ratio": 0.908,
+              "wider": false,
+              "cand_frontal_occ": 0.0306,
+              "ref_frontal_occ": 0.6528,
+              "has_frontal_gap": true,
+              "q_span_frac": 0.647,
+              "abs_peak_az_deg": 106.5,
+              "abs_width_deg": 67.9,
+              "n_inputs": 541,
+              "dropout_frac": 0.0148
+            },
+            "left": {
+              "centroid_offset_p": 13.383,
+              "offset_ci95": [
+                12.38,
+                14.342
+              ],
+              "more_lateral": true,
+              "width_ratio": 1.231,
+              "wider": true,
+              "cand_frontal_occ": 0.0187,
+              "ref_frontal_occ": 0.6262,
+              "has_frontal_gap": true,
+              "q_span_frac": 0.618,
+              "abs_peak_az_deg": 100.4,
+              "abs_width_deg": 75.8,
+              "n_inputs": 481,
+              "dropout_frac": 0.0128
+            }
+          },
+          "sides_present": [
+            "left",
+            "right"
+          ],
+          "bilateral_ok": true,
+          "calibration_error_budget": {
+            "linearity_deg": 12.5,
+            "landmark_deg": 6.5,
+            "eye_span_deg": 7.5,
+            "dropout_deg": 1.5,
+            "combined_deg": 16.0,
+            "model": "linear two-anchor p->azimuth; azimuth is p-driven, q->elevation coarse",
+            "verdict_ceiling": "CONFIRMED_WITH_CAVEAT (no ground-truth degree field exists)"
+          }
+        },
+        "smallfield_null": {
+          "obs_radius": 6.602,
+          "null_radius": 10.907,
+          "z_score": -24.5,
+          "p_value": 0.002,
+          "n_perms": 500,
+          "bounded": true,
+          "p_value_bh": 0.002
+        },
+        "morphology": {
+          "available": true,
+          "source": "skeleton",
+          "noduli_landmark_um": [
+            531.7,
+            248.4,
+            163.4
+          ],
+          "cells": [
+            {
+              "root_id": 720575940619612142,
+              "side": "right",
+              "source": "fafbseg",
+              "n_vertices": 36744,
+              "n_edges": 36733,
+              "dendrite": {
+                "n": 33118,
+                "centroid": [
+                  687.5,
+                  258.3,
+                  201.3
+                ],
+                "span_x": 175.3,
+                "span_y": 155.3,
+                "span_z": 132.3
+              },
+              "axon": {
+                "n": 3626,
+                "centroid": [
+                  459.4,
+                  237.1,
+                  140.3
+                ],
+                "span_x": 176.2,
+                "span_y": 66.8,
+                "span_z": 118.2
+              },
+              "dv_span_um": 155.3,
+              "ml_span_um": 351.8,
+              "axon_ml_shift_um": -228.1,
+              "axon_crosses_contra": true,
+              "axon_to_noduli_um": 76.7,
+              "dend_to_noduli_um": 160.7,
+              "axon_nearer_noduli": true
+            },
+            {
+              "root_id": 720575940625992781,
+              "side": "left",
+              "source": "fafbseg",
+              "n_vertices": 35808,
+              "n_edges": 35782,
+              "dendrite": {
+                "n": 32313,
+                "centroid": [
+                  373.3,
+                  244.2,
+                  225.9
+                ],
+                "span_x": 170.6,
+                "span_y": 147.5,
+                "span_z": 156.3
+              },
+              "axon": {
+                "n": 3495,
+                "centroid": [
+                  598.2,
+                  242.3,
+                  130.8
+                ],
+                "span_x": 174.7,
+                "span_y": 68.9,
+                "span_z": 101.2
+              },
+              "dv_span_um": 147.5,
+              "ml_span_um": 345.6,
+              "axon_ml_shift_um": 224.9,
+              "axon_crosses_contra": true,
+              "axon_to_noduli_um": 74.3,
+              "dend_to_noduli_um": 170.3,
+              "axon_nearer_noduli": true
+            }
+          ]
+        },
+        "soma": {
+          "available": true,
+          "centroid_xyz": {
+            "soma_x": 134080.0,
+            "soma_y": 65664.0,
+            "soma_z": 5415.0
+          },
+          "bilateral_split": true,
+          "post_z_percentile": 0.781,
+          "midline_x": 133292.0,
+          "mean_soma_z": 5415.0,
+          "dz_to_anchor": 135.2,
+          "dz_to_anterior": 4289.5
+        },
+        "contra_inhibition": {
+          "LPT42_Nod4": {
+            "available": true,
+            "n_contra_gaba": 108,
+            "n_classified": 6,
+            "syn_progressive": 387,
+            "syn_regressive": 30,
+            "frac_progressive": 0.928,
+            "frac_regressive": 0.072,
+            "both_present": true,
+            "dominant_direction": "progressive",
+            "minority_frac": 0.072,
+            "substantially_bidirectional": false,
+            "sufficient": true
+          },
+          "Nod1": {
+            "available": true,
+            "n_contra_gaba": 74,
+            "n_classified": 6,
+            "syn_progressive": 14,
+            "syn_regressive": 155,
+            "frac_progressive": 0.083,
+            "frac_regressive": 0.917,
+            "both_present": true,
+            "dominant_direction": "regressive",
+            "minority_frac": 0.083,
+            "substantially_bidirectional": false,
+            "sufficient": true
+          }
+        },
+        "fd_family_screen": {
+          "score_matrix": {
+            "FD1": {
+              "Nod1": 3,
+              "Nod3": 1,
+              "LPT42_Nod4": 1,
+              "Nod2": 2,
+              "Nod5": 0
+            },
+            "FD2": {
+              "Nod1": 1,
+              "Nod3": 3,
+              "LPT42_Nod4": 1,
+              "Nod2": 2,
+              "Nod5": 1
+            },
+            "FD3": {
+              "Nod1": 1,
+              "Nod3": 1,
+              "LPT42_Nod4": 3,
+              "Nod2": 0,
+              "Nod5": 1
+            },
+            "FD4": {
+              "Nod1": 2,
+              "Nod3": 0,
+              "LPT42_Nod4": 2,
+              "Nod2": 1,
+              "Nod5": 1
+            }
+          },
+          "best_match_for_FD3": "LPT42_Nod4",
+          "best_FD_for_LPT42": "FD3",
+          "fd3_margin": 2,
+          "reciprocal_best_hit": true,
+          "n_candidates": 5
+        },
+        "robustness": {
+          "per_knob": {
+            "gap_drop": {
+              "grid": [
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7
+              ],
+              "pass": [
+                true,
+                true,
+                true,
+                true,
+                true
+              ],
+              "all_pass": true
+            }
+          },
+          "seed_stability": {
+            "seeds": [
+              12345,
+              1,
+              2,
+              3,
+              4
+            ],
+            "offset_ci_lower_min": 9.524,
+            "offset_ci_lower_max": 9.62,
+            "all_offset_lower_gt0": true
+          },
+          "grid_pass_fraction": 1.0
+        },
+        "cross_version": {
+          "available": false,
+          "reason": "v630 cross-check is live-only"
+        },
+        "track": "offline"
+      },
+      "claims": [
+        {
+          "id": "K.n_cells",
+          "description": "LPT42_Nod4 cell count (bilateral pair)",
+          "report_value": 2,
+          "computed_primary": 2,
+          "computed_secondary": null,
+          "tolerance": "+/-0% or +/-1 (drift down)",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "primary diff +0 (+0.0%)",
+          "extra": {}
+        },
+        {
+          "id": "K.nt_ach",
+          "description": "LPT42_Nod4 is cholinergic (excitatory FD output)",
+          "report_value": "acetylcholine",
+          "computed_primary": "acetylcholine",
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.superclass",
+          "description": "LPT42_Nod4 is a visual_projection output element",
+          "report_value": "visual_projection",
+          "computed_primary": "visual_projection",
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.layer_b",
+          "description": "FD3 preferred direction: T4/T5 input is layer-b (regressive)",
+          "report_value": 100.0,
+          "computed_primary": 98.58,
+          "computed_secondary": null,
+          "tolerance": "+/-5.0 pp",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "diff -1.4 pp",
+          "extra": {}
+        },
+        {
+          "id": "K.preferred_dir",
+          "description": "FD3 dominant input direction is back-to-front",
+          "report_value": "back_to_front",
+          "computed_primary": "back_to_front",
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.contra_output",
+          "description": "FD3 axon is heterolateral (>=70% contralateral output)",
+          "report_value": ">=70.0%",
+          "computed_primary": 90.3,
+          "computed_secondary": null,
+          "tolerance": ">=70% contra (F2 falsifier boundary)",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "measured 90.3% contralateral (annotated targets); heterolateral noduli-group axon",
+          "extra": {}
+        },
+        {
+          "id": "K.rf_more_lateral",
+          "description": "FD3 RF is more lateral than FD1=Nod1 (beyond bootstrap CI)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.rf_frontal_gap",
+          "description": "FD3 has a frontal gap absent in FD1 (only-FD-cell feature)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.rf_wider",
+          "description": "FD3 excitatory RF is wider than FD1 (corroborating)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.rf_vertical_full",
+          "description": "FD3 RF covers most of the vertical extent (corroborating)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.rf_abs_azimuth",
+          "description": "FD3 absolute peak azimuth ~40-50 deg (calibrated, secondary)",
+          "report_value": "40.0-50.0 deg",
+          "computed_primary": 103.5,
+          "computed_secondary": null,
+          "tolerance": "+/-16.0 deg calibration band; never REFUTES (secondary)",
+          "verdict": "CONFIRMED_WITH_CAVEAT",
+          "numeric_outcome": "MINOR_DIFF",
+          "drift_explains": false,
+          "notes": "measured peak 103.5 deg vs Egelhaaf 40-50 deg (within calibration band: False); combined calibration uncertainty +/-16.0 deg. Linear column->azimuth map is the weakest link; lattice-extreme anchoring biases the centroid lateral. Secondary corroboration only \u2014 the differential gate governs the RF identity. Error budget: {'linearity_deg': 12.5, 'landmark_deg': 6.5, 'eye_span_deg': 7.5, 'dropout_deg': 1.5, 'combined_deg': 16.0, 'model': 'linear two-anchor p->azimuth; azimuth is p-driven, q->elevation coarse', 'verdict_ceiling': 'CONFIRMED_WITH_CAVEAT (no ground-truth degree field exists)'}.",
+          "extra": {}
+        },
+        {
+          "id": "K.smallfield_bounded",
+          "description": "FD3 RF patch is bounded vs in-degree null (figure-selective)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "obs 6.602 vs null 10.907 (z=-24.5, p=0.002, p_bh=0.002, 500 perms)",
+          "extra": {}
+        },
+        {
+          "id": "K.bilateral_replication",
+          "description": "FD3 signature holds independently on left and right cell",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.disc_vs_nod1_layer",
+          "description": "LPT42_Nod4 layer-b vs Nod1 layer-a (different direction)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.disc_vs_nod1_rf",
+          "description": "LPT42_Nod4 RF lateral+gap vs Nod1 frontal (FD3 vs FD1)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.disc_vs_nod3_contra",
+          "description": "LPT42_Nod4 heterolateral vs Nod3 bilateral output",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.disc_vs_nod5_layer",
+          "description": "LPT42_Nod4 layer-b vs Nod5 layer-c (horizontal vs vertical)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.disc_vs_nod5_targets",
+          "description": "Inhibitors dominate Nod5 output but not LPT42_Nod4",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.disc_vs_nod2_nt",
+          "description": "LPT42_Nod4 is ACh vs Nod2 GABA (output vs inhibitory)",
+          "report_value": true,
+          "computed_primary": true,
+          "computed_secondary": null,
+          "tolerance": "exact",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "",
+          "extra": {}
+        },
+        {
+          "id": "K.nt_ach_confident",
+          "description": "LPT42_Nod4 cholinergic with high NT confidence",
+          "report_value": ">=0.70 ACh, unanimous",
+          "computed_primary": 0.8943,
+          "computed_secondary": null,
+          "tolerance": "mean top_nt_conf >= 0.70 and unanimous ACh",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "mean top_nt_conf 0.8943; unanimous_ACh=True",
+          "extra": {}
+        },
+        {
+          "id": "K.soma_posterolateral",
+          "description": "FD3 cell body posterolateral: bilateral, posterior, co-clustered with FD1",
+          "report_value": "posterior lateral protocerebrum (Egelhaaf p.203)",
+          "computed_primary": "z-pct 0.781, split True",
+          "computed_secondary": null,
+          "tolerance": "bilateral split & soma_z >=60th pctile of visual_projection & posterior to centrifugals",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "bilateral_split=True, post_z_percentile=0.781, dz_to_Nod1=135.2, dz_to_VCH/DCH=+4289.5 (offline soma proxy; skeletons unavailable)",
+          "extra": {}
+        },
+        {
+          "id": "K.contra_inhibition_bidirectional",
+          "description": "FD3 vs FD1 receive OPPOSITE-dominant contralateral inhibition (FD3 progressive-dominant, FD1 regressive-dominant)",
+          "report_value": "FD3 and FD1 differ in crossed-inhibition direction (Egelhaaf p.203-204)",
+          "computed_primary": "FD3=progressive, FD1=regressive",
+          "computed_secondary": null,
+          "tolerance": "opposite dominant direction; fine bidirectionality is annotation-limited",
+          "verdict": "CONFIRMED_WITH_CAVEAT",
+          "numeric_outcome": "MATCH",
+          "drift_explains": false,
+          "notes": "FD3 progressive-dominant (prog 0.928/reg 0.072); FD1=Nod1 regressive-dominant (prog 0.083/reg 0.917). Opposite-dominant crossed inhibition matches Egelhaaf's FD3-vs-FD1 contrast in direction; FD3's minority (regressive) channel is a trace (0.072 of classified). Annotation is power-limited (n_classified=6 of 108 contra-GABA), so the fine bidirectional/unidirectional split is not resolved by wiring alone.",
+          "extra": {}
+        },
+        {
+          "id": "K.fd_family_unique",
+          "description": "LPT42_Nod4 is the unique reciprocal-best FD3 match across the Nod/LPT family",
+          "report_value": "reciprocal best hit, margin>=1",
+          "computed_primary": "best_for_FD3=LPT42_Nod4, best_FD_for_LPT42=FD3, margin=2",
+          "computed_secondary": null,
+          "tolerance": "reciprocal best hit AND FD3-margin >= 1 over runner-up",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "screened 5 candidate types; FD3 scores {'Nod1': 1, 'Nod3': 1, 'LPT42_Nod4': 3, 'Nod2': 0, 'Nod5': 1}",
+          "extra": {}
+        },
+        {
+          "id": "K.cross_version_v630",
+          "description": "Headline FD3 signature replicates on FlyWire v630",
+          "report_value": "v630 materialization",
+          "computed_primary": null,
+          "computed_secondary": null,
+          "tolerance": "n/a",
+          "verdict": "UNVERIFIABLE",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "v630 cross-check is live-only",
+          "extra": {}
+        },
+        {
+          "id": "K.robust_to_knobs",
+          "description": "Identity verdict is invariant across knob grid + bootstrap/permutation seeds",
+          "report_value": "grid_pass_fraction == 1.0",
+          "computed_primary": 1.0,
+          "computed_secondary": null,
+          "tolerance": "gap-threshold sweep & seed stability all pass",
+          "verdict": "CONFIRMED",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "seed_stability={'seeds': [12345, 1, 2, 3, 4], 'offset_ci_lower_min': 9.524, 'offset_ci_lower_max': 9.62, 'all_offset_lower_gt0': True}; gap_drop=[True, True, True, True, True]",
+          "extra": {}
+        },
+        {
+          "id": "K.power_note",
+          "description": "Statistical power: only one bilateral LPT42_Nod4 pair (n=2)",
+          "report_value": "n=2",
+          "computed_primary": null,
+          "computed_secondary": null,
+          "tolerance": "n/a",
+          "verdict": "UNVERIFIABLE",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "n=2 is irreducible (one bilateral pair exists). Four independent variance controls bound the inference: (i) bilateral independent replication (K.bilateral_replication); (ii) within-cell synapse bootstrap CI on the RF offset (N_BOOT=2000); (iii) in-degree permutation null for small-field selectivity (z<<0, p<=0.002); (iv) cross-version replication on v630. The conclusion does not rest on a per-cell sample size.",
+          "extra": {}
+        },
+        {
+          "id": "K.morph_dv_span",
+          "description": "FD3 dendrite spans the dorso-ventral lobula plate (real skeleton (fafbseg))",
+          "report_value": "full D-V (Egelhaaf p.203)",
+          "computed_primary": "155.3 um max",
+          "computed_secondary": null,
+          "tolerance": "dendrite D-V span >= 80 um (both cells)",
+          "verdict": "CONFIRMED_WITH_CAVEAT",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "D-V spans (um): [155.3, 147.5]; real skeleton (fafbseg) (36744 skeleton nodes)",
+          "extra": {}
+        },
+        {
+          "id": "K.morph_axon_heterolateral",
+          "description": "FD3 axon is displaced contralaterally from the dendrite (real skeleton (fafbseg))",
+          "report_value": "crosses midline to contralateral side (Egelhaaf p.203)",
+          "computed_primary": "ML shifts [-228.1, 224.9] um (toward contra both cells)",
+          "computed_secondary": null,
+          "tolerance": "axon centroid shifts toward the contralateral hemisphere (both cells)",
+          "verdict": "CONFIRMED_WITH_CAVEAT",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "dendrite->axon medio-lateral centroid shift sign; real skeleton (fafbseg)",
+          "extra": {}
+        },
+        {
+          "id": "K.morph_axon_noduli",
+          "description": "FD3 axon converges near the noduli-group landmark (real skeleton (fafbseg))",
+          "report_value": "noduli group, posterior optic foci (Egelhaaf p.203)",
+          "computed_primary": "axon 76.7 um vs dendrite 160.7 um from Nod1 landmark",
+          "computed_secondary": null,
+          "tolerance": "axon nearer the Nod1 (noduli) landmark than the dendrite (both cells)",
+          "verdict": "CONFIRMED_WITH_CAVEAT",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "Nod1 output-cloud centroid as the noduli-group landmark; real skeleton (fafbseg)",
+          "extra": {}
+        },
+        {
+          "id": "K.identity_verdict",
+          "description": "OVERALL: LPT42_Nod4 is the modern correlate of Egelhaaf-1985 FD3",
+          "report_value": "FD3 == LPT42_Nod4",
+          "computed_primary": "CONFIRMED_WITH_CAVEAT",
+          "computed_secondary": null,
+          "tolerance": "all CORE+DISC CONFIRMED & no falsifier -> CONFIRMED",
+          "verdict": "CONFIRMED_WITH_CAVEAT",
+          "numeric_outcome": "",
+          "drift_explains": false,
+          "notes": "CORE + DISCRIMINATING confirmed; >=1 corroborating claim caveated/unverifiable",
+          "extra": {}
+        }
+      ]
+    }
+  }
+}

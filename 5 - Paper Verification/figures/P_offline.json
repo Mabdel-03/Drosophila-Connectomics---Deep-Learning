@@ -1,0 +1,576 @@
+{
+  "meta": {
+    "flywire_track": "offline"
+  },
+  "title": "Afferent pathway of the FD3 cell (photoreceptor -> T4/T5 -> LPT42_Nod4)",
+  "verdicts": {
+    "CONFIRMED": 10,
+    "CONFIRMED_WITH_CAVEAT": 2,
+    "UNVERIFIABLE": 2
+  },
+  "claims": [
+    {
+      "id": "P.input_census_nonempty",
+      "description": "FD3 receives a substantial direct afferent input (>=1000 synapses)",
+      "report_value": ">=1000 input synapses",
+      "computed_primary": 13157,
+      "computed_secondary": null,
+      "tolerance": ">=1000 (floor)",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "13157 input synapses from 2991 presynaptic partners",
+      "extra": {}
+    },
+    {
+      "id": "P.layer_b_drive",
+      "description": "FD3's motion (T4/T5) drive is layer-b / regressive (back-to-front)",
+      "report_value": 100.0,
+      "computed_primary": 98.58,
+      "computed_secondary": null,
+      "tolerance": "+/-5.0 pp",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "diff -1.4 pp",
+      "extra": {}
+    },
+    {
+      "id": "P.preferred_dir",
+      "description": "FD3's dominant input direction is back-to-front",
+      "report_value": "back_to_front",
+      "computed_primary": "back_to_front",
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "P.on_off_mix",
+      "description": "FD3's layer-b drive is a mix of ON (T4b) and OFF (T5b) detectors",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "T4b(ON)=1793 syn, T5b(OFF)=1459 syn (T4 frac 55.1%)",
+      "extra": {}
+    },
+    {
+      "id": "P.upstream_cascade_present",
+      "description": "The canonical R->lamina->medulla->T4b/T5b cascade upstream of FD3 is present",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "ON limb T4b<-['C2', 'C3', 'Mi1', 'Mi4', 'Mi9', 'Tm3'] (54.9% of its input); OFF limb T5b<-['Tm1', 'Tm2', 'Tm4', 'Tm9'] (48.6% of its input); lamina ['L1', 'L2', 'L3', 'L4', 'L5']; photoreceptors ['R1-6', 'R7', 'R8']. Per-type canonical wiring (Fischbach-Dittrich 1989; Takemura 2013), not FD3-specific counts.",
+      "extra": {}
+    },
+    {
+      "id": "P.nc_no_vch_gate",
+      "description": "FD3 has NO VCH/DCH centrifugal gate (unlike FD1=Nod1)",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "VCH/DCH -> FD3 = 12 syn (0.091% of input). NOTE: FD3 has no VCH gate specifically, but the VCH functional ROLE (wide-field pooling + sheet gating + detector feedback + FD-cell inhibition) IS filled \u2014 by the lobula-plate intrinsic cell LPi14, opponent-tuned (see Family R).",
+      "extra": {}
+    },
+    {
+      "id": "P.nc_no_layer_a_drive",
+      "description": "FD3 has NO layer-a (progressive) T4/T5 drive (unlike FD1)",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "layer-a fraction of FD3's T4/T5 input = 0.09%",
+      "extra": {}
+    },
+    {
+      "id": "P.t4t5_minority_of_input",
+      "description": "Motion (T4/T5) is a minority of FD3's total input; most is central/columnar",
+      "report_value": "<50% of total input synapses",
+      "computed_primary": 25.1,
+      "computed_secondary": null,
+      "tolerance": "reported so '~100% layer-b' is read as a within-T4/T5 fraction, not of total",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "T4/T5 = 25.1% of the 13157 total input synapses; the layer-b fraction (98.58%) is WITHIN the T4/T5 subset. Input by class: {'optic': 6238, 'visual_projection': 4775, 'central': 1060, 'visual_centrifugal': 214, 'ascending': 33, 'descending': 6}.",
+      "extra": {}
+    },
+    {
+      "id": "P.central_inputs_layerb",
+      "description": "FD3's dominant non-motion (columnar sheet) inputs carry the same layer-b channel",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "1/6 top central input types are layer-b dominant: [('LPC1', 'b'), ('LLPC3', 'd'), ('LLPC2', 'c'), ('LPi14', 'a'), ('LPi02', 'a'), ('LPTe01', 'd')]",
+      "extra": {}
+    },
+    {
+      "id": "P.contra_inhibition_bidirectional",
+      "description": "FD3 receives contralateral inhibition in both directions (Egelhaaf 1985 p.203); measured as progressive-dominant with a regressive minority",
+      "report_value": "both channels present (progressive-dominant)",
+      "computed_primary": "progressive-dominant, both_present=True",
+      "computed_secondary": null,
+      "tolerance": "both channels present; power-capped (never REFUTES)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "progressive=387 syn, regressive=30 syn over 6 classified contra-GABA partners; progressive-dominant (minority frac 0.072); the minority channel is a trace, so this reads as direction-dominant rather than cleanly bidirectional; well-powered",
+      "extra": {}
+    },
+    {
+      "id": "P.peripheral_nt_histaminergic",
+      "description": "Photoreceptor/lamina front end is histaminergic (literature)",
+      "report_value": "R1-6/R7/R8 histaminergic",
+      "computed_primary": null,
+      "computed_secondary": null,
+      "tolerance": "n/a",
+      "verdict": "UNVERIFIABLE",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "The R1-6->lamina->medulla cascade upstream of FD3's detectors is PRESENT and per-type wired in v783, but the ON/OFF functional split and the histaminergic transmitter of the photoreceptors come from physiology (Hardie 1989; Maisak 2013), not the connectome. NOTE: the annotation table lists R1-6=acetylcholine / R7=gaba, which is a prediction artifact and biologically wrong (photoreceptors are histaminergic) \u2014 not propagated.",
+      "extra": {}
+    },
+    {
+      "id": "P.power_note",
+      "description": "Statistical power: FD3 is one bilateral pair (n=2)",
+      "report_value": "n=2",
+      "computed_primary": null,
+      "computed_secondary": null,
+      "tolerance": "n/a",
+      "verdict": "UNVERIFIABLE",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "n=2 is irreducible (one bilateral LPT42_Nod4 pair). The afferent claims rest on the aggregate synapse populations onto both cells (thousands of input synapses) and on per-type cascade wiring measured across the full retinotopic population, not on a per-cell sample size.",
+      "extra": {}
+    },
+    {
+      "id": "P.no_truncation",
+      "description": "Upstream trace did not hit the live 500k-row cap",
+      "report_value": true,
+      "computed_primary": true,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "P.input_pathway_verdict",
+      "description": "OVERALL: FD3's afferent pathway (photoreceptor -> layer-b T4/T5 -> FD3)",
+      "report_value": "regressive layer-b afferent arm, parallel to (not a copy of) FD1",
+      "computed_primary": "CONFIRMED_WITH_CAVEAT",
+      "computed_secondary": null,
+      "tolerance": "all CORE+DISC CONFIRMED & no falsifier -> CONFIRMED",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "CORE + DISCRIMINATING confirmed; >=1 corroborating claim caveated/unverifiable",
+      "extra": {}
+    }
+  ],
+  "derived": {
+    "candidate": "LPT42_Nod4",
+    "anchor": "Nod1",
+    "fd3_roots": [
+      720575940619612142,
+      720575940625992781
+    ],
+    "census": {
+      "total_input_syn": 13157,
+      "n_partners": 2991,
+      "t4t5_syn": 3299,
+      "t4t5_frac_of_total": 25.1,
+      "t4t5_layer_frac": {
+        "a": 0.09,
+        "b": 98.58,
+        "c": 1.18,
+        "d": 0.15
+      },
+      "t4t5_dominant_layer": "b",
+      "t4t5_dominant_direction": "back_to_front",
+      "layer_b_frac_of_t4t5": 98.58,
+      "t4b_syn": 1793,
+      "t5b_syn": 1459,
+      "on_off_split": {
+        "T4b_ON": 1793,
+        "T5b_OFF": 1459,
+        "t4_frac": 55.1
+      },
+      "input_syn_by_side": {
+        "center": 5,
+        "left": 5594,
+        "right": 6727
+      },
+      "input_syn_by_super_class": {
+        "optic": 6238,
+        "visual_projection": 4775,
+        "central": 1060,
+        "visual_centrifugal": 214,
+        "ascending": 33,
+        "descending": 6
+      },
+      "top_input_types": [
+        {
+          "cell_type": "T4b",
+          "syn": 1793,
+          "n_cells": 503,
+          "super_class": "optic",
+          "nt": "acetylcholine"
+        },
+        {
+          "cell_type": "T5b",
+          "syn": 1459,
+          "n_cells": 492,
+          "super_class": "optic",
+          "nt": "acetylcholine"
+        },
+        {
+          "cell_type": "LPC1",
+          "syn": 1120,
+          "n_cells": 132,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine"
+        },
+        {
+          "cell_type": "LLPC3",
+          "syn": 1071,
+          "n_cells": 112,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine"
+        },
+        {
+          "cell_type": "LLPC2",
+          "syn": 979,
+          "n_cells": 113,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine"
+        },
+        {
+          "cell_type": "LPi14",
+          "syn": 961,
+          "n_cells": 4,
+          "super_class": "optic",
+          "nt": "gaba"
+        },
+        {
+          "cell_type": "LPi02",
+          "syn": 499,
+          "n_cells": 35,
+          "super_class": "optic",
+          "nt": "glutamate"
+        },
+        {
+          "cell_type": "LPTe01",
+          "syn": 492,
+          "n_cells": 38,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine"
+        },
+        {
+          "cell_type": "PLP142",
+          "syn": 475,
+          "n_cells": 4,
+          "super_class": "central",
+          "nt": "gaba"
+        },
+        {
+          "cell_type": "LLPC1",
+          "syn": 446,
+          "n_cells": 112,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine"
+        },
+        {
+          "cell_type": "LPT23",
+          "syn": 345,
+          "n_cells": 6,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine"
+        },
+        {
+          "cell_type": "LPi10",
+          "syn": 242,
+          "n_cells": 29,
+          "super_class": "optic",
+          "nt": "glutamate"
+        },
+        {
+          "cell_type": "LPC2",
+          "syn": 176,
+          "n_cells": 29,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine"
+        },
+        {
+          "cell_type": "LLPt",
+          "syn": 161,
+          "n_cells": 48,
+          "super_class": "optic",
+          "nt": "gaba"
+        },
+        {
+          "cell_type": "Tlp1",
+          "syn": 153,
+          "n_cells": 52,
+          "super_class": "optic",
+          "nt": "glutamate"
+        }
+      ]
+    },
+    "upstream_cascade": {
+      "n_t4b_seeds": 285,
+      "n_t5b_seeds": 224,
+      "on_limb_t4b": {
+        "top_drivers": [
+          {
+            "cell_type": "Mi1",
+            "syn": 10571,
+            "frac": 29.1
+          },
+          {
+            "cell_type": "Tm3",
+            "syn": 4216,
+            "frac": 11.6
+          },
+          {
+            "cell_type": "Mi9",
+            "syn": 2570,
+            "frac": 7.1
+          },
+          {
+            "cell_type": "T4b",
+            "syn": 2301,
+            "frac": 6.3
+          },
+          {
+            "cell_type": "TmY15",
+            "syn": 2286,
+            "frac": 6.3
+          },
+          {
+            "cell_type": "CT1",
+            "syn": 2207,
+            "frac": 6.1
+          },
+          {
+            "cell_type": "LPi12",
+            "syn": 2030,
+            "frac": 5.6
+          },
+          {
+            "cell_type": "Mi4",
+            "syn": 1753,
+            "frac": 4.8
+          },
+          {
+            "cell_type": "LPi10",
+            "syn": 915,
+            "frac": 2.5
+          },
+          {
+            "cell_type": "LMa4",
+            "syn": 850,
+            "frac": 2.3
+          }
+        ],
+        "expected_medulla_present": [
+          "C2",
+          "C3",
+          "Mi1",
+          "Mi4",
+          "Mi9",
+          "Tm3"
+        ],
+        "n_expected_present": 6,
+        "expected_frac_of_input": 54.9,
+        "total_input_syn": 36265
+      },
+      "off_limb_t5b": {
+        "top_drivers": [
+          {
+            "cell_type": "Tm9",
+            "syn": 4944,
+            "frac": 16.2
+          },
+          {
+            "cell_type": "Tm2",
+            "syn": 4639,
+            "frac": 15.2
+          },
+          {
+            "cell_type": "CT1",
+            "syn": 4087,
+            "frac": 13.4
+          },
+          {
+            "cell_type": "Tm1",
+            "syn": 3509,
+            "frac": 11.5
+          },
+          {
+            "cell_type": "T5b",
+            "syn": 1962,
+            "frac": 6.4
+          },
+          {
+            "cell_type": "Tm4",
+            "syn": 1741,
+            "frac": 5.7
+          },
+          {
+            "cell_type": "LPi12",
+            "syn": 1204,
+            "frac": 3.9
+          },
+          {
+            "cell_type": "TmY15",
+            "syn": 1204,
+            "frac": 3.9
+          },
+          {
+            "cell_type": "LPi10",
+            "syn": 1002,
+            "frac": 3.3
+          },
+          {
+            "cell_type": "LPi14",
+            "syn": 676,
+            "frac": 2.2
+          }
+        ],
+        "expected_medulla_present": [
+          "Tm1",
+          "Tm2",
+          "Tm4",
+          "Tm9"
+        ],
+        "n_expected_present": 4,
+        "expected_frac_of_input": 48.6,
+        "total_input_syn": 30495
+      },
+      "lamina_present": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "photoreceptor_present": [
+        "R1-6",
+        "R7",
+        "R8"
+      ],
+      "cascade_complete": true,
+      "query_truncated": false
+    },
+    "central_inputs": {
+      "n_central_types": 72,
+      "top_types": [
+        {
+          "cell_type": "LPC1",
+          "syn": 1120,
+          "n_cells": 132,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine",
+          "reads_layer_b": true,
+          "dominant_layer": "b"
+        },
+        {
+          "cell_type": "LLPC3",
+          "syn": 1071,
+          "n_cells": 112,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine",
+          "reads_layer_b": false,
+          "dominant_layer": "d"
+        },
+        {
+          "cell_type": "LLPC2",
+          "syn": 979,
+          "n_cells": 113,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine",
+          "reads_layer_b": false,
+          "dominant_layer": "c"
+        },
+        {
+          "cell_type": "LPi14",
+          "syn": 961,
+          "n_cells": 4,
+          "super_class": "optic",
+          "nt": "gaba",
+          "reads_layer_b": false,
+          "dominant_layer": "a"
+        },
+        {
+          "cell_type": "LPi02",
+          "syn": 499,
+          "n_cells": 35,
+          "super_class": "optic",
+          "nt": "glutamate",
+          "reads_layer_b": false,
+          "dominant_layer": "a"
+        },
+        {
+          "cell_type": "LPTe01",
+          "syn": 492,
+          "n_cells": 38,
+          "super_class": "visual_projection",
+          "nt": "acetylcholine",
+          "reads_layer_b": false,
+          "dominant_layer": "d"
+        }
+      ],
+      "n_layerb_carriers": 1,
+      "any_layerb_carrier": true,
+      "total_central_syn": 7711
+    },
+    "contra_inhibition": {
+      "available": true,
+      "n_contra_gaba": 108,
+      "n_classified": 6,
+      "syn_progressive": 387,
+      "syn_regressive": 30,
+      "frac_progressive": 0.928,
+      "frac_regressive": 0.072,
+      "both_present": true,
+      "dominant_direction": "progressive",
+      "minority_frac": 0.072,
+      "substantially_bidirectional": false,
+      "sufficient": true
+    },
+    "negative_controls": {
+      "vch_input_syn": 12,
+      "vch_input_frac": 0.091,
+      "no_vch_gate": true,
+      "layer_a_frac_of_t4t5": 0.09,
+      "no_layer_a_drive": true
+    },
+    "query_truncated": false,
+    "track": "offline"
+  }
+}

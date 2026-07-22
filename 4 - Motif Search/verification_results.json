@@ -1,0 +1,1003 @@
+{
+  "meta": {
+    "version": "783",
+    "vch_root": 720575940627706398,
+    "primary_source": "raw flywire_synapses_783.feather (API analog)",
+    "secondary_source": "edges_full.parquet (proofread-only derived graph)",
+    "report_artifacts_status": "report wrote /tmp/*.json (ephemeral) -> not reproducible from own outputs",
+    "verdict_counts": {
+      "UNVERIFIABLE": 3,
+      "CONFIRMED": 14,
+      "CONFIRMED_WITH_CAVEAT": 8,
+      "REFUTED": 2
+    },
+    "figures": [
+      "/orcd/data/tpoggio/001/mabdel03/Connectomics/4 - Motif Search/figures/subtypes_in.png",
+      "/orcd/data/tpoggio/001/mabdel03/Connectomics/4 - Motif Search/figures/subtypes_out.png",
+      "/orcd/data/tpoggio/001/mabdel03/Connectomics/4 - Motif Search/figures/hemisphere_scatter.png",
+      "/orcd/data/tpoggio/001/mabdel03/Connectomics/4 - Motif Search/figures/downstream_top20.png",
+      "/orcd/data/tpoggio/001/mabdel03/Connectomics/4 - Motif Search/figures/proofread_vs_raw.png"
+    ]
+  },
+  "claims": [
+    {
+      "id": "C0.reproducibility",
+      "description": "Report reproducible from its own artifacts",
+      "report_value": "/tmp/*.json",
+      "computed_primary": "absent",
+      "computed_secondary": null,
+      "tolerance": "",
+      "verdict": "UNVERIFIABLE",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "Report wrote raw data to /tmp/*.json (ephemeral); not recoverable. Re-derived independently from the offline v783 dump.",
+      "extra": {}
+    },
+    {
+      "id": "C1.nt",
+      "description": "VCH neurotransmitter is GABA",
+      "report_value": "gaba",
+      "computed_primary": "gaba",
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "C1.total_input_syn",
+      "description": "VCH total input synapses",
+      "report_value": 27576,
+      "computed_primary": 17930,
+      "computed_secondary": 17131,
+      "tolerance": "+/-5% or +/-5 (drift down)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "MINOR_DIFF",
+      "drift_explains": true,
+      "notes": "primary diff -9646 (-35.0%); secondary=17131",
+      "extra": {}
+    },
+    {
+      "id": "C1.total_output_syn",
+      "description": "VCH total output synapses",
+      "report_value": 32363,
+      "computed_primary": 19534,
+      "computed_secondary": 13338,
+      "tolerance": "+/-5% or +/-5 (drift down)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "MINOR_DIFF",
+      "drift_explains": true,
+      "notes": "primary diff -12829 (-39.6%); secondary=13338",
+      "extra": {}
+    },
+    {
+      "id": "C1.upstream_partners",
+      "description": "VCH upstream partners",
+      "report_value": 3619,
+      "computed_primary": 2746,
+      "computed_secondary": 2130,
+      "tolerance": "+/-5% or +/-5 (drift down)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "MINOR_DIFF",
+      "drift_explains": true,
+      "notes": "primary diff -873 (-24.1%); secondary=2130",
+      "extra": {}
+    },
+    {
+      "id": "C1.downstream_partners",
+      "description": "VCH downstream partners",
+      "report_value": 10948,
+      "computed_primary": 8714,
+      "computed_secondary": 3275,
+      "tolerance": "+/-5% or +/-5 (drift down)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "MINOR_DIFF",
+      "drift_explains": true,
+      "notes": "primary diff -2234 (-20.4%); secondary=3275",
+      "extra": {}
+    },
+    {
+      "id": "C2.in_neurons",
+      "description": "T4/T5 input neurons (loose rule, report-comparable)",
+      "report_value": 1030,
+      "computed_primary": 981,
+      "computed_secondary": 981,
+      "tolerance": "+/-5% or +/-5 (drift down)",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": true,
+      "notes": "primary diff -49 (-4.8%); secondary=981",
+      "extra": {}
+    },
+    {
+      "id": "C2.in_syn",
+      "description": "T4/T5 input synapses",
+      "report_value": 13018,
+      "computed_primary": 9261,
+      "computed_secondary": 9261,
+      "tolerance": "+/-5% or +/-5 (drift down)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "MINOR_DIFF",
+      "drift_explains": true,
+      "notes": "primary diff -3757 (-28.9%); secondary=9261",
+      "extra": {}
+    },
+    {
+      "id": "C2.in_pct",
+      "description": "T4/T5 = % of VCH input",
+      "report_value": 47.2,
+      "computed_primary": 51.65,
+      "computed_secondary": null,
+      "tolerance": "+/-5.0 pp",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "diff +4.4 pp",
+      "extra": {}
+    },
+    {
+      "id": "C2.table_sum_syn",
+      "description": "Report Table 2 subtype synapses sum to its stated total",
+      "report_value": 13018,
+      "computed_primary": 12426.0,
+      "computed_secondary": null,
+      "tolerance": "rows sum +/-2% or +/-5",
+      "verdict": "REFUTED",
+      "numeric_outcome": "MISMATCH",
+      "drift_explains": false,
+      "notes": "rows sum to 12426.0, stated 13018 (diff -592)",
+      "extra": {}
+    },
+    {
+      "id": "C2.table_sum_neurons",
+      "description": "Report Table 2 subtype neurons sum to its stated total",
+      "report_value": 1030,
+      "computed_primary": 1035.0,
+      "computed_secondary": null,
+      "tolerance": "rows sum +/-2% or +/-5",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "rows sum to 1035.0, stated 1030 (diff +5)",
+      "extra": {}
+    },
+    {
+      "id": "C3.out_neurons",
+      "description": "T4/T5 output neurons",
+      "report_value": 1487,
+      "computed_primary": 1309,
+      "computed_secondary": 1309,
+      "tolerance": "+/-5% or +/-5 (drift down)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "MINOR_DIFF",
+      "drift_explains": true,
+      "notes": "primary diff -178 (-12.0%); secondary=1309",
+      "extra": {}
+    },
+    {
+      "id": "C3.out_syn",
+      "description": "T4/T5 output synapses",
+      "report_value": 7328,
+      "computed_primary": 4782,
+      "computed_secondary": 4782,
+      "tolerance": "+/-5% or +/-5 (drift down)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "MINOR_DIFF",
+      "drift_explains": true,
+      "notes": "primary diff -2546 (-34.7%); secondary=4782",
+      "extra": {}
+    },
+    {
+      "id": "C3.out_pct",
+      "description": "T4/T5 = % of VCH output",
+      "report_value": 22.6,
+      "computed_primary": 24.48,
+      "computed_secondary": null,
+      "tolerance": "+/-3.0 pp",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "diff +1.9 pp",
+      "extra": {}
+    },
+    {
+      "id": "C4.n",
+      "description": "Reciprocal T4/T5 count",
+      "report_value": 918,
+      "computed_primary": 878,
+      "computed_secondary": 878,
+      "tolerance": "+/-5% or +/-5 (drift down)",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": true,
+      "notes": "primary diff -40 (-4.4%); secondary=878",
+      "extra": {}
+    },
+    {
+      "id": "C4.pct_in",
+      "description": "Reciprocal = % of T4/T5 inputs",
+      "report_value": 89.1,
+      "computed_primary": 89.5,
+      "computed_secondary": null,
+      "tolerance": "+/-5.0 pp",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "diff +0.4 pp",
+      "extra": {}
+    },
+    {
+      "id": "C4.pct_out",
+      "description": "Reciprocal = % of T4/T5 outputs",
+      "report_value": 61.7,
+      "computed_primary": 67.07,
+      "computed_secondary": null,
+      "tolerance": "+/-6.0 pp",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "diff +5.4 pp",
+      "extra": {}
+    },
+    {
+      "id": "C5.laterality",
+      "description": "Input & output T4/T5 in DIFFERENT hemispheres",
+      "report_value": true,
+      "computed_primary": false,
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "REFUTED",
+      "numeric_outcome": "MISMATCH",
+      "drift_explains": false,
+      "notes": "input synapses dominant hemi=R, output=R (both right optic lobe); VCH is a centrifugal cell with dendrite+axon in the right optic lobe -> within-hemisphere recurrent loop, not an ipsi/contra relay.",
+      "extra": {}
+    },
+    {
+      "id": "C6.gain_ratio",
+      "description": "Excitatory drive 2-3x inhibitory feedback (mean syn/neuron)",
+      "report_value": "2.0-3.0x",
+      "computed_primary": 2.59,
+      "computed_secondary": null,
+      "tolerance": "[2.0, 3.0] +/-0.5x",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "C7.down_syn",
+      "description": "918 reciprocal -> total downstream synapses",
+      "report_value": 578238,
+      "computed_primary": 352017,
+      "computed_secondary": null,
+      "tolerance": "+/-25% or +/-5 (drift down)",
+      "verdict": "CONFIRMED_WITH_CAVEAT",
+      "numeric_outcome": "MINOR_DIFF",
+      "drift_explains": true,
+      "notes": "primary diff -226221 (-39.1%)",
+      "extra": {}
+    },
+    {
+      "id": "C7.down_targets",
+      "description": "918 reciprocal -> unique downstream targets",
+      "report_value": 144796,
+      "computed_primary": 113339,
+      "computed_secondary": null,
+      "tolerance": "+/-25% or +/-5 (drift down)",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": true,
+      "notes": "primary diff -31457 (-21.7%)",
+      "extra": {}
+    },
+    {
+      "id": "C8.top_target",
+      "description": "Top downstream target cell_type is LPi14",
+      "report_value": "LPi14",
+      "computed_primary": "LPi14",
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "",
+      "extra": {}
+    },
+    {
+      "id": "C9.vch_gaba",
+      "description": "VCH output synapses' plurality NT is GABA",
+      "report_value": "gaba",
+      "computed_primary": "gaba (92% of syn)",
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "per-synapse argmax corroborates the GABAergic (-) sign",
+      "extra": {}
+    },
+    {
+      "id": "C9.t4t5_ach",
+      "description": "T4/T5 input synapses' plurality NT is ACh",
+      "report_value": "ach",
+      "computed_primary": "ach (71% of syn; 100% of neurons cholinergic)",
+      "computed_secondary": null,
+      "tolerance": "exact",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "MATCH",
+      "drift_explains": false,
+      "notes": "ACh is the plurality per-synapse NT and the neuron-level annotation is ~99% cholinergic, confirming the excitatory (+) sign",
+      "extra": {}
+    },
+    {
+      "id": "C10.nodulus",
+      "description": "Nodulus (Nod) neurons among downstream targets",
+      "report_value": "5 types",
+      "computed_primary": "4 types: ['Nod1', 'Nod2', 'Nod3', 'Nod5']",
+      "computed_secondary": null,
+      "tolerance": "presence",
+      "verdict": "CONFIRMED",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "report Table 6: Nod1-Nod5",
+      "extra": {}
+    },
+    {
+      "id": "C11.annotation",
+      "description": "Left 72% / right 97% T4/T5 targets tagged",
+      "report_value": "72/97",
+      "computed_primary": null,
+      "computed_secondary": null,
+      "tolerance": "n/a",
+      "verdict": "UNVERIFIABLE",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "No method given in report. Closest proxy computed: {'left': {'n_targets': 143, 'pct_with_cell_type': 96.5}, 'right': {'n_targets': 11074, 'pct_with_cell_type': 99.9}, 'center': {'n_targets': 4, 'pct_with_cell_type': 100.0}, 'unannotated_targets': 102118}",
+      "extra": {}
+    },
+    {
+      "id": "C12.divisive_norm",
+      "description": "Circuit implements divisive normalization / gain control",
+      "report_value": "divisive",
+      "computed_primary": null,
+      "computed_secondary": null,
+      "tolerance": "n/a",
+      "verdict": "UNVERIFIABLE",
+      "numeric_outcome": "",
+      "drift_explains": false,
+      "notes": "Mechanism (divisive vs subtractive) is a dynamical claim not determinable from static synapse counts; anatomically consistent with gain modulation only.",
+      "extra": {}
+    }
+  ],
+  "details": {
+    "overview_primary": {
+      "nt": "gaba",
+      "total_input_syn": 17930,
+      "total_output_syn": 19534,
+      "upstream_partners": 2746,
+      "downstream_partners": 8714
+    },
+    "overview_secondary": {
+      "total_input_syn": 17131,
+      "total_output_syn": 13338,
+      "upstream_partners": 2130,
+      "downstream_partners": 3275,
+      "t4t5_in_neurons": 981,
+      "t4t5_in_syn": 9261,
+      "t4t5_out_neurons": 1309,
+      "t4t5_out_syn": 4782,
+      "reciprocal": 878
+    },
+    "t4t5_inputs": {
+      "summary": {
+        "total_neurons_canonical": 975,
+        "total_neurons_loose": 981,
+        "total_syn_canonical": 8784,
+        "total_syn_loose": 9261,
+        "pct_of_input": 51.65,
+        "mean_syn_per_neuron": 9.44
+      },
+      "subtypes": [
+        {
+          "subtype": "T5a",
+          "neurons": 470,
+          "syn": 4389,
+          "mean_syn_per_neuron": 9.34,
+          "pct_of_vch_total": 24.48
+        },
+        {
+          "subtype": "T4a",
+          "neurons": 473,
+          "syn": 4360,
+          "mean_syn_per_neuron": 9.22,
+          "pct_of_vch_total": 24.32
+        },
+        {
+          "subtype": "Other/unclear",
+          "neurons": 6,
+          "syn": 477,
+          "mean_syn_per_neuron": 79.5,
+          "pct_of_vch_total": 2.66
+        },
+        {
+          "subtype": "T5b",
+          "neurons": 11,
+          "syn": 12,
+          "mean_syn_per_neuron": 1.09,
+          "pct_of_vch_total": 0.07
+        },
+        {
+          "subtype": "T4b",
+          "neurons": 10,
+          "syn": 10,
+          "mean_syn_per_neuron": 1.0,
+          "pct_of_vch_total": 0.06
+        },
+        {
+          "subtype": "T4d",
+          "neurons": 4,
+          "syn": 5,
+          "mean_syn_per_neuron": 1.25,
+          "pct_of_vch_total": 0.03
+        },
+        {
+          "subtype": "T5c",
+          "neurons": 3,
+          "syn": 3,
+          "mean_syn_per_neuron": 1.0,
+          "pct_of_vch_total": 0.02
+        },
+        {
+          "subtype": "T5d",
+          "neurons": 2,
+          "syn": 3,
+          "mean_syn_per_neuron": 1.5,
+          "pct_of_vch_total": 0.02
+        },
+        {
+          "subtype": "T4c",
+          "neurons": 2,
+          "syn": 2,
+          "mean_syn_per_neuron": 1.0,
+          "pct_of_vch_total": 0.01
+        }
+      ]
+    },
+    "t4t5_outputs": {
+      "summary": {
+        "total_neurons_canonical": 1301,
+        "total_neurons_loose": 1309,
+        "total_syn_canonical": 4759,
+        "total_syn_loose": 4782,
+        "pct_of_output": 24.48,
+        "mean_syn_per_neuron": 3.65
+      },
+      "subtypes": [
+        {
+          "subtype": "T4a",
+          "neurons": 447,
+          "syn": 2354,
+          "mean_syn_per_neuron": 5.27,
+          "pct_of_vch_total": 12.05
+        },
+        {
+          "subtype": "T5a",
+          "neurons": 440,
+          "syn": 1769,
+          "mean_syn_per_neuron": 4.02,
+          "pct_of_vch_total": 9.06
+        },
+        {
+          "subtype": "T4c",
+          "neurons": 131,
+          "syn": 232,
+          "mean_syn_per_neuron": 1.77,
+          "pct_of_vch_total": 1.19
+        },
+        {
+          "subtype": "T4d",
+          "neurons": 131,
+          "syn": 213,
+          "mean_syn_per_neuron": 1.63,
+          "pct_of_vch_total": 1.09
+        },
+        {
+          "subtype": "T4b",
+          "neurons": 72,
+          "syn": 99,
+          "mean_syn_per_neuron": 1.38,
+          "pct_of_vch_total": 0.51
+        },
+        {
+          "subtype": "T5d",
+          "neurons": 42,
+          "syn": 50,
+          "mean_syn_per_neuron": 1.19,
+          "pct_of_vch_total": 0.26
+        },
+        {
+          "subtype": "T5c",
+          "neurons": 28,
+          "syn": 32,
+          "mean_syn_per_neuron": 1.14,
+          "pct_of_vch_total": 0.16
+        },
+        {
+          "subtype": "Other/unclear",
+          "neurons": 8,
+          "syn": 23,
+          "mean_syn_per_neuron": 2.88,
+          "pct_of_vch_total": 0.12
+        },
+        {
+          "subtype": "T5b",
+          "neurons": 10,
+          "syn": 10,
+          "mean_syn_per_neuron": 1.0,
+          "pct_of_vch_total": 0.05
+        }
+      ]
+    },
+    "reciprocal": {
+      "n": 878,
+      "pct_of_inputs": 89.5,
+      "pct_of_outputs": 67.07
+    },
+    "hemisphere": {
+      "input_partner_side": {
+        "right": 8784
+      },
+      "output_partner_side": {
+        "right": 4759
+      },
+      "input_synapse_neuropil_hemi": {
+        "R": 17930
+      },
+      "output_synapse_neuropil_hemi": {
+        "R": 19534
+      },
+      "input_synapse_x_median": 716132.0,
+      "output_synapse_x_median": 724048.0,
+      "input_dominant_hemi": "R",
+      "output_dominant_hemi": "R",
+      "input_output_differ": false,
+      "top_input_neuropils": {
+        "LOP_R": 15258,
+        "IPS_R": 2636,
+        "SPS_R": 23,
+        "LO_R": 7,
+        "VES_R": 5
+      },
+      "top_output_neuropils": {
+        "LOP_R": 19455,
+        "IPS_R": 48,
+        "LO_R": 17,
+        "ME_R": 7,
+        "SPS_R": 4
+      }
+    },
+    "nt_synapse_level": {
+      "vch_output_synapse_nt": {
+        "gaba": 17971,
+        "ach": 668,
+        "oct": 460,
+        "glut": 414,
+        "da": 15,
+        "ser": 6
+      },
+      "vch_output_frac_gaba": 0.9199856660182246,
+      "vch_output_plurality_nt": "gaba",
+      "t4t5_input_synapse_nt": {
+        "ach": 6234,
+        "glut": 1818,
+        "gaba": 421,
+        "oct": 222,
+        "da": 82,
+        "ser": 7
+      },
+      "t4t5_input_frac_ach": 0.7096994535519126,
+      "t4t5_input_plurality_nt": "ach",
+      "t4t5_input_neuron_frac_ach": 0.997948717948718
+    },
+    "threshold_sweep": {
+      "0": {
+        "input_syn": 17930,
+        "output_syn": 19534
+      },
+      "50": {
+        "input_syn": 17930,
+        "output_syn": 19534
+      },
+      "100": {
+        "input_syn": 15215,
+        "output_syn": 16560
+      },
+      "140": {
+        "input_syn": 10575,
+        "output_syn": 11182
+      },
+      "cleft_score_min_observed": {
+        "input": 51,
+        "output": 51
+      }
+    },
+    "downstream_global": {
+      "total_syn": 352017,
+      "unique_targets": 113339,
+      "n_drivers_used": 878
+    },
+    "top20_targets": [
+      {
+        "root_id": 720575940627190556,
+        "cell_type": "LPi14",
+        "syn": 13361,
+        "n_drivers": 776,
+        "nt_canonical": "gaba",
+        "super_class": "optic"
+      },
+      {
+        "root_id": 720575940632504874,
+        "cell_type": "LPi14",
+        "syn": 12157,
+        "n_drivers": 824,
+        "nt_canonical": "gaba",
+        "super_class": "optic"
+      },
+      {
+        "root_id": 720575940627706398,
+        "cell_type": "VCH",
+        "syn": 8922,
+        "n_drivers": 878,
+        "nt_canonical": "gaba",
+        "super_class": "visual_centrifugal"
+      },
+      {
+        "root_id": 720575940626979621,
+        "cell_type": "CT1",
+        "syn": 4695,
+        "n_drivers": 864,
+        "nt_canonical": "gaba",
+        "super_class": "optic"
+      },
+      {
+        "root_id": 720575940629148007,
+        "cell_type": "HSE",
+        "syn": 3805,
+        "n_drivers": 522,
+        "nt_canonical": "acetylcholine",
+        "super_class": "visual_projection"
+      },
+      {
+        "root_id": 720575940639209956,
+        "cell_type": "DCH",
+        "syn": 3036,
+        "n_drivers": 351,
+        "nt_canonical": "gaba",
+        "super_class": "visual_centrifugal"
+      },
+      {
+        "root_id": 720575940615933919,
+        "cell_type": "HSN",
+        "syn": 2852,
+        "n_drivers": 341,
+        "nt_canonical": "acetylcholine",
+        "super_class": "visual_projection"
+      },
+      {
+        "root_id": 720575940634612194,
+        "cell_type": "LPi15",
+        "syn": 1386,
+        "n_drivers": 597,
+        "nt_canonical": "gaba",
+        "super_class": "optic"
+      },
+      {
+        "root_id": 720575940628743496,
+        "cell_type": "HSS",
+        "syn": 1113,
+        "n_drivers": 468,
+        "nt_canonical": "acetylcholine",
+        "super_class": "visual_projection"
+      },
+      {
+        "root_id": 720575940621116807,
+        "cell_type": "LT33",
+        "syn": 868,
+        "n_drivers": 355,
+        "nt_canonical": "gaba",
+        "super_class": "optic"
+      },
+      {
+        "root_id": 720575940630502522,
+        "cell_type": "LPT26",
+        "syn": 826,
+        "n_drivers": 213,
+        "nt_canonical": "acetylcholine",
+        "super_class": "visual_projection"
+      },
+      {
+        "root_id": 720575940633656147,
+        "cell_type": "Nod2",
+        "syn": 558,
+        "n_drivers": 252,
+        "nt_canonical": "gaba",
+        "super_class": "visual_projection"
+      },
+      {
+        "root_id": 720575940617797259,
+        "cell_type": "LPT04_HST",
+        "syn": 542,
+        "n_drivers": 285,
+        "nt_canonical": "acetylcholine",
+        "super_class": "visual_projection"
+      },
+      {
+        "root_id": 720575940616980737,
+        "cell_type": "SAD043",
+        "syn": 497,
+        "n_drivers": 2,
+        "nt_canonical": "gaba",
+        "super_class": "central"
+      },
+      {
+        "root_id": 720575940623997949,
+        "cell_type": "Nod1",
+        "syn": 479,
+        "n_drivers": 213,
+        "nt_canonical": "acetylcholine",
+        "super_class": "visual_projection"
+      },
+      {
+        "root_id": 720575940637734768,
+        "cell_type": "Li14",
+        "syn": 474,
+        "n_drivers": 111,
+        "nt_canonical": "gaba",
+        "super_class": "optic"
+      },
+      {
+        "root_id": 720575940612106098,
+        "cell_type": "Li14",
+        "syn": 436,
+        "n_drivers": 113,
+        "nt_canonical": "gaba",
+        "super_class": "optic"
+      },
+      {
+        "root_id": 720575940629456860,
+        "cell_type": "Nod1",
+        "syn": 412,
+        "n_drivers": 203,
+        "nt_canonical": "acetylcholine",
+        "super_class": "visual_projection"
+      },
+      {
+        "root_id": 720575940634630113,
+        "cell_type": "Li14",
+        "syn": 407,
+        "n_drivers": 91,
+        "nt_canonical": "gaba",
+        "super_class": "optic"
+      },
+      {
+        "root_id": 720575940622410736,
+        "cell_type": "Li14",
+        "syn": 406,
+        "n_drivers": 100,
+        "nt_canonical": "gaba",
+        "super_class": "optic"
+      }
+    ],
+    "celltype_populations_top25": [
+      {
+        "cell_type": "LPi14",
+        "copies": 2,
+        "total_syn": 25518,
+        "total_drivers": 1600
+      },
+      {
+        "cell_type": "TmY20",
+        "copies": 141,
+        "total_syn": 13419,
+        "total_drivers": 3240
+      },
+      {
+        "cell_type": "Y1",
+        "copies": 76,
+        "total_syn": 11908,
+        "total_drivers": 3064
+      },
+      {
+        "cell_type": "LLPC1",
+        "copies": 105,
+        "total_syn": 11727,
+        "total_drivers": 2690
+      },
+      {
+        "cell_type": "TmY16",
+        "copies": 76,
+        "total_syn": 9054,
+        "total_drivers": 2220
+      },
+      {
+        "cell_type": "VCH",
+        "copies": 1,
+        "total_syn": 8922,
+        "total_drivers": 878
+      },
+      {
+        "cell_type": "Y11",
+        "copies": 68,
+        "total_syn": 7879,
+        "total_drivers": 2661
+      },
+      {
+        "cell_type": "T4a",
+        "copies": 512,
+        "total_syn": 6149,
+        "total_drivers": 2987
+      },
+      {
+        "cell_type": "T5a",
+        "copies": 520,
+        "total_syn": 5647,
+        "total_drivers": 2991
+      },
+      {
+        "cell_type": "TmY14",
+        "copies": 168,
+        "total_syn": 5459,
+        "total_drivers": 2228
+      },
+      {
+        "cell_type": "Y12",
+        "copies": 94,
+        "total_syn": 5181,
+        "total_drivers": 2175
+      },
+      {
+        "cell_type": "Tlp5",
+        "copies": 27,
+        "total_syn": 4738,
+        "total_drivers": 1844
+      },
+      {
+        "cell_type": "CT1",
+        "copies": 1,
+        "total_syn": 4695,
+        "total_drivers": 864
+      },
+      {
+        "cell_type": "HSE",
+        "copies": 1,
+        "total_syn": 3805,
+        "total_drivers": 522
+      },
+      {
+        "cell_type": "C3",
+        "copies": 488,
+        "total_syn": 3537,
+        "total_drivers": 1241
+      },
+      {
+        "cell_type": "Li14",
+        "copies": 12,
+        "total_syn": 3515,
+        "total_drivers": 942
+      },
+      {
+        "cell_type": "LPLC2",
+        "copies": 96,
+        "total_syn": 3279,
+        "total_drivers": 1607
+      },
+      {
+        "cell_type": "TmY9q__perp",
+        "copies": 140,
+        "total_syn": 3176,
+        "total_drivers": 1819
+      },
+      {
+        "cell_type": "DCH",
+        "copies": 1,
+        "total_syn": 3036,
+        "total_drivers": 351
+      },
+      {
+        "cell_type": "HSN",
+        "copies": 1,
+        "total_syn": 2852,
+        "total_drivers": 341
+      },
+      {
+        "cell_type": "Tm27",
+        "copies": 403,
+        "total_syn": 2676,
+        "total_drivers": 1638
+      },
+      {
+        "cell_type": "LPi01",
+        "copies": 16,
+        "total_syn": 2571,
+        "total_drivers": 1023
+      },
+      {
+        "cell_type": "Mi9",
+        "copies": 486,
+        "total_syn": 2534,
+        "total_drivers": 1150
+      },
+      {
+        "cell_type": "LPi02",
+        "copies": 47,
+        "total_syn": 1844,
+        "total_drivers": 1099
+      },
+      {
+        "cell_type": "TmY9q",
+        "copies": 124,
+        "total_syn": 1832,
+        "total_drivers": 1188
+      }
+    ],
+    "nodulus": [
+      {
+        "cell_type": "Nod1",
+        "copies": 3,
+        "total_syn": 892,
+        "total_drivers": 417,
+        "nt": "acetylcholine"
+      },
+      {
+        "cell_type": "Nod2",
+        "copies": 1,
+        "total_syn": 558,
+        "total_drivers": 252,
+        "nt": "gaba"
+      },
+      {
+        "cell_type": "Nod5",
+        "copies": 1,
+        "total_syn": 8,
+        "total_drivers": 4,
+        "nt": "acetylcholine"
+      },
+      {
+        "cell_type": "Nod3",
+        "copies": 1,
+        "total_syn": 4,
+        "total_drivers": 4,
+        "nt": "acetylcholine"
+      }
+    ],
+    "annotation_completeness_proxy": {
+      "left": {
+        "n_targets": 143,
+        "pct_with_cell_type": 96.5
+      },
+      "right": {
+        "n_targets": 11074,
+        "pct_with_cell_type": 99.9
+      },
+      "center": {
+        "n_targets": 4,
+        "pct_with_cell_type": 100.0
+      },
+      "unannotated_targets": 102118
+    },
+    "vch_self_target": {
+      "vch_rows": [
+        {
+          "root_id": 720575940627706398,
+          "side": "left",
+          "syn": 8922,
+          "n_drivers": 878,
+          "is_left_vch": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1196 @@
+{
+  "midline_x_um": 529.0,
+  "bridge_types": {
+    "H1": {
+      "n_cells": 2,
+      "nt": "glutamate",
+      "super_class": "optic",
+      "position_output_crossing_pct": 89.7,
+      "input_layer": "b",
+      "input_direction": "regressive",
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940613091290,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "glutamate",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940627348617,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "gaba",
+          "super_class": "optic"
+        }
+      ]
+    },
+    "H2": {
+      "n_cells": 2,
+      "nt": "acetylcholine",
+      "super_class": "visual_projection",
+      "position_output_crossing_pct": 51.7,
+      "input_layer": "b",
+      "input_direction": "regressive",
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940631999685,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940632427603,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        }
+      ]
+    },
+    "Nod1": {
+      "n_cells": 4,
+      "nt": "acetylcholine",
+      "super_class": "visual_projection",
+      "position_output_crossing_pct": 86.9,
+      "input_layer": "a",
+      "input_direction": "progressive",
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940623997949,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940625528556,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940628438427,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940629456860,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        }
+      ]
+    },
+    "LPT42_Nod4": {
+      "n_cells": 2,
+      "nt": "acetylcholine",
+      "super_class": "visual_projection",
+      "position_output_crossing_pct": 87.5,
+      "input_layer": "b",
+      "input_direction": "regressive",
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940619612142,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940625992781,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        }
+      ]
+    },
+    "AN_multi_11": {
+      "n_cells": 2,
+      "nt": "glutamate",
+      "super_class": "ascending",
+      "position_output_crossing_pct": 42.0,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940610640482,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "glutamate",
+          "super_class": "ascending"
+        },
+        {
+          "root_id": 720575940629486714,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "gaba",
+          "super_class": "ascending"
+        }
+      ]
+    },
+    "AN_multi_28": {
+      "n_cells": 2,
+      "nt": "gaba",
+      "super_class": "ascending",
+      "position_output_crossing_pct": 48.3,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940612718563,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "gaba",
+          "super_class": "ascending"
+        },
+        {
+          "root_id": 720575940626462014,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "gaba",
+          "super_class": "ascending"
+        }
+      ]
+    },
+    "CB0025": {
+      "n_cells": 2,
+      "nt": "glutamate",
+      "super_class": "central",
+      "position_output_crossing_pct": 95.2,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940606425522,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "glutamate",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940619997819,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "glutamate",
+          "super_class": "central"
+        }
+      ]
+    },
+    "CB0053": {
+      "n_cells": 2,
+      "nt": "dopamine",
+      "super_class": "central",
+      "position_output_crossing_pct": 88.3,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940623964652,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "dopamine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940639547982,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "dopamine",
+          "super_class": "central"
+        }
+      ]
+    },
+    "CB0237": {
+      "n_cells": 2,
+      "nt": "acetylcholine",
+      "super_class": "central",
+      "position_output_crossing_pct": 98.2,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940614815199,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940628648759,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        }
+      ]
+    },
+    "CB0432": {
+      "n_cells": 2,
+      "nt": "glutamate",
+      "super_class": "central",
+      "position_output_crossing_pct": 58.7,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940630521292,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "glutamate",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940639268771,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "glutamate",
+          "super_class": "central"
+        }
+      ]
+    },
+    "CB1138": {
+      "n_cells": 12,
+      "nt": "acetylcholine",
+      "super_class": "central",
+      "position_output_crossing_pct": 52.7,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940610423235,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940612074353,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940619123136,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940623078852,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940626536720,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940627448860,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940628009085,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940628419804,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940629388535,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940631388589,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940633031775,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940637023966,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        }
+      ]
+    },
+    "CL131": {
+      "n_cells": 4,
+      "nt": "acetylcholine",
+      "super_class": "central",
+      "position_output_crossing_pct": 67.2,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940605411808,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940618478749,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940622387126,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940648113540,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "central"
+        }
+      ]
+    },
+    "DNp27": {
+      "n_cells": 2,
+      "nt": "serotonin",
+      "super_class": "descending",
+      "position_output_crossing_pct": 41.0,
+      "input_layer": "d",
+      "input_direction": "downward",
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940628731140,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "serotonin",
+          "super_class": "descending"
+        },
+        {
+          "root_id": 720575940629413962,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "serotonin",
+          "super_class": "descending"
+        }
+      ]
+    },
+    "LC14a1": {
+      "n_cells": 30,
+      "nt": "acetylcholine",
+      "super_class": "optic",
+      "position_output_crossing_pct": 90.8,
+      "input_layer": "c",
+      "input_direction": "upward",
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940607915698,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940609180718,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940612204949,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940613351018,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940614231277,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940619251182,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940620544239,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940620913493,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940621006672,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940621096583,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940621258198,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940621680041,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940622037139,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940622366814,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940622368477,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940626390549,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940627151050,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940627758744,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940627854162,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940628982268,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940629474307,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940629502224,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940630882131,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940633201223,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940633471583,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940635014807,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940638642776,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940640064573,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940646058094,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940648131460,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        }
+      ]
+    },
+    "LC14b": {
+      "n_cells": 38,
+      "nt": "acetylcholine",
+      "super_class": "optic",
+      "position_output_crossing_pct": 94.8,
+      "input_layer": "a",
+      "input_direction": "progressive",
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940605931948,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940606641342,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940610191509,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940611812069,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940612003938,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940613523685,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940614547375,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940614918261,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940615139247,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940616046815,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940616397068,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940617088780,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940620009270,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940620490177,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940621005428,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940621758145,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940622153363,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940622229569,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940622690636,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940622785780,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940622855497,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940624081919,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940624250812,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940624664905,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940625328648,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940625493000,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940626731920,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940628438805,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940628465156,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940629420273,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940629745980,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940629945131,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940630884908,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940632157970,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940635742911,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940637692302,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940642509348,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940660340353,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        }
+      ]
+    },
+    "LCe07": {
+      "n_cells": 12,
+      "nt": "acetylcholine",
+      "super_class": "visual_projection",
+      "position_output_crossing_pct": 23.9,
+      "input_layer": "c",
+      "input_direction": "upward",
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940617654341,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940619064065,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940620117670,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940622461823,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940622712004,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940629715305,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940630290302,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940631590943,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940633173087,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940634776727,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940636280809,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940659087489,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "visual_projection"
+        }
+      ]
+    },
+    "LPT50": {
+      "n_cells": 2,
+      "nt": "gaba",
+      "super_class": "visual_projection",
+      "position_output_crossing_pct": 77.9,
+      "input_layer": "c",
+      "input_direction": "upward",
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940619046469,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "gaba",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940633572004,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "gaba",
+          "super_class": "visual_projection"
+        }
+      ]
+    },
+    "MeLp2": {
+      "n_cells": 2,
+      "nt": "gaba",
+      "super_class": "optic",
+      "position_output_crossing_pct": 89.5,
+      "input_layer": "c",
+      "input_direction": "upward",
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940617422731,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "gaba",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940635960730,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "glutamate",
+          "super_class": "optic"
+        }
+      ]
+    },
+    "MeMe_e13": {
+      "n_cells": 2,
+      "nt": "acetylcholine",
+      "super_class": "optic",
+      "position_output_crossing_pct": 69.7,
+      "input_layer": "b",
+      "input_direction": "regressive",
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940626403917,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        },
+        {
+          "root_id": 720575940636543668,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "acetylcholine",
+          "super_class": "optic"
+        }
+      ]
+    },
+    "OA-VUMa4": {
+      "n_cells": 2,
+      "nt": "octopamine",
+      "super_class": "central",
+      "position_output_crossing_pct": 42.2,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": false,
+      "cells": [
+        {
+          "root_id": 720575940630460919,
+          "soma_side": "center",
+          "arbor_side": "left",
+          "nt": "octopamine",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940636479668,
+          "soma_side": "center",
+          "arbor_side": "right",
+          "nt": "octopamine",
+          "super_class": "central"
+        }
+      ]
+    },
+    "PLP078": {
+      "n_cells": 2,
+      "nt": "glutamate",
+      "super_class": "central",
+      "position_output_crossing_pct": 91.3,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940614059882,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "glutamate",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940630379223,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "glutamate",
+          "super_class": "central"
+        }
+      ]
+    },
+    "PLP248": {
+      "n_cells": 2,
+      "nt": "glutamate",
+      "super_class": "central",
+      "position_output_crossing_pct": 28.3,
+      "input_layer": null,
+      "input_direction": null,
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940608343620,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "glutamate",
+          "super_class": "central"
+        },
+        {
+          "root_id": 720575940633498524,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "glutamate",
+          "super_class": "central"
+        }
+      ]
+    },
+    "vCal1": {
+      "n_cells": 2,
+      "nt": "glutamate",
+      "super_class": "visual_projection",
+      "position_output_crossing_pct": 60.0,
+      "input_layer": "b",
+      "input_direction": "regressive",
+      "is_inhibitory_sign": true,
+      "cells": [
+        {
+          "root_id": 720575940624943504,
+          "soma_side": "right",
+          "arbor_side": "right",
+          "nt": "glutamate",
+          "super_class": "visual_projection"
+        },
+        {
+          "root_id": 720575940641223888,
+          "soma_side": "left",
+          "arbor_side": "left",
+          "nt": "glutamate",
+          "super_class": "visual_projection"
+        }
+      ]
+    }
+  }
+}

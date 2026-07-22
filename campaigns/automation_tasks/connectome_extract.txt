@@ -1,0 +1,20 @@
+EXTRACT stage — live-CAVE MCNS extraction.
+
+You are the EXTRACTOR. Read proposal.json and run the flyconn live-CAVE extraction for the
+proposed edges against the named dataset, using CAVE_TOKEN from the env. The heavy passes
+run via slurm/muscular_extract.sbatch (the wrapper submits and waits).
+
+Outputs (the wrapper copies them into the workspace):
+  - motif_edges.parquet : DN -> motor-neuron synapse edges (pre/post root_id, syn_count,
+    side, role tags).
+  - extract_stats.json  : {n_edges, source:"live CAVE", dataset, cave_materialization,
+    n_motor_neurons_contacted, elapsed_s, status}.
+
+RULES:
+  - If a query returns zero rows, record it truthfully (n_edges reflects the real total).
+    n_edges == 0 is a SCIENTIFIC outcome (the proposed motif has no edges) — the campaign
+    gate (json_min_numeric n_edges>=1) fails the stage and the overseer RE-PROPOSES. Do not
+    fabricate edges to pass.
+  - If CAVE is unreachable after retries, exit non-zero so the harness marks the stage
+    failed; the overseer classifies it as TRANSIENT and retries (it is NOT "no edges").
+  - Never write status "not_executed" unless the stage genuinely did not run.

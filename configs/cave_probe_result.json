@@ -1,0 +1,25 @@
+{
+  "probe": {
+    "fafb": {
+      "dataset": "fafb",
+      "datastack": "flywire_fafb_public",
+      "server": "https://global.daf-apis.com",
+      "reachable": true,
+      "materialization": [
+        630,
+        783
+      ],
+      "latency_s": 1.724,
+      "error": null
+    },
+    "mcns": {
+      "dataset": "mcns",
+      "datastack": "male_cns",
+      "server": "https://global.daf-apis.com",
+      "reachable": false,
+      "materialization": null,
+      "latency_s": 0.29,
+      "error": "HTTPError: 400 Client Error: BAD REQUEST for url: https://global.daf-apis.com/info/api/v2/datastack/full/male_cns content: b'{\\n  \"data\": {\\n    \"resource_namespace\": \"datastack\",\\n    \"table_id\": \"male_cns\"\\n  },\\n  \"error\": \"invalid_table_id\",\\n  \"message\": \"Invalid table_id for service\"\\n}\\n'"
+    }
+  }
+}

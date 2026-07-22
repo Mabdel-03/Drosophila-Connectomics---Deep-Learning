@@ -1,0 +1,119 @@
+{
+  "stages": [
+    {
+      "stage": "photoreceptor",
+      "detail": "R1-6/R7/R8 present (eye entry point)",
+      "present_types": [
+        "R1-6",
+        "R7",
+        "R8"
+      ],
+      "label": "PRESENT"
+    },
+    {
+      "stage": "lamina_medulla",
+      "detail": "L1/L2/L3 -> Mi/Tm columnar cascade upstream of FD3's T4b/T5b",
+      "lamina_present": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ],
+      "on_limb_medulla": 6,
+      "off_limb_medulla": 4,
+      "label": "PRESENT"
+    },
+    {
+      "stage": "motion_layer_b",
+      "detail": "FD3's T4b/T5b motion detectors are layer-b (regressive) dominant",
+      "layer_b_pct": 98.58,
+      "on_off_mix": true,
+      "label": "PRESENT"
+    },
+    {
+      "stage": "sheet",
+      "detail": "T4b/T5b -> LPC1 (direction-matched layer-b sheet) -> FD3",
+      "named_sheet": "LPC1",
+      "det_to_sheet_syn": 28848,
+      "sheet_to_fd3_syn": 1120,
+      "sheet_set": [
+        "LPC1",
+        "LLPC3",
+        "LLPC2",
+        "LPC2"
+      ],
+      "label": "PRESENT"
+    },
+    {
+      "stage": "fd3_afferent",
+      "detail": "T4b/T5b motion + the LPC1 sheet converge on FD3; LPi14 is the wide-field gate",
+      "t4t5_syn": 3299,
+      "central_syn": 7711,
+      "contra_bidirectional": true,
+      "label": "PRESENT"
+    },
+    {
+      "stage": "identity",
+      "detail": "FD3 == LPT42_Nod4 (Egelhaaf-1985 correlate)",
+      "k_identity_verdict": "CONFIRMED_WITH_CAVEAT",
+      "label": "PRESENT"
+    },
+    {
+      "stage": "descending",
+      "detail": "FD3 reaches a figure-steering descending neuron",
+      "top_dn": "DNp26",
+      "n_dns": 24,
+      "steering_frac": 58.0,
+      "label": "PRESENT"
+    },
+    {
+      "stage": "motor",
+      "detail": "FD3's descending output drives wing-steering muscle (MaleCNS)",
+      "dominant_motor_system": "wing_steering",
+      "available": true,
+      "label": "PRESENT"
+    },
+    {
+      "stage": "widefield_inhibitor",
+      "detail": "LPi14 \u2014 wide-field opponent gate (VCH-role; layer-a, inhibits FD3 + gates the sheet)",
+      "name": "LPi14",
+      "direction": "opponent",
+      "to_fd3_syn": 961,
+      "to_sheet_syn": 6631,
+      "label": "PRESENT"
+    },
+    {
+      "stage": "same_direction_gate",
+      "detail": "LPi12 \u2014 same-direction (regressive) surround on the T4b/T5b detectors (Egelhaaf's predicted ipsilateral surround)",
+      "name": "LPi12",
+      "direction": "same_direction",
+      "to_detectors_syn": 18678,
+      "to_fd3_syn": 68,
+      "label": "PRESENT"
+    }
+  ],
+  "input_decision": "GO",
+  "first_break": null,
+  "all_present": true,
+  "n_present": 10,
+  "widefield_inhibitor": {
+    "stage": "widefield_inhibitor",
+    "detail": "LPi14 \u2014 wide-field opponent gate (VCH-role; layer-a, inhibits FD3 + gates the sheet)",
+    "name": "LPi14",
+    "direction": "opponent",
+    "to_fd3_syn": 961,
+    "to_sheet_syn": 6631,
+    "label": "PRESENT"
+  },
+  "same_direction_gate": {
+    "stage": "same_direction_gate",
+    "detail": "LPi12 \u2014 same-direction (regressive) surround on the T4b/T5b detectors (Egelhaaf's predicted ipsilateral surround)",
+    "name": "LPi12",
+    "direction": "same_direction",
+    "to_detectors_syn": 18678,
+    "to_fd3_syn": 68,
+    "label": "PRESENT"
+  },
+  "track": "offline"
+}

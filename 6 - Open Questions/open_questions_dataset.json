@@ -1,0 +1,50 @@
+{
+  "stage": "6 - Open Questions",
+  "round": "1",
+  "verdict_summary": {
+    "CONFIRMED": 19,
+    "UNVERIFIABLE": 1
+  },
+  "coverage": {
+    "bilateral_coverage": 1.0,
+    "muscle_chain_complete": 1.0,
+    "dn_to_mn_edges": 13,
+    "mn_to_muscle_edges": 2,
+    "missing": []
+  },
+  "provenance": {
+    "datasets": {
+      "fafb": {
+        "materialization": 783
+      },
+      "mcns": {
+        "materialization": "v1.0"
+      }
+    },
+    "seeds": [
+      "LLPC1",
+      "Nod1",
+      "DNp26",
+      "LPLC2",
+      "LC4",
+      "DNp01",
+      "DNp03",
+      "DNp04",
+      "DNp06"
+    ],
+    "tracks": {
+      "q1": "single-animal MCNS",
+      "q2": "bilateral FlyWire (left vs right control)",
+      "q3": "escape census FlyWire -> MCNS muscle"
+    }
+  },
+  "deliverables": {
+    "tex": "/orcd/data/tpoggio/001/mabdel03/Connectomics/6 - Open Questions/open_questions_report.tex",
+    "pdf": "/orcd/data/tpoggio/001/mabdel03/Connectomics/6 - Open Questions/open_questions_report.pdf",
+    "pdf_compiled": true
+  },
+  "integrity_check": {
+    "declared_eq_actual_refuted": true,
+    "actual_refuted": []
+  }
+}

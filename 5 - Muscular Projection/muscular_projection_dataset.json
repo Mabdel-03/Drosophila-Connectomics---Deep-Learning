@@ -1,0 +1,43 @@
+{
+  "stage": "5 - Muscular Projection",
+  "round": "1",
+  "verdict_summary": {
+    "CONFIRMED": 26,
+    "CONFIRMED_WITH_CAVEAT": 3
+  },
+  "coverage": {
+    "bilateral_coverage": 1.0,
+    "muscle_chain_complete": 1.0,
+    "dn_to_mn_edges": 139,
+    "mn_to_muscle_edges": 69,
+    "missing": []
+  },
+  "provenance": {
+    "datasets": {
+      "mcns": {
+        "materialization": "v1.0"
+      },
+      "fafb": {
+        "materialization": 783
+      }
+    },
+    "seeds": [
+      "DNbe001",
+      "DNp26"
+    ],
+    "tracks": {
+      "primary": "all-synapse CAVE",
+      "secondary": "min_syn>=5"
+    }
+  },
+  "integrity_check": {
+    "declared_eq_actual_refuted": true,
+    "actual_refuted": []
+  },
+  "tables": {
+    "edges.parquet": 488,
+    "mn_targets.parquet": 488,
+    "bilateral_split.parquet": 7,
+    "muscle_assignments.parquet": 260
+  }
+}

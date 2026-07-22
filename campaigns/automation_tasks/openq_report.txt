@@ -1,0 +1,21 @@
+REPORT stage — compile the LaTeX -> PDF deliverable (runs only after the gate passes).
+
+Reached only when the RUN stage's verdict ledger passed the gate (no REFUTED claims, full
+coverage). This stage runs `python -m flyconn.openq report` (wrapped by
+scripts/campaign_openq_report.py), which:
+
+  - renders '6 - Open Questions/open_questions_report.tex' from openq_results.json +
+    openq_raw.json: title, abstract (the three verdicts + tally), one section per question
+    (Question / Methods / Results table / colour-coded Verdict rows), a verdict-tally table,
+    and a Provenance & Reproducibility section (materializations, env, the exact command,
+    token-free re-run note);
+  - compiles it to 'open_questions_report.pdf' (tectonic preferred, pdflatex fallback);
+  - assembles open_questions_dataset.json (verdict_summary recomputed from claims[] as an
+    integrity check, coverage, provenance, deliverable paths).
+
+The PDF compile is best-effort: if no TeX engine is reachable the .tex is still emitted and
+the stage degrades rather than crashing. The integrity check (declared refuted == actual
+refuted from claims[]) is the hard gate here — a mismatch fails the stage.
+
+A clean round leaves this stage completed with the PDF in '6 - Open Questions/' and nothing
+further to launch (CAMPAIGN COMPLETE).

@@ -1,0 +1,25 @@
+VERIFY stage — self-consistency + robustness (DETERMINISTIC; verdicts are code, not LLM).
+
+This stage runs `python -m flyconn.muscular verify` directly. It does NOT use an LLM to
+author verdicts — re-derivation + the compare.py engine decide every CONFIRMED / CONFIRMED_
+WITH_CAVEAT / REFUTED / UNVERIFIABLE. This is a guardrail: a REFUTED claim or a coverage gap
+is a real scientific result, not a bug to massage.
+
+Checks run (flyconn.muscular.verify):
+  1. somaSide laterality vs S14 — per-DN ipsi_frac (compare_pct) + categorical wing.
+  2. internal consistency — ipsi+contra == steering total per DN (check_table_sum).
+  3. S15 DNp26 -> muscle synapse re-derivation on two tracks (compare_count, drift_dir=down).
+  4. null model — permute MN somaSide labels (n=500); lateralised DNs (DNa04, DNp26, DNg32)
+     must sit in the null tail.
+  5. unannotated-fragment / MCNS coverage audit (vs S11).
+  6. coverage.json — bilateral (both wings reached) + full DN->MN->muscle chain.
+
+Outputs (the wrapper copies them into the workspace, where the GATE validates them):
+  - verification_results.json : meta.verdict_counts + claims[] + flat lists refuted_claims,
+    unverifiable_claims (the gate reads json_max_list_length refuted_claims==0).
+  - coverage.json : bilateral_coverage, muscle_chain_complete (the gate reads
+    json_min_numeric ==1.0), dn_to_mn_edges, mn_to_muscle_edges, missing[].
+
+Report verdicts HONESTLY. A REFUTED edge or coverage<1.0 will (correctly) fail this stage
+and trigger another round. Do NOT edit the verifier to make a verdict pass — that is the
+one thing this campaign forbids.

@@ -1,0 +1,201 @@
+{
+  "summary": "Adversarially refute each load-bearing FD2=LPT21 claim; report which survive",
+  "agentCount": 5,
+  "logs": [
+    "FD2 adversarial: 5/5 claims survived refutation"
+  ],
+  "result": {
+    "n_claims": 5,
+    "n_survived": 5,
+    "n_broken": 0,
+    "survived": [
+      {
+        "claim": "FlyWire cell type LPT21 is Egelhaaf-1985's FD2 figure-detection cell.",
+        "evidence": "All three adversarial counter-cases were tested with live queries (offline v783 source, k_fd3_lpt42._type_profile / _rf_block / _smallfield_null) and all FAIL to refute:\n\n(a) LPT23-as-FD2 REFUTED as alternative: LPT23 has n_cells=6 (3L/3R), NOT the single bilateral pair FD2 requires. Its RF is heterogeneous, not homogeneous-frontal: right cell is far lateral (offset_p +9.95, az 96.9 deg, frontal_occ 0.12 = frontal GAP), left cell is frontal (offset -0.37, az 33.5 deg, occ 0.66, no gap). LPT21 is the cleaner match: n_cells=2 (1L/1R), symmetric frontal RF both sides. LPT23 is a worse FD2 candidate.\n\n(b) 'LPT21 not a figure cell' FAILS: small-field null obs_radius 8.08 < null 10.90, z=-17.67, p=0.002, bounded=True -> LPT21 IS small-field selective. RF is frontal on both sides (frontal_occ 0.61 right / 0.60 left, comparable to Nod1=FD1 anchor 0.65/0.63), no frontal gap, centroid offset CI spans 0 both sides -> frontal + FD1-co-located + bilaterally homogeneous = exactly Egelhaaf FD2. NT acetylcholine (conf 0.8132), layer-b dominant 99.17% (regressive), contra_output 1.48% (homolateral). All 6 FD2 properties hold.\n\n(c) 'frontal RF is an axis artifact' FAILS: axis self-test lands Nod1=FD1 anchor at centroid_p=-6.979 (convention lateral=+p, FD1 frontal at p<0) -> axis correctly oriented. Both LPT21 sides independently read frontal (occ ~0.60), ruling out a one-sided flip. Calibration combined budget is +/-16 deg; the frontal(LPT21 az ~36-48 deg)-vs-lateral(LPT23-right az ~97 deg) separation is ~50-60 deg, far exceeding the error budget. Not a calibration artifact.",
+        "caveat": "The bilateral_ok=false / more_lateral=false flags in the _rf_block are a red herring for FD2: that block's gate encodes the FD3 signature (more-lateral + frontal-gap), so for FD2 those flags SHOULD be false (FD2 is frontal with no gap) -- their being false confirms rather than refutes FD2. Honest residual weaknesses that survive: (1) no independent FD2 anchor -- the frontal call is relative to the Nod1=FD1 anchor, which is itself an ASSUMED (untested) mapping (per memory nod1-fd1-anchor-caveat), so an anchor error would propagate; (2) FD2's large-field organization is unmeasured; (3) n=2 cells; (4) azimuth is only linearly/coarsely calibrated (verdict ceiling CONFIRMED_WITH_CAVEAT, no ground-truth degree field). These are exactly the discounts baked into the 0.88 point estimate / [0.76,0.95] interval. The identity is strongly supported but not proven at certainty; it should be stated as 'LPT21 is the best and unique full FD2 match, ~0.88 confidence' rather than an established fact."
+      },
+      {
+        "claim": "FD2/LPT21 is driven by T4b/T5b back-to-front motion detectors as a real, substantial motion drive.",
+        "evidence": "Direct synapse pull onto both LPT21 cells (roots 720575940627341736, 720575940634017453) in FlyWire v783: T4/T5 accounts for 38.6% of total input in the committed offline census (~7,265 of 18,822 syn) and 41.7% on a fresh recompute (4,803 of 11,528 syn) — in BOTH cases the two single largest input types of any class are T5b and T4b themselves (2,388 and 2,375 syn), ahead of the sheet LPC1 (906) and gate LPi14 (842). Counter-case (a) fails: T4/T5 is the dominant drive, not incidental. Counter-case (b) fails: 98.47–99.17% of the T4/T5 drive is lobula-plate layer-b, dominant direction back_to_front, with layer-a (progressive) only 0.1–0.22%. Counter-case (c) fails: the ON/OFF split is near-perfectly balanced — T4b(ON)=3597/2375 vs T5b(OFF)=3562/2388, min/max ratio 0.99–0.995, a genuine two-limb detector pool, not lopsided. The derivation (p_fd3_input._input_census) is a real src.synapses(post_ids=roots) pull aggregated per partner and split by measured lobula-plate layer + cell type, not an assumption.",
+        "caveat": "The claim is about the direct afferent drive and survives cleanly; the honest, expected concessions are: (1) the upstream medulla/lamina/photoreceptor cascade feeding these T4b/T5b is canonical per-type optic-lobe wiring (Fischbach-Dittrich 1989; Takemura 2013), not FD2-specific — this is the generic optic-lobe wiring the reviewer flagged as NOT a refutation, and I concede it as such. (2) T4/T5 is a MINORITY (38.6%) of LPT21's TOTAL input; most input is central/columnar, so the ~98% layer-b figure is a WITHIN-T4/T5 fraction, not of all input — but 38.6% from a single functional class, with T5b/T4b the two largest partner types, is still a substantial, dominant motion drive. (3) The total-input synapse count differs between the committed census (18,822) and a fresh recompute (11,528), reflecting a filtering/side-scope difference; the load-bearing RATIOS (T4/T5 fraction ~38–42%, layer-b ~98–99%, ON/OFF ~0.99) are stable across both. (4) n=2 (one bilateral pair); ON/OFF functional labels are literature, the connectome gives type names."
+      },
+      {
+        "claim": "FD2/LPT21's descending output is wing-steering-biased, led by DNp26 (shared with the FD1 and FD3 arms).",
+        "evidence": "Reproduced l_fd3_descending.run(candidate='LPT21') offline on frozen v783: direct FD2->DN output = 88 syn across 13 DN types, top_dn=DNp26 (60 syn, 68.2% of all DN synapses, 2 cells), #2=DNge094 (24 syn), steering_frac=97.7% (facts file live-track value: 122 syn/15 DNs/96.7%; same story). (a) DNp26 is far above chance: across 13 comparison output types (LC4, LPLC2, LPLC4, T4a, Mi1, LPT23, H2, ...), DNp26 receives 0 synapses from LC4/LPLC2/T4a/Mi1/LPT23/H2 despite huge output; empirical background P(DNp26 among DN synapses)=0.035, LPT21 observed=0.682 -> binomial p=1.5e-65; steering background=0.070 vs observed=0.977 -> p=1.1e-96. (b) The MaleCNS bridge (bodies_of_type) is exact type-name equality; DNp26 bridges to 2 bodies (L+R) and does drive 386 wing-steering (wm non-power) synapses in MaleCNS, so the steering readout for the lead DN is real. (c) DNp26 is documented as the top direct DN for both FD1=Nod1 and FD3=LPT42_Nod4 (memory: 'FD3 and FD1 converge on DNp26'), and it is also the #1 DN for LPT21 -> genuinely shared/convergent hub.",
+        "caveat": "The 96.7-97.7% 'wing-steering' figure is computed by hardcoded membership in WING_STEERING_DNS (a fixed 7-name list), NOT by actual MaleCNS motor output, so it overstates true wing-muscle bias: the #2 contributor DNge094 (24 syn, ~27% of LPT21's DN output) is neck(nm=210)+abdominal(am=100)-dominant in MaleCNS with only 37/348=11% wing-steering, i.e. it is not really a wing-steering DN despite being on the list. Even the lead DN DNp26 is only ~48% wing-steering in MaleCNS (386/797; second-largest target is neck, nm=152). The whole descending readout also rests on very sparse contact (88-122 synapses, 0.55-0.8% of total output, 95% carried by 2 DN types across 2 FD2 cells), so 'wing-steering-biased' is correct at the leading-DN level but softens to a mixed steering/neck-gaze bias once MaleCNS motor targets are honestly weighted rather than counted by DN-name membership."
+      },
+      {
+        "claim": "LPT21 has two spatially separated output terminal fields, the connectome correlate of Egelhaaf's main + frontal FD2 axonal branches.",
+        "evidence": "Independent query of geometry.syn_positions_um on LPT21 output (pre) synapses, both cells: right root 720575940627341736 (n=8170) and left root 720575940634017453 (n=7729). Both cells are bimodal on the medio-lateral output axis by three independent, non-histogram tests: (1) Sarle's bimodality coefficient BC=0.857 / 0.863 (both > 0.555 threshold); (2) bin-free Gaussian-KDE dip ratio 0.017 / 0.027 (deep valley between two ML modes at 621/754 um right, 297/433 um left); (3) minor-lobe fraction 0.33 / 0.33 (a real second field, not a tail — matches the pipeline's stored 0.408/0.407). Counter-case (b) binning-artifact FAILS: the histogram dip ratio is 0.0 at every bin count swept (10,15,20,25,30,40,60) for both cells — the valley is bin-count invariant. Counter-case (c) single-field-with-tail FAILS: a 33% minor lobe is far above an 8% tail threshold, and the two lobes are anatomically distinct in 3D — separated 137 um / 143 um between centroids, ~3.8-4.1x the mean within-lobe RMS radius (27-44 um), and separated on all three axes (ML 117/116 um, DV 43/35 um, AP 57/77 um), i.e. genuinely two clusters not one smeared blob. Counter-case (a) generic large-arbor / merge artifact FAILS via negative control: the FD2 near-competitor LPT23 (same cell class, comparable size 4000-9000 output syn, 4 cells) is NOT bimodal (KDE dip 0.79-0.99, BC 0.40-0.59), so the split is specific to LPT21, not a property of any dense wide tangential arbor. The split reproduces on BOTH LPT21 cells (a real L/R pair, n=2).",
+        "caveat": "The bimodality is robust and specific vs. the LPT23 sibling control, but bimodal ML output is NOT unique among tangential cells (LPT42_Nod4/FD3 also splits, though for the different ipsi-vs-contra reason). So the dual-output metric corroborates the FD2 identity but is not by itself a unique FD2 discriminator. Also: n=2 cells only; the mapping of the two connectome lobes onto Egelhaaf's SPECIFIC 'main + frontal' branches is an interpretive overlay (the ~70-90 um frontal offset is compatible with, not proven by, the 117 um ML lobe separation) — the data show two distinct ipsilateral output fields, which is the load-bearing anatomical fact; the branch labels are inference."
+      },
+      {
+        "claim": "The FD2=LPT21 identity confidence is 0.88 (range 0.76-0.95).",
+        "evidence": "fd2_facts.json confidence block: property_fraction 1.0 (6/6 properties matched), uniqueness_factor 1.0 (LPT21 is the sole full FD2 match in the scanned LPT family; nearest rival LPT23 is only core_match — 94.5% layer-b, 0.3% contra, n=6, full_match=false). Point = 1.0 − total_discount(0.12) = 0.88, discounts {no_independent_anchor 0.05, large_field_unmeasured 0.03, further_fd_cells_possible 0.02, n_equals_2 0.02}. Interval [0.76,0.95]: width 0.19, downside (−0.12) equals full discount sum, upside (+0.07) capped below 1.0. Verified midpoint = 0.855, so the 0.88 point estimate sits +0.025 above midpoint. Supporting facts: dual_output bimodal terminal field present bilaterally with matching minor-lobe fractions (~0.408/0.407) — a rare corroborating Egelhaaf feature; small-field p=0.002; NT acetylcholine conf 0.8132.",
+        "caveat": "The point estimate 0.88 leans slightly high: it sits 0.025 above the interval midpoint and gives the no_independent_anchor caveat (0.05) arguably too little weight given that the anchor is assumed, not tested, and that the frontal-RF matched property is derived relative to it (correlated, not independent, evidence). A defensible recentering to ~0.85 (interval midpoint) better reflects the anchor's foundational, non-independent role and the unmeasured large-field physiology. The [0.76,0.95] interval itself is sound and should not move — its 0.19 width is the honest response to genuinely competing pressures, comfortably containing both a skeptic's ~0.80 and a booster's ~0.92, and a reasonable neuroscientist would accept it."
+      }
+    ],
+    "broken": [],
+    "all": [
+      {
+        "claim": "FlyWire cell type LPT21 is Egelhaaf-1985's FD2 figure-detection cell.",
+        "evidence": "All three adversarial counter-cases were tested with live queries (offline v783 source, k_fd3_lpt42._type_profile / _rf_block / _smallfield_null) and all FAIL to refute:\n\n(a) LPT23-as-FD2 REFUTED as alternative: LPT23 has n_cells=6 (3L/3R), NOT the single bilateral pair FD2 requires. Its RF is heterogeneous, not homogeneous-frontal: right cell is far lateral (offset_p +9.95, az 96.9 deg, frontal_occ 0.12 = frontal GAP), left cell is frontal (offset -0.37, az 33.5 deg, occ 0.66, no gap). LPT21 is the cleaner match: n_cells=2 (1L/1R), symmetric frontal RF both sides. LPT23 is a worse FD2 candidate.\n\n(b) 'LPT21 not a figure cell' FAILS: small-field null obs_radius 8.08 < null 10.90, z=-17.67, p=0.002, bounded=True -> LPT21 IS small-field selective. RF is frontal on both sides (frontal_occ 0.61 right / 0.60 left, comparable to Nod1=FD1 anchor 0.65/0.63), no frontal gap, centroid offset CI spans 0 both sides -> frontal + FD1-co-located + bilaterally homogeneous = exactly Egelhaaf FD2. NT acetylcholine (conf 0.8132), layer-b dominant 99.17% (regressive), contra_output 1.48% (homolateral). All 6 FD2 properties hold.\n\n(c) 'frontal RF is an axis artifact' FAILS: axis self-test lands Nod1=FD1 anchor at centroid_p=-6.979 (convention lateral=+p, FD1 frontal at p<0) -> axis correctly oriented. Both LPT21 sides independently read frontal (occ ~0.60), ruling out a one-sided flip. Calibration combined budget is +/-16 deg; the frontal(LPT21 az ~36-48 deg)-vs-lateral(LPT23-right az ~97 deg) separation is ~50-60 deg, far exceeding the error budget. Not a calibration artifact.",
+        "refutation_attempted": "Strongest refutation built on three fronts: (a) promote LPT23 (the only other regressive/cholinergic/homolateral core_hit) as the true single-pair frontal FD2; (b) argue LPT21 is not small-field or not really frontal (note that the k_fd3 _rf_block reports more_lateral=false and bilateral_ok=false for LPT21, which superficially looks like a failed figure-cell gate); (c) argue the whole frontal-RF finding is a p-axis calibration/orientation artifact. The most quotable ammunition is that LPT21's _rf_block returns bilateral_ok=false.",
+        "refutation_succeeds": false,
+        "survives": true,
+        "residual_caveat": "The bilateral_ok=false / more_lateral=false flags in the _rf_block are a red herring for FD2: that block's gate encodes the FD3 signature (more-lateral + frontal-gap), so for FD2 those flags SHOULD be false (FD2 is frontal with no gap) -- their being false confirms rather than refutes FD2. Honest residual weaknesses that survive: (1) no independent FD2 anchor -- the frontal call is relative to the Nod1=FD1 anchor, which is itself an ASSUMED (untested) mapping (per memory nod1-fd1-anchor-caveat), so an anchor error would propagate; (2) FD2's large-field organization is unmeasured; (3) n=2 cells; (4) azimuth is only linearly/coarsely calibrated (verdict ceiling CONFIRMED_WITH_CAVEAT, no ground-truth degree field). These are exactly the discounts baked into the 0.88 point estimate / [0.76,0.95] interval. The identity is strongly supported but not proven at certainty; it should be stated as 'LPT21 is the best and unique full FD2 match, ~0.88 confidence' rather than an established fact."
+      },
+      {
+        "claim": "FD2/LPT21 is driven by T4b/T5b back-to-front motion detectors as a real, substantial motion drive.",
+        "evidence": "Direct synapse pull onto both LPT21 cells (roots 720575940627341736, 720575940634017453) in FlyWire v783: T4/T5 accounts for 38.6% of total input in the committed offline census (~7,265 of 18,822 syn) and 41.7% on a fresh recompute (4,803 of 11,528 syn) — in BOTH cases the two single largest input types of any class are T5b and T4b themselves (2,388 and 2,375 syn), ahead of the sheet LPC1 (906) and gate LPi14 (842). Counter-case (a) fails: T4/T5 is the dominant drive, not incidental. Counter-case (b) fails: 98.47–99.17% of the T4/T5 drive is lobula-plate layer-b, dominant direction back_to_front, with layer-a (progressive) only 0.1–0.22%. Counter-case (c) fails: the ON/OFF split is near-perfectly balanced — T4b(ON)=3597/2375 vs T5b(OFF)=3562/2388, min/max ratio 0.99–0.995, a genuine two-limb detector pool, not lopsided. The derivation (p_fd3_input._input_census) is a real src.synapses(post_ids=roots) pull aggregated per partner and split by measured lobula-plate layer + cell type, not an assumption.",
+        "refutation_attempted": "I tested all three reviewer counter-cases with direct queries: (a) that the T4/T5 input is incidental — refuted, since T4/T5 is ~40% of total input and T5b/T4b are the #1/#2 input types outright; (b) that it isn't layer-b/regressive — refuted, layer-b is 98–99% with dominant direction back-to-front; (c) that the ON/OFF split is lopsided — refuted, ratio is 0.99. I also probed whether the number could be an offline cache artifact by recomputing live-path against the source; the ratios held (in fact strengthened) despite a different total-input scope.",
+        "refutation_succeeds": false,
+        "survives": true,
+        "residual_caveat": "The claim is about the direct afferent drive and survives cleanly; the honest, expected concessions are: (1) the upstream medulla/lamina/photoreceptor cascade feeding these T4b/T5b is canonical per-type optic-lobe wiring (Fischbach-Dittrich 1989; Takemura 2013), not FD2-specific — this is the generic optic-lobe wiring the reviewer flagged as NOT a refutation, and I concede it as such. (2) T4/T5 is a MINORITY (38.6%) of LPT21's TOTAL input; most input is central/columnar, so the ~98% layer-b figure is a WITHIN-T4/T5 fraction, not of all input — but 38.6% from a single functional class, with T5b/T4b the two largest partner types, is still a substantial, dominant motion drive. (3) The total-input synapse count differs between the committed census (18,822) and a fresh recompute (11,528), reflecting a filtering/side-scope difference; the load-bearing RATIOS (T4/T5 fraction ~38–42%, layer-b ~98–99%, ON/OFF ~0.99) are stable across both. (4) n=2 (one bilateral pair); ON/OFF functional labels are literature, the connectome gives type names."
+      },
+      {
+        "claim": "FD2/LPT21's descending output is wing-steering-biased, led by DNp26 (shared with the FD1 and FD3 arms).",
+        "evidence": "Reproduced l_fd3_descending.run(candidate='LPT21') offline on frozen v783: direct FD2->DN output = 88 syn across 13 DN types, top_dn=DNp26 (60 syn, 68.2% of all DN synapses, 2 cells), #2=DNge094 (24 syn), steering_frac=97.7% (facts file live-track value: 122 syn/15 DNs/96.7%; same story). (a) DNp26 is far above chance: across 13 comparison output types (LC4, LPLC2, LPLC4, T4a, Mi1, LPT23, H2, ...), DNp26 receives 0 synapses from LC4/LPLC2/T4a/Mi1/LPT23/H2 despite huge output; empirical background P(DNp26 among DN synapses)=0.035, LPT21 observed=0.682 -> binomial p=1.5e-65; steering background=0.070 vs observed=0.977 -> p=1.1e-96. (b) The MaleCNS bridge (bodies_of_type) is exact type-name equality; DNp26 bridges to 2 bodies (L+R) and does drive 386 wing-steering (wm non-power) synapses in MaleCNS, so the steering readout for the lead DN is real. (c) DNp26 is documented as the top direct DN for both FD1=Nod1 and FD3=LPT42_Nod4 (memory: 'FD3 and FD1 converge on DNp26'), and it is also the #1 DN for LPT21 -> genuinely shared/convergent hub.",
+        "refutation_attempted": "(a) 'DNp26 not above chance': tested with an empirical DN-synapse background pool and a binomial test — DNp26 is 19x enriched (p=1.5e-65) and receives literally zero synapses from most comparison visual output cells, so it is not a generic DN sink. Refutation fails. (b) 'steering is a name-bridge artifact': the bridge is exact type-name equality, which could be brittle, BUT DNp26 bridges cleanly (2 bodies, L/R) and produces 386 real wm-steering synapses in MaleCNS, so the lead DN's steering identity survives independent of the name list. (c) 'DN contact too sparse (122 syn / 15 DNs / 96.7%)': the DN output IS tiny — only 0.55% of LPT21's 15,899 total output synapses (88 of them offline), dominated by just 2 types (DNp26+DNge094 = 84/88 = 95%). But sparsity of descending output is expected for a tangential figure cell (FD3 is similarly sparse at ~0.9%), and even at n=88 the enrichment is significant.",
+        "refutation_succeeds": false,
+        "survives": true,
+        "residual_caveat": "The 96.7-97.7% 'wing-steering' figure is computed by hardcoded membership in WING_STEERING_DNS (a fixed 7-name list), NOT by actual MaleCNS motor output, so it overstates true wing-muscle bias: the #2 contributor DNge094 (24 syn, ~27% of LPT21's DN output) is neck(nm=210)+abdominal(am=100)-dominant in MaleCNS with only 37/348=11% wing-steering, i.e. it is not really a wing-steering DN despite being on the list. Even the lead DN DNp26 is only ~48% wing-steering in MaleCNS (386/797; second-largest target is neck, nm=152). The whole descending readout also rests on very sparse contact (88-122 synapses, 0.55-0.8% of total output, 95% carried by 2 DN types across 2 FD2 cells), so 'wing-steering-biased' is correct at the leading-DN level but softens to a mixed steering/neck-gaze bias once MaleCNS motor targets are honestly weighted rather than counted by DN-name membership."
+      },
+      {
+        "claim": "LPT21 has two spatially separated output terminal fields, the connectome correlate of Egelhaaf's main + frontal FD2 axonal branches.",
+        "evidence": "Independent query of geometry.syn_positions_um on LPT21 output (pre) synapses, both cells: right root 720575940627341736 (n=8170) and left root 720575940634017453 (n=7729). Both cells are bimodal on the medio-lateral output axis by three independent, non-histogram tests: (1) Sarle's bimodality coefficient BC=0.857 / 0.863 (both > 0.555 threshold); (2) bin-free Gaussian-KDE dip ratio 0.017 / 0.027 (deep valley between two ML modes at 621/754 um right, 297/433 um left); (3) minor-lobe fraction 0.33 / 0.33 (a real second field, not a tail — matches the pipeline's stored 0.408/0.407). Counter-case (b) binning-artifact FAILS: the histogram dip ratio is 0.0 at every bin count swept (10,15,20,25,30,40,60) for both cells — the valley is bin-count invariant. Counter-case (c) single-field-with-tail FAILS: a 33% minor lobe is far above an 8% tail threshold, and the two lobes are anatomically distinct in 3D — separated 137 um / 143 um between centroids, ~3.8-4.1x the mean within-lobe RMS radius (27-44 um), and separated on all three axes (ML 117/116 um, DV 43/35 um, AP 57/77 um), i.e. genuinely two clusters not one smeared blob. Counter-case (a) generic large-arbor / merge artifact FAILS via negative control: the FD2 near-competitor LPT23 (same cell class, comparable size 4000-9000 output syn, 4 cells) is NOT bimodal (KDE dip 0.79-0.99, BC 0.40-0.59), so the split is specific to LPT21, not a property of any dense wide tangential arbor. The split reproduces on BOTH LPT21 cells (a real L/R pair, n=2).",
+        "refutation_attempted": "Strongest attack found: LPT42_Nod4 (=FD3) ALSO shows a deep KDE dip (0.0, BC ~0.9), so bimodal ML output is not unique to LPT21 and the \"second frontal branch\" could be a generic tangential feature rather than the FD2-specific frontal branch. On inspection this attack fails to refute the LPT21 claim: LPT42's split is a different phenomenon — an ipsi-vs-contra cross-midline split (ML span 345 um, 122 um inter-lobe gap, only 7% minor lobe), consistent with its ~90% contralateral projection sending arbor into both optic lobes. LPT21's split is entirely within one optic lobe (ML span 181 um, 23 um gap, 33% balanced minor lobe, only 1.6% contralateral output), i.e. two ipsilateral terminal fields — the geometry Egelhaaf describes for FD2's main POF terminal plus its frontal branch.",
+        "refutation_succeeds": false,
+        "survives": true,
+        "residual_caveat": "The bimodality is robust and specific vs. the LPT23 sibling control, but bimodal ML output is NOT unique among tangential cells (LPT42_Nod4/FD3 also splits, though for the different ipsi-vs-contra reason). So the dual-output metric corroborates the FD2 identity but is not by itself a unique FD2 discriminator. Also: n=2 cells only; the mapping of the two connectome lobes onto Egelhaaf's SPECIFIC 'main + frontal' branches is an interpretive overlay (the ~70-90 um frontal offset is compatible with, not proven by, the 117 um ML lobe separation) — the data show two distinct ipsilateral output fields, which is the load-bearing anatomical fact; the branch labels are inference."
+      },
+      {
+        "claim": "The FD2=LPT21 identity confidence is 0.88 (range 0.76-0.95).",
+        "evidence": "fd2_facts.json confidence block: property_fraction 1.0 (6/6 properties matched), uniqueness_factor 1.0 (LPT21 is the sole full FD2 match in the scanned LPT family; nearest rival LPT23 is only core_match — 94.5% layer-b, 0.3% contra, n=6, full_match=false). Point = 1.0 − total_discount(0.12) = 0.88, discounts {no_independent_anchor 0.05, large_field_unmeasured 0.03, further_fd_cells_possible 0.02, n_equals_2 0.02}. Interval [0.76,0.95]: width 0.19, downside (−0.12) equals full discount sum, upside (+0.07) capped below 1.0. Verified midpoint = 0.855, so the 0.88 point estimate sits +0.025 above midpoint. Supporting facts: dual_output bimodal terminal field present bilaterally with matching minor-lobe fractions (~0.408/0.407) — a rare corroborating Egelhaaf feature; small-field p=0.002; NT acetylcholine conf 0.8132.",
+        "refutation_attempted": "TOO HIGH: property #2 (frontal RF \"co-located with FD1\") is measured relative to the Nod1=FD1 anchor, which is itself ASSUMED not tested — so this matched property is not independent and correlates with the anchor risk, yet no_independent_anchor is only a 0.05 additive discount; FD2's cardinal Egelhaaf signature (large-field motion sensitivity) is unmeasured (only 0.03 discount) so \"6/6 full match\" over-claims — one cardinal physiological property was never tested, only structural proxies; the single-pair/homolateral/bounded statistics rest on n=2 neurons. These pressures argue the point should sit nearer 0.80, and the 0.88 estimate sits above the interval midpoint (0.855), confirming an upward skew. TOO LOW: 6/6 match, LPT21 is the UNIQUE full match (LPT23 fails full_match); the bilateral bimodal dual-output is a hard-to-fake conjunction chance would not produce; uniqueness across large-scale type scans already absorbs some further-FD and n=2 risk, so stacking those discounts additively double-counts and the 0.76 floor is over-pessimistic (should be ~0.82).",
+        "refutation_succeeds": false,
+        "survives": true,
+        "residual_caveat": "The point estimate 0.88 leans slightly high: it sits 0.025 above the interval midpoint and gives the no_independent_anchor caveat (0.05) arguably too little weight given that the anchor is assumed, not tested, and that the frontal-RF matched property is derived relative to it (correlated, not independent, evidence). A defensible recentering to ~0.85 (interval midpoint) better reflects the anchor's foundational, non-independent role and the unmeasured large-field physiology. The [0.76,0.95] interval itself is sound and should not move — its 0.19 width is the honest response to genuinely competing pressures, comfortably containing both a skeptic's ~0.80 and a booster's ~0.92, and a reasonable neuroscientist would accept it."
+      }
+    ]
+  },
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Refute"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Synthesize"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "refute:identity",
+      "phaseIndex": 1,
+      "phaseTitle": "Refute",
+      "agentId": "a45ba6e30414d35be",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1783149069501,
+      "queuedAt": 1783149067012,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "FlyWire cell type LPT21 is Egelhaaf-1985's FD2 figure-detec…",
+      "promptPreview": "You are an adversarial reviewer. CLAIM: \"The FlyWire cell type LPT21 is Egelhaaf-1985's FD2 figure-detection cell.\" Your job is to REFUTE it as hard as you can, then honestly report whether the refutation succeeds.\nWorking dir: /orcd/data/tpoggio/001/mabdel03/Connectomics. Interpreter: /orcd/data/tpoggio/001/mabdel03/conda_envs/flyconn_cave/bin/python. Read the facts at /tmp/claude-225593/-orcd-da…",
+      "lastProgressAt": 1783149231548,
+      "tokens": 33334,
+      "toolCalls": 10,
+      "durationMs": 162047,
+      "resultPreview": "{\"claim\":\"FlyWire cell type LPT21 is Egelhaaf-1985's FD2 figure-detection cell.\",\"evidence\":\"All three adversarial counter-cases were tested with live queries (offline v783 source, k_fd3_lpt42._type_profile / _rf_block / _smallfield_null) and all FAIL to refute:\\n\\n(a) LPT23-as-FD2 REFUTED as alternative: LPT23 has n_cells=6 (3L/3R), NOT the single bilateral pair FD2 requires. Its RF is heterogene…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "refute:afferent",
+      "phaseIndex": 1,
+      "phaseTitle": "Refute",
+      "agentId": "aceaed30ce5242140",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1783149068692,
+      "queuedAt": 1783149067012,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "FD2/LPT21 is driven by T4b/T5b back-to-front motion detecto…",
+      "promptPreview": "Adversarial reviewer. CLAIM: \"FD2/LPT21 is driven by T4b/T5b back-to-front motion detectors (a real, substantial motion drive).\" REFUTE it.\nWorking dir: /orcd/data/tpoggio/001/mabdel03/Connectomics. Interpreter: /orcd/data/tpoggio/001/mabdel03/conda_envs/flyconn_cave/bin/python. Facts: /tmp/claude-225593/-orcd-data-tpoggio-001-mabdel03-Connectomics/73d8fe79-43d3-412f-9ad3-fdf56597b422/scratchpad/f…",
+      "lastProgressAt": 1783149183569,
+      "tokens": 33921,
+      "toolCalls": 11,
+      "durationMs": 114877,
+      "resultPreview": "{\"claim\":\"FD2/LPT21 is driven by T4b/T5b back-to-front motion detectors as a real, substantial motion drive.\",\"evidence\":\"Direct synapse pull onto both LPT21 cells (roots 720575940627341736, 720575940634017453) in FlyWire v783: T4/T5 accounts for 38.6% of total input in the committed offline census (~7,265 of 18,822 syn) and 41.7% on a fresh recompute (4,803 of 11,528 syn) — in BOTH cases the two …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "refute:efferent",
+      "phaseIndex": 1,
+      "phaseTitle": "Refute",
+      "agentId": "a06d716d4c1e6bd94",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1783149068513,
+      "queuedAt": 1783149067012,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "FD2/LPT21's descending output is wing-steering-biased, led …",
+      "promptPreview": "Adversarial reviewer. CLAIM: \"FD2/LPT21's descending output is wing-steering-biased, led by DNp26 (shared with the FD1 and FD3 arms).\" REFUTE it.\nWorking dir: /orcd/data/tpoggio/001/mabdel03/Connectomics. Interpreter: /orcd/data/tpoggio/001/mabdel03/conda_envs/flyconn_cave/bin/python. Facts: /tmp/claude-225593/-orcd-data-tpoggio-001-mabdel03-Connectomics/73d8fe79-43d3-412f-9ad3-fdf56597b422/scratc…",
+      "lastProgressAt": 1783149622740,
+      "tokens": 46923,
+      "toolCalls": 19,
+      "durationMs": 554227,
+      "resultPreview": "{\"claim\":\"FD2/LPT21's descending output is wing-steering-biased, led by DNp26 (shared with the FD1 and FD3 arms).\",\"evidence\":\"Reproduced l_fd3_descending.run(candidate='LPT21') offline on frozen v783: direct FD2->DN output = 88 syn across 13 DN types, top_dn=DNp26 (60 syn, 68.2% of all DN synapses, 2 cells), #2=DNge094 (24 syn), steering_frac=97.7% (facts file live-track value: 122 syn/15 DNs/96.…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "refute:dual_output",
+      "phaseIndex": 1,
+      "phaseTitle": "Refute",
+      "agentId": "a0b0c29c7ab36216a",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1783149069041,
+      "queuedAt": 1783149067012,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "LPT21 has two spatially separated output terminal fields, t…",
+      "promptPreview": "Adversarial reviewer. CLAIM: \"LPT21 has two spatially separated output terminal fields, the connectome correlate of Egelhaaf's main + frontal FD2 axonal branches.\" REFUTE it.\nWorking dir: /orcd/data/tpoggio/001/mabdel03/Connectomics. Interpreter: /orcd/data/tpoggio/001/mabdel03/conda_envs/flyconn_cave/bin/python. Facts: /tmp/claude-225593/-orcd-data-tpoggio-001-mabdel03-Connectomics/73d8fe79-43d3-…",
+      "lastProgressAt": 1783149291678,
+      "tokens": 33191,
+      "toolCalls": 15,
+      "durationMs": 222637,
+      "resultPreview": "{\"claim\":\"LPT21 has two spatially separated output terminal fields, the connectome correlate of Egelhaaf's main + frontal FD2 axonal branches.\",\"evidence\":\"Independent query of geometry.syn_positions_um on LPT21 output (pre) synapses, both cells: right root 720575940627341736 (n=8170) and left root 720575940634017453 (n=7729). Both cells are bimodal on the medio-lateral output axis by three indepe…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "refute:confidence",
+      "phaseIndex": 1,
+      "phaseTitle": "Refute",
+      "agentId": "a352b28f140f39963",
+      "model": "claude-opus-4-8",
+      "state": "done",
+      "startedAt": 1783149068490,
+      "queuedAt": 1783149067013,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "The FD2=LPT21 identity confidence is 0.88 (range 0.76-0.95).",
+      "promptPreview": "Adversarial reviewer. CLAIM: \"The FD2=LPT21 identity confidence is 0.88 (range 0.76-0.95).\" REFUTE it as both TOO HIGH and TOO LOW.\nWorking dir: /orcd/data/tpoggio/001/mabdel03/Connectomics. Interpreter: /orcd/data/tpoggio/001/mabdel03/conda_envs/flyconn_cave/bin/python. Facts: /tmp/claude-225593/-orcd-data-tpoggio-001-mabdel03-Connectomics/73d8fe79-43d3-412f-9ad3-fdf56597b422/scratchpad/fd2_facts…",
+      "lastProgressAt": 1783149120661,
+      "tokens": 19323,
+      "toolCalls": 3,
+      "durationMs": 52171,
+      "resultPreview": "{\"claim\":\"The FD2=LPT21 identity confidence is 0.88 (range 0.76-0.95).\",\"evidence\":\"fd2_facts.json confidence block: property_fraction 1.0 (6/6 properties matched), uniqueness_factor 1.0 (LPT21 is the sole full FD2 match in the scanned LPT family; nearest rival LPT23 is only core_match — 94.5% layer-b, 0.3% contra, n=6, full_match=false). Point = 1.0 − total_discount(0.12) = 0.88, discounts {no_in…"
+    }
+  ],
+  "totalTokens": 166692,
+  "totalToolCalls": 58
+}

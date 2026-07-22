@@ -1,0 +1,10 @@
+run_name: optic_right_V1_fix
+subgraph_id: optic_right
+arch: ff_unroll
+init_mode: from_data
+photoreceptor_sign: -1
+stage: train
+eye: rigid
+learn_core: true
+learn_readout: true
+decision: linear

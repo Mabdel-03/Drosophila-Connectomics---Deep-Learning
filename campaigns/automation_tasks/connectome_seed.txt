@@ -1,0 +1,21 @@
+SEED stage — write seed_spec.json.
+
+You are defining the scientific target for the Muscular Projection campaign. The goal is
+to COMPLETE Figure_Ground_Circuit.pdf by connecting the figure-ground circuit
+(VCH -> T4/T5 -> LLPC1 sheet -> Nod1 -> descending neurons) to the FULL bilateral wing
+musculature: trace DN -> motor-neuron -> wing-muscle in the male-CNS (MCNS) connectome,
+for BOTH wings.
+
+Read these env vars and emit seed_spec.json with exactly these keys:
+  - seed_neurons : list, from CONNECTOME_SEED_NEURONS (default "DNbe001,DNp26" — the two
+    named functional endpoints: DNbe001 is the strongest direct sheet target; DNp26 is the
+    principal Nod1 target and the convergent wing-steering command).
+  - dataset      : from CONNECTOME_DATASET (default "MCNS").
+  - target_muscles : from CONNECTOME_TARGET (default "wing_muscles_bilateral").
+  - thresholds   : {min_synapses, cleft_score_min, robustness_tolerance_pct}.
+  - hops_budget  : DN -> MN -> muscle is 2 hops.
+  - goal         : one sentence restating the completion objective.
+
+Do NOT invent neuron root_ids here; downstream stages resolve names -> root_ids via the
+flyconn CAVE name lookup. The wrapper (scripts/campaign_seed.py) writes a correct default
+seed_spec.json from the env if no further reasoning is needed.

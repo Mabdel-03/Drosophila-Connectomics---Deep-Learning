@@ -8,10 +8,46 @@ T_floor: 10
 alpha: null              # null -> arch default (ff_unroll 1.0, rnn 0.2)
 nonlinearity: tanh       # bounded; safest with no learnable node params
 target_radius: 0.9       # spectral radius after init rescale (stability)
+# Step rule. tanh = leaky-integrator (Families 1/2). linear = pure signed matmul h<-W h
+# (Family 3 "recmul": literally multiply the node state by the connectome T times). The
+# recmul leaf configs set dynamics: linear (+ state_norm: rms for the bounded variant).
+dynamics: tanh           # tanh (leaky-integrator) | linear (pure signed matmul)
 
 # --- connectome ---
 policy: flyvis_standard  # ACh +1, GABA/Glut -1, monoamines dropped
 alpha0: 0.01             # init unit-scaling (flyvis-style)
+photoreceptor_sign: inherit   # inherit (raw NT, artifactual) | -1 (histaminergic/inhibitory fix)
+
+# --- rigid eye (faithful image -> photoreceptor input; replaces the learned encoder) ---
+# eye: learned -> original stage-3 (learned Linear 784->n_photoreceptors).
+# eye: rigid   -> non-learned retinotopic box-filter map. Variant set by learn_core/decision:
+#   V1 learn_core=true,  learn_readout=true,  decision=linear
+#   V2 learn_core=false, learn_readout=true,  decision=linear   (frozen core + learned probe)
+#   V3 learn_core=false, learn_readout=false, decision=ncm       (zero learning; use fit_rigid)
+eye: learned
+eye_source: auto         # auto | columns | pos_grid  (retinotopy source)
+eye_eyes: both           # both | left | right
+eye_channels: all        # all | R1-6
+eye_fill: zero           # zero | nearest  (unassigned receptors)
+drive_gain: 0.5          # rigid input current gain (the rigid analog of the encoder scale)
+mirror_lr: true          # LR-flip image to the contralateral (right) eye
+learn_core: true         # V1 true; V2/V3 false
+learn_readout: true      # V1/V2 true; V3 false
+decision: linear         # linear | ncm
+ncm_metric: cosine       # euclidean | cosine | lda  (V3 headline rule)
+# Frozen-core gain control + trajectory readout (auto-on for the rigid eye). Without these
+# a frozen rho~0.9 core decays the input geometrically before it reaches the VPN readout.
+state_norm: null         # null -> 'rms' for rigid eye, 'none' for learned encoder
+readout_mode: accum      # accum (sum readout over the unroll) | final (h_T only)
+
+# --- dataset (image task) ---
+# dataset: mnist (28x28 grayscale, 784-d; the original stage-3 task) | cifar10 (32x32).
+# color (cifar10 only): luma -> single luminance channel (1024-d), the faithful input for the
+#   rigid eye (one brightness per ommatidial column); rgb -> 3-channel (3072-d), a LEARNED-eye-
+#   only control. The rigid eye rejects color='rgb'. Image dims / n_pixels / n_classes are
+#   derived from (dataset, color) via flyconn.models.data.dataset_spec. Defaults keep MNIST.
+dataset: mnist
+color: luma
 
 # --- optimization ---
 epochs: 25

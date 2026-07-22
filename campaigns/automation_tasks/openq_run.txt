@@ -1,0 +1,24 @@
+RUN stage — resolve Q1/Q2/Q3 and emit the gated verdict ledger.
+
+This stage runs the deterministic resolver `python -m flyconn.openq run` (wrapped by
+scripts/campaign_openq_run.py). NO LLM authors verdicts: each question is re-derived from the
+connectome and the oracle assigns CONFIRMED / CONFIRMED_WITH_CAVEAT / REFUTED / UNVERIFIABLE.
+
+Data sources (already wired, no token reasoning needed here):
+  - FlyWire FAFB v783 via live CAVE (synapses_nt_v1, no cleft threshold) — Q2 brain side and
+    Q3 DN census. Cached to scratch parquet, so re-runs are fast and token-free.
+  - MCNS v1.0 offline public bulk feathers — Q1 (whole chain) and Q3 DN->MN->muscle trace.
+  - FLYCONN_DATA_ROOT is pinned to the SCRATCH connectome_data root (holds neurons.parquet +
+    the live cache); the wrapper enforces this.
+
+Outputs written to '6 - Open Questions/' and mirrored into the workspace as the GATE:
+  - openq_results.json  : meta{datasets,seeds,tracks,verdict_counts} + claims[] + the flat
+                          refuted_claims / unverifiable_claims lists.
+  - coverage.json       : bilateral_coverage (Q2 sides resolved), muscle_chain_complete (Q3
+                          escape route reaches jump/TTM muscle), dn_to_mn_edges, mn_to_muscle_edges.
+  - openq_raw.json, OPENQ.md.
+
+A REFUTED claim or a coverage gap is a real scientific outcome, not a bug: it FAILS the gate
+and the overseer re-loops (amend the question scope / thresholds, reset this stage). An empty
+or crashed run exits non-zero (infra), which the overseer retries. UNVERIFIABLE claims (e.g.
+the deferred per-side retinotopy null) do NOT fail the gate.

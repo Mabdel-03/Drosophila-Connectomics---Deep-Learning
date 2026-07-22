@@ -1,0 +1,19 @@
+REPORT stage — compile the extended verified dataset (runs only AFTER the gate passes).
+
+This stage is reached only when verify_rN passed the gate (no REFUTED claims, full bilateral
+coverage). Assemble the campaign deliverable.
+
+Outputs (the wrapper writes them; VERIFICATION.md is authored by the verifier):
+  - muscular_projection_dataset.json : the EXTENDED VERIFIED CIRCUIT DATASET —
+      verdict_summary (recomputed from claims[] as an integrity check),
+      coverage, provenance {datasets, seeds, tracks, round}, integrity_check, tables (row
+      counts of edges/mn_targets/bilateral_split/muscle_assignments parquets).
+  - VERIFICATION.md : claims table + verdicts + per-DN wing laterality (S14 reproduction).
+
+INTEGRITY: the wrapper recomputes verdict_counts from claims[] and asserts the flat
+refuted_claims list equals the actual REFUTED claim ids. If they disagree (e.g. a repair
+zeroed the list without changing claims[]), the stage FAILS — the dataset is not certified.
+
+The final dataset tables live in '5 - Muscular Projection/': edges.parquet, mn_targets.parquet,
+bilateral_split.parquet (S14-style, BOTH wings — the extension), muscle_assignments.parquet
+(S15/S16-style).

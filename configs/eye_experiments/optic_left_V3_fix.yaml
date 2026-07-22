@@ -1,0 +1,10 @@
+run_name: optic_left_V3_fix
+subgraph_id: optic_left
+arch: ff_unroll
+init_mode: from_data
+photoreceptor_sign: -1
+stage: fit_rigid
+eye: rigid
+learn_core: false
+learn_readout: false
+decision: ncm

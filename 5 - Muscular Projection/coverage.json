@@ -1,0 +1,7 @@
+{
+  "bilateral_coverage": 1.0,
+  "muscle_chain_complete": 1.0,
+  "dn_to_mn_edges": 139,
+  "mn_to_muscle_edges": 69,
+  "missing": []
+}

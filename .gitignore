@@ -36,3 +36,6 @@ dist/
 # ---- Local secrets / overrides ----
 .env
 *.local
+.cave_secret              # CAVE API token (stage 5 live queries)
+cave_cache/               # any stray cache outside scratch (canonical lives on FLYCONN_DATA_ROOT)
+.flyconn_cache/           # live-API caches (synapses, skeletons) — project tree, off scratch (FLYCONN_CACHE_ROOT)

@@ -10,6 +10,11 @@ in the per-edge MAGNITUDE they assign before the spectral-radius rescale.
                   are heavy-tailed, so log-normal not Normal). Same edge set/sign/mask,
                   random amplitudes with matched distribution. The essential control:
                   shows the task isn't solved just by reading off synapse counts.
+  C "constant"  : the SAME magnitude on every existing edge (synapse counts discarded).
+                  After the spectral-radius rescale every |W| is equal and nonzero, so the
+                  core is a pure (signed) adjacency operator scaled to the target radius.
+                  The "no-magnitude" ablation: tests how much the count weighting matters
+                  vs the bare connectivity + signs.
 
 Magnitude target ``t[e] >= 0`` is converted to theta via softplus_inv inside the model.
 ``alpha0`` (~0.01) is the flyvis-style unit scaling so total drive is ~O(1) at init; the
@@ -48,6 +53,17 @@ def _lognormal_magnitude(count: np.ndarray, alpha0: float = ALPHA0,
     return t.astype(np.float32)
 
 
+def _constant_magnitude(count: np.ndarray, alpha0: float = ALPHA0) -> np.ndarray:
+    """Uniform magnitude on every existing edge (synapse COUNTS discarded).
+
+    Returns ``alpha0`` for each edge. The absolute value is immaterial: apply_init's
+    spectral-radius rescale multiplies all magnitudes by one scalar, so the only effect
+    is to make every edge's magnitude IDENTICAL — the 'no-magnitude' control in which the
+    effective weight is sign[e] * k (k a single rescaled-then-maybe-learned scale).
+    """
+    return np.full(len(np.asarray(count)), alpha0, dtype=np.float32)
+
+
 def init_magnitudes(sub: Subgraph, mode: str, *, alpha0: float = ALPHA0,
                     seed: int = 0) -> np.ndarray:
     """Return per-edge magnitude target t[e] >= 0 for the given init mode."""
@@ -55,7 +71,12 @@ def init_magnitudes(sub: Subgraph, mode: str, *, alpha0: float = ALPHA0,
         return _from_data_magnitude(sub.count, alpha0=alpha0)
     if mode in ("B", "random"):
         return _lognormal_magnitude(sub.count, alpha0=alpha0, seed=seed)
-    raise ValueError(f"unknown init mode {mode!r}; use 'from_data'/'A' or 'random'/'B'")
+    if mode in ("C", "constant"):
+        return _constant_magnitude(sub.count, alpha0=alpha0)
+    raise ValueError(
+        f"unknown init mode {mode!r}; use 'from_data'/'A', 'random'/'B', "
+        f"or 'constant'/'C'"
+    )
 
 
 def apply_init(model: ConnectomeNet, sub: Subgraph, mode: str, *,

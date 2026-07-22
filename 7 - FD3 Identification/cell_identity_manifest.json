@@ -1,0 +1,2922 @@
+{
+  "circuit": "FD3 afferent pathway (photoreceptor -> T4/T5 -> LPT42_Nod4)",
+  "fd3": [
+    {
+      "root_id": 720575940619612142,
+      "cell_type": "LPT42_Nod4",
+      "side": "right",
+      "super_class": "visual_projection",
+      "nt_canonical": "acetylcholine"
+    },
+    {
+      "root_id": 720575940625992781,
+      "cell_type": "LPT42_Nod4",
+      "side": "left",
+      "super_class": "visual_projection",
+      "nt_canonical": "acetylcholine"
+    }
+  ],
+  "presynaptic_t4t5": {
+    "T4b": {
+      "n_cells": 503,
+      "total_syn": 1793,
+      "roots": [
+        {
+          "root_id": 720575940609301515,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619087307,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615332246,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940646864948,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630400374,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620117895,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940625052233,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627479016,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630996754,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940621234927,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627296168,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940637348208,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619925696,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940637991401,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940624388756,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940632453162,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940621785727,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940635047319,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940613288499,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627469564,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623502119,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940650521209,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940617174758,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630418263,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630754635,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626727293,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940618531585,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628651014,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940613471205,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940616575062,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628153477,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940604337632,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940605398048,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940629782469,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630420284,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940639210062,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940639221949,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940624486635,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620395759,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623192516,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940625941797,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940611755286,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631888524,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940618547659,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940617808981,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620152199,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623070429,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940625315120,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622260830,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627061002,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628453787,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631060987,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630766610,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940601672201,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940609293660,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940609709269,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940605454182,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940635913840,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940635234189,
+          "cell_type": "T4b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630924625,
+          "cell_type": "T4b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        }
+      ],
+      "roots_truncated": true
+    },
+    "T5b": {
+      "n_cells": 492,
+      "total_syn": 1459,
+      "roots": [
+        {
+          "root_id": 720575940627378965,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940610937810,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631281706,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940605306726,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940614638442,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940614590429,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631186596,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628532267,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630614981,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940609553476,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940637954357,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631703341,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620333038,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619336256,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940616986251,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940644074007,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940632913965,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623986439,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940625371024,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630588367,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940642021773,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940613014550,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622120268,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630941714,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630382966,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940633710306,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615733516,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940611561109,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628494588,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940629198439,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940614212561,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627312456,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940608334345,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940607880028,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940636419502,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940638763846,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940621178806,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940633947161,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622271258,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940621645829,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619788885,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940613792493,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940624169254,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620274566,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623551565,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630955700,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623573652,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940632577934,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615974342,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940610587000,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940610865614,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940634346592,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627404810,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626624186,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940605238705,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940603714652,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628863276,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619738759,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630017295,
+          "cell_type": "T5b",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940639505213,
+          "cell_type": "T5b",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "acetylcholine"
+        }
+      ],
+      "roots_truncated": true
+    }
+  },
+  "central_inputs": {
+    "LPC1": {
+      "n_cells": 132,
+      "total_syn": 1120,
+      "roots": [
+        {
+          "root_id": 720575940623165257,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940624901925,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940632666649,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620504534,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619636160,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622549801,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940618937547,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620382923,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940629620779,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940613926111,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620068205,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622129165,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619144071,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940638703779,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626820264,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622496746,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940633973587,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940644532078,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940629500012,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940638978136,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631614924,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630065995,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940610582852,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940605785801,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940638077262,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940616888065,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940616000342,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628308218,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940621220479,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940609479689,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940612895697,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940617051293,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940646446212,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940640771547,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619390086,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627987355,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940614377890,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940625941278,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940621284334,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631639567,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940612247026,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940614789900,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940632564280,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940613074602,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623844280,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628567934,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631086407,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940634548660,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627134470,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940629971500,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620117268,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940636802270,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940608073650,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631964175,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940629668713,
+          "cell_type": "LPC1",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940621975320,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940637656509,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627084796,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627852367,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940632024109,
+          "cell_type": "LPC1",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        }
+      ],
+      "roots_truncated": true
+    },
+    "LLPC3": {
+      "n_cells": 112,
+      "total_syn": 1071,
+      "roots": [
+        {
+          "root_id": 720575940621694964,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631987474,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940629869143,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630489130,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940634530274,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940611298266,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940635435438,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623887591,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623745255,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631699707,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940632380178,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622898164,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622519748,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627665963,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940635324302,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622860727,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623921340,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630782671,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940640351872,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627426971,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630650424,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940618984582,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626324632,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940632192211,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940640359989,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940652643574,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615882635,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940605001184,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940621507504,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940612960687,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622890825,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940605666732,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615263283,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940611558242,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620043979,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940604929894,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940614635074,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622271487,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622388265,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626263306,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940608666325,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940613896173,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940624006093,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620361968,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619756411,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940617879198,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940661318017,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940618452763,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940637994805,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631904045,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940636044912,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622703692,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627757328,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940604030636,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628211081,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626634824,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940625005031,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940624309518,
+          "cell_type": "LLPC3",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940639756240,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940637116773,
+          "cell_type": "LLPC3",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        }
+      ],
+      "roots_truncated": true
+    },
+    "LLPC2": {
+      "n_cells": 113,
+      "total_syn": 979,
+      "roots": [
+        {
+          "root_id": 720575940628761338,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615481461,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940607499787,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623284156,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940617494085,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940622065613,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627032232,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626377093,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940646564740,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623984316,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940652330230,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628008196,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940644469102,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623848206,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631684321,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940641462925,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628785196,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940617252445,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940610316130,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630799161,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940611394730,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623135415,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940608103602,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940617811997,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940608481372,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940636160112,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626491934,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623197163,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940629871867,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940607474443,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940635562864,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940611269546,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940611264229,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940614300383,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940639803445,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940639647184,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940609742382,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631711481,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940618690640,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620359606,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940625676583,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623724007,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940643781668,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940640259061,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940618747339,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940618032930,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940607564809,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620755439,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626617546,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626057097,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940611750618,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940633283609,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623874708,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630037071,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940625114347,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940629942479,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615954827,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940653906081,
+          "cell_type": "LLPC2",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940612052850,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619857798,
+          "cell_type": "LLPC2",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        }
+      ],
+      "roots_truncated": true
+    },
+    "LPi14": {
+      "n_cells": 4,
+      "total_syn": 961,
+      "roots": [
+        {
+          "root_id": 720575940627190556,
+          "cell_type": "LPi14",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940632504874,
+          "cell_type": "LPi14",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940630810306,
+          "cell_type": "LPi14",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940615743650,
+          "cell_type": "LPi14",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        }
+      ],
+      "roots_truncated": false
+    },
+    "LPi02": {
+      "n_cells": 35,
+      "total_syn": 499,
+      "roots": [
+        {
+          "root_id": 720575940624275848,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940642809997,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940608942345,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940614811298,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940629814863,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940616271316,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940630657644,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940631438679,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940616480342,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940623262173,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940620629686,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940631627320,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940621513332,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940622063913,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940619659344,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940633427681,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940624705294,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940627336714,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940611052145,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940633523351,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940610059076,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940614221474,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940609702595,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940606992561,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940631305977,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940631380951,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940630961915,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940655637665,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940625870567,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940622798216,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940621277505,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940630590326,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940612718554,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "gaba"
+        },
+        {
+          "root_id": 720575940639845795,
+          "cell_type": "LPi02",
+          "side": "right",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        },
+        {
+          "root_id": 720575940638414046,
+          "cell_type": "LPi02",
+          "side": "left",
+          "super_class": "optic",
+          "nt_canonical": "glutamate"
+        }
+      ],
+      "roots_truncated": false
+    },
+    "LPTe01": {
+      "n_cells": 38,
+      "total_syn": 492,
+      "roots": [
+        {
+          "root_id": 720575940635654062,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940616033174,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940637203007,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627969082,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940616087967,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623849196,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615060895,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627067669,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940616816285,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940639164544,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940610391219,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631505495,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620181486,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940655290273,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940625881918,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940631288460,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615123654,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940626700294,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940627015686,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940623660938,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940621399828,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940624132871,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940616969029,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940628908038,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630269125,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940604815462,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620126366,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940619538880,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940612620269,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940607511819,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940608201602,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630773559,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940640516571,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940615189958,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940630522127,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940618990928,
+          "cell_type": "LPTe01",
+          "side": "left",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620075600,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        },
+        {
+          "root_id": 720575940620559297,
+          "cell_type": "LPTe01",
+          "side": "right",
+          "super_class": "visual_projection",
+          "nt_canonical": "acetylcholine"
+        }
+      ],
+      "roots_truncated": false
+    }
+  },
+  "contra_inhibitors": {
+    "n_cells": 21,
+    "total_syn": 125,
+    "roots": [
+      {
+        "root_id": 720575940617422731,
+        "cell_type": "MeLp2",
+        "side": "right",
+        "super_class": "optic",
+        "nt_canonical": "gaba",
+        "contra_syn": 63
+      },
+      {
+        "root_id": 720575940612718563,
+        "cell_type": "AN_multi_28",
+        "side": "right",
+        "super_class": "ascending",
+        "nt_canonical": "gaba",
+        "contra_syn": 9
+      },
+      {
+        "root_id": 720575940620609739,
+        "cell_type": "mALC5",
+        "side": "left",
+        "super_class": "visual_centrifugal",
+        "nt_canonical": "gaba",
+        "contra_syn": 7
+      },
+      {
+        "root_id": 720575940620045259,
+        "cell_type": "PLP081",
+        "side": "left",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 6
+      },
+      {
+        "root_id": 720575940626462014,
+        "cell_type": "AN_multi_28",
+        "side": "left",
+        "super_class": "ascending",
+        "nt_canonical": "gaba",
+        "contra_syn": 6
+      },
+      {
+        "root_id": 720575940639209956,
+        "cell_type": "DCH",
+        "side": "left",
+        "super_class": "visual_centrifugal",
+        "nt_canonical": "gaba",
+        "contra_syn": 6
+      },
+      {
+        "root_id": 720575940624313834,
+        "cell_type": "mALC5",
+        "side": "right",
+        "super_class": "visual_centrifugal",
+        "nt_canonical": "gaba",
+        "contra_syn": 6
+      },
+      {
+        "root_id": 720575940620043723,
+        "cell_type": "PLP081",
+        "side": "left",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 4
+      },
+      {
+        "root_id": 720575940631147776,
+        "cell_type": "DCH",
+        "side": "right",
+        "super_class": "visual_centrifugal",
+        "nt_canonical": "gaba",
+        "contra_syn": 3
+      },
+      {
+        "root_id": 720575940619862720,
+        "cell_type": "CB0981",
+        "side": "left",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 2
+      },
+      {
+        "root_id": 720575940627502338,
+        "cell_type": "VCH",
+        "side": "right",
+        "super_class": "visual_centrifugal",
+        "nt_canonical": "gaba",
+        "contra_syn": 2
+      },
+      {
+        "root_id": 720575940635179359,
+        "cell_type": "CB0442",
+        "side": "right",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 2
+      },
+      {
+        "root_id": 720575940605948076,
+        "cell_type": "PS098",
+        "side": "left",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 1
+      },
+      {
+        "root_id": 720575940618769718,
+        "cell_type": "PLP023",
+        "side": "left",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 1
+      },
+      {
+        "root_id": 720575940627706398,
+        "cell_type": "VCH",
+        "side": "left",
+        "super_class": "visual_centrifugal",
+        "nt_canonical": "gaba",
+        "contra_syn": 1
+      },
+      {
+        "root_id": 720575940640491917,
+        "cell_type": "CB2417",
+        "side": "left",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 1
+      },
+      {
+        "root_id": 720575940644535860,
+        "cell_type": "WED023",
+        "side": "left",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 1
+      },
+      {
+        "root_id": 720575940609343089,
+        "cell_type": "cLP03",
+        "side": "right",
+        "super_class": "visual_centrifugal",
+        "nt_canonical": "gaba",
+        "contra_syn": 1
+      },
+      {
+        "root_id": 720575940623007100,
+        "cell_type": "cLP05",
+        "side": "right",
+        "super_class": "visual_centrifugal",
+        "nt_canonical": "gaba",
+        "contra_syn": 1
+      },
+      {
+        "root_id": 720575940625691372,
+        "cell_type": "CB0690",
+        "side": "right",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 1
+      },
+      {
+        "root_id": 720575940627398984,
+        "cell_type": "PLP019",
+        "side": "right",
+        "super_class": "central",
+        "nt_canonical": "gaba",
+        "contra_syn": 1
+      }
+    ],
+    "roots_truncated": false
+  },
+  "cascade_types": {
+    "photoreceptor": [
+      "R1-6",
+      "R7",
+      "R8"
+    ],
+    "lamina": [
+      "L1",
+      "L2",
+      "L3",
+      "L4",
+      "L5"
+    ],
+    "medulla_on": [
+      "Mi1",
+      "Mi4",
+      "Mi9",
+      "Tm3",
+      "C3",
+      "C2"
+    ],
+    "medulla_off": [
+      "Tm1",
+      "Tm2",
+      "Tm4",
+      "Tm9"
+    ]
+  },
+  "track": "offline"
+}
